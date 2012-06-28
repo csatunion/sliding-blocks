@@ -7,7 +7,6 @@ var WALL_WIDTH_HEIGHT   = 32;                               //width and height o
 var PLAYER_WIDTH_HEIGHT = 32;                               //width and height of player
 var BOARD_WIDTH  = WIDTH - WALL_WIDTH_HEIGHT;               //width of window player can use
 var BOARD_HEIGHT = HEIGHT - WALL_WIDTH_HEIGHT;              //height of window player can use
-var disableBoard = false;                                   //keys can move player when false, cannot when true
 
 //arrays of the items placed
 var blocksPlaced = [];                                      //array of all the blocks currently dropped on the screen
@@ -111,6 +110,7 @@ window.onload = function() {
             log += " player2: position = (" + pos[0] + "," + pos[1] + ")";
         });
         
+        //triggers when the ball is teleported to your side of the screen
         socket.on("teleported", function(pos){
             box = drawPushBox(pos[0],pos[1]);
             direction = pos[2];
@@ -121,14 +121,9 @@ window.onload = function() {
             
         });
         
-        //when you click on board you can move the player
-        $('#cr-stage').click(function(){
-            disableBoard = false;
-        });
-        
-        //when you click on input box you can't move the player
-        $('#msg').click(function(){
-            disableBoard = true;
+        //tells the player that the other player left the game
+        socket.on("playerLeft", function(message){
+            alert(message); 
         });
         
         //sends message in input box to server when you hit enter
@@ -164,17 +159,6 @@ window.onload = function() {
         makeBorders();
         setupPlayer();
         placeGoal(level);
-        
-        
-        //when you click on board you can move the player
-        $('#cr-stage').click(function(){
-            disableBoard = false;
-        });
-        
-        //when you click on input box you can't move the player
-        $('#msg').click(function(){
-            disableBoard = true;
-        });
         
         //sends message in input box to server when you hit enter
         //resets the input box
@@ -704,37 +688,36 @@ Crafty.c("Controls", {
     
     controls: function(){
         this.bind("KeyUp", function(e){ 
-            if(e.key == Crafty.keys.A){
+            if(e.key == Crafty.keys.LEFT_ARROW){
                 this.move.left = false;
             }
-            if(e.key == Crafty.keys.D){
+            if(e.key == Crafty.keys.RIGHT_ARROW){
                 this.move.right = false;
             }
-            if(e.key == Crafty.keys.W){
+            if(e.key == Crafty.keys.UP_ARROW){
                 this.move.up = false;
             }
-            if(e.key == Crafty.keys.S){
+            if(e.key == Crafty.keys.DOWN_ARROW){
                 this.move.down = false;
             }
-            if(e.key == Crafty.keys.SPACE){
+            if(e.key == Crafty.keys.CTRL){
                 socket.emit('sendPos', this.x, this.y, channelNumber);
             }
         })
         .bind("KeyDown", function(e){
-            if(!disableBoard){
-                if(e.key == Crafty.keys.A){
-                    this.move.left = true;
-                }
-                else if(e.key == Crafty.keys.D){
-                    this.move.right = true;
-                }
-                else if(e.key == Crafty.keys.W){
-                    this.move.up = true;
-                }
-                else if(e.key == Crafty.keys.S){
-                    this.move.down = true;
-                }
-            }   
+            if(e.key == Crafty.keys.LEFT_ARROW){
+                this.move.left = true;
+            }
+            else if(e.key == Crafty.keys.RIGHT_ARROW){
+                this.move.right = true;
+            }
+            else if(e.key == Crafty.keys.UP_ARROW){
+                this.move.up = true;
+            }
+            else if(e.key == Crafty.keys.DOWN_ARROW){
+                this.move.down = true;
+            }
+              
         });
     }
 });

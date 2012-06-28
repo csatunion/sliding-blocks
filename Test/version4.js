@@ -62,4 +62,10 @@ io.sockets.on('connection', function(socket){
         var stream = fs.createWriteStream('version4/log.txt', {'flags':'a'});
         stream.write(log);
     });
+    
+    socket.on("disconnect", function(){
+       players = players - 1;
+       message = socket.username + "left the game."
+       socket.broadcast.emit("playerLeft", message);
+    });
 });
