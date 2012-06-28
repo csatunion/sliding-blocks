@@ -1,0 +1,69 @@
+%File: formatting-instruction.tex
+\documentclass[letterpaper]{article}
+\usepackage{aaai}
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\frenchspacing
+\pdfinfo{
+/Title (SOME TITLE)
+/Subject (1st Workshop on Human Computation in Digital Entertainment
+at AIIDE 2012)
+/Author (Andrew Danise, Kristina Striegnitz)}
+\setcounter{secnumdepth}{0}  
+
+\newcommand{\todo}[1]{\textbf{TODO: #1}}
+
+
+\begin{document}
+% The file aaai.sty is the style file for AAAI Press 
+% proceedings, working notes, and technical reports.
+%
+\title{SOME TITLE}
+\author{
+Andrew Danise \and Kristina Striegnitz\\
+Union College\\
+Schenectady, NY, USA\\
+\texttt{danisea@garnet.union.edu, striegnk@union.edu}
+}
+\maketitle
+\begin{abstract}
+\begin{quote}
+la la la \todo{Is the reviewing not going to be blind?}
+\end{quote}
+\end{abstract}
+
+
+\section{Introduction}
+
+\begin{itemize}
+\item recent work in NLP collecting data and evaluating
+  systems over the Internet
+\item GIVE \cite{koller-etal-2010-give1-book,striegnitz-etal-2011-give25}
+\item problems with GIVE: not fun, not a game
+\item this paper: puzzle game, 2-player, collaborative; situated; more
+  balanced roles; goal: fun as a game
+\end{itemize}
+
+\section{Game Design}
+
+\section{Implementation}
+
+\section{Conclusions and Outlook}
+
+\begin{itemize}
+\item currently:
+\item collect a corpus of interactions: first in the lab at Union
+  College, then make available online
+\item study human-human situated communication
+\item computational model to replace one of the players by a
+  dialog/NLG system
+\item goal: learn about effective strategies in situated communication
+  and develop mechanisms for implementing them that can be transferred
+  to other virtual environments and tasks
+\end{itemize}
+
+\bibliographystyle{aaai}
+\bibliography{aiide-human-computation-ws.bib}
+
+\end{document}
