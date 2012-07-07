@@ -1,9 +1,12 @@
+var fs = require('fs');
 var express = require("express");
 var app = express.createServer();
 var io  = require("socket.io").listen(app);
 
-app.listen(80);
+app.listen(4000);
 
+
+//when client connects send all game files to them
 app.configure(function(){
     app.use(express.static(__dirname + "/version4"));
 });
@@ -15,57 +18,61 @@ var player2Color = 'green';     //player2
 var currentChannel = 1;         //current channel
 
 
+//run this when a client connects to server
 io.sockets.on('connection', function(socket){
-    players = players + 1;                          //increase the number of players connected by 1
-
-    if (players % 2 == 1){
-        socket.username = "player1: ";
-        socket.join(currentChannel);                                              //join this socket to the current channel
-        socket.emit('setup', player1Color, 1, currentChannel);                    //get player1 attributes for the player they control
-    }
-    else if(players % 2 == 0){
-        socket.username = "player2: ";
-        socket.join(currentChannel);                                              //join this socket to the current channel
-        socket.emit('setup', player2Color, 2, currentChannel);                    //get player2 attributes for the player they control
-        io.sockets.to(currentChannel).emit('ready', 'ready');                     //send ready signal to both users
-        currentChannel = currentChannel + 1;                                      //create a new channel when two player playing together
-    }   
     
-    socket.on("teleport", function(pos){
-       var channel = pos[3];
-       var position = pos.slice(0,3);       
-       socket.broadcast.to(channel).emit("teleported", position); 
+    //wait for client to signal they are ready for setup info
+    socket.on("ready", function(){
+        console.log("ready notification received");        
+        players = players + 1;                                          //increase the number of players connected by 1
+    
+        if (players % 2 == 1){
+            socket.username = "player1: ";
+            socket.join(currentChannel);                                //join this socket to the current channel
+            socket.emit('setup', player1Color, 1, currentChannel);      //get player1 attributes for the player they control
+        }
+        else if(players % 2 == 0){
+        
+            socket.username = "player2: ";
+            socket.join(currentChannel);                                //join this socket to the current channel
+            socket.emit('setup', player2Color, 2, currentChannel);      //get player2 attributes for the player they control
+            io.sockets.to(currentChannel).emit('start', 'start');       //send ready signal to both users
+            currentChannel = currentChannel + 1;                        //create a new channel when two player playing together
+        }
+    });
+    
+    //send position to the other player to tell them where the block teleported to
+    socket.on("teleport", function(x, y, direction, channel){
+       socket.broadcast.to(channel).emit("teleported", x, y, direction); 
     });
 
-    
-    socket.on('sendPos', function(X, Y, channelNumber){
-        var xpos    = X;
-        var ypos    = Y;
-        var channel = channelNumber;
-        socket.broadcast.to(channel).emit('dropBlock', xpos, ypos);   //transmit new position to partner
+    //send position to partner to tell them where to place a block
+    socket.on('sendPos', function(x, y, channel){
+        socket.broadcast.to(channel).emit('dropBlock', x, y);   //transmit new position to partner
     });
 
-    socket.on('sendMessage', function(incomingMessage){
-        var outgoingMessage = socket.username + incomingMessage[0];
-        var channel = incomingMessage[1];
+    //sends message transmitted from one client to other client in the same channel
+    socket.on('sendMessage', function(incomingMessage, channel){
+        var outgoingMessage = socket.username + incomingMessage;
         io.sockets.to(channel).emit('newMessage', outgoingMessage); //send to partner in the same channel
     });
     
-    socket.on("logPos", function(pos){
-        var channel = pos[2];
-        var position = pos.slice(0,2);
-        socket.broadcast.to(channel).emit('logPosition', position);
+    //sends the position of player two to player one to write into the log
+    socket.on("logPos", function(x, y, channel){
+        socket.broadcast.to(channel).emit('logPosition', x, y);
     });
     
+    //receive the game log from player 1 and writes it to the log file
     socket.on("log", function(log){
-        var fs = require('fs');
         var stream = fs.createWriteStream('version4/log.txt', {'flags':'a'});
         stream.write(log);
+        console.log("log recorded");
     });
     
-    socket.on("disconnect", function(){
-       players = players - 1;
+    //alert player that their partner has left the game
+    socket.on("partnerDisconnected", function(channel){
+       players = players - 2;
        message = socket.username + "left the game."
-       socket.broadcast.emit("playerLeft", message);
+       socket.broadcast.to(channel).emit("playerLeft", message);
     });
 });

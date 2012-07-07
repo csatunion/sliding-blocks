@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost');
+var socket = io.connect("http://localhost:4000");
 
 //game board attributes
 var WIDTH  = 768;                                           //width of game window
@@ -47,17 +47,22 @@ window.onload = function() {
         //when crate is loaded do the function
         Crafty.load(["images/crate.png"], function() {
             
+            //emit ready when socket io is running
+            socket.emit("ready", "ready");
+            
+            //wait for setup info from server
             socket.on("setup", function(playerColor, number, channel){
+                
                 color          = playerColor;
                 playerNumber   = number;
                 channelNumber  = channel;
-            
-                //wait for ready signal to run main game
-                socket.on('ready', function(ready){
+                
+                //wait for start signal to run main game
+                socket.on('start', function(){
                     
                     //log that game has started
                     time = new Date();
-                    logTime(time);
+                    logTime();
                     log += " level " + level + " started";
                     
                     Crafty.scene("main");
@@ -65,7 +70,7 @@ window.onload = function() {
             });
                     
             //displays a waiting for other player message
-            message.text("WAITING FOR PLAYER 2");   
+            message.text("WAITING FOR ANOTHER PLAYER");   
         });
         
         //displays a loading message
@@ -97,27 +102,32 @@ window.onload = function() {
             }
             
             //log that a block was placed
-            currentTime = new Date();
-            logTime(currentTime);
+            logTime();
             log += " block placed at (" + xpos + "," + ypos + ")"
         });
         
         //logs the position of player 2
         //NOTE: server will only ever send this to player 1
-        socket.on("logPosition", function(pos){
-            currentTime = new Date();
-            logTime(currentTime);
-            log += " player2: position = (" + pos[0] + "," + pos[1] + ")";
+        socket.on("logPosition", function(x, y){
+            logTime();
+            log += " player2: position = (" + x + "," + y + ")";
         });
         
         //triggers when the ball is teleported to your side of the screen
-        socket.on("teleported", function(pos){
-            box = drawPushBox(pos[0],pos[1]);
-            direction = pos[2];
-            if (direction == "left"){box.move.left = true;}
-            else if(direction == "right"){box.move.right = true;}
-            else if(direction == "up"){box.move.up = true;}
-            else{box.move.down = true;}    
+        socket.on("teleported", function(x, y, direction){
+            box = drawPushBox(x, y);
+            if (direction == "left"){
+                box.move.left = true;
+            }
+            else if(direction == "right"){
+                box.move.right = true;
+            }
+            else if(direction == "up"){
+                box.move.up = true;
+            }
+            else if(direction == "down"){
+                box.move.down = true;
+            }    
             
         });
         
@@ -130,9 +140,9 @@ window.onload = function() {
         //resets the input box
         $('#msg').keypress(function(key){
             if(key.which == 13){
-                var message = [$('#msg').val(), channelNumber];
+                var message = $('#msg').val();
+                socket.emit('sendMessage', message, channelNumber);
                 $('#msg').val('');
-                socket.emit('sendMessage', message);
             }
         });
         
@@ -141,8 +151,7 @@ window.onload = function() {
             $("#data_received").append("<br /> \r\n" + message);
             
             //log the message that was received
-            currentTime = new Date();
-            logTime(currentTime);
+            logTime();
             log += " " + message;
             
             //scroll down to the last thing in box of receieved messages
@@ -164,9 +173,9 @@ window.onload = function() {
         //resets the input box
         $('#msg').keypress(function(key){
             if(key.which == 13){
-                var message = [$('#msg').val(), channelNumber];
+                var message = $('#msg').val();
+                socket.emit('sendMessage', message, channelNumber);
                 $('#msg').val('');
-                socket.emit('sendMessage', message);
             }
         });
     });
@@ -174,14 +183,8 @@ window.onload = function() {
     //scene that shows if you reach the goal on the last level
     Crafty.scene("end", function(){
         //logs that you won
-        currentTime = new Date();
-        logTime(currentTime);
+        logTime();
         log += " Winner";
-        
-        //Writes player 1's log to the server
-        if(playerNumber == 1){
-            socket.emit("log", log);
-        }
         
         //Displays the end message to the player
         Crafty.background('#000');
@@ -194,8 +197,17 @@ window.onload = function() {
     Crafty.scene('loading');
 };
 
+window.onbeforeunload = function(){
+    if(playerNumber == 1){
+        socket.emit("log", log);
+    }
+    
+    socket.emit("partnerDisconnected", channelNumber);  
+};
+
 //puts the current time in the log
-function logTime(currentTime){
+function logTime(){
+    currentTime = new Date();
     currentTime = currentTime.getMinutes() + ":" + currentTime.getSeconds();
     log  = log + "\n" + currentTime; 
 }
@@ -323,8 +335,6 @@ function drawPushBox(xpos, ypos){
             else if(this.move.up)   {this.y = this.y - speed;}
             else if(this.move.down) {this.y = this.y + speed;}
             
-            
-            
             if(this.startedMoving){
                 this.framesSinceFirstMove++;
             
@@ -339,11 +349,10 @@ function drawPushBox(xpos, ypos){
             if     (this.move.left) {direction = "left";}
             else if(this.move.right){direction = "right";}
             else if(this.move.up)   {direction = "up";}
-            else {direction = "down";}
+            else if(this.move.down) {direction = "down";}
             
             
-            pos = [e[0].obj.x, e[0].obj.y, direction, channelNumber];
-            socket.emit("teleport", pos);
+            socket.emit("teleport", e[0].obj.x, e[0].obj.y, direction, channelNumber);
             this.destroy();
         })
         .onHit("box", function(e){
@@ -645,11 +654,11 @@ function setupPlayer(){
             if (currentTime.getTime() - time.getTime() >= 5000){
                 time = currentTime;
                 if (playerNumber == 1){
-                    logTime(time);
+                    logTime();
                     log += " player1: position = (" + player.x + "," + player.y + ")";
                 }
                 else{
-                    socket.emit("logPos", [player.x, player.y, channelNumber]);
+                    socket.emit("logPos", player.x, player.y, channelNumber);
                 }
             }
         });
@@ -705,17 +714,39 @@ Crafty.c("Controls", {
             }
         })
         .bind("KeyDown", function(e){
-            if(e.key == Crafty.keys.LEFT_ARROW){
-                this.move.left = true;
+            if(this.move.left == false && this.move.right == false && this.move.up == false && this.move.down == false){
+                if(e.key == Crafty.keys.LEFT_ARROW){
+                    this.move.left = true;
+                }
+                else if(e.key == Crafty.keys.RIGHT_ARROW){
+                    this.move.right = true;
+                }
+                else if(e.key == Crafty.keys.UP_ARROW){
+                    this.move.up = true;
+                }
+                else if(e.key == Crafty.keys.DOWN_ARROW){
+                    this.move.down = true;
+                }
             }
-            else if(e.key == Crafty.keys.RIGHT_ARROW){
-                this.move.right = true;
+            else if(this.move.left){
+                if(e.key == Crafty.keys.LEFT_ARROW){
+                    this.move.left = true;
+                }
             }
-            else if(e.key == Crafty.keys.UP_ARROW){
-                this.move.up = true;
+            else if (this.move.right == true){
+                if(e.key == Crafty.keys.RIGHT_ARROW){
+                    this.move.right = true;
+                }
             }
-            else if(e.key == Crafty.keys.DOWN_ARROW){
-                this.move.down = true;
+            else if (this.move.up == true){
+                if(e.key == Crafty.keys.UP_ARROW){
+                    this.move.up = true;
+                }
+            }
+            else if (this.move.down == true){
+                if(e.key == Crafty.keys.DOWN_ARROW){
+                    this.move.down = true;
+                }
             }
               
         });
