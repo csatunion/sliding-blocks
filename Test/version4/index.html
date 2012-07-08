@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>Project</title>
-		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="crafty.js" ></script>
-		<script type="text/javascript" src="player4.js"></script>
-		
-		<style>
-			body,html {margin:0; padding:0; overflow:hidden; font-family:Arial; font-size:20px;}
-			#cr-stage {border:2px solid black; margin:5px auto; color:white;}
-		</style>
-	</head>
-	<body>
-		<input type="text" id="msg" />
-		<div id= "data_received" style = "overflow: auto; height:100px; width:500px;"></div>
-		<div id ="cr-stage"></div>
-	</body>
+  <head>
+    <title>Project</title>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="crafty.js" ></script>
+    <script type="text/javascript" src="player4.js"></script>
+    
+    <link href="sliding-blocks.css" rel="stylesheet" type="text/css">
+
+
+    <!-- <style>
+	 body,html {margin:0; padding:0; overflow:hidden; font-family:Arial; font-size:20px;}
+	 #cr-stage {border:2px solid black; margin:5px auto; color:white;}
+	 </style> -->
+  </head>
+  <body>
+
+    <h1>Some cool title for the game</h1>
+    <h2>How to play</h2>
+    <p>
+      la la la
+    </p>
+
+    <div id="game-area">
+    <div id="chat-area">
+      <div id="data_received">
+      <!-- style = "overflow: auto; height:100px; width:500px;">-->
+      </div>
+      <textarea rows="2" cols="25" id="msg" placeholder="Type your messages here."></textarea>
+
+      <!-- <input type="text" id="msg" />-->
+    </div>
+
+    <div id="cr-stage"></div>
+    </div>
+  </body>
 </html>
 
