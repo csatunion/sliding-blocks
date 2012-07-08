@@ -17,6 +17,7 @@ var portals2 = [];                                          //array of portals t
 var channelNumber;                                          //channel number the player is playing on
 var playerNumber;                                           //player 1 or player 2
 var color;                                                  //color of the player's block 
+var nick;
 
 //player attributes
 var speed = 4;                                              //speed the player can move at
@@ -51,8 +52,9 @@ window.onload = function() {
             socket.emit("ready", "ready");
             
             //wait for setup info from server
-            socket.on("setup", function(playerColor, number, channel){
+            socket.on("setup", function(username, playerColor, number, channel){
                 
+		nick           = username;
                 color          = playerColor;
                 playerNumber   = number;
                 channelNumber  = channel;
@@ -75,9 +77,10 @@ window.onload = function() {
         
         //displays a loading message
         Crafty.background('#000');
-        message = Crafty.e("2D, DOM, Text").attr({w: 400, h: 20, x: 200, y: 390})
+        message = Crafty.e("2D, DOM, Text").attr({w:400, x: 200, y: 300})
                                            .text("LOADING")
-                                           .css({"text-align": "center"});
+                                           .css({"text-align": "center", "color":"#fff"});
+
     });
     
     //the main scene
@@ -138,18 +141,22 @@ window.onload = function() {
         
         //sends message in input box to server when you hit enter
         //resets the input box
-        $('#msg').keypress(function(key){
+        $('#msg').keyup(function(key){
             if(key.which == 13){
                 var message = $('#msg').val();
                 socket.emit('sendMessage', message, channelNumber);
-                $('#msg').val('');
+                $('#msg').val("");
             }
         });
         
         //print out any messages received from other player
-        socket.on('newMessage', function(message){
-            $("#data_received").append("<br /> \r\n" + message);
-            
+        socket.on('newMessage', function(sender, message){
+	    if (sender == nick) { 
+		$("#data_received").append("<br/><i>" + message +"</i>");
+            }
+	    else {
+		$("#data_received").append("<br /><b>" + message +"</b>");
+	    }
             //log the message that was received
             logTime();
             log += " " + message;
@@ -171,11 +178,12 @@ window.onload = function() {
         
         //sends message in input box to server when you hit enter
         //resets the input box
-        $('#msg').keypress(function(key){
+        $('#msg').keyup(function(key){
             if(key.which == 13){
+		
                 var message = $('#msg').val();
                 socket.emit('sendMessage', message, channelNumber);
-                $('#msg').val('');
+                $('#msg').val("blah");
             }
         });
     });
