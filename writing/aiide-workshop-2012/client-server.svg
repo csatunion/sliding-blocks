@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47pre3 r22311"
-   sodipodi:docname="drawing.svg">
+   sodipodi:docname="client-server.svg"
+   inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/client-server.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <inkscape:path-effect
@@ -454,7 +457,10 @@
        sodipodi:cy="109.76959"
        sodipodi:rx="98.148148"
        sodipodi:ry="51.851852"
-       d="m 442.59261,109.76959 a 98.148148,51.851852 0 1 1 -196.2963,0 98.148148,51.851852 0 1 1 196.2963,0 z" />
+       d="m 442.59261,109.76959 a 98.148148,51.851852 0 1 1 -196.2963,0 98.148148,51.851852 0 1 1 196.2963,0 z"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
@@ -473,12 +479,18 @@
        sodipodi:rx="119.44444"
        sodipodi:ry="60.185184"
        d="m 403.70369,190.32515 a 119.44444,60.185184 0 1 1 -238.88889,0 119.44444,60.185184 0 1 1 238.88889,0 z"
-       transform="matrix(0.40663948,0,0,0.40788202,196.8906,24.228349)" />
+       transform="matrix(0.40663948,0,0,0.40788202,196.8906,24.228349)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3594"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       transform="translate(118.51852,-262.96296)"><flowRegion
+       transform="translate(118.51852,-262.96296)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
          id="flowRegion3596"><rect
            id="rect3598"
            width="61.333706"
@@ -505,12 +517,18 @@
        sodipodi:rx="119.44444"
        sodipodi:ry="60.185184"
        d="m 403.70369,190.32515 a 119.44444,60.185184 0 1 1 -238.88889,0 119.44444,60.185184 0 1 1 238.88889,0 z"
-       transform="matrix(0.36970936,0,0,0.33458992,28.409821,131.59614)" />
+       transform="matrix(0.36970936,0,0,0.33458992,28.409821,131.59614)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3594-0"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       transform="translate(-63.963695,-168.0408)"><flowRegion
+       transform="translate(-63.963695,-168.0408)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
          id="flowRegion3596-6"><rect
            id="rect3598-0"
            width="72.252174"
@@ -527,12 +545,18 @@
        sodipodi:rx="119.44444"
        sodipodi:ry="60.185184"
        d="m 403.70369,190.32515 a 119.44444,60.185184 0 1 1 -238.88889,0 119.44444,60.185184 0 1 1 238.88889,0 z"
-       transform="matrix(0.36970936,0,0,0.33458992,106.328,165.82561)" />
+       transform="matrix(0.36970936,0,0,0.33458992,106.328,165.82561)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3594-0-3"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       transform="translate(13.954485,-133.81133)"><flowRegion
+       transform="translate(13.954485,-133.81133)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
          id="flowRegion3596-6-9"><rect
            id="rect3598-0-4"
            width="72.252174"
@@ -549,12 +573,18 @@
        sodipodi:rx="119.44444"
        sodipodi:ry="60.185184"
        d="m 403.70369,190.32515 a 119.44444,60.185184 0 1 1 -238.88889,0 119.44444,60.185184 0 1 1 238.88889,0 z"
-       transform="matrix(0.36970936,0,0,0.33458992,148.76115,232.08831)" />
+       transform="matrix(0.36970936,0,0,0.33458992,148.76115,232.08831)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3594-0-1"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       transform="translate(56.387632,-67.54865)"><flowRegion
+       transform="translate(56.387632,-67.54865)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
          id="flowRegion3596-6-5"><rect
            id="rect3598-0-5"
            width="72.252174"
@@ -571,12 +601,18 @@
        sodipodi:rx="119.44444"
        sodipodi:ry="60.185184"
        d="m 403.70369,190.32515 a 119.44444,60.185184 0 1 1 -238.88889,0 119.44444,60.185184 0 1 1 238.88889,0 z"
-       transform="matrix(0.36970936,0,0,0.33458992,226.67932,266.31778)" />
+       transform="matrix(0.36970936,0,0,0.33458992,226.67932,266.31778)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3594-0-3-8"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       transform="translate(134.30581,-33.319176)"><flowRegion
+       transform="translate(134.30581,-33.319176)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
          id="flowRegion3596-6-9-3"><rect
            id="rect3598-0-4-8"
            width="72.252174"
@@ -599,7 +635,10 @@
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="399.02048"
        y="316.85428"
-       id="text3801"><tspan
+       id="text3801"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3803"
          x="399.02048"
@@ -611,7 +650,10 @@
        height="87.502113"
        x="80.322487"
        y="168.88145"
-       ry="10.290346" />
+       ry="10.290346"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.84599996;stroke-linejoin:round;stroke-miterlimit:2;stroke-opacity:1;stroke-dasharray:3.69199991, 3.69199991;stroke-dashoffset:0"
        id="rect3835-6"
@@ -619,13 +661,19 @@
        height="87.502113"
        x="200.42566"
        y="270.12543"
-       ry="10.290346" />
+       ry="10.290346"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="86.355186"
        y="249.35823"
-       id="text3859"><tspan
+       id="text3859"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3861"
          x="86.355186"
@@ -636,7 +684,10 @@
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="204.91278"
        y="351.42896"
-       id="text3859-2"><tspan
+       id="text3859-2"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3861-3"
          x="204.91278"
@@ -647,25 +698,37 @@
        d="m 261.05072,109.40331 -98.26624,69.48118"
        id="path3888"
        inkscape:connector-type="polyline"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
        d="m 267.00625,115.35884 -31.76282,92.31071"
        id="path3888-9"
        inkscape:connector-type="polyline"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
        d="M 303.73202,130.24766 265.02107,272.18779"
        id="path3888-7"
        inkscape:connector-type="polyline"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
        d="M 313.6579,129.25507 329.53932,304.9432"
        id="path3888-4"
        inkscape:connector-type="polyline"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -675,7 +738,10 @@
        sodipodi:rx="31.762825"
        sodipodi:ry="9.4295883"
        d="m 534.01249,56.299835 a 31.762825,9.4295883 0 1 1 -63.52565,0 31.762825,9.4295883 0 1 1 63.52565,0 z"
-       transform="translate(-385.59937,-33.032258)" />
+       transform="translate(-385.59937,-33.032258)"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        transform="translate(-385.59936,58.190705)"
        sodipodi:type="arc"
@@ -685,21 +751,33 @@
        sodipodi:cy="56.299835"
        sodipodi:rx="31.762825"
        sodipodi:ry="9.4295883"
-       d="m 534.01249,56.299835 a 31.762825,9.4295883 0 1 1 -63.52565,0 31.762825,9.4295883 0 1 1 63.52565,0 z" />
+       d="m 534.01249,56.299835 a 31.762825,9.4295883 0 1 1 -63.52565,0 31.762825,9.4295883 0 1 1 63.52565,0 z"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 85.053763,23.329925 0,89.999995"
-       id="path5624" />
+       id="path5624"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 148.08473,23.079971 0,89.999999"
-       id="path5624-5" />
+       id="path5624-5"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="101.10003"
        y="74.300705"
-       id="text3859-2-2"><tspan
+       id="text3859-2-2"
+       inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3861-3-1"
          x="101.10003"
@@ -709,6 +787,8 @@
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-7);stroke-miterlimit:4;stroke-dasharray:none"
        d="M 271.81863,83.183622 C 230.91389,35.681337 151.08366,38.320353 151.08366,38.320353"
        id="path5885"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

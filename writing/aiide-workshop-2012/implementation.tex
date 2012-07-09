@@ -1,12 +1,29 @@
 \section{Implementation}
 
+The game is implemented using a client-server architecture as show in
+Figure \ref{fig:server-client}.
+
+% what's happening
+% client-server architecture - structure - see figure
+
+
+% how implemented; technology used
+
 \todo{goal: want people to be able to run it over the Internet with
   minimal effort}
 
-% crafty.js - rendering/drawing to screen, collision detection
-% node.js
-% socket.io
-% express
+% therefore
+
+
+
+
+% both client and server written in javascript
+% 
+
+
+% crafty.js - rendering/drawing to screen, collision detection, event management
+% node.js + express - to run server written in javascript,
+% socket.io - connect the clients to server
 
 The game was created in javascript using the Crafty JS game engine
 \cite{craftyJS}. Crafty JS provided an intuitive, understandable
@@ -30,7 +47,12 @@ the pseudocode in Figure \ref{fig:server-client}.
 \vspace{0pt}\includegraphics[width=0.5\columnwidth]{client-server.png}
 }\hspace{-0.5cm}
 \parbox[t]{0.5\columnwidth}{
-\vspace{0pt}\includegraphics[width=0.55\columnwidth]{server.png}
+\vspace{0pt}
+\begin{enumerate}
+\item Player requests webpage. Http server sends all game files.
+\item \todo{HERE HERE HERE}
+\end{enumerate}
+%\includegraphics[width=0.55\columnwidth]{server.png}
 }
 %% \begin{enumerate}
 %% \item Server waits for connections. Every time two connections are
