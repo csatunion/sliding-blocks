@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47pre3 r22311"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="client-server.svg"
    inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/client-server.png"
    inkscape:export-xdpi="90"
@@ -441,7 +441,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -499,7 +499,7 @@
            y="350.51035" /></flowRegion><flowPara
          id="flowPara3600"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Server</flowPara></flowRoot>    <path
-       transform="translate(40.740746,216.66667)"
+       transform="translate(68.740746,216.66667)"
        sodipodi:type="arc"
        style="fill:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
        id="path2816-1-2"
@@ -566,14 +566,14 @@
          id="flowPara3600-8-1"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Client 2</flowPara></flowRoot>    <path
        sodipodi:type="arc"
-       style="fill:none;stroke:#000000;stroke-width:2.84323889;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:2.84323883;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path3592-7-54"
        sodipodi:cx="284.25925"
        sodipodi:cy="190.32515"
        sodipodi:rx="119.44444"
        sodipodi:ry="60.185184"
        d="m 403.70369,190.32515 a 119.44444,60.185184 0 1 1 -238.88889,0 119.44444,60.185184 0 1 1 238.88889,0 z"
-       transform="matrix(0.36970936,0,0,0.33458992,148.76115,232.08831)"
+       transform="matrix(0.36970936,0,0,0.33458992,176.76115,232.08831)"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -581,7 +581,7 @@
        xml:space="preserve"
        id="flowRoot3594-0-1"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       transform="translate(56.387632,-67.54865)"
+       transform="translate(84.387632,-67.54865)"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"><flowRegion
@@ -594,14 +594,14 @@
          id="flowPara3600-8-4"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Client 3</flowPara></flowRoot>    <path
        sodipodi:type="arc"
-       style="fill:none;stroke:#000000;stroke-width:2.84323889;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:2.84323883;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path3592-7-5-9"
        sodipodi:cx="284.25925"
        sodipodi:cy="190.32515"
        sodipodi:rx="119.44444"
        sodipodi:ry="60.185184"
        d="m 403.70369,190.32515 a 119.44444,60.185184 0 1 1 -238.88889,0 119.44444,60.185184 0 1 1 238.88889,0 z"
-       transform="matrix(0.36970936,0,0,0.33458992,226.67932,266.31778)"
+       transform="matrix(0.36970936,0,0,0.33458992,254.67932,266.31778)"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -609,7 +609,7 @@
        xml:space="preserve"
        id="flowRoot3594-0-3-8"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       transform="translate(134.30581,-33.319176)"
+       transform="translate(162.30581,-33.319176)"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"><flowRegion
@@ -633,7 +633,7 @@
          id="flowPara3799">...</flowPara></flowRoot>    <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="399.02048"
+       x="427.02048"
        y="316.85428"
        id="text3801"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
@@ -641,7 +641,7 @@
        inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3803"
-         x="399.02048"
+         x="427.02048"
          y="316.85428">...</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.84599996;stroke-linejoin:round;stroke-miterlimit:2;stroke-opacity:1;stroke-dasharray:3.69199991,3.69199991;stroke-dashoffset:0"
@@ -659,7 +659,7 @@
        id="rect3835-6"
        width="184.77577"
        height="87.502113"
-       x="200.42566"
+       x="228.42566"
        y="270.12543"
        ry="10.290346"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
@@ -678,11 +678,11 @@
          id="tspan3861"
          x="86.355186"
          y="249.35823"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">room 1</tspan></text>
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">channel 1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="204.91278"
+       x="232.91278"
        y="351.42896"
        id="text3859-2"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
@@ -690,45 +690,49 @@
        inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3861-3"
-         x="204.91278"
+         x="232.91278"
          y="351.42896"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">room 2</tspan></text>
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">channel 2</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 261.05072,109.40331 -98.26624,69.48118"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
+       d="M 261.05072,109.40331 141.0126,172.28695"
        id="path3888"
        inkscape:connector-type="polyline"
        sodipodi:nodetypes="cc"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
-       d="m 267.00625,115.35884 -31.76282,92.31071"
+       d="M 267.00625,115.35884 212.8118,205.69029"
        id="path3888-9"
        inkscape:connector-type="polyline"
        sodipodi:nodetypes="cc"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
-       d="M 303.73202,130.24766 265.02107,272.18779"
+       d="M 303.73202,130.24766 284.81369,271.52804"
        id="path3888-7"
        inkscape:connector-type="polyline"
        sodipodi:nodetypes="cc"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
-       d="M 313.6579,129.25507 329.53932,304.9432"
+       d="m 313.6579,129.25507 45.57035,177.00764"
        id="path3888-4"
        inkscape:connector-type="polyline"
        sodipodi:nodetypes="cc"
        inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/path5885.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
