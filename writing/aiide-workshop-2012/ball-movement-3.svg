@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0.0 0.0 800.0 600.0"
+   fill="none"
+   stroke="none"
+   stroke-linecap="square"
+   stroke-miterlimit="10"
+   clip-path="url(#p.0)"
+   id="svg5866"
+   inkscape:version="0.48.3.1 r9886"
+   width="100%"
+   height="100%"
+   sodipodi:docname="ball-movement-3.svg"
+   inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/ball-movement-3.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <metadata
+     id="metadata5891">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs5889" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="934"
+     inkscape:window-height="644"
+     id="namedview5887"
+     showgrid="false"
+     inkscape:zoom="1.0824912"
+     inkscape:cx="214.379"
+     inkscape:cy="447.77559"
+     inkscape:window-x="304"
+     inkscape:window-y="68"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg5866" />
+  <clipPath
+     id="p.0">
+    <path
+       d="m0 0l800.0 0l0 600.0l-800.0 0l0 -600.0z"
+       clip-rule="nonzero"
+       id="path5869" />
+  </clipPath>
+  <path
+     fill="#cfe2f3"
+     stroke="#000000"
+     stroke-width="2.0"
+     stroke-linejoin="round"
+     stroke-linecap="butt"
+     d="m184.0 72.0l0 0c0 -8.8365555 7.163437 -16.0 16.0 -16.0l0 0c4.243469 0 8.313126 1.6857109 11.313705 4.6862907c3.0005798 3.0005836 4.6862946 7.0702477 4.6862946 11.313709l0 0c0 8.8365555 -7.163437 16.0 -16.0 16.0l0 0c-8.836563 0 -16.0 -7.1634445 -16.0 -16.0z"
+     fill-rule="nonzero"
+     id="path5871" />
+  <path
+     fill="#cfe2f3"
+     stroke="#000000"
+     stroke-width="2.0"
+     stroke-linejoin="round"
+     stroke-linecap="butt"
+     d="m152.0 68.0l16.0 0l0 -4.0l8.0 8.0l-8.0 8.0l0 -4.0l-16.0 0z"
+     fill-rule="nonzero"
+     id="path5873" />
+  <path
+     fill="#cfe2f3"
+     stroke="#000000"
+     stroke-width="2.0"
+     stroke-linejoin="round"
+     stroke-linecap="butt"
+     d="m104.0 56.0l32.0 0l0 32.0l-32.0 0z"
+     fill-rule="nonzero"
+     id="path5875" />
+  <path
+     fill="#000000"
+     d="m115.24696 78.16406l0 -13.59375l5.125 0q1.359375 0 2.078125 0.125q1.0 0.171875 1.671875 0.640625q0.671875 0.46875 1.078125 1.3125q0.421875 0.84375 0.421875 1.84375q0 1.734375 -1.109375 2.9375q-1.09375 1.203125 -3.984375 1.203125l-3.484375 0l0 5.53125l-1.796875 0zm1.796875 -7.140625l3.515625 0q1.75 0 2.46875 -0.640625q0.734375 -0.65625 0.734375 -1.828125q0 -0.859375 -0.4375 -1.46875q-0.421875 -0.609375 -1.125 -0.796875q-0.453125 -0.125 -1.671875 -0.125l-3.484375 0l0 4.859375z"
+     fill-rule="nonzero"
+     id="path5877" />
+  <path
+     d="m 224,48 0,80"
+     id="path5879"
+     inkscape:connector-curvature="0"
+     style="stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="M 224,48 94,48"
+     id="path5881"
+     inkscape:connector-curvature="0"
+     style="stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="m 201.84759,92.45723 0,38"
+     id="path5883"
+     inkscape:connector-curvature="0"
+     style="stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:8, 6"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="m 198.54412,128.45723 3.30347,9.0762 3.30346,-9.0762 z"
+     id="path5885"
+     inkscape:connector-curvature="0"
+     style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt" />
+</svg>

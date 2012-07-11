@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0.0 0.0 800.0 600.0"
+   fill="none"
+   stroke="none"
+   stroke-linecap="square"
+   stroke-miterlimit="10"
+   clip-path="url(#p.0)"
+   id="svg3136"
+   inkscape:version="0.48.3.1 r9886"
+   width="100%"
+   height="100%"
+   sodipodi:docname="ball-movement-2.svg"
+   inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/ball-movement-2.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <metadata
+     id="metadata3155">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3153">
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mstart"
+       style="overflow:visible">
+      <path
+         id="path4055"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path4037"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lstart"
+       style="overflow:visible">
+      <path
+         id="path4049"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path4031"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lstart-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4049-2"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1039"
+     inkscape:window-height="736"
+     id="namedview3151"
+     showgrid="false"
+     inkscape:zoom="1.03"
+     inkscape:cx="225.72816"
+     inkscape:cy="455.33981"
+     inkscape:window-x="591"
+     inkscape:window-y="43"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3136" />
+  <clipPath
+     id="p.0">
+    <path
+       d="m0 0l800.0 0l0 600.0l-800.0 0l0 -600.0z"
+       clip-rule="nonzero"
+       id="path3139" />
+  </clipPath>
+  <path
+     fill="#cfe2f3"
+     stroke="#000000"
+     stroke-width="2.0"
+     stroke-linejoin="round"
+     stroke-linecap="butt"
+     d="m184.0 72.0l0 0c0 -8.8365555 7.163437 -16.0 16.0 -16.0l0 0c4.243469 0 8.313126 1.6857109 11.313705 4.6862907c3.0005798 3.0005836 4.6862946 7.0702477 4.6862946 11.313709l0 0c0 8.8365555 -7.163437 16.0 -16.0 16.0l0 0c-8.836563 0 -16.0 -7.1634445 -16.0 -16.0z"
+     fill-rule="nonzero"
+     id="path3141" />
+  <path
+     fill="#cfe2f3"
+     stroke="#000000"
+     stroke-width="2.0"
+     stroke-linejoin="round"
+     stroke-linecap="butt"
+     d="m152.0 68.0l16.0 0l0 -4.0l8.0 8.0l-8.0 8.0l0 -4.0l-16.0 0z"
+     fill-rule="nonzero"
+     id="path3143" />
+  <path
+     fill="#cfe2f3"
+     stroke="#000000"
+     stroke-width="2.0"
+     stroke-linejoin="round"
+     stroke-linecap="butt"
+     d="m104.0 56.0l32.0 0l0 32.0l-32.0 0z"
+     fill-rule="nonzero"
+     id="path3145" />
+  <path
+     fill="#000000"
+     d="m115.24696 78.16406l0 -13.59375l5.125 0q1.359375 0 2.078125 0.125q1.0 0.171875 1.671875 0.640625q0.671875 0.46875 1.078125 1.3125q0.421875 0.84375 0.421875 1.84375q0 1.734375 -1.109375 2.9375q-1.09375 1.203125 -3.984375 1.203125l-3.484375 0l0 5.53125l-1.796875 0zm1.796875 -7.140625l3.515625 0q1.75 0 2.46875 -0.640625q0.734375 -0.65625 0.734375 -1.828125q0 -0.859375 -0.4375 -1.46875q-0.421875 -0.609375 -1.125 -0.796875q-0.453125 -0.125 -1.671875 -0.125l-3.484375 0l0 4.859375z"
+     fill-rule="nonzero"
+     id="path3147" />
+  <path
+     stroke="#000000"
+     stroke-width="4.0"
+     stroke-linejoin="round"
+     stroke-linecap="butt"
+     d="m224.0 24.0l0 103.99999"
+     fill-rule="nonzero"
+     id="path3149" />
+  <path
+     d="m 201.98309,134.20256 -3.30347,9.0762 -3.30347,-9.0762 z"
+     id="path3069-5"
+     inkscape:connector-curvature="0"
+     style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/ball-movement-1.png" />
+  <path
+     d="m 202.37143,14.632392 -3.30347,-9.0762 -3.30347,9.0762 z"
+     id="path3069-5-7"
+     inkscape:connector-curvature="0"
+     style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     inkscape:export-filename="/home/striegnk/projects/sliding-blocks/sliding-blocks.git/writing/aiide-workshop-2012/ball-movement-1.png"
+     sodipodi:nodetypes="cccc" />
+  <path
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:12, 4;stroke-dashoffset:0;marker-start:url(#Arrow2Lstart)"
+     inkscape:connector-curvature="0"
+     d="m 198.95146,13.47573 0,39.99999"
+     id="path3149-0"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:12, 4;stroke-dashoffset:0;marker-start:url(#Arrow2Lstart)"
+     inkscape:connector-curvature="0"
+     d="m 199.06436,92.750353 0,39.999987"
+     id="path3149-0-4"
+     sodipodi:nodetypes="cc" />
+</svg>

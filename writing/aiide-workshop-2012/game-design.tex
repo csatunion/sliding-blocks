@@ -44,22 +44,31 @@ ball and the player; the gray portals can only be used by the ball.
 
 The players can move their avatars using the arrow keys on their
 keyboard. When they push the ball, it starts moving in the direction
-of the push and only stops when it collides with an obstacle. If the
+of the push and only stops when it collides with an obstacle (see
+Figure \ref{fig:pushing-against-wall}(a)). If the
 ball cannot move in the direction of the push (e.g. because there is
 an obstacle), it (randomly) picks a direction that is free of
-obstacles to move to, as illustrated in Figure
-\ref{fig:pushing-against-wall}. This behavior makes sure that the ball
-does not get trapped too easily.
+obstacles to move to, as illustrated in Figures
+\ref{fig:pushing-against-wall}(b) and (c). This behavior makes sure
+that the ball only gets trapped if it is surrounded by walls on three
+sides (Figure \ref{fig:pushing-against-wall}(d)).
 
 \begin{figure}
-\todo{Add images.}
+\begin{tabular}{c@{\hskip3em}c}
+\raisebox{0.4cm}{\includegraphics[scale=0.7]{ball-movement-1.png}} & 
+\includegraphics[scale=0.7]{ball-movement-3.png}\\
+(a) & (b)\\[1ex]
+\includegraphics[scale=0.7]{ball-movement-2.png} &
+\raisebox{0.9cm}{\includegraphics[scale=0.7]{ball-movement-4.png}}\\
+(c) & (d)
+\end{tabular}
 \caption{Behavior of the ball.}
 \label{fig:pushing-against-wall}
 \end{figure}
 
 % placing of blocks
 
-Pressing the \todo{which?} key allows players to place an obstacle
+Pressing the Ctrl-key allows players to place an obstacle
 into their partner's environment at the position that corresponds to
 the player's current location. Each player can only place three blocks
 on their partner's screen at a time. When the fourth block is placed,
