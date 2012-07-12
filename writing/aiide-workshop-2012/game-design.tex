@@ -1,10 +1,13 @@
 \section{Game Design}
 
-\todo{maybe reiterate/summarize research goals? a game that encourages
-  collaborative dialog in order to solve a task in a virtual
-  environment; interested in situated language use, so dialog about
-  the environment; environment should be simple enough that can be
-  modeled using an automated planner}
+Our goal in designing this game is to elicit problem solving
+dialogues between two players who are situated in a virtual
+environment. We want both players to equally contribute to the dialog
+as well as the problem solving process.  Ultimately, we want to build
+dialog systems that can take the role of one of the players. That
+means that the environment has to be simple enough that we can use
+automated planning techniques to calculate strategies for solving the
+puzzles.
 
 In this two-player game, each player is situated in a maze created
 from obstacles and traps of various kinds.  Figure
@@ -14,29 +17,17 @@ game\footnote{While the game is fully playable, the interface is still
   a prototype in which everything is represented by differently
   colored blocks.}. The red block is player one's avatar, the green
 block player two's avatar. The purple block is the ball, which needs
-to be pushed to the goal represented by the orange block. The white
-and gray blocks are portals. Portals come in pairs -- if the ball or
+to be pushed to the goal represented by the orange block. The 
+gray blocks are portals. Portals come in pairs -- if the ball or
 player enter one portal, they exit through another one --- and connect
 different areas of one player's environment or link one player's
-environment with the other's. The white portals are open to both the
-ball and the player; the gray portals can only be used by the ball.
-
-%% Commented this out because we already say something similar in the
-%% previous section. KS
-%% The goal for this game was to have two players communicate and
-%% collaborate with each other in order to push a block to a certain
-%% location on the screen, the goal. The game consists of two different
-%% screens of the same size: one that is only visible to player one and
-%% another that is only visible to player two. Figure
-%% \ref{fig:player-screenshots} shows an example screen for player one
-%% and two.
+environment with the other's. The light gray portals are open to both the
+ball and the player; the dark gray portals can only be used by the ball.
 
 \begin{figure}
-\includegraphics[scale=0.27]{playerview1.png} 
-\includegraphics[scale=0.27]{playerview2.png}
-\caption{Sample game screens for players one and two.\todo{let's get
-    screenshots that show the chat area; I will try to fix css today
-    or tomorrow - KS}}
+\includegraphics[scale=0.25]{player1_with_label.png} 
+\includegraphics[scale=0.25]{player2_with_label.png}
+\caption{Sample game screens for players one and two.}
 \label{fig:player-screenshots}
 \end{figure}
 
@@ -76,20 +67,17 @@ the block that was placed first is deleted, as shown in Figure
 \ref{fig:dropping-blocks}.
 
 \begin{figure}
-\hspace*{\fill}\includegraphics[width=0.45\columnwidth]{blocksplaced1-cropped.png}
-\hspace*{\fill}\includegraphics[width=0.45\columnwidth]{blocksplaced2-cropped.png}\hspace*{\fill}
+\hspace*{\fill}\includegraphics[scale=0.35]{blockplacement1.png}
+\hspace*{\fill}\includegraphics[scale=0.35]{blockplacement2.png}\hspace*{\fill}
 \caption{Each player can place at most three obstacles at a time. When
   the fourth obstacle gets placed, the first one disappears.}
 \label{fig:dropping-blocks}
 \end{figure}
 
+% chatting 
 The players cannot place obstacles into their own environments, and
 since obstacles are the only way to stop a ball that is moving, they
 have to collaborate to control the balls movements. 
-
-
-% chatting 
-
 The environments are designed to force the players to work together
 and communicate with each other.  The players can use a chat area next
 to their game environment to coordinate their strategy and to give
@@ -119,16 +107,15 @@ complicated as additional kinds of obstacles and traps and more
 complex variations of the task get introduced.  For example, there may
 be pits which can swallow the ball (or player), bouncy obstacles which
 reflect the ball when it hits them, moving fireballs which burn and
-kill the ball or player, destructable barriers which the partner can
+kill the ball or player, destructible barriers which the partner can
 explode by dropping an obstacle onto them, or forking portals which
-send the ball/player randomly to one of two exits (but which become
-deterministic if the partner blocks one exit by dropping an obstacle
-onto it). \todo{Is this too much to say? spoilers?}  At some level
-each player is given their own set of one or more balls. This will
-allow for some interesting variations on the task. For example, there
-may be multiple goal positions and the players have to navigate their
-balls to corresponding goals. Or the balls are numbered (e.g. player
-one has balls number 1, 3 and 4 and player two has balls 2 and 5) and
-the balls have to be push into goals in order. Or the balls have
-colors and both players have to move a ball of the same color to a
-goal before they can work on the next ball with a different color.
+send the ball/player randomly to one of two exits.  At some point in
+the game, each player is given their own set of one or more balls. This
+will allow for some interesting variations on the task. For example,
+there may be multiple goal positions and the players have to navigate
+their balls to corresponding goals. Or the balls are numbered
+(e.g. player one has balls number 1, 3 and 4 and player two has balls
+2 and 5) and the balls have to be push into goals in order. Or the
+balls have colors and both players have to move a ball of the same
+color to a goal before they can work on the next ball with a different
+color.

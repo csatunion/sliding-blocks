@@ -14,12 +14,12 @@ Recently, a number of projects have used online games to recruit
 people to help with the collection and annotation of corpora and the
 task-based evaluation of NLP applications.  For example, in the
 Restaurant Game\footnote{http://web.media.mit.edu/~jorkin/restaurant}
-\cite{orkin-roy-2007} players play the roles of waitress and customer
+\cite{orkin-roy-2007} players assume the roles of a waitress and a customer
 in a restaurant. The resulting corpus of human language and actions in
 this scenario was used to automate the construction of a
 conversational character that could play one of these roles.
 
-\cite{chamberlain-etal-2008} crowd-source the annotation of anaphoric
+\citeN{chamberlain-etal-2008} crowd-source the annotation of anaphoric
 expressions in texts. Players/annotators in the game Phrase
 Detective\footnote{http://anawiki.essex.ac.uk/phrasedetectives}
 collect points for creating or validating annotations. They receive
@@ -34,17 +34,6 @@ automatically generated instructions. Players were paired with natural
 language generation systems supplied by different research teams and
 the collected data was used to evaluate and compare the systems.
 
-
-\todo{What we want to do with this paper:
-\begin{itemize}
-\item this paper: continues GIVE line of research
-\item situated language - action and language
-\item more balanced
-\item fun 
-\item problems with GIVE: not fun, not a game
-\end{itemize}
-}
-
 This paper describes a puzzle game in which two players collaborate to
 push one or more balls into a goal position. The players are in two
 different 2D-environments, but they can drop blocks into the other
@@ -54,16 +43,56 @@ the environments. The players may or may not be able to see their
 partner's environment, but they can communicate using a chat
 interface.
 
-The game was designed to ellicit a mixed-initiative, task-oriented
-conversation in which both players alternate between the roles of
-instruction giver and instruction follower. We are particularly
-interested in situated language use and how actions in the game
-environment contribute to the dialog.  By manipulating whether or not
-the players can see each other's environment, we want to compare the
-effects of a more directly shared workspace with a situation in which
-the players receive only very indirect information about their
-partner's environment (through the locations at which blocks are
-dropped). Finally, we want the game to be fun. \todo{Why?}
+With this game we want to expand on the research started in the GIVE
+project. As in GIVE, we are interested in the way humans interleave
+language and actions when they are situated in an environment. This is
+a topic that has recently started to receive increased attention in
+the natural language generation and dialog systems communities, e.g.
+\cite{stoia-etal-2006,garoufi-koller-2010,dethlefs-etal-2011}.  By
+manipulating whether or not the players can see each other's
+environment, we want to compare the effects of a shared environment
+with situations in which the players receive only very indirect
+information about their partner's environment (through the locations
+at which blocks are dropped).
 
-\todo{another requirement: environment had to be simple enough that it
-  can be modeled for an automated planner}
+In GIVE there are two distinct roles -- the instruction giver, who can
+send messages to the instruction follower but not act in the
+environment, and the instruction follower, who can act in the
+environment but not respond by sending messages. In the game described
+in this paper, we want to create a more balanced scenario in which
+both players can act as well as contribute to the chat
+conversation. Furthermore, we want both players to sometime be in the
+role of the instruction giver and sometimes in the role of the
+instruction follower.
+
+
+Finally, we want the game to be fun so that people play multiple
+levels, return to play again, and tell their friends about it.  The
+feedback we received from participants in the GIVE evaluations
+indicates that while many players appreciated GIVE as a research
+project, many others players were disappointed. They came to it
+expecting a game but then discovered that all they had to do was
+follow instructions. There were no puzzles to solve for the
+instruction follower and no creative way to contribute to the solution
+of the task. In fact, a significant number of players quit the game
+before finishing, and most of the games that are canceled or lost end
+quickly.
+
+
+
+%% The game was designed to ellicit a mixed-initiative, task-oriented
+%% conversation in which both players alternate between the roles of
+%% instruction giver and instruction follower. 
+
+%% We are particularly
+%% interested in situated language use and how actions in the game
+%% environment contribute to the dialog.  
+
+%% By manipulating whether or not
+%% the players can see each other's environment, we want to compare the
+%% effects of a more directly shared workspace with a situation in which
+%% the players receive only very indirect information about their
+%% partner's environment (through the locations at which blocks are
+%% dropped). Finally, we want the game to be fun. \todo{Why?}
+
+
