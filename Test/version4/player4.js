@@ -21,7 +21,8 @@ var nick;
 
 //player attributes
 var speed = 4;                                              //speed the player can move at
-var level = 2;                                              //level the player is on
+var level = 1;                                              //level the player is on
+var MAXLEVEL = 4;
 var startXPos1 = WALL_WIDTH_HEIGHT; 
 var startYPos1 = WALL_WIDTH_HEIGHT;
 var startXPos2 = BOARD_HEIGHT/2 - PLAYER_WIDTH_HEIGHT/2;
@@ -31,6 +32,8 @@ var startYPos2 = BOARD_HEIGHT/2 - PLAYER_WIDTH_HEIGHT/2;
 var time;                                                   //time of last log (only player 1's log is written to the server)
 var log = "\n";                                             //the log of events
 
+
+var buttonsToHit = [];
 
 window.onload = function() {
 
@@ -54,7 +57,7 @@ window.onload = function() {
             //wait for setup info from server
             socket.on("setup", function(username, playerColor, number, channel){
                 
-		nick           = username;
+		        nick           = username;
                 color          = playerColor;
                 playerNumber   = number;
                 channelNumber  = channel;
@@ -132,6 +135,28 @@ window.onload = function() {
                 box.move.down = true;
             }    
             
+        });
+        
+        socket.on("buttonPressed", function(buttonNumber){
+           if(level == 2){
+               if(buttonNumber == 1){
+                   drawBouncyBox(WALL_WIDTH_HEIGHT*13, WALL_WIDTH_HEIGHT*7);
+               }
+               else if(buttonNumber == 2){
+                   portals1[0].destroy();
+                   portals2[0].destroy();
+               }
+           } 
+        });
+        
+        socket.on("advance", function(){
+            level++;
+            if(level == MAXLEVEL){
+                Crafty.scene("end");
+            }    
+            else{
+                Crafty.scene("level");
+            }
         });
         
         //tells the player that the other player left the game
@@ -258,25 +283,91 @@ function makeBorders() {
 //makes a horizontal wall of xlength boxes from the x and y position and
 //a vertical wall of ylength boxes from the x and y position
 function makeWall(xpos, ypos, xlength, ylength){
-    for(var i = 0; i < xlength; i++){
-        drawBox(xpos + i*WALL_WIDTH_HEIGHT, ypos);
+    if(xlength >= 0){
+        for(var i = 0; i < xlength; i++){
+            drawBox(xpos + i*WALL_WIDTH_HEIGHT, ypos);
+        }
+    }
+    else{
+        for(var i = xlength; i <= 0; i++){
+            drawBox(xpos + i*WALL_WIDTH_HEIGHT, ypos);
+        }
     }
     
-    for(var i = 0; i < ylength; i++){
-        drawBox(xpos, ypos + i*WALL_WIDTH_HEIGHT);
+    if(ylength >= 0){
+        for(var i = 0; i < ylength; i++){
+            drawBox(xpos, ypos + i*WALL_WIDTH_HEIGHT);
+        }
+    }
+    else{
+        for(var i = ylength; i <= 0; i++){
+            drawBox(xpos, ypos + i*WALL_WIDTH_HEIGHT);
+        }
     }
 }
 
 //makes a box at the specified point
 function drawBox(xpos, ypos){
-    box = Crafty.e("2D, DOM, wall, box").attr({
+    box = Crafty.e("2D, DOM, wall, box, Collision").attr({
             x : xpos,
             y : ypos,
             w : WALL_WIDTH_HEIGHT,
             h : WALL_WIDTH_HEIGHT
-        });
+    }).onHit("button", function(e){
+        if(e[0].obj.type == 2 && e[0].obj.firstHit){
+            socket.emit("pressed", e[0].obj.number, channelNumber);
+            e[0].obj.firstHit = false;
+        }
+    });
+    ;
     
     return box;
+}
+
+function drawPlayerGate(xpos, ypos){
+    gate = Crafty.e("2D, DOM, Color, playerGate").attr({
+            x:xpos,
+            y:ypos,
+            w:WALL_WIDTH_HEIGHT,
+            h:WALL_WIDTH_HEIGHT
+        })
+        .color("pink");
+}
+
+function drawBallGate(xpos,ypos){
+    gate = Crafty.e("2D, DOM, Color, ballGate").attr({
+            x:xpos,
+            y:ypos,
+            w:WALL_WIDTH_HEIGHT,
+            h:WALL_WIDTH_HEIGHT
+        })
+        .color("brown");
+
+}
+
+//type 0 ball activates it
+//type 1 player activates it
+//type 2 box activates it
+function drawButton(xpos, ypos, trigger, buttonNumber){
+    button = Crafty.e("2D, DOM, Color, button, collision").attr({
+            x : xpos,
+            y : ypos,
+            w : WALL_WIDTH_HEIGHT,
+            h : WALL_WIDTH_HEIGHT,
+            firstHit:true,
+            type:trigger,
+            number:buttonNumber
+    });
+    
+        if(button.type == 0){
+            button.color("#6666FF");
+        }
+        else if(button.type == 1){
+            button.color("#99FF66");
+        }
+        else if(button.type == 2){
+            button.color("#cc6666");
+        }
 }
 
 //makes a bouncy box at the specified point
@@ -287,7 +378,7 @@ function drawBouncyBox(xpos, ypos){
             w : WALL_WIDTH_HEIGHT,
             h : WALL_WIDTH_HEIGHT
         })
-        .color("pink");
+        .color("cyan");
 }
 
 //makes a portal at the first point and a connecting portal at the second point
@@ -325,6 +416,16 @@ function drawTeleporter(xpos, ypos){
     .color('gray');
 }
 
+function drawMovingBox(xpos, ypos){
+    movingBox = Crafty.e("2D, DOM, Color, movingBox").attr({
+        x:xpos,
+        y:ypos,
+        w:WALL_WIDTH_HEIGHT,
+        h:WALL_WIDTH_HEIGHT
+    })
+    .color("yellow");
+}
+
 //makes a pushable box at the specified point
 function drawPushBox(xpos, ypos){
     box = Crafty.e("2D, DOM, Color, Collision, pushable").attr({
@@ -352,6 +453,24 @@ function drawPushBox(xpos, ypos){
                 }
             }
             
+        })
+        .onHit("player", function(e){
+            if(this.move.left) {
+                this.x = e[0].obj.x + e[0].obj.w;
+                this.move.left = false; 
+            }
+            else if(this.move.right){
+                this.x = e[0].obj.x - this.w;
+                this.move.right = false;
+            }
+            else if(this.move.up){
+                this.y = e[0].obj.y + e[0].obj.h;
+                this.move.up = false;
+            }
+            else if(this.move.down){
+                this.y = e[0].obj.y - this.h;
+                this.move.down = false;
+            }
         })
         .onHit("teleporter", function(e){
             if     (this.move.left) {direction = "left";}
@@ -425,26 +544,38 @@ function drawPushBox(xpos, ypos){
                 }
             }               
        })
+       .onHit("button", function(e){
+           if(level == 1){
+                if(e[0].obj.type == 0 && e[0].obj.firstHit){
+                    drawBox(WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*6);
+                    drawBox(BOARD_WIDTH - WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*6);
+                    e[0].obj.firstHit = false;
+                }
+           }
+           else if(level == 2){
+               socket.emit("pressed", e[0].obj.number, channelNumber);
+           }       
+        })
         .onHit("bouncybox", function(e){
             if(this.move.left){
                 this.x = e[0].obj.x + e[0].obj.w;
                 this.move.left = false;
-                this.move.down = true;
+                this.move.up = true;
             }
             else if(this.move.right){
                 this.x = e[0].obj.x - this.w;
                 this.move.right = false;
-                this.move.up = true;
+                this.move.down = true;
             }
             else if(this.move.down){
                 this.y = e[0].obj.y - this.h;
                 this.move.down = false;
-                this.move.right = true;
+                this.move.left = true;
             }
             else if(this.move.up){
                 this.y = e[0].obj.y + e[0].obj.h;
                 this.move.up = false;
-                this.move.left = true;
+                this.move.right = true;
             }
         })  
         .onHit("portal",function(e){
@@ -530,7 +661,14 @@ function drawPushBox(xpos, ypos){
             }
         })
         .onHit('goal', function(){
-            Crafty.scene("end");
+            level++;
+            if(level == MAXLEVEL){
+                Crafty.scene("end");
+            }
+            else{
+                socket.emit("nextLevel", channelNumber);
+                Crafty.scene("level");
+            }
         })
         
     return box;
@@ -546,93 +684,172 @@ function placeBox(xpos, ypos){
 //places the goal box
 //creates the specific level
 function placeGoal(level){
+    
+    //player 1
     if(playerNumber == 1){
-        var goal = Crafty.e("2D, DOM, Color, goal")
-            .color('orange');
     
         //level 1
         if (level == 1){
-            goal.attr({x:288,y:288,w:PLAYER_WIDTH_HEIGHT,h:PLAYER_WIDTH_HEIGHT});
-            makeWall(256, 224, 3, 5);
-            makeWall(256, 352, 15, 0);
-            makeWall(352, 256, 12, 0);
-            makeWall(132, 168, 0, 3);
-            makeWall(WALL_WIDTH_HEIGHT, BOARD_HEIGHT-64, 3, 0);
-        
-        
-       
-            drawPortal(BOARD_WIDTH-3*WALL_WIDTH_HEIGHT, 320,BOARD_WIDTH-9*WALL_WIDTH_HEIGHT,288);
-            drawPortal(BOARD_WIDTH-WALL_WIDTH_HEIGHT, 288, WALL_WIDTH_HEIGHT, BOARD_HEIGHT-32);
-            drawPortal(BOARD_WIDTH-6*WALL_WIDTH_HEIGHT, 288, 100, 200);
-        
-            drawBox(BOARD_WIDTH-WALL_WIDTH_HEIGHT, 320);
-            drawBox(BOARD_WIDTH-6*WALL_WIDTH_HEIGHT, 320);
-            drawBox(BOARD_WIDTH-7*WALL_WIDTH_HEIGHT, 288);
-            drawBox(100, 168);
-            drawBox(100, 232);
-        
-            drawBouncyBox(WALL_WIDTH_HEIGHT, 200);
+            player.x = BOARD_WIDTH/2;
+            player.y = WALL_WIDTH_HEIGHT;
+            
+            drawPushBox(BOARD_WIDTH/2, BOARD_HEIGHT - WALL_WIDTH_HEIGHT * 5);
+            
+            drawTeleporter(WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT*3);
+            makeWall(WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT*3, 2, 0);
+            makeWall(WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT, 0, 2);
+            
+            drawTeleporter(BOARD_WIDTH - WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT*3);
+            makeWall(BOARD_WIDTH, WALL_WIDTH_HEIGHT*3, -2, 0);
+            makeWall(BOARD_WIDTH - WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT, 0, 2);
+            
+            drawTeleporter(WALL_WIDTH_HEIGHT*3, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*3);
+            makeWall(WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*3, 2, 0);
+            makeWall(WALL_WIDTH_HEIGHT*3, BOARD_HEIGHT, 0, -2);
+            
+            drawTeleporter(BOARD_WIDTH - WALL_WIDTH_HEIGHT*3, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*3);
+            makeWall(BOARD_WIDTH, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*3, -2, 0);
+            makeWall(BOARD_WIDTH - WALL_WIDTH_HEIGHT*3, BOARD_HEIGHT, 0, -2);
+            
+            drawPlayerGate(WALL_WIDTH_HEIGHT*7.5,  WALL_WIDTH_HEIGHT*11);
+            drawPlayerGate(WALL_WIDTH_HEIGHT*15.5, WALL_WIDTH_HEIGHT*11);
+            drawPlayerGate(WALL_WIDTH_HEIGHT*7.5,  WALL_WIDTH_HEIGHT*10);
+            drawPlayerGate(WALL_WIDTH_HEIGHT*15.5, WALL_WIDTH_HEIGHT*10);
+            drawPlayerGate(WALL_WIDTH_HEIGHT*11.5, WALL_WIDTH_HEIGHT*12);
+            drawPlayerGate(WALL_WIDTH_HEIGHT*11.5, WALL_WIDTH_HEIGHT*7);
+            
+            makeWall(WALL_WIDTH_HEIGHT*7.5, WALL_WIDTH_HEIGHT*7, 4, 3);
+            makeWall(WALL_WIDTH_HEIGHT*7.5, WALL_WIDTH_HEIGHT*12, 4, 0);
+            makeWall(WALL_WIDTH_HEIGHT*15.5, WALL_WIDTH_HEIGHT*12, -3, 0);
+            makeWall(WALL_WIDTH_HEIGHT*15.5, WALL_WIDTH_HEIGHT*7, -3, 3);
         }
     
         //level 2
         else if (level == 2){
-    
-            goal.attr({x:BOARD_WIDTH - 5*WALL_WIDTH_HEIGHT,y:BOARD_HEIGHT-4*WALL_WIDTH_HEIGHT,w:PLAYER_WIDTH_HEIGHT,h:PLAYER_WIDTH_HEIGHT});
             
-            drawPushBox(WALL_WIDTH_HEIGHT, 2*WALL_WIDTH_HEIGHT);
-            makeWall(4*WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT, 0, BOARD_HEIGHT/WALL_WIDTH_HEIGHT);
-            drawBox(3*WALL_WIDTH_HEIGHT, BOARD_HEIGHT-WALL_WIDTH_HEIGHT);
-            drawBox(3*WALL_WIDTH_HEIGHT, BOARD_HEIGHT-3*WALL_WIDTH_HEIGHT);
-            drawPortal(3*WALL_WIDTH_HEIGHT, BOARD_HEIGHT-2*WALL_WIDTH_HEIGHT, 300, 200);
-            makeWall(268, 168, 3, 3);
-            drawBox(300, 232);
-            drawTeleporter(375, 200);
-            makeWall(BOARD_WIDTH - 4*WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT, 0, BOARD_HEIGHT/WALL_WIDTH_HEIGHT);
-            makeWall(5*WALL_WIDTH_HEIGHT, BOARD_HEIGHT-3*WALL_WIDTH_HEIGHT, BOARD_WIDTH/WALL_WIDTH_HEIGHT - 9, 0);
-            makeWall(5*WALL_WIDTH_HEIGHT, BOARD_HEIGHT-5*WALL_WIDTH_HEIGHT, BOARD_WIDTH/WALL_WIDTH_HEIGHT - 9, 0);
-            drawPortal(400, 400, 12*WALL_WIDTH_HEIGHT, BOARD_HEIGHT - 2* WALL_WIDTH_HEIGHT);
-            drawBox(400, 432);
+            var goal = Crafty.e("2D, DOM, Color, goal").attr({
+                x:WALL_WIDTH_HEIGHT*12,
+                y:WALL_WIDTH_HEIGHT,
+                w:WALL_WIDTH_HEIGHT,
+                h:WALL_WIDTH_HEIGHT
+            })
+            .color('orange');
+            
+            player.x = BOARD_WIDTH/2;
+            player.y = BOARD_HEIGHT - WALL_WIDTH_HEIGHT;
+            
+            drawPushBox(WALL_WIDTH_HEIGHT*17, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*4);
+            
+            drawPlayerGate(WALL_WIDTH_HEIGHT*12, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7);
+            drawPlayerGate(WALL_WIDTH_HEIGHT*5, WALL_WIDTH_HEIGHT*8);
+            drawPlayerGate(BOARD_WIDTH - WALL_WIDTH_HEIGHT*4, WALL_WIDTH_HEIGHT*7);
+            
+            makeWall(WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT*5, 11, 0);
+            makeWall(WALL_WIDTH_HEIGHT*13, WALL_WIDTH_HEIGHT*5, 10, 0);
+            makeWall(WALL_WIDTH_HEIGHT*5, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7, 7, -7);
+            makeWall(BOARD_WIDTH - WALL_WIDTH_HEIGHT*4, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7, -6, -8);
+            
+            
+            drawBox(BOARD_WIDTH - WALL_WIDTH_HEIGHT*4, WALL_WIDTH_HEIGHT*6);
+            drawBox(WALL_WIDTH_HEIGHT*5, WALL_WIDTH_HEIGHT*7);
+            drawBox(WALL_WIDTH_HEIGHT*5, WALL_WIDTH_HEIGHT*6);
+            
+            
+            
+            drawBouncyBox(WALL_WIDTH_HEIGHT*12, WALL_WIDTH_HEIGHT*9);
+            drawBouncyBox(BOARD_WIDTH - WALL_WIDTH_HEIGHT*5, WALL_WIDTH_HEIGHT*10);
+            drawBouncyBox(BOARD_WIDTH - WALL_WIDTH_HEIGHT*6, WALL_WIDTH_HEIGHT*13);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*10, WALL_WIDTH_HEIGHT*12);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*11, WALL_WIDTH_HEIGHT*8);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*11, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*8);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*6, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*9);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*8, WALL_WIDTH_HEIGHT*11);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*9, WALL_WIDTH_HEIGHT*10);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*13, WALL_WIDTH_HEIGHT*11);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*6, WALL_WIDTH_HEIGHT*7);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*7, WALL_WIDTH_HEIGHT*6);
+            drawBouncyBox(WALL_WIDTH_HEIGHT*14, WALL_WIDTH_HEIGHT*6);
+            drawPortal(WALL_WIDTH_HEIGHT*12, WALL_WIDTH_HEIGHT*5, WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT);
+            drawBox(WALL_WIDTH_HEIGHT*2, BOARD_HEIGHT - WALL_WIDTH_HEIGHT);
+        
         }   
     
         //level 3
         else if(level == 3){
-            goal.attr({x:288,y:288,w:PLAYER_WIDTH_HEIGHT,h:PLAYER_WIDTH_HEIGHT});
-        
-            drawPortal(400, 200, 200, 400);
-            drawPortal(500, 100, 100, 500);
-        
-            drawMovingBox(300, 100, "right");
-            drawMovingBox(400, 500, "right");
-            drawMovingBox(100, 400, "up");
-            drawMovingBox(500, 300, "up");
-            drawMovingBox(300, 200, "right");
-            drawMovingBox(300, 400, "right");
-            drawMovingBox(200, 300, "up");
-            drawMovingBox(400, 300, "up");
-        
-            drawBouncyBox(532, 500);
-            drawBouncyBox(100, 68);
-            drawBouncyBox(68, 100);
-            drawBouncyBox(500, 532);
-            drawBouncyBox(432, 400);
-            drawBouncyBox(200, 168);
-            drawBouncyBox(168, 200);
-            drawBouncyBox(400, 432);
-        
-            drawPushBox(600,500);
+            
         }
     }
+    
+    //player 2
     else{
         
         if(level == 1){
+            player.x = BOARD_WIDTH/2;
+            player.y = WALL_WIDTH_HEIGHT;
+            
+            
+            var goal = Crafty.e("2D, DOM, Color, goal").attr({
+                x:BOARD_WIDTH/2,
+                y:BOARD_HEIGHT/2 + WALL_WIDTH_HEIGHT*8,
+                w:WALL_WIDTH_HEIGHT,
+                h:WALL_WIDTH_HEIGHT
+            })
+            .color('orange');
+            
+            makeWall(WALL_WIDTH_HEIGHT*4, WALL_WIDTH_HEIGHT*4, -3, -3);
+            makeWall(BOARD_WIDTH - WALL_WIDTH_HEIGHT*4, WALL_WIDTH_HEIGHT*4, 4, -3);
+            makeWall(WALL_WIDTH_HEIGHT*4, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*4, -3, 4);
+            makeWall(BOARD_WIDTH - WALL_WIDTH_HEIGHT*4, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*4, 4, 4);
+            
+            //top left top
+            drawPortal(WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*5);
+            
+            //top right top
+            drawPortal(BOARD_WIDTH - WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT, BOARD_WIDTH - WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*5);
+            
+            //top left left
+            drawPortal(WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT*15.5, WALL_WIDTH_HEIGHT*10);
+            
+            //top right right
+            drawPortal(BOARD_WIDTH - WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT*7.5, WALL_WIDTH_HEIGHT*10);
+            
+            //bottom left left
+            drawPortal(WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*3,WALL_WIDTH_HEIGHT*15.5, WALL_WIDTH_HEIGHT*11);
+            
+            //bottom right right
+            drawPortal(BOARD_WIDTH - WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*3, WALL_WIDTH_HEIGHT*7.5, WALL_WIDTH_HEIGHT*11);
+            
+            //bottom left bottom
+            drawPortal(WALL_WIDTH_HEIGHT*3, BOARD_HEIGHT - WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT*11, WALL_WIDTH_HEIGHT*8);
+            
+            //bottom right bottom
+            drawPortal(BOARD_WIDTH - WALL_WIDTH_HEIGHT*3, BOARD_HEIGHT - WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT*12, WALL_WIDTH_HEIGHT*8);
+            
+            drawTeleporter(WALL_WIDTH_HEIGHT*11.5, WALL_WIDTH_HEIGHT*10.5);
+            
+            
+            makeWall(WALL_WIDTH_HEIGHT*6.5, WALL_WIDTH_HEIGHT*7, 10, 6);
+            makeWall(WALL_WIDTH_HEIGHT*16.5, WALL_WIDTH_HEIGHT*12, -10, -5);
+            
+            drawBox(WALL_WIDTH_HEIGHT*2, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*5);
+            drawBox(BOARD_WIDTH - WALL_WIDTH_HEIGHT*2, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*5);
+            
+            drawButton(WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*8, 0, 0);
+            drawButton(BOARD_WIDTH - WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*8, 0, 0);
+        }
+        
+        else if(level == 2){
+            player.x = BOARD_WIDTH/2;
+            player.y = BOARD_HEIGHT - WALL_WIDTH_HEIGHT;
+            makeWall(WALL_WIDTH_HEIGHT*5, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7, 14, -11);
+            makeWall(BOARD_WIDTH - WALL_WIDTH_HEIGHT*4, WALL_WIDTH_HEIGHT*5, -13, 12);
+            makeWall(WALL_WIDTH_HEIGHT, WALL_WIDTH_HEIGHT*5, 4, 0);
+            makeWall(BOARD_WIDTH - WALL_WIDTH_HEIGHT*4, WALL_WIDTH_HEIGHT*5, 4, 0);
+            drawButton(BOARD_WIDTH - WALL_WIDTH_HEIGHT*2, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*14, 1, 1);
+            drawButton(WALL_WIDTH_HEIGHT*2, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*8, 2, 2);
             
         }
-        else if(level == 2){
-            drawTeleporter(7*WALL_WIDTH_HEIGHT, BOARD_HEIGHT - 4*WALL_WIDTH_HEIGHT);
-            makeWall(6*WALL_WIDTH_HEIGHT, BOARD_HEIGHT - 5*WALL_WIDTH_HEIGHT, 3, 0);
-            makeWall(7*WALL_WIDTH_HEIGHT, BOARD_HEIGHT - 3*WALL_WIDTH_HEIGHT, 2, 0);
-            drawBox(8*WALL_WIDTH_HEIGHT, BOARD_HEIGHT - 4*WALL_WIDTH_HEIGHT);
-        }
+        
         else if(level ==3){
             
         }
@@ -783,6 +1000,32 @@ Crafty.c("CollisionDetection", {
                 this.move.down = false;
             }               
        })
+       
+       .onHit("button", function(e){
+           if(e[0].obj.type == 1 && e[0].obj.firstHit && level == 2){
+               socket.emit("pressed", e[0].obj.number, channelNumber);
+               e[0].obj.firstHit = false;
+           }
+       })
+       
+        .onHit("playerGate", function(e){
+            if(this.move.left) {
+                this.x = e[0].obj.x + e[0].obj.w;
+                this.move.left = false; 
+            }
+            else if(this.move.right){
+                this.x = e[0].obj.x - this.w;
+                this.move.right = false;
+            }
+            else if(this.move.up){
+                this.y = e[0].obj.y + e[0].obj.h;
+                this.move.up = false;
+            }
+            else if(this.move.down){
+                this.y = e[0].obj.y - this.h;
+                this.move.down = false;
+            } 
+        })
         .onHit("bouncybox", function(e){
             if(this.move.left){
                 this.x = e[0].obj.x + e[0].obj.w;
