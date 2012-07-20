@@ -1,0 +1,30 @@
+
+body {
+    padding: 0px 20px;
+}
+
+#game-area {
+    margin-top:50px;
+    position:relative;
+    width:1000px;
+}
+
+
+#chat-area {
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:1;
+}
+
+#data_received {
+    margin-bottom: 10px;
+    width:200px;
+    overflow:scroll;
+    height:700px;
+}
+
+#cr-stage {
+    float:right;
+    z-index:0;
+}
