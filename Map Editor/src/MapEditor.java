@@ -21,36 +21,47 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MapEditor extends JFrame {
-
+	
 	private static MapEditor mapEditor;
+	
+	private final int ROWS = 24;
+	private final int COLUMNS = 24;
+	private final int TILESIZE = 16;
+	
 	private JButton load, save, clear;
-	private MapTile mapTiles1[][] = new MapTile[24][24];
-	private MapTile mapTiles2[][] = new MapTile[24][24];
-	private MapTile black, blue, brown, cyan, gray, green, lightgreen,
-			lightred, orange, pink, puke, purple, red, white, yellow;
-	private Dimension dimension = new Dimension(384, 384);
+	private MapTile mapTiles1[][] = new MapTile[ROWS][COLUMNS];
+	private MapTile mapTiles2[][] = new MapTile[ROWS][COLUMNS];
+	private MapTile black, blue, brown, ccw_cyan, cw_cyan, gray, green, lightgreen,
+			lightred, orange, pink, puke, purple, red, down_yellow, up_yellow, 
+			right_yellow, left_yellow, white;
+	private Dimension dimension = new Dimension(ROWS*TILESIZE, COLUMNS*TILESIZE);
 	private Dimension paletteDimesion = new Dimension(150, 300);
 
-	public final int BLACK = 1;
-	public final int BLUE = 0;
-	public final int BROWN = 2;
-	public final int CYAN = 3;
-	public final int GRAY = 4;
-	public final int GREEN = 5;
-	public final int LIGHTGREEN = 6;
-	public final int LIGHTRED = 7;
-	public final int ORANGE = 8;
-	public final int PINK = 9;
-	public final int PUKE = 10;
-	public final int PURPLE = 11;
-	public final int RED = 12;
-	public final int YELLOW = 13;
-	public final int WHITE = 14;
+	public final int BACKGROUND = 0;
+	public final int BOX = 1;
+	public final int BALL_GATE = 2;
+	public final int CCWBOUNCY_BOX = 3;
+	public final int CWBOUNCY_BOX = 4;
+	public final int TELEPORTER = 5;
+	public final int PLAYER_2 = 6;
+	public final int PLAYER_BUTTON = 7;
+	public final int BOX_BUTTON = 8;
+	public final int GOAL = 9;
+	public final int PLAYER_GATE = 10;
+	public final int BALL_BUTTON = 11;
+	public final int BALL = 12;
+	public final int PLAYER_1 = 13;
+	public final int DOWN_MOVING_BOX = 14;
+	public final int UP_MOVING_BOX = 15;
+	public final int RIGHT_MOVING_BOX = 16;
+	public final int LEFT_MOVING_BOX = 17;
+	public final int PORTAL = 18;
 
 	public ImageIcon blackTile = new ImageIcon(getClass().getResource("/black.png"));
 	public ImageIcon blueTile = new ImageIcon(getClass().getResource("/blue.png"));
 	public ImageIcon brownTile = new ImageIcon(getClass().getResource("/brown.png"));
-	public ImageIcon cyanTile = new ImageIcon(getClass().getResource("/cyan.png"));
+	public ImageIcon clockwise_cyanTile = new ImageIcon(getClass().getResource("/clockwise_cyan.png"));
+	public ImageIcon counterClockwise_cyanTile = new ImageIcon(getClass().getResource("/counterClockwise_cyan.png"));
 	public ImageIcon grayTile = new ImageIcon(getClass().getResource("/gray.png"));
 	public ImageIcon greenTile = new ImageIcon(getClass().getResource("/green.png"));
 	public ImageIcon ltgreenTile = new ImageIcon(getClass().getResource("/lightgreen.png"));
@@ -60,22 +71,27 @@ public class MapEditor extends JFrame {
 	public ImageIcon pukeTile = new ImageIcon(getClass().getResource("/puke.png"));
 	public ImageIcon purpleTile = new ImageIcon(getClass().getResource("/purple.png"));
 	public ImageIcon redTile = new ImageIcon(getClass().getResource("/red.png"));
-	public ImageIcon yellowTile = new ImageIcon(getClass().getResource("/yellow.png"));
+	public ImageIcon down_yellowTile = new ImageIcon(getClass().getResource("/down_yellow.png"));
+	public ImageIcon left_yellowTile = new ImageIcon(getClass().getResource("/left_yellow.png"));
+	public ImageIcon right_yellowTile = new ImageIcon(getClass().getResource("/right_yellow.png"));
+	public ImageIcon up_yellowTile = new ImageIcon(getClass().getResource("/up_yellow.png"));
 	public ImageIcon whiteTile = new ImageIcon(getClass().getResource("/white.png"));
 	
 
 	private int brush = 0;
 	private JLabel currentBrush;
 
-	public int portal1 = 14;
-	public int counter1 = 1;
-	public int portal2 = 14;
-	public int counter2 = 1;
+	public double portalPairCounter1 = 0;
+	public double portalPairCounter2 = 0;
+	public int counter1 = 0;
+	public int counter2 = 0;
 
-	final JFileChooser saveChooser = new JFileChooser("C:/Users/Andrew/Desktop");
-	final JFileChooser loadChooser = new JFileChooser("C:/Users/Andrew/Desktop");
+	final JFileChooser saveChooser = new JFileChooser();
+	final JFileChooser loadChooser = new JFileChooser();
 	public File file;
 	public boolean loading = false;
+	public boolean reseting = false;
+	public boolean cleared = false;
 
 	public MapEditor() {
 		super("Map Editor");
@@ -83,12 +99,12 @@ public class MapEditor extends JFrame {
 		setLayout(new BorderLayout());
 
 		Container map1Contain = new Container();
-		map1Contain.setLayout(new GridLayout(24, 24));
+		map1Contain.setLayout(new GridLayout(ROWS, COLUMNS));
 		map1Contain.setPreferredSize(dimension);
 		add(map1Contain, BorderLayout.WEST);
 
 		Container map2Contain = new Container();
-		map2Contain.setLayout(new GridLayout(24, 24));
+		map2Contain.setLayout(new GridLayout(ROWS, COLUMNS));
 		map2Contain.setPreferredSize(dimension);
 		add(map2Contain, BorderLayout.EAST);
 
@@ -98,6 +114,7 @@ public class MapEditor extends JFrame {
 		paletteContain.setPreferredSize(paletteDimesion);
 		palettePanel.add(paletteContain);
 		currentBrush = new JLabel(blackTile);
+		currentBrush.setText("Box");
 		
 		JPanel centerPanel = new JPanel(new BorderLayout());
 		centerPanel.add(palettePanel, BorderLayout.CENTER);
@@ -122,9 +139,9 @@ public class MapEditor extends JFrame {
 
 		MapListener mapListener = new MapListener();
 
-		for (int x = 0; x < 24; x++) {
-			for (int y = 0; y < 24; y++) {
-				if (y == 0 || y == 23 || x == 0 || x == 23) {
+		for (int x = 0; x < ROWS; x++) {
+			for (int y = 0; y < COLUMNS; y++) {
+				if (y == 0 || y == COLUMNS - 1 || x == 0 || x == ROWS - 1) {
 					mapTiles1[y][x] = new MapTile(1, 1);
 					map1Contain.add(mapTiles1[y][x]);
 				} else {
@@ -133,7 +150,7 @@ public class MapEditor extends JFrame {
 					map1Contain.add(mapTiles1[y][x]);
 				}
 
-				if (y == 0 || y == 23 || x == 0 || x == 23) {
+				if (y == 0 || y == COLUMNS - 1 || x == 0 || x == ROWS - 1) {
 					mapTiles2[y][x] = new MapTile(1, 2);
 					map2Contain.add(mapTiles2[y][x]);
 				} else {
@@ -146,63 +163,79 @@ public class MapEditor extends JFrame {
 
 		PaletteListener paletteListener = new PaletteListener();
 
-		black = new MapTile(BLACK);
+		black = new MapTile(BOX);
 		black.addActionListener(paletteListener);
 		paletteContain.add(black);
 
-		blue = new MapTile(BLUE);
+		blue = new MapTile(BACKGROUND);
 		blue.addActionListener(paletteListener);
 		paletteContain.add(blue);
 
-		brown = new MapTile(BROWN);
+		brown = new MapTile(BALL_GATE);
 		brown.addActionListener(paletteListener);
 		paletteContain.add(brown);
 
-		cyan = new MapTile(CYAN);
-		cyan.addActionListener(paletteListener);
-		paletteContain.add(cyan);
+		ccw_cyan = new MapTile(CCWBOUNCY_BOX);
+		ccw_cyan.addActionListener(paletteListener);
+		paletteContain.add(ccw_cyan);
+		
+		cw_cyan = new MapTile(CWBOUNCY_BOX);
+		cw_cyan.addActionListener(paletteListener);
+		paletteContain.add(cw_cyan);
 
-		gray = new MapTile(GRAY);
+		gray = new MapTile(TELEPORTER);
 		gray.addActionListener(paletteListener);
 		paletteContain.add(gray);
 
-		green = new MapTile(GREEN);
+		green = new MapTile(PLAYER_2);
 		green.addActionListener(paletteListener);
 		paletteContain.add(green);
 
-		lightgreen = new MapTile(LIGHTGREEN);
+		lightgreen = new MapTile(PLAYER_BUTTON);
 		lightgreen.addActionListener(paletteListener);
 		paletteContain.add(lightgreen);
 
-		lightred = new MapTile(LIGHTRED);
+		lightred = new MapTile(BOX_BUTTON);
 		lightred.addActionListener(paletteListener);
 		paletteContain.add(lightred);
 
-		orange = new MapTile(ORANGE);
+		orange = new MapTile(GOAL);
 		orange.addActionListener(paletteListener);
 		paletteContain.add(orange);
 
-		pink = new MapTile(PINK);
+		pink = new MapTile(PLAYER_GATE);
 		pink.addActionListener(paletteListener);
 		paletteContain.add(pink);
 
-		puke = new MapTile(PUKE);
+		puke = new MapTile(BALL_BUTTON);
 		puke.addActionListener(paletteListener);
 		paletteContain.add(puke);
 
-		purple = new MapTile(PURPLE);
+		purple = new MapTile(BALL);
 		purple.addActionListener(paletteListener);
 		paletteContain.add(purple);
 
-		red = new MapTile(RED);
+		red = new MapTile(PLAYER_1);
 		red.addActionListener(paletteListener);
 		paletteContain.add(red);
 
-		yellow = new MapTile(YELLOW);
-		yellow.addActionListener(paletteListener);
-		paletteContain.add(yellow);
+		down_yellow = new MapTile(DOWN_MOVING_BOX);
+		down_yellow.addActionListener(paletteListener);
+		paletteContain.add(down_yellow);
 
-		white = new MapTile(WHITE);
+		up_yellow = new MapTile(UP_MOVING_BOX);
+		up_yellow.addActionListener(paletteListener);
+		paletteContain.add(up_yellow);
+		
+		right_yellow = new MapTile(RIGHT_MOVING_BOX);
+		right_yellow.addActionListener(paletteListener);
+		paletteContain.add(right_yellow);
+		
+		left_yellow = new MapTile(LEFT_MOVING_BOX);
+		left_yellow.addActionListener(paletteListener);
+		paletteContain.add(left_yellow);
+		
+		white = new MapTile(PORTAL);
 		white.addActionListener(paletteListener);
 		paletteContain.add(white);
 
@@ -213,26 +246,23 @@ public class MapEditor extends JFrame {
 	public static void main(String[] args) {
 		mapEditor = new MapEditor();
 		mapEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mapEditor.setSize(1000, 384);
+		mapEditor.setSize(1000, 500);
 		mapEditor.setResizable(false);
 		mapEditor.setVisible(true);
 	}
 
 	private void clearMaps() {
-		portal1 = 14;
-		counter1 = 1;
-		portal2 = 14;
-		counter2 = 1;
+		cleared = true;
 		
-		for (int x = 0; x < 24; x++) {
-			for (int y = 0; y < 24; y++) {
-				if (y == 0 || y == 23 || x == 0 || x == 23) {
+		for (int x = 0; x < ROWS; x++) {
+			for (int y = 0; y < COLUMNS; y++) {
+				if (y == 0 || y == COLUMNS - 1 || x == 0 || x == ROWS - 1) {
 					mapTiles1[y][x].setType(1);
 				} else {
 					mapTiles1[y][x].setType(0);
 				}
 
-				if (y == 0 || y == 23 || x == 0 || x == 23) {
+				if (y == 0 || y == COLUMNS - 1 || x == 0 || x == ROWS - 1) {
 					mapTiles2[y][x].setType(1);
 				} else {
 					mapTiles2[y][x].setType(0);
@@ -242,64 +272,81 @@ public class MapEditor extends JFrame {
 	}
 
 	private void setBrushPanel(){
+		
 		switch (brush) {
-		case 1:
+		case BACKGROUND:
+			currentBrush.setIcon(blueTile);
+			currentBrush.setText("Eraser");
+			break;
+		case BOX:
 			currentBrush.setIcon(blackTile);
 			currentBrush.setText("Box");
 			break;
-		case 0:
-			currentBrush.setIcon(blueTile);
-			currentBrush.setText("Nothing");
-			break;
-		case 2:
+		case BALL_GATE:
 			currentBrush.setIcon(brownTile);
 			currentBrush.setText("Ball Gate");
 			break;
-		case 3:
-			currentBrush.setIcon(cyanTile);
-			currentBrush.setText("Bouncy Box");
+		case CCWBOUNCY_BOX:
+			currentBrush.setIcon(counterClockwise_cyanTile);
+			currentBrush.setText("counterClockwise Bouncy Box");
 			break;
-		case 4:
+		case CWBOUNCY_BOX:
+			currentBrush.setIcon(clockwise_cyanTile);
+			currentBrush.setText("clockwise Bouncy Box");
+			break;
+		case TELEPORTER:
 			currentBrush.setIcon(grayTile);
 			currentBrush.setText("Teleporter");
 			break;
-		case 5:
+		case PLAYER_2:
 			currentBrush.setIcon(greenTile);
 			currentBrush.setText("Player 2");
 			break;
-		case 6:
+		case PLAYER_BUTTON:
 			currentBrush.setIcon(ltgreenTile);
 			currentBrush.setText("Player Button");
 			break;
-		case 7:
+		case BOX_BUTTON:
 			currentBrush.setIcon(ltredTile);
 			currentBrush.setText("Box Button");
 			break;
-		case 8:
+		case GOAL:
 			currentBrush.setIcon(orangeTile);
 			currentBrush.setText("Goal");
 			break;
-		case 9:
+		case PLAYER_GATE:
 			currentBrush.setIcon(pinkTile);
 			currentBrush.setText("Player Gate");
 			break;
-		case 10:
+		case BALL_BUTTON:
 			currentBrush.setIcon(pukeTile);
 			currentBrush.setText("Ball Button");
 			break;
-		case 11:
+		case BALL:
 			currentBrush.setIcon(purpleTile);
 			currentBrush.setText("Ball");
 			break;
-		case 12:
+		case PLAYER_1:
 			currentBrush.setIcon(redTile);
 			currentBrush.setText("Player 1");
 			break;
-		case 13:
-			currentBrush.setIcon(yellowTile);
-			currentBrush.setText("Moving Box");
+		case DOWN_MOVING_BOX:
+			currentBrush.setIcon(down_yellowTile);
+			currentBrush.setText("Down Moving Box");
 			break;
-		default:
+		case UP_MOVING_BOX:
+			currentBrush.setIcon(up_yellowTile);
+			currentBrush.setText("Up Moving Box");
+			break;
+		case RIGHT_MOVING_BOX:
+			currentBrush.setIcon(right_yellowTile);
+			currentBrush.setText("Right Moving Box");
+			break;
+		case LEFT_MOVING_BOX:
+			currentBrush.setIcon(left_yellowTile);
+			currentBrush.setText("Left Moving Box");
+			break;
+		case PORTAL:
 			currentBrush.setIcon(whiteTile);
 			currentBrush.setText("Portal");
 			break;
@@ -310,7 +357,7 @@ public class MapEditor extends JFrame {
 	private class PaletteListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			brush = ((MapTile) e.getSource()).getType();
+			brush = (int)(Math.floor(((MapTile) e.getSource()).getType()));
 			setBrushPanel();
 		}
 	}
@@ -337,14 +384,18 @@ public class MapEditor extends JFrame {
 				if (choice == JFileChooser.APPROVE_OPTION) {
 					file = saveChooser.getSelectedFile();
 
-					String[][] output1 = new String[24][24];
-					String[][] output2 = new String[24][24];
-					for (int i = 0; i < 24; i++) {
-						for (int j = 0; j < 24; j++) {
-							output1[j][i] = Integer.toString(mapTiles1[j][i]
-									.getType());
-							output2[j][i] = Integer.toString(mapTiles2[j][i]
-									.getType());
+					String[][] output1 = new String[ROWS][COLUMNS];
+					String[][] output2 = new String[ROWS][COLUMNS];
+					for (int i = 0; i < ROWS; i++) {
+						for (int j = 0; j < COLUMNS; j++) {
+							if(Math.floor(mapTiles1[j][i].getType()) == 18)
+								output1[j][i] = Double.toString(mapTiles1[j][i].getType());
+							else
+								output1[j][i] = Integer.toString((int)(mapTiles1[j][i].getType()));
+							if(Math.floor(mapTiles2[j][i].getType()) == 18)
+								output2[j][i] = Double.toString(mapTiles2[j][i].getType());
+							else
+								output2[j][i] = Integer.toString((int)(mapTiles2[j][i].getType()));
 						}
 					}
 
@@ -352,17 +403,10 @@ public class MapEditor extends JFrame {
 						if (!file.exists())
 							file.createNewFile();
 						PrintWriter out = new PrintWriter(new FileWriter(file));
-						out.print("[");
-						for (int i = 0; i < 24; i++) {
-							out.print("[");
-							for (int j = 0; j < 24; j++) {
-								if (j == 23) {
+						for (int i = 0; i < ROWS; i++) {
+							for (int j = 0; j < COLUMNS; j++) {
+								if (j == COLUMNS - 1) {
 									out.print(output1[j][i]);
-									out.print("]");
-									if(i != 23)
-										out.print(",");
-									else
-										out.print("]");
 								} else
 									out.print(output1[j][i] + ",");
 							}
@@ -370,17 +414,10 @@ public class MapEditor extends JFrame {
 						}
 
 						out.println();
-						out.print("[");
-						for (int x = 0; x < 24; x++) {
-							out.print("[");
-							for (int y = 0; y < 24; y++) {
-								if (y == 23) {
+						for (int x = 0; x < ROWS; x++) {
+							for (int y = 0; y < COLUMNS; y++) {
+								if (y == COLUMNS - 1) {
 									out.print(output2[y][x]);
-									out.print("]");
-									if(x != 23)
-										out.print(",");
-									else
-										out.print("]");
 								} else
 									out.print(output2[y][x] + ",");
 
@@ -403,31 +440,31 @@ public class MapEditor extends JFrame {
 					loading = true;
 					try {
 						input = readFile(file);
-						int index = input.indexOf("[[");
-						input = input.substring(index+1);
-						index = input.indexOf("]]");
-						input = input.substring(0, index) + input.substring(index + 1);
-						index = input.indexOf("[[");
-						input = input.substring(0, index-1) + input.substring(index+1);
-						index = input.indexOf("]]");
-						input = input.substring(0, index) + input.substring(index+1);
-						input = input.replace("[", ",").replace("]", ",");
 
+												
 						Scanner scanner = new Scanner(input);
 						scanner.useDelimiter(",");
 						
-						for (int i = 0; i < 24; i++) {
-							for (int j = 0; j < 24; j++) {
-								mapTiles1[j][i].setType(scanner.nextInt());
+						for (int i = 0; i < ROWS; i++) {
+							for (int j = 0; j < COLUMNS; j++) {
+								if(scanner.hasNextInt())
+									mapTiles1[j][i].setType(scanner.nextInt());
+								else if(scanner.hasNextDouble())
+									mapTiles1[j][i].setType(scanner.nextDouble());
+								else
+									scanner.nextLine();
 							}
-							scanner.nextLine();
 						}
 						scanner.nextLine();
-						for (int i = 0; i < 24; i++) {
-							for (int j = 0; j < 24; j++) {
-								mapTiles2[j][i].setType(scanner.nextInt());
+						for (int i = 0; i < ROWS; i++) {
+							for (int j = 0; j < COLUMNS; j++) {
+								if(scanner.hasNextInt())
+									mapTiles2[j][i].setType(scanner.nextInt());
+								else if(scanner.hasNextDouble())
+									mapTiles2[j][i].setType(scanner.nextDouble());
+								else
+									scanner.nextLine();
 							}
-							scanner.nextLine();
 						}
 						scanner.close();
 					} catch (IOException e1) {
@@ -454,113 +491,169 @@ public class MapEditor extends JFrame {
 			scanner.close();
 		}
 	}
+	
+	private void renumberPortals(int map, double oldType){
+		reseting = true;
+		if(map == 1){
+			for (int x = 1; x < ROWS - 1; x++) {
+				for (int y = 1; y < COLUMNS - 1; y++) {
+					if((int)(Math.floor(mapTiles1[y][x].getType())) == 18){
+						if(mapTiles1[y][x].getType() > oldType){
+							mapTiles1[y][x].setType(Math.round((mapTiles1[y][x].getType() - 0.001)*1000)/(double)1000);
+							portalPairCounter1--;
+							counter1 = 0;
+						}
+						else if(mapTiles1[y][x].getType() == oldType){
+							mapTiles1[y][x].setType(BACKGROUND);
+							counter1 = 0;
+						}
+					}
+				}
+			}
+			
+		}
+		else if(map == 2){
+			for (int x = 1; x < ROWS - 1; x++) {
+				for (int y = 1; y < COLUMNS - 1; y++) {
+					if((int)(Math.floor(mapTiles2[y][x].getType())) == 18){
+						if(mapTiles2[y][x].getType() > oldType){
+							mapTiles2[y][x].setType(Math.round((mapTiles2[y][x].getType() - 0.001)*1000)/(double)1000);
+							portalPairCounter2--;
+							counter2 = 0;
+						}
+						else if(mapTiles2[y][x].getType() == oldType){
+							mapTiles2[y][x].setType(BACKGROUND);
+							counter2 = 0;
+						}
+					}
+				}
+			}
+			
+		}
+		reseting =  false;
+	}
 
 	private class MapTile extends JButton {
+		
+		private double type;
+		private int map;
 
-		int type;
-		int map;
-
-		public MapTile(int type) {
+		public MapTile(double type) {
 			this.type = type;
 			setType(type);
 		}
 
-		public MapTile(int type, int map) {
+		public MapTile(double type, int map) {
 			this.type = type;
 			this.map = map;
 			setType(type);
 		}
 		
 
-		public void setType(int type) {
-			
-			this.type = type;
-
-			switch (type) {
-			case 1:
-				setIcon(blackTile);
-				break;
-			case 0:
-				setIcon(blueTile);
-				break;
-			case 2:
-				setIcon(brownTile);
-				break;
-			case 3:
-				setIcon(cyanTile);
-				break;
-			case 4:
-				setIcon(grayTile);
-				break;
-			case 5:
-				setIcon(greenTile);
-				break;
-			case 6:
-				setIcon(ltgreenTile);
-				break;
-			case 7:
-				setIcon(ltredTile);
-				break;
-			case 8:
-				setIcon(orangeTile);
-				break;
-			case 9:
-				setIcon(pinkTile);
-				break;
-			case 10:
-				setIcon(pukeTile);
-				break;
-			case 11:
-				setIcon(purpleTile);
-				break;
-			case 12:
-				setIcon(redTile);
-				break;
-			case 13:
-				setIcon(yellowTile);
-				break;
-			default:
-				setIcon(whiteTile);
-				if(loading = true){
-					if (map == 1) {
-						counter1++;
-						if (counter1 == 3) {
-							portal1++;
-							counter1 = 1;
-						}
-					}
-					if (map == 2) {
-						counter2++;
-						if (counter2 == 3) {
-							portal2++;
-							counter2 = 1;
-						}
-					}
-				}else{
-					if (map == 1) {
-						this.type = portal1;
-						counter1++;
-						if (counter1 == 3) {
-							portal1++;
-							counter1 = 1;
-						}
-					}
-					if (map == 2) {
-						this.type = portal2;
-						counter2++;
-						if (counter2 == 3) {
-							portal2++;
-							counter2 = 1;
-						}
-					}
-				}
+		public void setType(double type) {
+			if(reseting){
+				this.type = type;
+				if(type == 0)
+					setIcon(blueTile);
+				else
+					setIcon(whiteTile);
+			}
+			else{
+				//if what you click already is a portal, renumber the portals placed
+				if((int)(Math.floor(this.type)) == 18)
+					renumberPortals(this.map, this.type);
 				
-				break;
+				this.type = type;
+
+				switch ((int)(Math.floor(type))) {
+				case 1:
+					setIcon(blackTile);
+					break;
+				case 0:
+					setIcon(blueTile);
+					break;
+				case 2:
+					setIcon(brownTile);
+					break;
+				case 3:
+					setIcon(counterClockwise_cyanTile);
+					break;
+				case 4:
+					setIcon(clockwise_cyanTile);
+					break;
+				case 5:
+					setIcon(grayTile);
+					break;
+				case 6:
+					setIcon(greenTile);
+					break;
+				case 7:
+					setIcon(ltgreenTile);
+					break;
+				case 8:
+					setIcon(ltredTile);
+					break;
+				case 9:
+					setIcon(orangeTile);
+					break;
+				case 10:
+					setIcon(pinkTile);
+					break;
+				case 11:
+					setIcon(pukeTile);
+					break;
+				case 12:
+					setIcon(purpleTile);
+					break;
+				case 13:
+					setIcon(redTile);
+					break;
+				case 14:
+					setIcon(down_yellowTile);
+					break;
+				case 15:
+					setIcon(up_yellowTile);
+					break;
+				case 16:
+					setIcon(right_yellowTile);
+					break;
+				case 17:
+					setIcon(left_yellowTile);
+					break;
+				case 18:
+					setIcon(whiteTile);
+					if(cleared){
+						portalPairCounter1 = 0;
+						counter1 = 0;
+						portalPairCounter2 = 0;
+						counter2 = 0;
+						cleared = false;
+					}
+					if(this.map == 1){
+						if(!loading)
+							this.type = this.type + (portalPairCounter1 * (0.001));
+						counter1++;
+						if(counter1 == 2){
+							counter1 = 0;
+							portalPairCounter1++;
+						}
+					}
+					else if(this.map == 2){
+						if(!loading)
+							this.type = this.type + (portalPairCounter2 * (0.001));
+						counter2++;
+						if(counter2 == 2){
+							counter2 = 0;
+							portalPairCounter2++;
+						}
+					}
+					break;
+				}
 			}
 		}
 		
 
-		public int getType() {
+		public double getType() {
 			return type;
 		}
 	}
