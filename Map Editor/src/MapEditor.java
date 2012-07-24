@@ -407,20 +407,23 @@ public class MapEditor extends JFrame {
 							for (int j = 0; j < COLUMNS; j++) {
 								if (j == COLUMNS - 1) {
 									out.print(output1[j][i]);
+									if(i != ROWS - 1)
+										out.print(":");
 								} else
 									out.print(output1[j][i] + ",");
 							}
 							out.println();
 						}
 
-						out.println();
+						out.println("&");
 						for (int x = 0; x < ROWS; x++) {
 							for (int y = 0; y < COLUMNS; y++) {
 								if (y == COLUMNS - 1) {
 									out.print(output2[y][x]);
+									if(x != ROWS - 1)
+										out.print(":");
 								} else
 									out.print(output2[y][x] + ",");
-
 							}
 							out.println();
 						}
