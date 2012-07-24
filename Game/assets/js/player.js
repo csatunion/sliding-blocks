@@ -136,6 +136,73 @@ Crafty.c("CollisionDetection", {
 			}
 
 		});
+		
+		this.onHit("CCWBouncyBox", function() {
+
+			this.move.left = this.move.right = this.move.up = this.move.down = false;
+
+			for (var i = 1; i <= this._speed; i++) {
+				this.x += i;
+				if (this.hit("CCWBouncyBox") != false) {
+					this.x -= i;
+					this.x -= i;
+					if (this.hit("CCWBouncyBox") != false) {
+						this.x += i;
+						this.y -= i;
+						if (this.hit("CCWBouncyBox") != false) {
+							this.y += i;
+							this.y += i;
+							if (this.hit("CCWBouncyBox") != false) {
+								this.y -= i;
+							} else {
+								i = this._speed + 1;
+							}
+						} else {
+							i = this._speed + 1;
+						}
+					} else {
+						i = this._speed + 1;
+					}
+				} else {
+					i = this._speed + 1;
+				}
+			}
+
+		});
+		
+		this.onHit("CWBouncyBox", function() {
+
+			this.move.left = this.move.right = this.move.up = this.move.down = false;
+
+			for (var i = 1; i <= this._speed; i++) {
+				this.x += i;
+				if (this.hit("CWBouncyBox") != false) {
+					this.x -= i;
+					this.x -= i;
+					if (this.hit("CWBouncyBox") != false) {
+						this.x += i;
+						this.y -= i;
+						if (this.hit("CWBouncyBox") != false) {
+							this.y += i;
+							this.y += i;
+							if (this.hit("CWBouncyBox") != false) {
+								this.y -= i;
+							} else {
+								i = this._speed + 1;
+							}
+						} else {
+							i = this._speed + 1;
+						}
+					} else {
+						i = this._speed + 1;
+					}
+				} else {
+					i = this._speed + 1;
+				}
+			}
+
+		});
+		
 
 		this.onHit("PlayerButton", function(e) {
 			if (e[0].obj.firstHit) {
@@ -149,16 +216,16 @@ Crafty.c("CollisionDetection", {
 
 			for (var i = 1; i <= this._speed; i++) {
 				this.x += i;
-				if (this.hit("Box") != false) {
+				if (this.hit("PlayerGate") != false) {
 					this.x -= i;
 					this.x -= i;
-					if (this.hit("Box") != false) {
+					if (this.hit("PlayerGate") != false) {
 						this.x += i;
 						this.y -= i;
-						if (this.hit("Box") != false) {
+						if (this.hit("PlayerGate") != false) {
 							this.y += i;
 							this.y += i;
-							if (this.hit("Box") != false) {
+							if (this.hit("PlayerGate") != false) {
 								this.y -= i;
 							} else {
 								i = this._speed + 1;

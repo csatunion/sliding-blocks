@@ -116,7 +116,7 @@ Crafty.c("BallCollision", {
 			}
 		});
 
-		this.onHit("BouncyBox", function(e) {
+		this.onHit("CWBouncyBox", function(e) {
 			if (this.move.left) {
 				this.x = e[0].obj.x + e[0].obj.w;
 				this.move.left = false;
@@ -133,6 +133,26 @@ Crafty.c("BallCollision", {
 				this.y = e[0].obj.y - this.h;
 				this.move.down = false;
 				this.move.left = true;
+			}
+		});
+		
+		this.onHit("CCWBouncyBox", function(e) {
+			if (this.move.left) {
+				this.x = e[0].obj.x + e[0].obj.w;
+				this.move.left = false;
+				this.move.down = true;
+			} else if (this.move.right) {
+				this.x = e[0].obj.x - this.w;
+				this.move.right = false;
+				this.move.up = true;
+			} else if (this.move.up) {
+				this.y = e[0].obj.y + e[0].obj.h;
+				this.move.up = false;
+				this.move.left = true;
+			} else if (this.move.down) {
+				this.y = e[0].obj.y - this.h;
+				this.move.down = false;
+				this.move.right = true;
 			}
 		});
 
@@ -228,16 +248,12 @@ Crafty.c("BallCollision", {
 
 			socket.emit("teleport", e[0].obj.x, e[0].obj.y, direction, channelNumber);
 			this.destroy();
-		})
+		});
 
 		this.onHit('Goal', function() {
+			socket.emit("alertOtherPlayer", channelNumber);
 			level++;
-			socket.emit("nextLevel", channelNumber);
-			if (level == MAXLEVEL) {
-				Crafty.scene("end");
-			} else {
-				Crafty.scene("level");
-			}
-		})
+			socket.emit("nextLevel", level, playerNumber, channelNumber);
+		});
 	}
 });

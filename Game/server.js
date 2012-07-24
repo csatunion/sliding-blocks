@@ -39,24 +39,69 @@ io.sockets.on('connection', function(socket){
     });
     
     socket.on("boxButtonpressed", function(number, channel){
-        socket.broadcast.to(channel).emit("boxButton", number);    
+        io.sockets.to(channel).emit("boxButton", number);    
     });
     
-    socket.on("ballButtonpressed", function(number, channel){
-        socket.broadcast.to(channel).emit("ballButton", number);    
+    socket.on("ballButtonPressed", function(number, channel){
+        io.sockets.to(channel).emit("ballButton", number);    
     });
     
     socket.on("playerButtonpressed", function(number, channel){
-        socket.broadcast.to(channel).emit("playerButton", number);    
+        io.sockets.to(channel).emit("playerButton", number);    
     });
     
-    socket.on("nextLevel", function(channel){
-        socket.broadcast.to(channel).emit("advance");
+    socket.on("alertOtherPlayer", function(channel){
+    	socket.broadcast.to(channel).emit("alertOtherPlayer");
     });
+    
+    socket.on("nextLevel", function(level, playerNumber, channel){
+    	var map1;
+    	var map2;
+    	var level = __dirname + "\\levels\\level_" + level + ".txt";
+    	
+    	fs.readFile(level, 'ascii', function(err, data) {
+			if (err) {
+				io.sockets.to(channel).emit("advance", -1);
+			}
+			else{
+				data = data.split('&');
+				data[0] = data[0].split(":");
+				for(var i = 0; i < data[0].length; i++){
+					data[0][i] = data[0][i].split(",");
+				}
+				
+				map1 = data[0];
+				
+			
+				data[1] = data[1].split(":");
+				for(var i = 0; i < data[1].length; i++){
+					data[1][i] = data[1][i].split(",");
+				}
+			
+				map2 = data[1];
+			
+				if(playerNumber == 1){
+					//player 1
+					socket.to(channel).emit("advance", map1);
+			
+					//player 2
+					socket.broadcast.to(channel).emit("advance", map2);
+				} 
+				else{
+					//player 1
+					socket.broadcast.to(channel).emit("advance", map1);
+				
+					//player 2
+					socket.to(channel).emit("advance", map2);
+				}
+			}
+		});
+	});
+    
     
     socket.on("restartLevel", function(channel){
     	io.sockets.to(channel).emit("restart");
-    })
+    });
     
     //send position to the other player to tell them where the block teleported to
     socket.on("teleport", function(x, y, direction, channel){

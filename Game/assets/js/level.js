@@ -1,6 +1,6 @@
 //level attributes
 var level = 1;                                              
-var MAXLEVEL = 2;
+var currentMap;
     
 Crafty.scene('loading', function(){
         
@@ -44,11 +44,42 @@ Crafty.scene('loading', function(){
                                        .css({"text-align": "center", "color":"#fff"});
     });
     
+//the main game scene
 Crafty.scene("main", function() {
-    drawLevel();
+	if(playerNumber == 1)
+		socket.emit('nextLevel', level, playerNumber, channelNumber);
+	
+	//triggers to notify the players to move to the next level
+	//passes them the level they need to draw as data
+    socket.on("advance", function(data){
+    	if(data == -1){
+    		Crafty.scene("end");
+    	}
+    	else{
+    		currentMap = data;
+       	    Crafty.scene("level");
+        }
+    });
+    
+    //triggers to notify the player tha their partner finished the level (they both move on to the next level)
+    socket.on("alertOtherPlayer", function(){
+    	level++;
+    	//go to a between level screen
+    });
+    
+    //triggers when the players need to restart the level
+    socket.on("restart", function(){
+    	logTime();
+    	log += " level " + level + " restarted";
+    	Crafty.scene("level");
+    });
+        
+    //tells the player that the other player left the game
+    socket.on("playerLeft", function(message){
+        alert(message); 
+    });
     
     //drops a block at given position
-    //NOTE: server will only ever send this to player 1
     socket.on('dropBlock', function(xpos, ypos){
         //place the block at the received location
         placeBlock(xpos, ypos);
@@ -65,13 +96,6 @@ Crafty.scene("main", function() {
         log += " block placed at (" + xpos + "," + ypos + ")"
     });
         
-    //logs the position of player 2
-    //NOTE: server will only ever send this to player 1
-    socket.on("logPosition", function(x, y){
-        logTime();
-        log += " player2: position = (" + x + "," + y + ")";
-    });
-        
     //triggers when the ball is teleported to your side of the screen
     socket.on("teleported", function(x, y, direction){
         box = drawBall(x, y);
@@ -84,42 +108,36 @@ Crafty.scene("main", function() {
         else if(direction == "down")
             box.move.down = true;
     });
-        
+    
+    //triggers when a box button is pressed
 	socket.on("boxButton", function(buttonNumber){
     	alert("box button pressed");
     	//add in the effect you want the button to have for that level
     	
     });
     
+    //triggers when a ball button is pressed
     socket.on("ballButton", function(buttonNumber){
-    	alert("ball button pressed");
     	//add in the effect you want the button to have for that level
-    	
+    	if(playerNumber == 2){
+    		if(level == 1){
+    			drawBox(WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7);
+    			drawBox(BOARD_WIDTH - WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7);
+    		}
+    	}
     });
     
+    //triggers when a player button is pressed
     socket.on("playerButton", function(buttonNumber){
     	alert("player button pressed");
     	//add in the effect you want the button to have for that level
     	
     });
     
-    socket.on("restart", function(){
-    	logTime();
-    	log += " level " + level + " restarted";
-    	Crafty.scene("level");
-    });
-        
-    socket.on("advance", function(){
-        level++;
-        if(level == MAXLEVEL)
-            Crafty.scene("end");
-        else
-            Crafty.scene("level");
-    });
-        
-    //tells the player that the other player left the game
-    socket.on("playerLeft", function(message){
-        alert(message); 
+    //logs the position of player 2
+    socket.on("logPosition", function(x, y){
+        logTime();
+        log += " player2: position = (" + x + "," + y + ")";
     });
         
     //sends message in input box to server when you hit enter
@@ -149,12 +167,19 @@ Crafty.scene("main", function() {
     });
 });
 
+//generic level scene, main scene is only called once then afterwards only level is called
+//this means you don't create duplicate socket listeners
 Crafty.scene("level", function(){
+	
+	//initializes all obstacle variables to empty
 	blocksPlaced = [];
    	portals1 = [];
     portals2 = [];
+    
 	drawLevel();
 	
+	//sends message in input box to server when you hit enter
+    //resets the input box
 	$('#msg').keyup(function(key){
         if(key.which == 13){
 	        var message = $('#msg').val();
@@ -164,6 +189,7 @@ Crafty.scene("level", function(){
     });
 });
 
+//the victory screen
 Crafty.scene("end", function(){
 	//logs that you won
     logTime();
@@ -191,12 +217,16 @@ function drawBall(xpos, ypos){
     return ball;
 }
 
-function drawMovingBox(xpos, ypos){
-    var movingBox = Crafty.e("MovingBox").movingbox(xpos, ypos);
+function drawMovingBox(xpos, ypos, direction){
+    var movingBox = Crafty.e("MovingBox").movingbox(xpos, ypos, direction);
 }
 
-function drawBouncyBox(xpos, ypos){
-    var bouncyBox = Crafty.e("BouncyBox").bouncybox(xpos, ypos);
+function drawCCWBouncyBox(xpos, ypos){
+    var bouncyBox = Crafty.e("CCWBouncyBox").ccwbouncybox(xpos, ypos);
+}
+
+function drawCWBouncyBox(xpos, ypos){
+    var bouncyBox = Crafty.e("CWBouncyBox").cwbouncybox(xpos, ypos);
 }
 
 function drawBallGate(xpos, ypos){
@@ -235,125 +265,14 @@ function placeGoal(xpos, ypos){
 function drawLevel(){
 	Crafty.background("blue");
 	var player = Crafty.e("Player").player(playerNumber);
-	var map;
-	
-	if(playerNumber == 1){
-		if(level == 1){
-			map = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,1,0,0,0,13,0,0,0,0,1,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
-		}
-		else if(level == 2){
-			map = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,0,0,0,8,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,15,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
-		}
-	}
-	else{
-		if(level == 1){
-			map = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
-		}
-		else if(level == 2){
-			map = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
-		}
-	}
-	
-		   
+			   
 	var playerButtonNumber = 0;
 	var boxButtonNumber = 0;
 	var ballButtonNumber = 0;
-		   
+	var map = currentMap;
 	for(var row = 0; row < ROWS; row++){
 		for(var column = 0; column < COLUMNS; column++){
-			switch(map[column][row]){
+			switch(Math.floor(parseFloat(map[column][row]))){
 				case 0:{
 					break;
 				}
@@ -368,70 +287,91 @@ function drawLevel(){
 				}
 				//cyan
 				case 3:{
-					drawBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					drawCCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					break;
+				}
+				//cyan
+				case 4:{
+					drawCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//gray
-				case 4:{
+				case 5:{
 					drawTeleporter(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//green
-				case 5:{
+				case 6:{
 					if(playerNumber == 2)
 						player.setPosition(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//light green
-				case 6:{
+				case 7:{
 					drawPlayerButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, playerButtonNumber);
 					playerButtonNumber++;
 					break;
 				}
 				//light red
-				case 7:{
+				case 8:{
 					drawBoxButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, boxButtonNumber);
 					boxButtonNumber++;
 					break;
 				}
 				//orange
-				case 8:{
+				case 9:{
 					placeGoal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//pink
-				case 9:{
+				case 10:{
 					drawPlayerGate(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//puke
-				case 10:{
+				case 11:{
 					drawBallButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, ballButtonNumber);
 					ballButtonNumber++;
 					break;
 				}
 				//purple
-				case 11:{
+				case 12:{
 					drawBall(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//red
-				case 12:{
+				case 13:{
 					if(playerNumber == 1)
 						player.setPosition(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//yellow
-				case 13:{
-					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				case 14:{
+					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 270);
+					break;
+				}
+				//yellow
+				case 15:{
+					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 90);
+					break;
+				}
+				//yellow
+				case 16:{
+					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 0);
+					break;
+				}
+				//yellow
+				case 17:{
+					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 180);
 					break;
 				}
 				//white
-				default:{
-					if(portals1[(map[column][row] - 14)] == null)
-						portals1[(map[column][row] - 14)] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				case 18:{
+					var index = Math.round((parseFloat(map[column][row]) - 18)*1000)/1000;
+					if(portals1[index] == null)
+						portals1[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					else
-						portals2[(map[column][row] - 14)] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+						portals2[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 			}

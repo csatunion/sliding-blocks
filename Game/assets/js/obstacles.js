@@ -16,9 +16,8 @@ Crafty.c("Box", {
 
 		this.onHit("BoxButton", function(e) {
 			if (e[0].obj.firstHit) {
-				alert("hit");
-				socket.emit("boxButtonPressed", e[0].obj.number, channelNumber);
 				e[0].obj.firstHit = false;
+				socket.emit("boxButtonPressed", e[0].obj.number, channelNumber);
 			}
 		});
 
@@ -34,14 +33,14 @@ Crafty.c("MovingBox", {
 		this.requires("2D, DOM, Color, Collision");
 	},
 
-	movingbox : function(xpos, ypos) {
+	movingbox : function(xpos, ypos, direction) {
 		this.attr({
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
 			h : WALL_WIDTH_HEIGHT,
 			move : {
-				left : true,
+				left : false,
 				right : false,
 				up : false,
 				down : false
@@ -81,7 +80,7 @@ Crafty.c("MovingBox", {
 			}
 		});
 
-		this.onHit("BouncyBox", function() {
+		this.onHit("CWBouncyBox", function(e) {
 			if (this.move.left) {
 				this.x = e[0].obj.x + e[0].obj.w;
 				this.move.left = false;
@@ -100,29 +99,71 @@ Crafty.c("MovingBox", {
 				this.move.left = true;
 			}
 		});
+		
+		this.onHit("CCWBouncyBox", function(e) {
+			if (this.move.left) {
+				this.x = e[0].obj.x + e[0].obj.w;
+				this.move.left = false;
+				this.move.down = true;
+			} else if (this.move.right) {
+				this.x = e[0].obj.x - this.w;
+				this.move.right = false;
+				this.move.up = true;
+			} else if (this.move.up) {
+				this.y = e[0].obj.y + e[0].obj.h;
+				this.move.up = false;
+				this.move.left = true;
+			} else if (this.move.down) {
+				this.y = e[0].obj.y - this.h;
+				this.move.down = false;
+				this.move.right = true;
+			}
+		});
+		
+		this._setStartDirection(direction)
 
 		return this;
 	},
 
 	_setStartDirection : function(startDirection) {
-		if (startDirection == "left")
+		if (startDirection == 180)
 			this.move.left = true;
-		else if (startDirection == "right")
+		else if (startDirection == 0)
 			this.move.right = true;
-		else if (startDirection == "up")
+		else if (startDirection == 90)
 			this.move.up = true;
-		else if (startDirection == "down")
+		else if (startDirection == 270)
 			this.move.down = true;
 	}
 });
 
-Crafty.c("BouncyBox", {
+Crafty.c("CCWBouncyBox", {
 
 	init : function() {
 		this.requires("2D, DOM, Color");
 	},
 
-	bouncybox : function(xpos, ypos) {
+	ccwbouncybox : function(xpos, ypos) {
+		this.attr({
+			x : xpos,
+			y : ypos,
+			w : WALL_WIDTH_HEIGHT,
+			h : WALL_WIDTH_HEIGHT
+		});
+
+		this.color("cyan");
+
+		return this;
+	}
+});
+
+Crafty.c("CWBouncyBox", {
+
+	init : function() {
+		this.requires("2D, DOM, Color");
+	},
+
+	cwbouncybox : function(xpos, ypos) {
 		this.attr({
 			x : xpos,
 			y : ypos,
