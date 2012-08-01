@@ -1,7 +1,9 @@
 //level attributes
 var level = 1;                                              
 var currentMap;
-    
+var buttonEffects = [];
+var buttonActivators = [];
+
 Crafty.scene('loading', function(){
         
     //load wall/block image
@@ -110,21 +112,28 @@ Crafty.scene("main", function() {
     });
     
     //triggers when a box button is pressed
-	socket.on("boxButton", function(buttonNumber){
-    	alert("box button pressed");
-    	//add in the effect you want the button to have for that level
+	socket.on("boxButton", function(buttonNumber, activated, firstHit){
+		if(playerNumber == 1){
+			if(level == 1){
+				if(activated == true && firstHit == true){
+					buttonEffects.push(drawCCWBouncyBox(WALL_WIDTH_HEIGHT*13, WALL_WIDTH_HEIGHT*9));
+				}
+    			else{
+    				if(buttonEffects.length > 0){
+    					buttonEffects[0].destroy();
+    					buttonEffects = [];
+    				}
+    			}
+    		}
+		}
+    	
     	
     });
     
     //triggers when a ball button is pressed
     socket.on("ballButton", function(buttonNumber){
     	//add in the effect you want the button to have for that level
-    	if(playerNumber == 2){
-    		if(level == 1){
-    			drawBox(WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7);
-    			drawBox(BOARD_WIDTH - WALL_WIDTH_HEIGHT, BOARD_HEIGHT - WALL_WIDTH_HEIGHT*7);
-    		}
-    	}
+    	
     });
     
     //triggers when a player button is pressed
@@ -132,6 +141,10 @@ Crafty.scene("main", function() {
     	alert("player button pressed");
     	//add in the effect you want the button to have for that level
     	
+    });
+    
+    socket.on("boxHitSomething", function(){
+    	alert("The block you dropped hit your partner or the ball. Try not to do that.")
     });
     
     //logs the position of player 2
@@ -184,7 +197,7 @@ Crafty.scene("level", function(){
         if(key.which == 13){
 	        var message = $('#msg').val();
             socket.emit('sendMessage', message, channelNumber);
-            $('#msg').val("blah");
+            $('#msg').val("");
         }
     });
 });
@@ -204,7 +217,16 @@ Crafty.scene("end", function(){
 
 function placeBlock(xpos, ypos){
 	var box = drawBox(xpos, ypos);
-	blocksPlaced.push(box);
+	if(box.hit("Player") != false){
+		socket.emit("boxHitSomething", channelNumber);
+		box.destroy();
+	}
+	else if(box.hit("Ball") != false){
+		socket.emit("boxHitSomething", channelNumber);
+		box.destroy();
+	}
+	else
+		blocksPlaced.push(box);
 }
 
 function drawBox(xpos, ypos){
@@ -219,38 +241,47 @@ function drawBall(xpos, ypos){
 
 function drawMovingBox(xpos, ypos, direction){
     var movingBox = Crafty.e("MovingBox").movingbox(xpos, ypos, direction);
+    return movingbox;
 }
 
 function drawCCWBouncyBox(xpos, ypos){
     var bouncyBox = Crafty.e("CCWBouncyBox").ccwbouncybox(xpos, ypos);
+    return bouncyBox;
 }
 
 function drawCWBouncyBox(xpos, ypos){
     var bouncyBox = Crafty.e("CWBouncyBox").cwbouncybox(xpos, ypos);
+    return bouncyBox;
 }
 
 function drawBallGate(xpos, ypos){
 	var ballGate = Crafty.e("BallGate").ballgate(xpos, ypos);
+	return ballGate;
 }
 
 function drawPlayerGate(xpos, ypos){
 	var playerGate = Crafty.e("PlayerGate").playergate(xpos, ypos);
+	return playerGate;
 }
 
 function drawBallButton(xpos, ypos, buttonNumber){
 	var ballButton = Crafty.e("BallButton").ballbutton(xpos, ypos, buttonNumber);
+	return ballButton;
 }
 
 function drawPlayerButton(xpos, ypos, buttonNumber){
 	var playerButton = Crafty.e("PlayerButton").playerbutton(xpos, ypos, buttonNumber);
+	return playerButton;
 }
 
 function drawBoxButton(xpos, ypos, buttonNumber){
 	var boxButton = Crafty.e("BoxButton").boxbutton(xpos, ypos, buttonNumber);
+	return boxButton;
 }
 
 function drawTeleporter(xpos, ypos){
     var teleporter = Crafty.e("Teleporter").teleporter(xpos, ypos);
+    return teleporter;
 }
 
 function drawPortal(xpos, ypos){
@@ -260,6 +291,7 @@ function drawPortal(xpos, ypos){
 
 function placeGoal(xpos, ypos){
 	var goal = Crafty.e("Goal").goal(xpos, ypos);
+	return goal;
 }
 
 function drawLevel(){
@@ -367,7 +399,7 @@ function drawLevel(){
 				}
 				//white
 				case 18:{
-					var index = Math.round((parseFloat(map[column][row]) - 18)*1000)/1000;
+					var index = Math.round((parseFloat(map[column][row]) - 18)*1000);
 					if(portals1[index] == null)
 						portals1[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					else

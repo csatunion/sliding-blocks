@@ -3,7 +3,8 @@ var socket = io.connect("http://localhost:4000");
 //game attributes
 var WIDTH  = 768;                                           
 var HEIGHT = 768;                                           
-var WALL_WIDTH_HEIGHT = 32;                               	
+var WALL_WIDTH_HEIGHT = 32;      
+                         	
 var ROWS = WIDTH/WALL_WIDTH_HEIGHT;
 var COLUMNS = HEIGHT/WALL_WIDTH_HEIGHT;
 var BOARD_WIDTH  = WIDTH - WALL_WIDTH_HEIGHT;               
@@ -25,7 +26,7 @@ var time;
 
 
 window.onload = function(){
-	Crafty.init(768, 768);
+	Crafty.init(WIDTH, HEIGHT);
 	Crafty.scene("loading");    
 }
 

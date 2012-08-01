@@ -120,19 +120,19 @@ Crafty.c("BallCollision", {
 			if (this.move.left) {
 				this.x = e[0].obj.x + e[0].obj.w;
 				this.move.left = false;
-				this.move.up = true;
+				this.move.down  = true;
 			} else if (this.move.right) {
 				this.x = e[0].obj.x - this.w;
 				this.move.right = false;
-				this.move.down = true;
+				this.move.up = true;
 			} else if (this.move.up) {
 				this.y = e[0].obj.y + e[0].obj.h;
 				this.move.up = false;
-				this.move.right = true;
+				this.move.left = true;
 			} else if (this.move.down) {
 				this.y = e[0].obj.y - this.h;
 				this.move.down = false;
-				this.move.left = true;
+				this.move.right = true;
 			}
 		});
 		
@@ -140,19 +140,19 @@ Crafty.c("BallCollision", {
 			if (this.move.left) {
 				this.x = e[0].obj.x + e[0].obj.w;
 				this.move.left = false;
-				this.move.down = true;
+				this.move.up = true;
 			} else if (this.move.right) {
 				this.x = e[0].obj.x - this.w;
 				this.move.right = false;
-				this.move.up = true;
+				this.move.down = true;
 			} else if (this.move.up) {
 				this.y = e[0].obj.y + e[0].obj.h;
 				this.move.up = false;
-				this.move.left = true;
+				this.move.right = true;
 			} else if (this.move.down) {
 				this.y = e[0].obj.y - this.h;
 				this.move.down = false;
-				this.move.right = true;
+				this.move.left = true;
 			}
 		});
 
@@ -165,7 +165,6 @@ Crafty.c("BallCollision", {
 			} else {
 				connectingPortal = portals2[connectingPortal];
 			}
-
 			if (this.move.left) {
 				this.x = connectingPortal.x - connectingPortal.w;
 				this.y = connectingPortal.y;

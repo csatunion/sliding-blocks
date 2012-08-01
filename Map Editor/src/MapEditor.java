@@ -88,6 +88,8 @@ public class MapEditor extends JFrame {
 
 	final JFileChooser saveChooser = new JFileChooser();
 	final JFileChooser loadChooser = new JFileChooser();
+	
+	
 	public File file;
 	public boolean loading = false;
 	public boolean reseting = false;
@@ -440,6 +442,7 @@ public class MapEditor extends JFrame {
 					file = loadChooser.getSelectedFile();
 
 					String input;
+					clearMaps();
 					loading = true;
 					try {
 						input = readFile(file);

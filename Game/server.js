@@ -38,16 +38,20 @@ io.sockets.on('connection', function(socket){
         }
     });
     
-    socket.on("boxButtonpressed", function(number, channel){
-        io.sockets.to(channel).emit("boxButton", number);    
+    socket.on("boxButtonPressed", function(number, activated, firstHit, channel){
+        io.sockets.to(channel).emit("boxButton", number, activated, firstHit);    
     });
     
-    socket.on("ballButtonPressed", function(number, channel){
-        io.sockets.to(channel).emit("ballButton", number);    
+    socket.on("ballButtonPressed", function(number, activated, channel){
+        io.sockets.to(channel).emit("ballButton", number, activated);    
     });
     
-    socket.on("playerButtonpressed", function(number, channel){
-        io.sockets.to(channel).emit("playerButton", number);    
+    socket.on("playerButtonPressed", function(number, activated, channel){
+        io.sockets.to(channel).emit("playerButton", number, activated);    
+    });
+    
+    socket.on("boxHitSomething", function(channel){
+    	socket.broadcast.to(channel).emit("boxHitSomething");
     });
     
     socket.on("alertOtherPlayer", function(channel){
@@ -57,14 +61,17 @@ io.sockets.on('connection', function(socket){
     socket.on("nextLevel", function(level, playerNumber, channel){
     	var map1;
     	var map2;
-    	var level = __dirname + "\\levels\\level_" + level + ".txt";
+    	var level = __dirname + "/levels/level_" + level + ".txt";
     	
     	fs.readFile(level, 'ascii', function(err, data) {
+    		//if all levels complete
 			if (err) {
 				io.sockets.to(channel).emit("advance", -1);
 			}
+			//if all levels not complete
 			else{
 				data = data.split('&');
+				
 				data[0] = data[0].split(":");
 				for(var i = 0; i < data[0].length; i++){
 					data[0][i] = data[0][i].split(",");
@@ -81,23 +88,16 @@ io.sockets.on('connection', function(socket){
 				map2 = data[1];
 			
 				if(playerNumber == 1){
-					//player 1
 					socket.to(channel).emit("advance", map1);
-			
-					//player 2
 					socket.broadcast.to(channel).emit("advance", map2);
 				} 
 				else{
-					//player 1
 					socket.broadcast.to(channel).emit("advance", map1);
-				
-					//player 2
 					socket.to(channel).emit("advance", map2);
 				}
 			}
 		});
 	});
-    
     
     socket.on("restartLevel", function(channel){
     	io.sockets.to(channel).emit("restart");
@@ -110,12 +110,12 @@ io.sockets.on('connection', function(socket){
 
     //send position to partner to tell them where to place a block
     socket.on('sendPos', function(x, y, channel){
-        socket.broadcast.to(channel).emit('dropBlock', x, y);   //transmit new position to partner
+        socket.broadcast.to(channel).emit('dropBlock', x, y); 
     });
 
     //sends message transmitted from one client to other client in the same channel
     socket.on('sendMessage', function(incomingMessage, channel){
-        io.sockets.to(channel).emit('newMessage', socket.username, incomingMessage); //send to partner in the same channel
+        io.sockets.to(channel).emit('newMessage', socket.username, incomingMessage);
     });
     
     //sends the position of player two to player one to write into the log

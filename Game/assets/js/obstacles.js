@@ -13,14 +13,7 @@ Crafty.c("Box", {
 			w : WALL_WIDTH_HEIGHT,
 			h : WALL_WIDTH_HEIGHT
 		});
-
-		this.onHit("BoxButton", function(e) {
-			if (e[0].obj.firstHit) {
-				e[0].obj.firstHit = false;
-				socket.emit("boxButtonPressed", e[0].obj.number, channelNumber);
-			}
-		});
-
+		
 		return this;
 	}
 });
@@ -267,7 +260,7 @@ Crafty.c("PlayerButton", {
 Crafty.c("BoxButton", {
 
 	init : function() {
-		this.requires("2D, DOM, Color");
+		this.requires("2D, DOM, Color, Collision");
 	},
 
 	boxbutton : function(xpos, ypos, buttonNumber) {
@@ -282,7 +275,23 @@ Crafty.c("BoxButton", {
 		});
 
 		this.color("#cc6666");
-
+		
+		this.bind("EnterFrame", function(){
+			if(this.hit("Box") != false){
+				this.activated = true;
+				if(this.firstHit == true)
+					socket.emit("boxButtonPressed", this.number, this.activated, this.firstHit, channelNumber);
+				this.firstHit = false;
+			}
+			else{
+				if(this.activated == true){
+					this.activated = false;
+					socket.emit("boxButtonPressed", this.number, this.activated, this.firstHit, channelNumber);
+					this.firstHit = true;
+				}
+			}
+		});
+		
 		return this;
 	}
 });

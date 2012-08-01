@@ -241,6 +241,37 @@ Crafty.c("CollisionDetection", {
 				}
 			}
 		});
+		
+		this.onHit("Teleporter", function(){
+			this.move.left = this.move.right = this.move.up = this.move.down = false;
+
+			for (var i = 1; i <= this._speed; i++) {
+				this.x += i;
+				if (this.hit("Teleporter") != false) {
+					this.x -= i;
+					this.x -= i;
+					if (this.hit("Teleporter") != false) {
+						this.x += i;
+						this.y -= i;
+						if (this.hit("Teleporter") != false) {
+							this.y += i;
+							this.y += i;
+							if (this.hit("Teleporter") != false) {
+								this.y -= i;
+							} else {
+								i = this._speed + 1;
+							}
+						} else {
+							i = this._speed + 1;
+						}
+					} else {
+						i = this._speed + 1;
+					}
+				} else {
+					i = this._speed + 1;
+				}
+			}
+		});
 
 		this.onHit("Portal", function(e) {
 			connectingPortal = portals1.indexOf(e[0].obj);
@@ -270,23 +301,44 @@ Crafty.c("CollisionDetection", {
 		
 		this.onHit("Ball", function(e) {
 			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
 				e[0].obj.move.left = true;
 			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
 				e[0].obj.move.right = true;
 			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
 				e[0].obj.move.up = true;
 			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
 				e[0].obj.move.down = true;
 			}
 			e[0].obj.startedMoving = true;
+			
+			this.move.left = this.move.right = this.move.up = this.move.down = false;
+			
+			for (var i = 1; i <= this._speed; i++) {
+				this.x += i;
+				if (this.hit("Ball") != false) {
+					this.x -= i;
+					this.x -= i;
+					if (this.hit("Ball") != false) {
+						this.x += i;
+						this.y -= i;
+						if (this.hit("Ball") != false) {
+							this.y += i;
+							this.y += i;
+							if (this.hit("Ball") != false) {
+								this.y -= i;
+							} else {
+								i = this._speed + 1;
+							}
+						} else {
+							i = this._speed + 1;
+						}
+					} else {
+						i = this._speed + 1;
+					}
+				} else {
+					i = this._speed + 1;
+				}
+			}
 		});
 		
 		this.onHit("MovingBox", function(){
