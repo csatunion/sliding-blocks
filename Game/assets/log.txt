@@ -1,138 +1,249 @@
 
-
-22:19 level 1 started
-22:24 player1: position = (0,-32)
-22:59 player1: position = (0,-32)
-
-27:15 level 1 started
-27:24 player1: position = (512,352)
-
-28:17 level 1 started
-28:22 player1: position = (528,352)
-28:27 player1: position = (588,704)
-28:32 player1: position = (692,704)
-28:37 player1: position = (416,544)
-28:42 player1: position = (520,384)
-28:45 level 1 restarted
-28:47 player1: position = (512,352)
-
-39:37 level 1 started
-
-38:21 level 1 started
-38:26 player1: position = (352,320)
-38:30 player2: position = (640,384)
-
-39:57 level 1 started
-40:2 player1: position = (260,288)
-
-40:27 level 1 started
-40:29 Winner
-
-47:13 level 1 started
-47:15 Winner
-
-50:11 level 1 started
-
-53:30 level 1 started
-
-54:56 level 1 started
-55:1 player1: position = (0,-32)
-55:6 player1: position = (0,-32)
-55:7 player2: position = (640,384)
-
-11:30 level 1 started
-
-12:34 level 1 started
-12:37 Winner
-12:37 Winner
-
-13:15 level 1 started
-13:18 Winner
-13:18 Winner
-
-31:2 level 1 started
-31:3 Winner
-31:3 Winner
-
-31:50 level 1 started
-31:51 Winner
-31:51 Winner
-
-44:0 level 1 started
-44:2 Winner
-44:2 Winner
-
-34:24 level 1 started
-34:24 Winner
-34:24 Winner
-
-35:33 level 1 started
-35:39 player1: position = (0,-32)
-
-39:37 level 1 started
-39:37 Winner
-
-40:12 level 1 started
-40:12 Winner
-40:19 player1: position = (0,-32)
-
-41:53 level 1 started
-41:54 Winner
-
-45:56 level 1 started
-45:57 Winner
-
-50:15 level 1 started
-50:20 player1: position = (0,-32)
-50:24 player2: position = (0,-32)
-50:26 player1: position = (0,-32)
-50:29 player2: position = (0,-32)
-50:31 player1: position = (0,-32)
-50:34 player2: position = (0,-32)
-50:36 player1: position = (0,-32)
-
-52:7 level 1 started
-
-53:4 level 1 started
-
-5:17 level 1 started
-5:22 player1: position = (0,-32)
-5:24 player2: position = (0,-32)
-5:29 player2: position = (0,-32)
-5:33 player1: position = (0,-32)
-
-10:30 level 1 started
-10:56 player2: position = (0,-32)
-
-12:5 level 1 started
-12:18 player1: position = (0,-32)
-
-13:59 level 1 started
-14:20 player2: position = (0,-32)
-14:22 player1: position = (0,-32)
-
-14:40 level 1 started
-14:45 player2: position = (0,-32)
-14:49 player1: position = (0,-32)
-14:50 player2: position = (0,-32)
-
-16:44 level 1 started
-16:49 player2: position = (0,-32)
-16:49 player1: position = (0,-32)
-
-31:46 level 1 started
-31:51 player1: position = (512,192)
-31:56 player1: position = (512,192)
-32:1 player1: position = (512,192)
-32:6 player1: position = (512,192)
-32:11 player1: position = (512,192)
-32:16 player1: position = (512,192)
-32:21 player1: position = (512,192)
-32:26 player1: position = (512,192)
-32:31 player1: position = (512,208)
-32:34 Winner
-32:34 Winner
-
-35:22 level 1 started
-35:27 player1: position = (0,-32)
-35:28 player2: position = (0,-32)
+Mon Jul 30 2012,10:43:34 GMT-0400 (EDT),1343659414545, level 1 started
+Mon Jul 30 2012,10:43:34 GMT-0400 (EDT),1343659414557, Winner
+Mon Jul 30 2012,10:47:31 GMT-0400 (EDT),1343659651163,1, level 1 started
+Mon Jul 30 2012,10:47:31 GMT-0400 (EDT),1343659651174,1, Winner
+Mon Jul 30 2012,10:47:31 GMT-0400 (EDT),1343659651166,2, level 1 started
+Mon Jul 30 2012,10:47:31 GMT-0400 (EDT),1343659651177,2, Winner
+Mon Jul 30 2012,10:53:19 GMT-0400 (EDT),1343659999384,1, level 1 started
+Mon Jul 30 2012,10:53:19 GMT-0400 (EDT),1343659999392,1, Winner
+Mon Jul 30 2012,10:53:19 GMT-0400 (EDT),1343659999388,2, level 1 started
+Mon Jul 30 2012,10:53:19 GMT-0400 (EDT),1343659999396,2, Winner
+Mon Jul 30 2012,10:56:37 GMT-0400 (EDT),1343660197971,1, level 1 started
+Mon Jul 30 2012,10:56:43 GMT-0400 (EDT),1343660203562,1, player1: position = (512,192)
+Mon Jul 30 2012,10:56:43 GMT-0400 (EDT),1343660203577,1, player2: position = (256,608)
+Mon Jul 30 2012,10:56:48 GMT-0400 (EDT),1343660208662,1, player1: position = (512,192)
+Mon Jul 30 2012,10:56:49 GMT-0400 (EDT),1343660209380,1, player2: position = (256,608)
+Mon Jul 30 2012,10:56:53 GMT-0400 (EDT),1343660213686,1, player1: position = (512,192)
+Mon Jul 30 2012,10:56:58 GMT-0400 (EDT),1343660218703,1, player1: position = (500,280)
+Mon Jul 30 2012,10:57:01 GMT-0400 (EDT),1343660221404,1, player2: position = (256,608)
+Mon Jul 30 2012,10:57:03 GMT-0400 (EDT),1343660223727,1, player1: position = (700,652)
+Mon Jul 30 2012,10:57:08 GMT-0400 (EDT),1343660228746,1, player1: position = (656,268)
+Mon Jul 30 2012,10:57:13 GMT-0400 (EDT),1343660233747,1, player1: position = (144,612)
+Mon Jul 30 2012,10:57:17 GMT-0400 (EDT),1343660237435,1, player2: position = (256,608)
+Mon Jul 30 2012,10:57:18 GMT-0400 (EDT),1343660238758,1, player1: position = (704,700)
+Mon Jul 30 2012,10:57:24 GMT-0400 (EDT),1343660244045,1, player1: position = (544,140)
+Mon Jul 30 2012,10:57:29 GMT-0400 (EDT),1343660249056,1, player1: position = (108,96)
+Mon Jul 30 2012,10:57:34 GMT-0400 (EDT),1343660254066,1, player1: position = (32,320)
+Mon Jul 30 2012,10:57:39 GMT-0400 (EDT),1343660259087,1, player1: position = (32,672)
+Mon Jul 30 2012,10:57:44 GMT-0400 (EDT),1343660264101,1, player1: position = (488,704)
+Mon Jul 30 2012,10:57:49 GMT-0400 (EDT),1343660269105,1, player1: position = (672,668)
+Mon Jul 30 2012,10:57:49 GMT-0400 (EDT),1343660269424,1, player2: position = (256,608)
+Mon Jul 30 2012,10:57:54 GMT-0400 (EDT),1343660274113,1, player1: position = (672,704)
+Mon Jul 30 2012,10:57:59 GMT-0400 (EDT),1343660279128,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:00 GMT-0400 (EDT),1343660280149,1, player2: position = (256,608)
+Mon Jul 30 2012,10:58:05 GMT-0400 (EDT),1343660285159,1, player2: position = (256,608)
+Mon Jul 30 2012,10:58:07 GMT-0400 (EDT),1343660287245,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:10 GMT-0400 (EDT),1343660290178,1, player2: position = (256,168)
+Mon Jul 30 2012,10:58:15 GMT-0400 (EDT),1343660295350,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:15 GMT-0400 (EDT),1343660295364,1, player2: position = (256,88)
+Mon Jul 30 2012,10:58:20 GMT-0400 (EDT),1343660300323,1, player2: position = (256,32)
+Mon Jul 30 2012,10:58:25 GMT-0400 (EDT),1343660305332,1, player2: position = (256,32)
+Mon Jul 30 2012,10:58:26 GMT-0400 (EDT),1343660306831,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:31 GMT-0400 (EDT),1343660311205,1, player2: position = (256,32)
+Mon Jul 30 2012,10:58:32 GMT-0400 (EDT),1343660312125,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:37 GMT-0400 (EDT),1343660317138,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:38 GMT-0400 (EDT),1343660318083,1, player2: position = (256,32)
+Mon Jul 30 2012,10:58:43 GMT-0400 (EDT),1343660323098,1, player2: position = (256,32)
+Mon Jul 30 2012,10:58:44 GMT-0400 (EDT),1343660324126,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:48 GMT-0400 (EDT),1343660328120,1, player2: position = (256,32)
+Mon Jul 30 2012,10:58:52 GMT-0400 (EDT),1343660332308,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:53 GMT-0400 (EDT),1343660333343,1, player2: position = (256,32)
+Mon Jul 30 2012,10:58:57 GMT-0400 (EDT),1343660337355,1, player1: position = (528,704)
+Mon Jul 30 2012,10:58:58 GMT-0400 (EDT),1343660338272,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:02 GMT-0400 (EDT),1343660342377,1, player1: position = (528,704)
+Mon Jul 30 2012,10:59:04 GMT-0400 (EDT),1343660344036,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:09 GMT-0400 (EDT),1343660349047,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:09 GMT-0400 (EDT),1343660349804,1, player1: position = (528,704)
+Mon Jul 30 2012,10:59:14 GMT-0400 (EDT),1343660354047,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:18 GMT-0400 (EDT),1343660358074,1, player1: position = (528,704)
+Mon Jul 30 2012,10:59:19 GMT-0400 (EDT),1343660359346,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:24 GMT-0400 (EDT),1343660364817,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:26 GMT-0400 (EDT),1343660366085,1, player1: position = (528,704)
+Mon Jul 30 2012,10:59:29 GMT-0400 (EDT),1343660369777,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:34 GMT-0400 (EDT),1343660374790,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:39 GMT-0400 (EDT),1343660379796,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:42 GMT-0400 (EDT),1343660382270,1, player1: position = (528,704)
+Mon Jul 30 2012,10:59:44 GMT-0400 (EDT),1343660384831,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:49 GMT-0400 (EDT),1343660389839,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:54 GMT-0400 (EDT),1343660394868,1, player2: position = (256,32)
+Mon Jul 30 2012,10:59:59 GMT-0400 (EDT),1343660399877,1, player2: position = (256,32)
+Mon Jul 30 2012,11:00:05 GMT-0400 (EDT),1343660405050,1, player2: position = (256,32)
+Mon Jul 30 2012,11:00:10 GMT-0400 (EDT),1343660410541,1, player2: position = (256,32)
+Mon Jul 30 2012,11:00:11 GMT-0400 (EDT),1343660411829,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:15 GMT-0400 (EDT),1343660415497,1, player2: position = (256,32)
+Mon Jul 30 2012,11:00:16 GMT-0400 (EDT),1343660416854,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:20 GMT-0400 (EDT),1343660420505,1, player2: position = (256,32)
+Mon Jul 30 2012,11:00:25 GMT-0400 (EDT),1343660425509,1, player2: position = (256,232)
+Mon Jul 30 2012,11:00:28 GMT-0400 (EDT),1343660428866,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:30 GMT-0400 (EDT),1343660430518,1, player2: position = (256,232)
+Mon Jul 30 2012,11:00:33 GMT-0400 (EDT),1343660433872,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:36 GMT-0400 (EDT),1343660436008,1, player2: position = (256,232)
+Mon Jul 30 2012,11:00:39 GMT-0400 (EDT),1343660439798,1, block placed at (256,232)
+Mon Jul 30 2012,11:00:40 GMT-0400 (EDT),1343660440301,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:41 GMT-0400 (EDT),1343660441721,1, player2: position = (256,232)
+Mon Jul 30 2012,11:00:45 GMT-0400 (EDT),1343660445306,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:47 GMT-0400 (EDT),1343660447736,1, player2: position = (256,232)
+Mon Jul 30 2012,11:00:50 GMT-0400 (EDT),1343660450312,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:52 GMT-0400 (EDT),1343660452748,1, player2: position = (256,232)
+Mon Jul 30 2012,11:00:55 GMT-0400 (EDT),1343660455395,1, player1: position = (528,704)
+Mon Jul 30 2012,11:00:57 GMT-0400 (EDT),1343660457756,1, player2: position = (256,232)
+Mon Jul 30 2012,11:01:02 GMT-0400 (EDT),1343660462785,1, player2: position = (256,232)
+Mon Jul 30 2012,11:01:07 GMT-0400 (EDT),1343660467410,1, player1: position = (528,704)
+Mon Jul 30 2012,11:01:07 GMT-0400 (EDT),1343660467797,1, player2: position = (256,232)
+Mon Jul 30 2012,11:01:12 GMT-0400 (EDT),1343660472811,1, player2: position = (256,232)
+Mon Jul 30 2012,11:01:17 GMT-0400 (EDT),1343660477821,1, player2: position = (256,232)
+Mon Jul 30 2012,11:01:22 GMT-0400 (EDT),1343660482829,1, player2: position = (256,232)
+Mon Jul 30 2012,11:01:23 GMT-0400 (EDT),1343660483415,1, player1: position = (528,704)
+Mon Jul 30 2012,10:56:37 GMT-0400 (EDT),1343660197974,2, level 1 started
+Mon Aug 06 2012,09:33:38 GMT-0400 (EDT),1344260018448,2, level 1 started
+Mon Aug 06 2012,09:43:15 GMT-0400 (EDT),1344260595521,2, level 1 started
+Mon Aug 06 2012,09:43:15 GMT-0400 (EDT),1344260595516,1, level 1 started
+Mon Aug 06 2012,09:43:20 GMT-0400 (EDT),1344260600521,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:43:21 GMT-0400 (EDT),1344260601038,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:43:25 GMT-0400 (EDT),1344260605531,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:45:44 GMT-0400 (EDT),1344260744153,2, level 1 started
+Mon Aug 06 2012,09:45:44 GMT-0400 (EDT),1344260744150,1, level 1 started
+Mon Aug 06 2012,09:45:49 GMT-0400 (EDT),1344260749160,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:45:49 GMT-0400 (EDT),1344260749970,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:45:54 GMT-0400 (EDT),1344260754166,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:45:58 GMT-0400 (EDT),1344260758069,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:45:59 GMT-0400 (EDT),1344260759180,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:46:03 GMT-0400 (EDT),1344260763071,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:06 GMT-0400 (EDT),1344260766250,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:46:08 GMT-0400 (EDT),1344260768078,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:13 GMT-0400 (EDT),1344260773103,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:14 GMT-0400 (EDT),1344260774248,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:46:18 GMT-0400 (EDT),1344260778109,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:23 GMT-0400 (EDT),1344260783109,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:28 GMT-0400 (EDT),1344260788121,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:30 GMT-0400 (EDT),1344260790256,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:46:33 GMT-0400 (EDT),1344260793122,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:38 GMT-0400 (EDT),1344260798137,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:43 GMT-0400 (EDT),1344260803150,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:48 GMT-0400 (EDT),1344260808156,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:53 GMT-0400 (EDT),1344260813160,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:46:58 GMT-0400 (EDT),1344260818184,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:02 GMT-0400 (EDT),1344260822260,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:47:03 GMT-0400 (EDT),1344260823190,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:07 GMT-0400 (EDT),1344260827405,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:47:08 GMT-0400 (EDT),1344260828529,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:13 GMT-0400 (EDT),1344260833414,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:47:13 GMT-0400 (EDT),1344260833539,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:18 GMT-0400 (EDT),1344260838555,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:23 GMT-0400 (EDT),1344260843569,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:25 GMT-0400 (EDT),1344260845419,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:47:28 GMT-0400 (EDT),1344260848600,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:33 GMT-0400 (EDT),1344260853615,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:38 GMT-0400 (EDT),1344260858631,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:41 GMT-0400 (EDT),1344260861424,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:47:43 GMT-0400 (EDT),1344260863642,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:48 GMT-0400 (EDT),1344260868656,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:53 GMT-0400 (EDT),1344260873670,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:47:58 GMT-0400 (EDT),1344260878680,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:03 GMT-0400 (EDT),1344260883696,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:08 GMT-0400 (EDT),1344260888710,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:13 GMT-0400 (EDT),1344260893428,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:48:13 GMT-0400 (EDT),1344260893720,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:18 GMT-0400 (EDT),1344260898725,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:23 GMT-0400 (EDT),1344260903727,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:28 GMT-0400 (EDT),1344260908741,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:33 GMT-0400 (EDT),1344260913746,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:38 GMT-0400 (EDT),1344260918748,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:43 GMT-0400 (EDT),1344260923748,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:48 GMT-0400 (EDT),1344260928780,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:53 GMT-0400 (EDT),1344260933786,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:48:59 GMT-0400 (EDT),1344260939121,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:04 GMT-0400 (EDT),1344260944126,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:09 GMT-0400 (EDT),1344260949134,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:14 GMT-0400 (EDT),1344260954150,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:17 GMT-0400 (EDT),1344260957434,1, player2: position = (0,-32)
+Mon Aug 06 2012,09:49:19 GMT-0400 (EDT),1344260959160,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:24 GMT-0400 (EDT),1344260964173,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:29 GMT-0400 (EDT),1344260969186,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:34 GMT-0400 (EDT),1344260974202,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:39 GMT-0400 (EDT),1344260979208,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:44 GMT-0400 (EDT),1344260984217,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:49:49 GMT-0400 (EDT),1344260989240,1, player1: position = (0,-32)
+Mon Aug 06 2012,09:57:29 GMT-0400 (EDT),1344261449145,2, level 1 started
+Mon Aug 06 2012,09:57:29 GMT-0400 (EDT),1344261449143,1, level 1 started
+Mon Aug 06 2012,09:57:34 GMT-0400 (EDT),1344261454169,1, player2: position = (256,608)
+Mon Aug 06 2012,09:57:34 GMT-0400 (EDT),1344261454972,1, player1: position = (512,192)
+Mon Aug 06 2012,09:57:39 GMT-0400 (EDT),1344261459178,1, player2: position = (256,608)
+Mon Aug 06 2012,09:57:42 GMT-0400 (EDT),1344261462993,1, player1: position = (512,192)
+Mon Aug 06 2012,09:57:44 GMT-0400 (EDT),1344261464198,1, player2: position = (256,608)
+Mon Aug 06 2012,09:57:49 GMT-0400 (EDT),1344261469212,1, player2: position = (256,608)
+Mon Aug 06 2012,09:57:53 GMT-0400 (EDT),1344261473281,1, player1: position = (512,192)
+Mon Aug 06 2012,10:04:36 GMT-0400 (EDT),1344261876122,2, level 1 started
+Mon Aug 06 2012,10:04:36 GMT-0400 (EDT),1344261876117,1, level 1 started
+Mon Aug 06 2012,10:04:41 GMT-0400 (EDT),1344261881141,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:04:41 GMT-0400 (EDT),1344261881882,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:04:46 GMT-0400 (EDT),1344261886155,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:04:49 GMT-0400 (EDT),1344261889904,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:04:51 GMT-0400 (EDT),1344261891169,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:04:56 GMT-0400 (EDT),1344261896168,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:01 GMT-0400 (EDT),1344261901178,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:05 GMT-0400 (EDT),1344261905911,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:05:06 GMT-0400 (EDT),1344261906189,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:11 GMT-0400 (EDT),1344261911198,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:16 GMT-0400 (EDT),1344261916206,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:21 GMT-0400 (EDT),1344261921213,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:26 GMT-0400 (EDT),1344261926234,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:31 GMT-0400 (EDT),1344261931259,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:36 GMT-0400 (EDT),1344261936277,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:37 GMT-0400 (EDT),1344261937921,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:05:41 GMT-0400 (EDT),1344261941289,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:46 GMT-0400 (EDT),1344261946298,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:51 GMT-0400 (EDT),1344261951302,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:05:56 GMT-0400 (EDT),1344261956314,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:01 GMT-0400 (EDT),1344261961322,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:06 GMT-0400 (EDT),1344261966326,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:11 GMT-0400 (EDT),1344261971330,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:16 GMT-0400 (EDT),1344261976334,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:21 GMT-0400 (EDT),1344261981351,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:26 GMT-0400 (EDT),1344261986355,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:31 GMT-0400 (EDT),1344261991373,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:36 GMT-0400 (EDT),1344261996379,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:41 GMT-0400 (EDT),1344262001381,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:41 GMT-0400 (EDT),1344262001935,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:06:46 GMT-0400 (EDT),1344262006384,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:51 GMT-0400 (EDT),1344262011398,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:06:56 GMT-0400 (EDT),1344262016417,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:07:01 GMT-0400 (EDT),1344262021428,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:07:06 GMT-0400 (EDT),1344262026434,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:07:11 GMT-0400 (EDT),1344262031432,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:07:16 GMT-0400 (EDT),1344262036446,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:07:21 GMT-0400 (EDT),1344262041468,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:07:26 GMT-0400 (EDT),1344262046372,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:15:25 GMT-0400 (EDT),1344262525703,2, level 1 started
+Mon Aug 06 2012,10:15:25 GMT-0400 (EDT),1344262525700,1, level 1 started
+Mon Aug 06 2012,10:15:30 GMT-0400 (EDT),1344262530733,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:15:31 GMT-0400 (EDT),1344262531492,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:15:36 GMT-0400 (EDT),1344262536498,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:15:38 GMT-0400 (EDT),1344262538562,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:15:41 GMT-0400 (EDT),1344262541528,1, player1: position = (0,-32)
+Mon Aug 06 2012,10:15:46 GMT-0400 (EDT),1344262546165,1, player2: position = (0,-32)
+Mon Aug 06 2012,10:15:47 GMT-0400 (EDT),1344262547016,1, player1: position = (44,-180)
+Mon Aug 06 2012,10:15:51 GMT-0400 (EDT),1344262551097,1, player2: position = (0,-32)
+Mon Aug 06 2012,10:15:53 GMT-0400 (EDT),1344262553089,1, player1: position = (44,-180)
+Mon Aug 06 2012,10:15:56 GMT-0400 (EDT),1344262556095,1, player2: position = (76,-32)
+Mon Aug 06 2012,10:15:58 GMT-0400 (EDT),1344262558109,1, player1: position = (44,-180)
+Mon Aug 06 2012,10:18:35 GMT-0400 (EDT),1344262715017,2, level 1 started
+Mon Aug 06 2012,10:18:35 GMT-0400 (EDT),1344262715014,1, level 1 started
+Mon Aug 06 2012,10:23:04 GMT-0400 (EDT),1344262984874,1, level 1 started
+Mon Aug 06 2012,10:23:04 GMT-0400 (EDT),1344262984877,2, level 1 started
+Mon Aug 06 2012,10:27:12 GMT-0400 (EDT),1344263232960,1, level 1 started
+Mon Aug 06 2012,10:27:12 GMT-0400 (EDT),1344263232963,2, level 1 started
+Mon Aug 06 2012,10:28:12 GMT-0400 (EDT),1344263292950,2, level 1 started
+Mon Aug 06 2012,10:28:12 GMT-0400 (EDT),1344263292947,1, level 1 started
+Mon Aug 06 2012,10:28:17 GMT-0400 (EDT),1344263297962,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:28:51 GMT-0400 (EDT),1344263331829,2, level 1 started
+Mon Aug 06 2012,10:28:51 GMT-0400 (EDT),1344263331825,1, level 1 started
+Mon Aug 06 2012,10:28:56 GMT-0400 (EDT),1344263336850,1, player2: position = (166.66666666666666,395.8333333333333)
+Mon Aug 06 2012,10:28:57 GMT-0400 (EDT),1344263337627,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:29:01 GMT-0400 (EDT),1344263341855,1, player2: position = (166.66666666666666,387.8333333333333)
+Mon Aug 06 2012,10:29:05 GMT-0400 (EDT),1344263345630,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:29:06 GMT-0400 (EDT),1344263346869,1, player2: position = (166.66666666666666,55.833333333333314)
+Mon Aug 06 2012,10:29:10 GMT-0400 (EDT),1344263350642,1, player1: position = (333.3333333333333,125)
+Mon Aug 06 2012,10:29:12 GMT-0400 (EDT),1344263352786,1, player2: position = (166.66666666666666,55.833333333333314)
+Mon Aug 06 2012,10:29:15 GMT-0400 (EDT),1344263355674,1, player1: position = (333.3333333333333,208.33333333333331)

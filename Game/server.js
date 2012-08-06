@@ -57,10 +57,11 @@ io.sockets.on('connection', function(socket){
     socket.on("nextLevel", function(level, playerNumber, channel){
     	var map1;
     	var map2;
-    	var level = __dirname + "\\levels\\level_" + level + ".txt";
+    	var level = __dirname + "/levels/level_" + level + ".txt";
     	
     	fs.readFile(level, 'ascii', function(err, data) {
 			if (err) {
+			    console.log(err);
 				io.sockets.to(channel).emit("advance", -1);
 			}
 			else{

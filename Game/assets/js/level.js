@@ -17,7 +17,7 @@ Crafty.scene('loading', function(){
         //wait for setup info from server
         socket.on("setup", function(username, number, channel){
                 
-		    nick           = username;
+	    nick           = username;
             playerNumber   = number;
             channelNumber  = channel;
                 
@@ -26,8 +26,9 @@ Crafty.scene('loading', function(){
                     
                 //log that game has started
                 time = new Date();
-                logTime();
-                log += " level " + level + " started";
+                //logTime();
+                //log += " level " + level + " started";
+		gameLog(" level " + level + " started");
                     
                 Crafty.scene("main");
             });
@@ -39,9 +40,9 @@ Crafty.scene('loading', function(){
         
 	//displays a loading message
 	Crafty.background('#000');
-	message = Crafty.e("2D, DOM, Text").attr({w:400, x: 200, y: 300})
+	message = Crafty.e("2D, DOM, Text").attr({w:WIDTH-20, x: 10, y: 10})
                                        .text("LOADING")
-                                       .css({"text-align": "center", "color":"#fff"});
+                                       .css({"text-align": "left", "color":"#fff"});
     });
     
 //the main game scene
@@ -61,7 +62,7 @@ Crafty.scene("main", function() {
         }
     });
     
-    //triggers to notify the player tha their partner finished the level (they both move on to the next level)
+    //triggers to notify the player that their partner finished the level (they both move on to the next level)
     socket.on("alertOtherPlayer", function(){
     	level++;
     	//go to a between level screen
@@ -69,8 +70,9 @@ Crafty.scene("main", function() {
     
     //triggers when the players need to restart the level
     socket.on("restart", function(){
-    	logTime();
-    	log += " level " + level + " restarted";
+    	//logTime();
+    	//log += " level " + level + " restarted";
+	gameLog(" level " + level + " restarted");
     	Crafty.scene("level");
     });
         
@@ -92,8 +94,9 @@ Crafty.scene("main", function() {
         }
             
         //log that a block was placed
-        logTime();
-        log += " block placed at (" + xpos + "," + ypos + ")"
+        //logTime();
+        //log += " block placed at (" + xpos + "," + ypos + ")"
+	gameLog(" block placed at (" + xpos + "," + ypos + ")");
     });
         
     //triggers when the ball is teleported to your side of the screen
@@ -136,8 +139,9 @@ Crafty.scene("main", function() {
     
     //logs the position of player 2
     socket.on("logPosition", function(x, y){
-        logTime();
-        log += " player2: position = (" + x + "," + y + ")";
+        //logTime();
+        //log += " player2: position = (" + x + "," + y + ")";
+	gameLog(" player2: position = (" + x + "," + y + ")");
     });
         
     //sends message in input box to server when you hit enter
@@ -158,9 +162,10 @@ Crafty.scene("main", function() {
 			$("#data_received").append("<br /><b>" + message +"</b>");
 
         //log the message that was received
-        logTime();
-        log += " " + message;
-          
+        //logTime();
+        //log += " " + message;
+        gameLog(" " + message);
+
         //scroll down to the last thing in box of receieved messages
         var objDiv = document.getElementById("data_received");
         objDiv.scrollTop = objDiv.scrollHeight;
@@ -192,9 +197,10 @@ Crafty.scene("level", function(){
 //the victory screen
 Crafty.scene("end", function(){
 	//logs that you won
-    logTime();
-    log += " Winner";
-        
+    //logTime();
+    //log += " Winner";
+    gameLog(" Winner");
+  
     //Displays the end message to the player
     Crafty.background('#000');
     message = Crafty.e("2D, DOM, Text").attr({w: 400, h: 20, x: 200, y: 390})

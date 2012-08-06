@@ -1,12 +1,12 @@
 Crafty.c("Player", {
 
-	_PLAYER_WIDTH_HEIGHT : 32,
+    _PLAYER_WIDTH_HEIGHT : PLAYER_WIDTH_HEIGHT,
 
 	init : function() {
 		this.requires("2D, DOM, Color, CollisionDetection");
 	},
 
-	player : function(playerNumber) {
+    player : function(playerNumber) {
 		this.attr({
 			x : 0,
 			y : -this._PLAYER_WIDTH_HEIGHT,
@@ -33,8 +33,9 @@ Crafty.c("Player", {
 			if (currentTime.getTime() - time.getTime() >= 5000) {
 				time = currentTime;
 				if (playerNumber == 1) {
-					logTime();
-					log += " player1: position = (" + this.x + "," + this.y + ")";
+					//logTime();
+					//log += " player1: position = (" + this.x + "," + this.y + ")";
+				    gameLog(" player1: position = (" + this.x + "," + this.y + ")");
 				} else {
 					socket.emit("logPos", this.x, this.y, channelNumber);
 				}
