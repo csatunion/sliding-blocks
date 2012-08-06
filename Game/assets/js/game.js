@@ -10,24 +10,19 @@ var COLUMNS = HEIGHT/WALL_WIDTH_HEIGHT;
 var BOARD_WIDTH  = WIDTH - WALL_WIDTH_HEIGHT;               
 var BOARD_HEIGHT = HEIGHT - WALL_WIDTH_HEIGHT;
 
-//arrays of obstacles
-var blocksPlaced = [];
-var portals1 = [];           
-var portals2 = [];
 
-//attributes receieved from the server
+//server attributes
 var channelNumber;                                         
-var playerNumber;                                        
-var nick;
+var playerNumber;
+var firstPlayThrough = true;                                        
 
 //log attributes
 var log = "\n";
 var time;
 
-
 window.onload = function(){
-	Crafty.init(WIDTH, HEIGHT);
-	Crafty.scene("loading");    
+	 Crafty.init(WIDTH, HEIGHT);
+     Crafty.scene("loading");
 }
 
 window.onbeforeunload = function(){

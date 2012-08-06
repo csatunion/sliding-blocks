@@ -25,9 +25,10 @@ Crafty.c("Player", {
 		else
 			this.color("green");
 
-		this.addComponent("Controls");
+		this.addComponent("Controls").controls();
 
 		this.bind("EnterFrame", function() {
+			
 			currentTime = new Date();
 
 			if (currentTime.getTime() - time.getTime() >= 5000) {
@@ -58,7 +59,10 @@ Crafty.c("Controls", {
 
 	init : function() {
 		this.requires("Keyboard");
-
+		this.requires("Collision");
+	},
+	
+	controls : function(){
 		this.bind("EnterFrame", function() {
 			if (this.move.left)
 				this.x -= this._speed;
@@ -68,9 +72,8 @@ Crafty.c("Controls", {
 				this.y -= this._speed;
 			else if (this.move.down)
 				this.y += this._speed;
-
 		});
-
+		
 		this.bind("KeyDown", function(e) {
 			this.move.left = this.move.right = this.move.up = this.move.down = false;
 
@@ -95,9 +98,9 @@ Crafty.c("Controls", {
 				this.move.down = false;
 			if (e.key == Crafty.keys.CTRL)
 				socket.emit('sendPos', this.x, this.y, channelNumber);
-
 		});
 	}
+
 });
 
 Crafty.c("CollisionDetection", {
@@ -300,16 +303,11 @@ Crafty.c("CollisionDetection", {
 		});
 		
 		this.onHit("Ball", function(e) {
-			if (this.move.left) {
-				e[0].obj.move.left = true;
-			} else if (this.move.right) {
-				e[0].obj.move.right = true;
-			} else if (this.move.up) {
-				e[0].obj.move.up = true;
-			} else if (this.move.down) {
-				e[0].obj.move.down = true;
-			}
-			e[0].obj.startedMoving = true;
+			
+			var playerMoving = false;
+			
+			if(this.move.left == true || this.move.right == true || this.move.up == true || this.move.down == true)
+				playerMoving = true;
 			
 			this.move.left = this.move.right = this.move.up = this.move.down = false;
 			
@@ -328,17 +326,27 @@ Crafty.c("CollisionDetection", {
 								this.y -= i;
 							} else {
 								i = this._speed + 1;
+								if(playerMoving)
+									e[0].obj.move.up = true;
 							}
 						} else {
 							i = this._speed + 1;
+							if(playerMoving)
+								e[0].obj.move.down = true;
 						}
 					} else {
 						i = this._speed + 1;
+						if(playerMoving)
+							e[0].obj.move.right = true;
 					}
 				} else {
 					i = this._speed + 1;
+					if(playerMoving)
+					e[0].obj.move.left = true;
 				}
 			}
+			
+			e[0].obj.startedMoving = true;
 		});
 		
 		this.onHit("MovingBox", function(){

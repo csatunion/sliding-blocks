@@ -237,13 +237,13 @@ Crafty.c("BallCollision", {
 
 		this.onHit("Teleporter", function(e) {
 			if (this.move.left)
-				direction = "left";
+				direction = 180;
 			else if (this.move.right)
-				direction = "right";
+				direction = 0;
 			else if (this.move.up)
-				direction = "up";
+				direction = 90;
 			else if (this.move.down)
-				direction = "down";
+				direction = 270;
 
 			socket.emit("teleport", e[0].obj.x, e[0].obj.y, direction, channelNumber);
 			this.destroy();

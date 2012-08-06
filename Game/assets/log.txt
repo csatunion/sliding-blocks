@@ -1,711 +1,1368 @@
 
 
-22:19 level 1 started
-22:24 player1: position = (0,-32)
-22:59 player1: position = (0,-32)
-
-27:15 level 1 started
-27:24 player1: position = (512,352)
-
-28:17 level 1 started
-28:22 player1: position = (528,352)
-28:27 player1: position = (588,704)
-28:32 player1: position = (692,704)
-28:37 player1: position = (416,544)
-28:42 player1: position = (520,384)
-28:45 level 1 restarted
-28:47 player1: position = (512,352)
-
-39:37 level 1 started
-
-38:21 level 1 started
-38:26 player1: position = (352,320)
-38:30 player2: position = (640,384)
-
-39:57 level 1 started
-40:2 player1: position = (260,288)
-
-40:27 level 1 started
-40:29 Winner
-
-47:13 level 1 started
-47:15 Winner
-
-50:11 level 1 started
-
-53:30 level 1 started
-
-54:56 level 1 started
-55:1 player1: position = (0,-32)
-55:6 player1: position = (0,-32)
-55:7 player2: position = (640,384)
-
-11:30 level 1 started
-
-12:34 level 1 started
-12:37 Winner
-12:37 Winner
-
-13:15 level 1 started
-13:18 Winner
-13:18 Winner
-
-31:2 level 1 started
-31:3 Winner
-31:3 Winner
-
-31:50 level 1 started
-31:51 Winner
-31:51 Winner
-
-44:0 level 1 started
-44:2 Winner
-44:2 Winner
-
-34:24 level 1 started
-34:24 Winner
-34:24 Winner
-
-35:33 level 1 started
-35:39 player1: position = (0,-32)
-
-39:37 level 1 started
-39:37 Winner
-
-40:12 level 1 started
-40:12 Winner
-40:19 player1: position = (0,-32)
-
-41:53 level 1 started
-41:54 Winner
-
-45:56 level 1 started
-45:57 Winner
-
-50:15 level 1 started
-50:20 player1: position = (0,-32)
-50:24 player2: position = (0,-32)
-50:26 player1: position = (0,-32)
-50:29 player2: position = (0,-32)
-50:31 player1: position = (0,-32)
-50:34 player2: position = (0,-32)
-50:36 player1: position = (0,-32)
-
-52:7 level 1 started
-
-53:4 level 1 started
-
-5:17 level 1 started
-5:22 player1: position = (0,-32)
-5:24 player2: position = (0,-32)
-5:29 player2: position = (0,-32)
-5:33 player1: position = (0,-32)
-
-10:30 level 1 started
-10:56 player2: position = (0,-32)
-
-12:5 level 1 started
-12:18 player1: position = (0,-32)
-
-13:59 level 1 started
-14:20 player2: position = (0,-32)
-14:22 player1: position = (0,-32)
-
-14:40 level 1 started
-14:45 player2: position = (0,-32)
-14:49 player1: position = (0,-32)
-14:50 player2: position = (0,-32)
-
-16:44 level 1 started
-16:49 player2: position = (0,-32)
-16:49 player1: position = (0,-32)
-
-31:46 level 1 started
-31:51 player1: position = (512,192)
-31:56 player1: position = (512,192)
-32:1 player1: position = (512,192)
-32:6 player1: position = (512,192)
-32:11 player1: position = (512,192)
-32:16 player1: position = (512,192)
-32:21 player1: position = (512,192)
-32:26 player1: position = (512,192)
-32:31 player1: position = (512,208)
-32:34 Winner
-32:34 Winner
-
-35:22 level 1 started
-35:27 player1: position = (0,-32)
-35:28 player2: position = (0,-32)
-
-30:12 level 1 started
-30:17 player1: position = (512,208)
-30:20 player2: position = (0,-32)
-
-33:52 level 1 started
-33:57 player1: position = (0,-32)
-33:57 player2: position = (0,-32)
-
-
-
-
-48:35 level 1 started
-48:40 player1: position = (448,576)
-48:45 player1: position = (80,512)
-48:48 player2: position = (352,128)
-48:50 player1: position = (80,512)
-48:55 player1: position = (80,512)
-49:0 player1: position = (80,512)
-49:0 player2: position = (352,128)
-49:5 player2: position = (352,128)
-49:6 player1: position = (80,512)
-49:11 player1: position = (32,232)
-49:13 player2: position = (352,128)
-49:18 player2: position = (352,128)
-49:23 player2: position = (352,128)
-49:28 player1: position = (32,232)
-49:33 player1: position = (32,232)
-49:33 player2: position = (352,128)
-49:37 block placed at (172,124)
-49:38 player2: position = (172,124)
-49:39 player1: position = (32,232)
-49:44 player1: position = (140,64)
-49:45 player2: position = (172,124)
-49:48 block placed at (132,232)
-49:49 player1: position = (140,64)
-49:53 player2: position = (132,232)
-49:58 player2: position = (68,204)
-49:59 block placed at (68,200)
-50:0 player1: position = (236,196)
-50:5 player1: position = (100,232)
-50:7 player2: position = (68,200)
-50:21 block placed at (68,200)
-
-55:8 level 1 started
-55:13 player1: position = (448,596)
-55:15 player2: position = (352,128)
-55:20 player2: position = (64,512)
-55:20 block placed at (64,512)
-55:21 player1: position = (400,516)
-55:26 player2: position = (64,512)
-55:27 player1: position = (108,544)
-
-59:30 level 1 started
-
-1:29 level 1 started
-
-5:32 level 1 started
-5:37 player1: position = (384,352)
-
-6:8 level 1 started
-6:19 player2: position = (608,480)
-6:19 player2: position = (608,480)
-6:19 player1: position = (384,352)
-
-6:50 level 1 started
-7:5 player1: position = (384,352)
-
-8:57 level 1 started
-9:12 player1: position = (384,352)
-9:17 player1: position = (328,384)
-9:22 player1: position = (352,196)
-9:27 player1: position = (352,196)
-
-9:55 level 1 started
-10:0 player1: position = (352,200)
-
-10:24 level 1 started
-10:29 player2: position = (352,128)
-10:34 player2: position = (64,512)
-10:35 block placed at (64,512)
-10:36 player1: position = (448,576)
-10:41 player1: position = (108,544)
-10:44 player2: position = (64,512)
-10:49 player2: position = (64,512)
-
-11:41 level 1 started
-11:46 player2: position = (200,216)
-11:49 block placed at (96,508)
-11:50 player1: position = (448,576)
-11:55 player1: position = (144,544)
-
-41:48 level 1 started
-41:53 player1: position = (448,576)
-41:57 player2: position = (352,128)
-42:0 player1: position = (484,528)
-42:5 player2: position = (352,128)
-42:10 player2: position = (32,268)
-42:11 block placed at (32,268)
-42:14 block placed at (144,292)
-42:15 player2: position = (144,292)
-42:15 player1: position = (36,588)
-42:20 player1: position = (108,332)
-42:21 player2: position = (144,292)
-42:26 player2: position = (208,192)
-42:31 player2: position = (672,300)
-
-43:30 level 2 started
-43:35 player1: position = (192,704)
-43:35 player2: position = (320,384)
-43:39 block placed at (440,640)
-43:40 player1: position = (192,704)
-43:42 player2: position = (440,640)
-43:43 block placed at (412,640)
-43:45 player1: position = (192,704)
-43:50 player1: position = (364,672)
-43:50 player2: position = (412,640)
-43:52 block placed at (424,612)
-43:55 player1: position = (364,672)
-43:55 player2: position = (424,612)
-43:58 block placed at (416,612)
-44:0 player1: position = (364,652)
-
-45:14 level 2 started
-45:19 player1: position = (184,664)
-45:20 player2: position = (320,384)
-45:23 block placed at (240,680)
-45:25 player1: position = (184,664)
-45:28 player2: position = (240,680)
-45:30 block placed at (264,704)
-45:31 block placed at (264,704)
-45:31 block placed at (264,704)
-45:32 player1: position = (184,664)
-45:37 player1: position = (216,636)
-45:42 player1: position = (380,704)
-45:47 player1: position = (384,608)
-45:52 player1: position = (416,608)
-
-46:42 level 2 started
-46:47 player1: position = (192,704)
-46:49 player2: position = (320,384)
-46:54 player1: position = (192,704)
-46:56 player2: position = (260,704)
-46:57 block placed at (260,704)
-46:59 player1: position = (192,704)
-47:4 player1: position = (388,704)
-47:9 player1: position = (384,704)
-47:14 player1: position = (384,704)
-
-47:49 level 2 started
-47:54 player2: position = (260,704)
-47:54 player1: position = (192,704)
-47:57 block placed at (260,704)
-47:59 player1: position = (200,608)
-48:4 player1: position = (380,704)
-48:9 player1: position = (380,704)
-48:13 player2: position = (260,704)
-48:16 block placed at (120,560)
-48:17 player1: position = (380,704)
-48:18 player2: position = (120,560)
-48:20 block placed at (88,592)
-48:22 player1: position = (380,704)
-48:27 player1: position = (380,704)
-48:32 player1: position = (380,704)
-48:37 player1: position = (380,704)
-
-49:52 level 2 started
-49:57 player2: position = (264,704)
-49:58 player1: position = (192,704)
-50:1 block placed at (264,704)
-50:3 player1: position = (192,680)
-50:6 player2: position = (264,704)
-50:9 block placed at (124,568)
-50:10 player1: position = (252,608)
-50:11 player2: position = (124,568)
-50:13 block placed at (96,600)
-50:16 player1: position = (252,608)
-50:21 player1: position = (252,608)
-50:26 player1: position = (252,608)
-
-52:25 level 2 started
-52:30 player2: position = (320,384)
-52:35 player2: position = (128,620)
-52:35 player1: position = (192,704)
-52:37 block placed at (108,604)
-52:40 player1: position = (192,704)
-52:45 player1: position = (192,704)
-52:50 player1: position = (192,704)
-
-53:39 level 2 started
-53:44 player2: position = (204,472)
-53:46 block placed at (120,620)
-53:47 player1: position = (192,704)
-53:52 player1: position = (192,704)
-53:53 player2: position = (120,620)
-53:57 block placed at (260,704)
-53:57 player1: position = (192,704)
-54:2 player1: position = (372,704)
-54:7 player1: position = (384,704)
-54:12 player1: position = (384,704)
-
-24:10 level 2 started
-
-24:24 level 2 started
-
-35:9 level 2 started
-35:14 player2: position = (236,612)
-35:16 block placed at (124,612)
-35:17 player1: position = (192,704)
-35:19 player2: position = (124,612)
-35:21 block placed at (124,688)
-35:21 block placed at (124,688)
-35:21 block placed at (124,688)
-35:22 player1: position = (192,704)
-35:24 player2: position = (124,688)
-35:26 block placed at (112,612)
-35:27 player1: position = (192,704)
-35:29 block placed at (112,612)
-35:29 block placed at (112,612)
-35:29 player2: position = (112,612)
-35:34 block placed at (112,504)
-35:34 block placed at (112,504)
-35:34 block placed at (112,504)
-35:34 player2: position = (112,504)
-35:36 player1: position = (192,704)
-35:41 player1: position = (192,704)
-
-53:8 level 2 started
-53:13 player2: position = (320,384)
-53:13 player1: position = (192,704)
-
-54:25 level 2 started
-54:30 player2: position = (512,640)
-54:33 player1: position = (512,672)
-54:38 player1: position = (172,584)
-54:40 player2: position = (376,640)
-54:45 player1: position = (108,584)
-54:47 player2: position = (112,288)
-54:49 block placed at (32,244)
-54:50 player1: position = (108,584)
-54:55 player1: position = (40,376)
-54:57 player2: position = (32,244)
-55:0 block placed at (136,264)
-55:1 player1: position = (40,336)
-55:5 player2: position = (136,264)
-55:10 player2: position = (128,376)
-55:15 player2: position = (160,636)
-55:15 player1: position = (96,308)
-55:20 player1: position = (384,704)
-55:22 player2: position = (160,636)
-55:26 Winner
-
-55:48 level 2 started
-55:53 player2: position = (484,612)
-55:53 player1: position = (512,672)
-55:58 player1: position = (348,576)
-56:3 player1: position = (664,608)
-56:7 player2: position = (484,612)
-56:12 player2: position = (604,160)
-56:12 block placed at (604,160)
-56:13 player1: position = (704,608)
-56:17 player2: position = (604,160)
-56:18 player1: position = (704,608)
-56:22 block placed at (704,268)
-56:22 player2: position = (704,268)
-56:23 player1: position = (704,608)
-56:28 player1: position = (700,132)
-56:29 player2: position = (704,268)
-56:31 block placed at (584,244)
-56:33 block placed at (600,244)
-56:34 player1: position = (700,132)
-56:39 player1: position = (644,268)
-56:40 player2: position = (600,244)
-56:45 player2: position = (600,244)
-56:50 player2: position = (600,244)
-
-59:55 level 1 started
-0:1 player2: position = (52,496)
-0:6 player2: position = (388,256)
-0:6 player1: position = (192,704)
-0:11 player1: position = (76,184)
-0:16 player1: position = (384,168)
-
-1:47 level 1 started
-1:52 player1: position = (32,580)
-1:57 player1: position = (384,192)
-2:2 player1: position = (704,404)
-
-22:48 level 1 started
-22:50 block placed at (352,700)
-22:53 player1: position = (192,704)
-22:54 player2: position = (352,700)
-22:58 player1: position = (40,504)
-23:3 player2: position = (352,700)
-23:5 player1: position = (204,160)
-23:8 player2: position = (352,700)
-23:10 player1: position = (204,192)
-23:13 player2: position = (352,700)
-23:16 player1: position = (260,192)
-23:18 player2: position = (352,700)
-23:21 player1: position = (352,192)
-23:23 player2: position = (352,700)
-23:27 player1: position = (316,176)
-23:30 player2: position = (352,700)
-23:32 player1: position = (316,192)
-23:35 player2: position = (352,700)
-23:40 player2: position = (352,700)
-23:45 player2: position = (352,700)
-23:50 player2: position = (352,700)
-
-26:15 level 1 started
-26:20 player1: position = (324,704)
-26:21 player2: position = (352,672)
-26:26 player2: position = (184,672)
-26:28 block placed at (96,636)
-26:29 player1: position = (324,704)
-26:32 player2: position = (96,636)
-26:35 player1: position = (324,704)
-26:38 player2: position = (316,636)
-26:40 player1: position = (252,704)
-26:43 player2: position = (316,636)
-26:45 player1: position = (144,704)
-26:48 player2: position = (252,704)
-26:49 block placed at (252,704)
-26:50 player1: position = (144,704)
-26:55 player1: position = (332,676)
-27:0 player1: position = (368,704)
-27:5 player2: position = (252,704)
-27:9 player1: position = (368,704)
-27:14 player1: position = (32,416)
-27:19 player1: position = (520,224)
-27:20 player2: position = (384,704)
-27:24 player1: position = (520,224)
-27:26 player2: position = (384,704)
-27:30 player1: position = (480,224)
-27:35 player1: position = (156,192)
-27:39 player2: position = (384,704)
-27:42 player1: position = (136,224)
-27:45 player2: position = (384,704)
-27:47 player1: position = (192,224)
-27:52 player2: position = (384,704)
-27:54 player1: position = (288,224)
-27:57 player2: position = (384,704)
-28:2 player2: position = (704,268)
-28:7 player2: position = (412,256)
-28:12 player2: position = (32,236)
-28:17 player2: position = (32,236)
-28:22 player2: position = (32,236)
-28:25 player1: position = (288,224)
-28:30 player1: position = (32,256)
-28:34 player2: position = (32,224)
-28:39 player2: position = (64,192)
-28:44 player2: position = (256,256)
-28:47 player1: position = (32,256)
-28:52 player1: position = (528,192)
-28:56 player2: position = (368,256)
-29:1 player2: position = (648,256)
-29:6 player1: position = (704,256)
-29:9 player2: position = (672,192)
-29:11 player1: position = (480,224)
-29:14 player2: position = (672,192)
-29:19 player2: position = (672,192)
-29:24 player2: position = (544,228)
-29:29 player2: position = (64,196)
-29:34 player2: position = (88,224)
-29:37 player1: position = (480,224)
-29:42 player1: position = (516,224)
-29:43 player2: position = (88,224)
-29:48 player2: position = (88,224)
-29:53 player2: position = (88,224)
-29:58 player2: position = (88,224)
-30:3 player2: position = (88,224)
-
-31:5 level 1 started
-31:11 player1: position = (192,704)
-31:16 player1: position = (32,592)
-31:21 player1: position = (340,192)
-31:26 player1: position = (336,192)
-31:31 player1: position = (336,192)
-31:31 player2: position = (352,672)
-31:36 player1: position = (288,224)
-31:36 player2: position = (352,672)
-31:41 player1: position = (484,224)
-31:43 player2: position = (352,672)
-31:48 player1: position = (480,224)
-31:53 player1: position = (496,224)
-31:57 player2: position = (352,672)
-32:2 player2: position = (352,672)
-32:7 player2: position = (352,672)
-
-32:50 level 1 started
-32:55 player1: position = (44,508)
-32:59 player2: position = (352,672)
-33:2 block placed at (84,636)
-33:3 player1: position = (124,508)
-33:5 player2: position = (84,636)
-33:8 player1: position = (124,508)
-33:10 player2: position = (252,704)
-33:11 block placed at (252,704)
-33:13 player1: position = (128,608)
-33:18 player1: position = (372,704)
-33:23 player1: position = (116,608)
-33:28 player1: position = (336,192)
-33:28 player2: position = (252,704)
-33:33 player2: position = (704,548)
-33:36 player1: position = (336,192)
-33:41 player1: position = (552,188)
-33:43 player2: position = (704,324)
-33:48 player2: position = (704,224)
-33:50 player1: position = (512,224)
-33:55 player2: position = (624,192)
-34:0 player2: position = (576,192)
-34:5 player2: position = (64,256)
-34:7 player1: position = (544,192)
-34:12 player2: position = (44,256)
-34:16 player1: position = (192,224)
-34:21 player1: position = (192,224)
-34:26 player1: position = (192,224)
-34:31 player1: position = (192,224)
-34:32 player2: position = (32,256)
-34:37 player2: position = (32,256)
-
-35:11 level 1 started
-35:16 player2: position = (244,672)
-35:18 block placed at (92,632)
-35:19 player1: position = (192,704)
-35:21 player2: position = (92,672)
-35:23 block placed at (248,704)
-35:24 player1: position = (192,704)
-35:29 player1: position = (380,704)
-35:34 player1: position = (380,704)
-35:36 player2: position = (248,704)
-35:41 player2: position = (248,704)
-35:46 player2: position = (248,704)
-35:51 player1: position = (380,704)
-35:56 player1: position = (704,372)
-35:59 player2: position = (248,704)
-36:2 player1: position = (628,224)
-36:7 player1: position = (628,224)
-
-36:55 level 1 started
-37:0 player2: position = (92,632)
-37:1 block placed at (100,632)
-37:4 block placed at (252,704)
-37:5 player2: position = (252,704)
-37:5 player1: position = (192,704)
-37:10 player1: position = (388,704)
-37:15 player1: position = (36,580)
-37:19 player2: position = (252,704)
-37:21 player1: position = (128,196)
-37:26 player2: position = (252,704)
-37:31 player2: position = (700,448)
-37:36 player2: position = (704,192)
-37:41 player2: position = (672,192)
-37:44 player1: position = (660,192)
-37:47 player2: position = (572,224)
-37:52 player1: position = (576,224)
-37:55 player2: position = (572,224)
-38:0 player2: position = (572,224)
-38:4 player1: position = (576,224)
-
-38:52 level 1 started
-38:57 player2: position = (164,672)
-38:58 block placed at (92,640)
-39:1 block placed at (248,704)
-39:1 player1: position = (192,704)
-39:6 player1: position = (372,704)
-39:11 player1: position = (372,704)
-39:13 player2: position = (248,704)
-39:16 player1: position = (372,704)
-39:20 player2: position = (248,704)
-39:22 player1: position = (680,704)
-39:27 player2: position = (248,704)
-39:32 player2: position = (704,560)
-39:36 player1: position = (704,164)
-39:40 player2: position = (704,256)
-39:42 player1: position = (512,160)
-39:45 player2: position = (704,256)
-39:50 player2: position = (508,224)
-39:54 player1: position = (480,192)
-39:59 player1: position = (288,160)
-40:0 player2: position = (428,224)
-40:4 player1: position = (288,160)
-40:5 player2: position = (428,224)
-40:10 player2: position = (428,224)
-40:10 player1: position = (288,192)
-40:15 player2: position = (428,224)
-40:20 player2: position = (428,224)
-40:25 player2: position = (704,224)
-40:30 player2: position = (480,224)
-40:35 player2: position = (480,224)
-
-42:46 level 1 started
-42:51 player1: position = (192,704)
-42:51 player2: position = (352,672)
-42:54 block placed at (116,632)
-42:56 player1: position = (192,704)
-42:56 player2: position = (196,704)
-42:58 block placed at (296,704)
-43:0 block placed at (260,704)
-43:1 player1: position = (192,704)
-43:1 player2: position = (260,704)
-43:6 player1: position = (340,704)
-43:6 player2: position = (260,704)
-43:11 player1: position = (704,492)
-43:11 player2: position = (260,704)
-43:16 player1: position = (448,192)
-43:16 player2: position = (260,704)
-43:21 player1: position = (448,192)
-43:21 player2: position = (704,704)
-43:26 player1: position = (448,192)
-43:26 player2: position = (704,280)
-43:31 player1: position = (448,192)
-43:31 player2: position = (704,224)
-43:36 player1: position = (448,192)
-43:36 player2: position = (492,224)
-43:41 player1: position = (512,672)
-43:41 player2: position = (512,640)
-
-21:39 level 1 started
-21:44 player2: position = (352,672)
-21:47 player1: position = (192,704)
-21:52 player1: position = (348,620)
-21:57 player1: position = (704,284)
-22:2 player1: position = (704,456)
-
-36:0 level 1 started
-36:5 player2: position = (352,672)
-36:7 block placed at (108,640)
-36:8 player1: position = (192,704)
-36:10 player2: position = (108,640)
-36:14 block placed at (264,704)
-36:14 player1: position = (192,704)
-36:19 player1: position = (372,704)
-36:24 player1: position = (372,704)
-36:29 player2: position = (264,704)
-36:34 player2: position = (704,592)
-36:39 player2: position = (568,616)
-36:44 player2: position = (96,240)
-36:48 player1: position = (372,704)
-36:53 player1: position = (704,392)
-36:58 player1: position = (440,192)
-37:3 player1: position = (452,192)
-37:7 player2: position = (320,228)
-37:12 player2: position = (512,228)
-37:17 player2: position = (488,224)
-37:22 player1: position = (448,192)
-37:27 player1: position = (512,584)
-37:32 player1: position = (432,520)
-37:36 player2: position = (512,640)
-37:42 player2: position = (604,408)
-37:42 block placed at (604,408)
-37:47 player2: position = (672,444)
-37:47 block placed at (672,444)
-37:48 player1: position = (520,704)
-37:53 player1: position = (628,480)
-37:55 player2: position = (672,444)
-38:0 player2: position = (624,416)
-38:3 Winner
-
-45:18 level 1 started
-45:23 player1: position = (192,704)
-45:24 player2: position = (352,672)
-45:29 player1: position = (360,676)
-45:32 player2: position = (352,672)
-45:34 block placed at (240,672)
-45:37 player2: position = (252,644)
-45:37 block placed at (252,644)
-45:40 player1: position = (252,676)
-45:42 player2: position = (252,644)
-45:43 block placed at (252,644)
-45:45 player1: position = (148,676)
-45:50 player1: position = (224,636)
+48:0 level 1 started
+48:4 player2: position = (352,672)
+48:5 player1: position = (192,704)
+
+47:58 level 1 started
+48:3 player1: position = (192,704)
+48:4 player2: position = (352,672)
+48:6 level 1 started
+48:11 player1: position = (48,704)
+
+51:43 level 1 started
+
+51:36 level 1 started
+51:41 player2: position = (352,672)
+51:46 player2: position = (352,672)
+51:48 player2: position = (352,672)
+51:51 player1: position = (192,704)
+51:53 player2: position = (352,672)
+51:56 block placed at (324,644)
+51:57 player1: position = (220,704)
+52:2 player1: position = (220,704)
+52:7 player1: position = (220,704)
+
+54:9 level 1 started
+
+56:57 level 1 started
+56:59 player2: position = (352,672)
+
+58:6 level 1 started
+
+58:30 level 1 started
+
+58:29 level 1 started
+58:35 level 1 started
+
+0:1 level 1 started
+
+2:20 level 1 started
+2:25 player2: position = (352,672)
+2:30 player2: position = (352,672)
+
+2:44 level 1 started
+2:47 player2: position = (352,672)
+2:51 block placed at (244,636)
+3:0 player2: position = (244,636)
+3:5 player2: position = (244,636)
+3:9 player1: position = (192,704)
+
+1:54 level 1 started
+1:59 player2: position = (180,644)
+2:0 block placed at (200,644)
+2:3 block placed at (220,704)
+2:4 player2: position = (220,704)
+2:5 block placed at (304,704)
+2:7 player1: position = (192,704)
+2:9 player2: position = (376,704)
+2:10 block placed at (376,704)
+2:12 player1: position = (192,704)
+2:17 player1: position = (192,704)
+2:37 level 1 started
+2:42 player2: position = (352,672)
+2:42 player2: position = (352,672)
+2:47 player2: position = (352,672)
+2:47 player2: position = (352,672)
+2:48 player1: position = (192,704)
+2:51 block placed at (244,636)
+2:51 block placed at (244,636)
+3:0 player2: position = (244,636)
+3:0 player2: position = (244,636)
+3:5 player2: position = (244,636)
+3:5 player2: position = (244,636)
+3:10 level 1 started
+
+10:16 level 1 started
+10:21 player2: position = (236,628)
+10:22 player1: position = (192,704)
+10:25 block placed at (156,628)
+10:26 player2: position = (156,628)
+10:27 player1: position = (192,704)
+10:31 player2: position = (204,628)
+10:33 player1: position = (192,704)
+10:38 player1: position = (192,704)
+10:39 player2: position = (204,628)
+
+17:3 level 1 started
+17:9 player2: position = (104,564)
+17:9 block placed at (104,544)
+17:10 player1: position = (192,704)
+17:15 player1: position = (192,704)
+
+32:8 level 1 started
+
+31:53 level 1 started
+31:58 player2: position = (352,672)
+31:59 block placed at (232,672)
+32:0 block placed at (104,672)
+32:2 player1: position = (192,704)
+32:7 player1: position = (192,704)
+32:11 level 1 started
+32:16 player1: position = (192,608)
+32:17 player2: position = (352,672)
+32:19 block placed at (568,672)
+32:21 player1: position = (192,608)
+32:22 player2: position = (568,652)
+32:23 block placed at (568,608)
+32:23 block placed at (652,608)
+32:26 player1: position = (192,608)
+32:31 player1: position = (192,608)
+
+37:6 level 1 started
+37:11 player1: position = (192,704)
+
+40:22 level 1 started
+
+41:16 level 1 started
+41:21 player1: position = (192,704)
+
+42:8 level 1 started/n
+42:13 player1: position = (192,704)
+42:16 level 1 started
+
+43:27 level 1 started/n
+43:32 player1: position = (192,704)
+43:34 level 1 started
+43:39 player1: position = (192,704)
+43:43 player2: position = (352,672)
+43:43 player2: position = (352,672)
+43:48 player2: position = (408,680)
+43:48 player2: position = (408,680)
+43:49 player1: position = (376,704)
+43:53 player2: position = (408,680)
+43:53 player2: position = (408,680)
+43:55 block placed at (408,624)
+43:55 block placed at (408,624)
+43:56 player1: position = (240,704)/n
+
+45:9 level 1 started
+45:14 player1: position = (192,704)
+45:14 player2: position = (352,672)/n
+45:19 player1: position = (192,704)
+45:20 level 1 started
+45:25 player2: position = (352,672)
+45:25 player2: position = (352,672)/n
+
+46:33 level 1 started/n
+46:38 player1: position = (192,704)
+46:41 level 1 started/n
+
+47:28 level 1 started
+
+47:38 level 1 started
+48:3 block placed at (324,704)
+48:4 block placed at (492,704)
+48:8 block placed at (612,704)
+48:17 hi
+
+48:17 
+48:17 
+48:17 
+48:17 
+48:21 hi
+/n
+47:34 player1: position = (192,704)
+47:38 level 1 started
+47:43 player2: position = (152,672)
+47:43 player2: position = (152,672)
+47:44 block placed at (152,672)
+47:44 block placed at (152,672)
+47:45 player1: position = (192,704)
+47:48 player2: position = (152,672)
+47:48 player2: position = (152,672)
+47:49 block placed at (152,620)
+47:49 block placed at (152,620)
+47:50 player1: position = (192,704)
+47:53 player2: position = (108,576)
+47:53 player2: position = (108,576)
+47:53 block placed at (108,576)
+47:53 block placed at (108,576)
+47:55 player1: position = (192,704)
+48:0 player1: position = (192,704)
+48:5 player1: position = (492,704)
+48:5 player2: position = (108,576)
+48:5 player2: position = (108,576)
+48:10 player2: position = (108,576)
+48:10 player2: position = (108,576)
+48:12 hi
+
+48:12 hi
+
+48:12 
+48:12 
+48:14 player1: position = (612,704)
+48:17 hi
+
+48:17 
+48:19 player1: position = (612,704)
+48:19 player2: position = (108,576)
+48:19 player2: position = (108,576)
+48:21 hi
+
+48:21 hi
+
+48:21 
+48:21 
+48:24 player1: position = (612,704)
+48:29 player1: position = (612,704)/n
+47:34 player1: position = (192,704)
+47:38 level 1 started
+47:43 player2: position = (152,672)
+47:43 player2: position = (152,672)
+47:44 block placed at (152,672)
+47:44 block placed at (152,672)
+47:45 player1: position = (192,704)
+47:48 player2: position = (152,672)
+47:48 player2: position = (152,672)
+47:49 block placed at (152,620)
+47:49 block placed at (152,620)
+47:50 player1: position = (192,704)
+47:53 player2: position = (108,576)
+47:53 player2: position = (108,576)
+47:53 block placed at (108,576)
+47:53 block placed at (108,576)
+47:55 player1: position = (192,704)
+48:0 player1: position = (192,704)
+48:5 player1: position = (492,704)
+48:5 player2: position = (108,576)
+48:5 player2: position = (108,576)
+48:10 player2: position = (108,576)
+48:10 player2: position = (108,576)
+48:12 hi
+
+48:12 hi
+
+48:12 
+48:12 
+48:14 player1: position = (612,704)
+48:17 hi
+
+48:17 
+48:19 player1: position = (612,704)
+48:19 player2: position = (108,576)
+48:19 player2: position = (108,576)
+48:21 hi
+
+48:21 hi
+
+48:21 
+48:21 
+48:24 player1: position = (612,704)
+48:29 player1: position = (612,704)
+
+49:11 level 1 started
+
+49:17 level 1 started
+49:31 hi
+
+49:31 
+49:31 /n
+49:16 player1: position = (192,704)
+49:17 level 1 started
+49:22 player1: position = (192,704)
+49:24 player2: position = (352,672)
+49:27 hi
+
+49:27 
+49:29 player1: position = (192,704)
+49:31 hi
+
+49:33 player2: position = (352,672)/n
+49:35 player1: position = (192,704)
+
+56:41 level 1 started
+56:46 player1: position = (220,660)
+56:46 player2: position = (352,672)
+56:51 hi a-wipe
+
+56:51 
+56:51 player1: position = (288,644)
+56:51 player2: position = (352,672)
+56:56 player1: position = (32,704)
+56:56 player2: position = (240,624)
+57:1 player1: position = (32,320)
+57:1 player2: position = (216,664)
+57:6 player1: position = (236,192)
+57:6 player2: position = (216,664)
+57:6 a-wipe are you there
+
+57:6 
+57:11 player1: position = (164,192)
+57:12 player2: position = (216,664)
+57:16 player1: position = (128,380)
+57:17 player2: position = (216,664)
+57:17 answer me a-wipe
+
+57:17 
+57:21 player1: position = (48,704)
+57:22 player2: position = (216,664)
+57:23 yes
+
+57:26 player1: position = (236,704)
+57:27 player2: position = (216,664)
+57:32 player1: position = (704,508)
+57:32 player2: position = (216,664)
+57:32 tell me what to do
+
+57:32 
+57:37 player1: position = (608,288)
+57:37 player2: position = (216,664)
+57:42 player1: position = (704,288)
+57:42 player2: position = (216,664)
+57:47 player1: position = (676,288)
+57:47 player2: position = (216,664)
+57:52 player1: position = (656,288)
+57:52 player2: position = (216,664)
+57:57 player1: position = (704,288)
+57:57 player2: position = (216,664)
+58:2 player1: position = (668,288)
+58:2 player2: position = (216,664)
+58:7 player1: position = (688,288)
+58:7 player2: position = (216,664)
+58:12 player1: position = (704,288)
+58:12 player2: position = (216,664)
+58:17 player1: position = (704,288)
+58:17 player2: position = (216,664)
+58:22 player1: position = (704,288)
+58:22 player2: position = (216,664)
+58:27 player1: position = (704,288)
+58:27 player2: position = (216,664)
+58:32 player1: position = (704,288)
+58:32 player2: position = (216,664)
+58:36 put a square in the middle
+
+58:37 player1: position = (704,288)
+58:37 player2: position = (216,664)
+58:42 player1: position = (704,288)
+58:42 player2: position = (216,664)
+58:47 player1: position = (704,288)
+58:47 player2: position = (216,664)
+58:52 player1: position = (704,288)
+58:52 player2: position = (216,664)
+58:57 player1: position = (704,288)
+58:57 player2: position = (216,664)
+59:0 i cant reach the middle of the screen
+
+59:0 
+59:2 player1: position = (704,288)
+59:2 player2: position = (216,664)
+59:7 player1: position = (704,288)
+59:7 player2: position = (216,664)
+59:12 player1: position = (704,288)
+59:12 player2: position = (216,664)
+59:17 player1: position = (704,288)
+59:17 player2: position = (216,664)
+59:22 player1: position = (704,288)
+59:22 player2: position = (216,664)
+59:27 player1: position = (704,288)
+59:27 player2: position = (216,664)
+59:32 player1: position = (704,288)
+59:32 player2: position = (216,664)
+59:37 player1: position = (704,288)
+59:37 player2: position = (216,664)
+59:42 player1: position = (704,288)
+59:42 player2: position = (216,664)
+59:47 player1: position = (704,288)
+59:47 player2: position = (216,664)
+59:52 player1: position = (704,288)
+59:52 player2: position = (216,664)
+59:57 player1: position = (704,288)
+59:57 player2: position = (216,664)
+0:2 player1: position = (704,288)
+0:2 player2: position = (216,664)
+0:3 start from the right and put a square as close to the middle as you can towards the left
+
+0:7 player1: position = (704,288)
+0:7 player2: position = (216,664)
+0:12 player1: position = (704,288)
+0:12 player2: position = (216,664)
+0:17 player1: position = (704,288)
+0:17 player2: position = (116,624)
+0:22 player1: position = (704,288)
+0:22 player2: position = (348,256)
+0:23 block placed at (368,256)
+0:27 player1: position = (704,288)
+0:27 player2: position = (368,256)
+0:32 player1: position = (704,288)
+0:32 player2: position = (368,256)
+0:33 did you see any thing
+
+0:33 
+0:35 yes
+
+0:37 player1: position = (704,288)
+0:37 player2: position = (368,256)
+0:42 player1: position = (704,288)
+0:42 player2: position = (368,256)
+0:47 player1: position = (704,288)
+0:47 player2: position = (368,256)
+0:51 go one block width down 
+
+0:52 player1: position = (704,288)
+0:52 player2: position = (368,256)
+0:57 player1: position = (704,288)
+0:57 player2: position = (368,256)
+1:2 player1: position = (704,288)
+1:2 player2: position = (368,256)
+1:2 i can't there is a wall
+
+1:2 
+1:7 player1: position = (704,288)
+1:7 player2: position = (368,256)
+1:12 player1: position = (704,288)
+1:12 player2: position = (368,256)
+1:17 player1: position = (704,288)
+1:17 player2: position = (368,256)
+1:22 player1: position = (704,288)
+1:22 player2: position = (368,256)
+1:27 player1: position = (704,288)
+1:27 player2: position = (368,256)
+1:32 player1: position = (704,288)
+1:32 player2: position = (368,256)
+1:32 put a block down one square anywhere on that line
+
+1:37 player1: position = (704,288)
+1:37 player2: position = (368,256)
+1:42 player1: position = (704,288)
+1:42 player2: position = (368,256)
+1:46 its all one wall
+
+1:46 
+1:47 player1: position = (704,288)
+1:47 player2: position = (368,256)
+1:52 player1: position = (704,288)
+1:52 player2: position = (368,256)
+1:57 player1: position = (672,288)
+1:57 player2: position = (368,256)
+2:2 player1: position = (624,704)
+2:2 player2: position = (368,256)
+2:7 player1: position = (64,704)
+2:7 player2: position = (368,256)
+2:12 player1: position = (64,704)
+2:12 player2: position = (44,256)
+2:17 player1: position = (64,704)
+2:17 player2: position = (180,620)
+2:22 player1: position = (52,512)
+2:22 player2: position = (180,620)
+2:27 player1: position = (32,228)
+2:27 player2: position = (180,620)
+2:32 player1: position = (32,324)
+2:32 player2: position = (180,620)
+2:37 player1: position = (32,324)
+2:37 player2: position = (180,620)
+
+56:46 level 1 started
+57:28 yes
+
+57:28 
+57:37 tell me what to do
+
+58:41 put a square in the middle
+
+58:41 
+59:5 i cant reach the middle of the screen
+
+0:8 start from the right and put a square as close to the middle as you can towards the left
+
+0:8 
+0:38 did you see any thing
+
+0:40 yes
+
+0:40 
+0:56 go one block width down 
+
+0:56 
+1:7 i can't there is a wall
+
+1:37 put a block down one square anywhere on that line
+
+1:37 
+1:51 its all one wall
+/n
+2:51 level 1 started
+2:51 player2: position = (352,672)/n
+2:48 level 1 started
+2:53 player1: position = (192,704)
+2:53 player2: position = (352,672)
+2:58 player1: position = (192,704)
+2:58 player2: position = (352,672)
+3:3 player1: position = (192,624)
+3:3 player2: position = (352,672)
+3:8 player1: position = (192,704)
+3:8 player2: position = (352,672)
+3:13 player1: position = (192,704)
+3:13 player2: position = (352,672)
+3:18 player1: position = (320,644)
+3:18 player2: position = (352,672)
+3:23 player1: position = (32,704)
+3:23 player2: position = (352,672)
+3:28 player1: position = (116,704)
+3:28 player2: position = (352,672)
+3:33 player1: position = (116,704)
+3:33 player2: position = (352,672)/n
+3:35 level 1 started/n
+3:41 level 1 started/n
+3:43 level 1 started/n
+3:47 level 1 started
+
+3:49 level 1 started
+4:11 put in on the bottom row in the middle
+
+4:11 
+4:11 
+4:22 is that good
+
+4:30 2 block widths to the right
+
+4:30 
+4:30 
+4:43 take away the first block
+
+4:43 
+4:43 
+5:28 all the way to the left in the middle
+
+5:28 
+5:28 
+5:41 one block width up
+
+5:41 
+5:41 
+5:51 take away the first block
+
+5:51 
+5:51 
+6:1 faster
+
+6:1 
+6:1 
+6:52 bottom left corner
+
+6:52 
+6:52 
+9:10 start at bottom left corner and go diagonally up 2block widths
+
+9:10 
+9:10 
+10:41 y = bottom row x = middle + 2 block widths to the right
+
+10:41 
+10:41 
+11:8 are you using computer x and y or coordinate plane
+
+11:50 its gone
+
+11:50 
+11:50 
+12:3 its on my screen now, how surprising
+
+12:12 :O
+
+12:13 
+12:13 
+12:59 put a block right here
+
+13:32 block placed at (488,224)
+13:39 block placed at (464,192)
+13:51 block placed at (452,192)
+14:40 block placed at (704,168)
+14:40 block placed at (704,168)
+14:40 block placed at (704,168)
+14:41 block placed at (704,168)
+14:41 block placed at (704,168)
+14:41 block placed at (704,168)
+14:41 block placed at (704,168)
+14:41 block placed at (704,168)
+14:41 block placed at (704,168)
+14:58 block placed at (448,192)
+16:2 Winner
+16:6 player1: position = (0,-32)
+16:11 player1: position = (-24,-56)
+16:16 player1: position = (48,-32)
+16:21 player1: position = (4,-64)
+16:26 player1: position = (4,-64)
+16:31 player1: position = (-40,-140)
+16:36 player1: position = (-40,-140)/n
+3:44 level 1 started
+3:49 player1: position = (192,704)
+3:49 player2: position = (352,628)
+3:54 player2: position = (352,652)
+3:54 player1: position = (192,704)
+3:59 player1: position = (192,704)
+3:59 player2: position = (352,652)
+4:4 player1: position = (192,704)
+4:4 player2: position = (352,652)
+4:6 put in on the bottom row in the middle
+
+4:9 player1: position = (192,704)
+4:9 player2: position = (352,652)
+4:14 player2: position = (352,704)
+4:14 player1: position = (192,704)
+4:14 block placed at (352,704)
+4:18 is that good
+
+4:18 
+4:19 player2: position = (352,704)
+4:19 player1: position = (192,704)
+4:24 player2: position = (352,704)
+4:24 player1: position = (192,704)
+4:25 2 block widths to the right
+
+4:29 player2: position = (352,704)
+4:29 player1: position = (192,704)
+4:31 block placed at (416,704)
+4:34 player2: position = (416,704)
+4:34 player1: position = (192,704)
+4:38 take away the first block
+
+4:39 player2: position = (416,704)
+4:39 player1: position = (192,704)
+4:41 block placed at (472,704)
+4:41 block placed at (472,704)
+4:44 player2: position = (472,704)
+4:44 player1: position = (328,636)
+4:49 player1: position = (36,672)
+4:49 player2: position = (472,704)
+4:54 player1: position = (384,608)
+4:54 player2: position = (472,704)
+4:59 player1: position = (484,608)
+4:59 player2: position = (472,704)
+5:4 player1: position = (652,320)
+5:4 player2: position = (472,704)
+5:9 player1: position = (704,672)
+5:9 player2: position = (472,704)
+5:14 player2: position = (472,704)
+5:14 player1: position = (704,672)
+5:19 player2: position = (472,704)
+5:19 player1: position = (704,672)
+5:23 all the way to the left in the middle
+
+5:24 player2: position = (472,704)
+5:24 player1: position = (704,672)
+5:29 player2: position = (32,352)
+5:29 player1: position = (536,704)
+5:30 block placed at (32,352)
+5:34 player1: position = (484,608)
+5:34 player2: position = (32,352)
+5:36 one block width up
+
+5:39 player1: position = (264,692)
+5:39 player2: position = (32,324)
+5:40 block placed at (32,324)
+5:44 player1: position = (32,692)
+5:44 player2: position = (32,324)
+5:47 take away the first block
+
+5:49 player1: position = (32,692)
+5:49 player2: position = (32,564)
+5:50 block placed at (32,588)
+5:52 block placed at (32,704)
+5:54 player1: position = (32,692)
+5:54 player2: position = (32,704)
+5:56 block placed at (192,704)
+5:56 faster
+
+5:56 block placed at (192,704)
+5:59 player1: position = (32,572)
+5:59 player2: position = (192,704)
+6:4 player1: position = (128,388)
+6:4 player2: position = (192,704)
+6:9 player1: position = (64,288)
+6:9 player2: position = (192,704)
+6:14 player1: position = (64,288)
+6:14 player2: position = (192,704)
+6:19 player1: position = (64,288)
+6:19 player2: position = (192,704)
+6:24 player1: position = (64,288)
+6:24 player2: position = (192,704)
+6:29 player1: position = (64,288)
+6:29 player2: position = (192,704)
+6:34 player1: position = (64,288)
+6:34 player2: position = (192,704)
+6:39 player1: position = (64,288)
+6:39 player2: position = (192,704)
+6:44 player1: position = (64,288)
+6:44 player2: position = (192,704)
+6:47 bottom left corner
+
+6:49 player1: position = (64,288)
+6:49 player2: position = (192,704)
+6:52 block placed at (32,704)
+6:54 player1: position = (64,288)
+6:54 player2: position = (32,704)
+6:59 player1: position = (64,660)
+6:59 player2: position = (32,704)
+7:4 player1: position = (372,652)
+7:4 player2: position = (32,704)
+7:9 player1: position = (448,704)
+7:9 player2: position = (196,704)
+7:12 block placed at (300,704)
+7:14 block placed at (404,704)
+7:14 player1: position = (448,704)
+7:15 player2: position = (404,704)
+7:17 block placed at (512,704)
+7:19 player1: position = (448,704)
+7:20 player2: position = (512,704)
+7:24 player1: position = (448,704)
+7:25 player2: position = (32,704)
+7:29 player1: position = (448,704)
+7:30 player2: position = (172,636)
+7:31 block placed at (172,608)
+7:31 block placed at (172,608)
+7:32 block placed at (172,608)
+7:34 player1: position = (448,704)
+7:35 player2: position = (32,704)
+7:35 block placed at (32,704)
+7:39 player1: position = (96,704)
+7:40 player2: position = (32,704)
+7:44 player1: position = (60,360)
+7:45 player2: position = (32,704)
+7:49 player1: position = (60,360)
+7:50 player2: position = (32,704)
+7:54 player1: position = (60,360)
+7:55 player2: position = (32,704)
+7:59 player1: position = (60,360)
+8:0 player2: position = (32,704)
+8:4 player1: position = (60,360)
+8:5 player2: position = (32,704)
+8:9 player1: position = (60,360)
+8:10 player2: position = (32,704)
+8:14 player1: position = (60,360)
+8:15 player2: position = (32,704)
+8:19 player1: position = (368,192)
+8:20 player2: position = (32,704)
+8:24 player1: position = (84,192)
+8:25 player2: position = (32,704)
+8:29 player1: position = (104,652)
+8:30 player2: position = (32,704)
+8:34 player1: position = (144,668)
+8:35 player2: position = (32,704)
+8:39 player1: position = (144,668)
+8:40 player2: position = (32,704)
+8:44 player1: position = (144,668)
+8:45 player2: position = (32,704)
+8:50 player1: position = (144,668)
+8:50 player2: position = (32,704)
+8:55 player1: position = (144,668)
+8:55 player2: position = (32,704)
+9:0 player1: position = (144,668)
+9:0 player2: position = (32,704)
+9:5 player1: position = (144,668)
+9:5 player2: position = (32,704)
+9:5 start at bottom left corner and go diagonally up 2block widths
+
+9:10 player1: position = (144,668)
+9:10 player2: position = (64,660)
+9:12 block placed at (100,640)
+9:15 player1: position = (144,668)
+9:15 player2: position = (100,640)
+9:20 player1: position = (500,704)
+9:20 player2: position = (100,640)
+9:25 player1: position = (704,320)
+9:25 player2: position = (100,640)
+9:30 player1: position = (704,496)
+9:30 player2: position = (100,640)
+9:35 player1: position = (384,704)
+9:35 player2: position = (100,640)
+9:40 player1: position = (344,704)
+9:40 player2: position = (100,640)
+9:45 player1: position = (344,704)
+9:45 player2: position = (100,640)
+9:50 player1: position = (344,704)
+9:50 player2: position = (100,640)
+9:55 player1: position = (344,704)
+9:55 player2: position = (100,640)
+10:0 player1: position = (344,704)
+10:0 player2: position = (100,640)
+10:5 player1: position = (344,704)
+10:5 player2: position = (100,640)
+10:10 player1: position = (344,704)
+10:10 player2: position = (100,640)
+10:15 player1: position = (344,704)
+10:15 player2: position = (100,640)
+10:20 player1: position = (344,704)
+10:20 player2: position = (100,640)
+10:25 player1: position = (344,704)
+10:25 player2: position = (100,640)
+10:30 player1: position = (344,704)
+10:30 player2: position = (100,640)
+10:35 player1: position = (344,704)
+10:35 player2: position = (100,640)
+10:37 y = bottom row x = middle + 2 block widths to the right
+
+10:40 player1: position = (344,704)
+10:40 player2: position = (100,640)
+10:45 player1: position = (344,704)
+10:45 player2: position = (100,640)
+10:50 player1: position = (344,704)
+10:50 player2: position = (100,640)
+10:55 player1: position = (344,704)
+10:55 player2: position = (100,640)
+11:0 player1: position = (344,704)
+11:0 player2: position = (100,640)
+11:3 are you using computer x and y or coordinate plane
+
+11:3 
+11:5 player1: position = (344,704)
+11:5 player2: position = (100,640)
+11:10 player1: position = (344,704)
+11:10 player2: position = (100,640)
+11:15 player1: position = (344,704)
+11:15 player2: position = (100,640)
+11:20 player1: position = (344,704)
+11:21 player2: position = (340,704)
+11:23 block placed at (416,704)
+11:25 player1: position = (344,704)
+11:26 player2: position = (416,704)
+11:30 player1: position = (100,704)
+11:31 player2: position = (416,704)
+11:35 player1: position = (352,704)
+11:36 player2: position = (416,704)
+11:40 player1: position = (352,704)
+11:41 player2: position = (416,704)
+11:45 its gone
+
+11:45 player1: position = (352,608)
+11:46 player2: position = (692,604)
+11:50 player1: position = (352,608)
+11:51 player2: position = (692,604)
+11:55 player1: position = (352,608)
+11:56 player2: position = (692,604)
+11:59 its on my screen now, how surprising
+
+11:59 
+12:0 player1: position = (352,608)
+12:1 player2: position = (692,604)
+12:5 player1: position = (352,608)
+12:6 player2: position = (652,400)
+12:8 :O
+
+12:10 player1: position = (352,608)
+12:11 player2: position = (40,476)
+12:15 player1: position = (352,608)
+12:16 player2: position = (344,256)
+12:20 player1: position = (688,400)
+12:21 player2: position = (444,224)
+12:25 player1: position = (480,212)
+12:26 player2: position = (448,224)
+12:30 player1: position = (104,192)
+12:31 player2: position = (448,224)
+12:35 player1: position = (332,608)
+12:36 player2: position = (448,224)
+12:40 player1: position = (704,196)
+12:41 player2: position = (448,224)
+12:45 player1: position = (32,220)
+12:46 player2: position = (448,224)
+12:50 player1: position = (532,608)
+12:51 player2: position = (448,224)
+12:55 put a block right here
+
+12:55 
+12:55 block placed at (448,224)
+12:55 player1: position = (512,184)
+12:56 player2: position = (448,224)
+13:0 player1: position = (512,184)
+13:1 player2: position = (448,224)
+13:4 block placed at (256,224)
+13:5 block placed at (256,224)
+13:5 block placed at (256,224)
+13:5 player1: position = (512,184)
+13:6 player2: position = (376,224)
+13:7 block placed at (456,224)
+13:7 block placed at (456,224)
+13:7 block placed at (456,224)
+13:10 player1: position = (488,200)
+13:11 player2: position = (312,224)
+13:15 player1: position = (496,224)
+13:16 player2: position = (476,224)
+13:20 player1: position = (496,224)
+13:21 player2: position = (444,192)
+13:25 player1: position = (488,224)
+13:26 player2: position = (444,192)
+13:30 player1: position = (488,224)
+13:31 player2: position = (444,192)
+13:35 player1: position = (464,192)
+13:36 player2: position = (448,192)
+13:38 block placed at (448,192)
+13:40 player1: position = (464,192)
+13:41 player2: position = (448,192)
+13:45 player1: position = (452,192)
+13:46 player2: position = (512,256)
+13:50 player1: position = (452,192)
+13:51 player2: position = (436,256)
+13:52 block placed at (448,256)
+13:55 player1: position = (528,192)
+13:56 player2: position = (324,256)
+13:56 block placed at (324,256)
+13:56 block placed at (324,256)
+13:57 block placed at (324,256)
+14:0 player1: position = (480,224)
+14:1 player2: position = (452,256)
+14:5 player1: position = (480,224)
+14:6 player2: position = (448,256)
+14:7 block placed at (448,256)
+14:10 player1: position = (512,224)
+14:11 player2: position = (456,224)
+14:15 player1: position = (512,224)
+14:16 player2: position = (284,256)
+14:20 player1: position = (512,224)
+14:21 player2: position = (116,224)
+14:25 player1: position = (512,224)
+14:26 player2: position = (456,224)
+14:30 player1: position = (512,224)
+14:31 player2: position = (364,256)
+14:35 player1: position = (704,168)
+14:36 player2: position = (364,256)
+14:40 player1: position = (508,192)
+14:41 player2: position = (448,192)
+14:43 block placed at (448,192)
+14:45 player1: position = (480,196)
+14:46 player2: position = (448,192)
+14:49 block placed at (368,256)
+14:50 block placed at (368,256)
+14:50 block placed at (368,256)
+14:50 player1: position = (456,192)
+14:51 player2: position = (368,256)
+14:55 player1: position = (448,192)
+14:56 player2: position = (704,256)
+15:0 player1: position = (704,192)
+15:1 player2: position = (512,224)
+15:5 player1: position = (704,192)
+15:6 player2: position = (480,256)
+15:10 player1: position = (704,192)
+15:11 player2: position = (480,256)
+15:15 player1: position = (704,192)
+15:16 player2: position = (480,256)
+15:20 player1: position = (704,192)
+15:21 player2: position = (480,256)
+15:25 player1: position = (704,192)
+15:26 player2: position = (480,256)
+15:30 player1: position = (704,192)
+15:31 player2: position = (480,256)
+15:35 player1: position = (704,192)
+15:36 player2: position = (480,256)
+15:40 player1: position = (704,192)
+15:41 player2: position = (480,256)
+15:45 player1: position = (704,192)
+15:46 player2: position = (480,256)
+15:50 player1: position = (704,192)
+15:51 player2: position = (480,256)
+15:55 player1: position = (704,192)
+15:56 player2: position = (488,232)
+15:57 Winner
+16:0 player1: position = (412,672)
+16:5 player1: position = (312,572)
+16:10 player1: position = (284,572)
+16:15 player1: position = (284,572)
+16:20 player1: position = (284,572)
+16:26 player1: position = (284,572)
+16:31 player1: position = (284,572)
+
+34:45 level 1 started
+34:50 player2: position = (184,672)
+34:51 block placed at (96,644)
+34:53 player1: position = (192,704)
+34:55 player2: position = (280,644)
+34:58 player1: position = (284,704)
+35:0 player2: position = (384,704)
+35:5 player2: position = (384,704)
+35:7 player1: position = (284,704)
+35:11 player2: position = (384,704)
+35:13 block placed at (244,704)
+35:14 player1: position = (260,608)
+35:19 player1: position = (376,704)
+35:24 player1: position = (376,704)
+35:27 player2: position = (244,704)
+35:32 player2: position = (704,616)
+35:36 player1: position = (376,704)
+35:41 player1: position = (704,288)
+35:45 player2: position = (704,256)
+35:48 player1: position = (512,160)
+35:51 player2: position = (704,256)
+35:54 player1: position = (512,160)
+35:57 player2: position = (704,256)
+36:2 player1: position = (512,192)
+36:7 player1: position = (476,192)
+36:9 player2: position = (704,256)
+36:12 player1: position = (448,160)
+36:17 player1: position = (380,160)
+36:20 player2: position = (704,256)
+36:23 player1: position = (288,160)
+36:28 player1: position = (440,192)
+36:33 player1: position = (452,192)
+36:35 player2: position = (704,256)
+36:40 player2: position = (496,224)
+36:45 player2: position = (496,224)
+36:46 player1: position = (448,192)
+36:50 player2: position = (436,704)
+36:55 player2: position = (160,520)
+36:56 player1: position = (512,672)
+
+34:45 level 1 started
+34:50 player2: position = (184,672)
+34:51 block placed at (96,644)
+34:53 player1: position = (192,704)
+34:55 player2: position = (280,644)
+34:58 player1: position = (284,704)
+35:0 player2: position = (384,704)
+35:5 player2: position = (384,704)
+35:7 player1: position = (284,704)
+35:11 player2: position = (384,704)
+35:13 block placed at (244,704)
+35:14 player1: position = (260,608)
+35:19 player1: position = (376,704)
+35:24 player1: position = (376,704)
+35:27 player2: position = (244,704)
+35:32 player2: position = (704,616)
+35:36 player1: position = (376,704)
+35:41 player1: position = (704,288)
+35:45 player2: position = (704,256)
+35:48 player1: position = (512,160)
+35:51 player2: position = (704,256)
+35:54 player1: position = (512,160)
+35:57 player2: position = (704,256)
+36:2 player1: position = (512,192)
+36:7 player1: position = (476,192)
+36:9 player2: position = (704,256)
+36:12 player1: position = (448,160)
+36:17 player1: position = (380,160)
+36:20 player2: position = (704,256)
+36:23 player1: position = (288,160)
+36:28 player1: position = (440,192)
+36:33 player1: position = (452,192)
+36:35 player2: position = (704,256)
+36:40 player2: position = (496,224)
+36:45 player2: position = (496,224)
+36:46 player1: position = (448,192)
+36:50 player2: position = (436,704)
+36:55 player2: position = (160,520)
+36:56 player1: position = (512,672)
+
+44:26 level 1 started
+44:31 player1: position = (200,624)
+44:36 player1: position = (32,296)
+44:41 player1: position = (52,288)
+44:47 player1: position = (88,704)
+44:52 player1: position = (32,316)
+44:57 player1: position = (128,396)
+45:2 player1: position = (672,704)
+45:7 player1: position = (692,340)
+45:12 player1: position = (480,704)
+45:17 player1: position = (32,672)
+45:22 player1: position = (688,704)
+45:27 player1: position = (704,320)
+45:32 player1: position = (632,288)
+45:37 player1: position = (636,296)
+
+44:26 level 1 started
+44:31 player1: position = (200,624)
+44:36 player1: position = (32,296)
+44:41 player1: position = (52,288)
+44:47 player1: position = (88,704)
+44:52 player1: position = (32,316)
+44:57 player1: position = (128,396)
+45:2 player1: position = (672,704)
+45:7 player1: position = (692,340)
+45:12 player1: position = (480,704)
+45:17 player1: position = (32,672)
+45:22 player1: position = (688,704)
+45:27 player1: position = (704,320)
+45:32 player1: position = (632,288)
+45:37 player1: position = (636,296)
+
+49:16 level 1 started
+49:21 player1: position = (208,644)
+49:26 player1: position = (632,664)
+49:31 player1: position = (668,292)
+49:36 player1: position = (676,672)
+49:41 player1: position = (100,704)
+49:42 player2: position = (352,672)
+49:47 player2: position = (32,516)
+49:48 block placed at (32,516)
+49:49 player1: position = (100,704)
+49:52 player2: position = (32,516)
+49:55 block placed at (104,544)
+49:57 player2: position = (104,344)
+49:58 player1: position = (36,608)
+50:2 block placed at (128,344)
+50:2 block placed at (128,344)
+50:2 block placed at (128,344)
+50:2 player2: position = (128,344)
+50:3 player1: position = (36,604)
+50:8 player1: position = (76,512)
+50:13 player1: position = (84,672)
+50:18 player1: position = (140,704)
+50:23 player1: position = (700,648)
+50:28 player1: position = (184,704)
+50:33 player1: position = (608,704)
+50:38 player1: position = (672,288)
+50:43 player1: position = (672,304)
+
+49:16 level 1 started
+49:21 player1: position = (208,644)
+49:26 player1: position = (632,664)
+49:31 player1: position = (668,292)
+49:36 player1: position = (676,672)
+49:41 player1: position = (100,704)
+49:42 player2: position = (352,672)
+49:47 player2: position = (32,516)
+49:48 block placed at (32,516)
+49:49 player1: position = (100,704)
+49:52 player2: position = (32,516)
+49:55 block placed at (104,544)
+49:57 player2: position = (104,344)
+49:58 player1: position = (36,608)
+50:2 block placed at (128,344)
+50:2 block placed at (128,344)
+50:2 block placed at (128,344)
+50:2 player2: position = (128,344)
+50:3 player1: position = (36,604)
+50:8 player1: position = (76,512)
+50:13 player1: position = (84,672)
+50:18 player1: position = (140,704)
+50:23 player1: position = (700,648)
+50:28 player1: position = (184,704)
+50:33 player1: position = (608,704)
+50:38 player1: position = (672,288)
+50:43 player1: position = (672,304)
+
+50:58 level 1 started
+51:3 player1: position = (376,632)
+51:8 player1: position = (704,320)
+51:13 player1: position = (704,288)
+51:18 player1: position = (704,364)
+51:23 player1: position = (704,364)
+51:28 player1: position = (704,364)/n
+
+9:40 level 1 started
+9:45 player1: position = (192,604)
+9:50 player1: position = (192,604)
+9:55 player1: position = (192,604)
+10:0 player1: position = (192,604)
+10:2 player2: position = (352,672)
+
+10:34 level 1 started
+10:39 player2: position = (352,708)
+10:45 player2: position = (352,708)
+10:52 player2: position = (352,708)
+
+16:25 level 1 started
+16:30 player2: position = (416,696)
+16:31 player1: position = (192,704)
+16:37 player1: position = (212,704)/n
+
+21:10 level 1 started
+21:15 player1: position = (236,608)
+21:20 player1: position = (236,608)
+21:25 player1: position = (236,608)
+21:30 player1: position = (236,608)
+21:35 player1: position = (236,608)
+21:40 player1: position = (380,704)
+21:45 player1: position = (280,604)
+21:50 player1: position = (384,676)
+
+28:13 level 1 started
+28:19 player2: position = (352,672)
+28:21 player1: position = (192,704)
+28:26 player1: position = (192,704)
+
+31:4 level 1 started
+31:10 player2: position = (352,604)/n
+31:13 player1: position = (192,704)
+
+39:43 level 1 started
+39:49 player1: position = (192,704)
+39:54 player1: position = (192,704)
+39:59 player1: position = (192,704)
+
+45:35 level 3 started
+45:40 player1: position = (92,60)
+45:41 player2: position = (128,160)
+45:46 player2: position = (224,56)
+45:47 player1: position = (92,60)
+45:51 player2: position = (224,56)
+45:55 block placed at (160,136)
+45:55 player1: position = (168,32)
+46:0 player1: position = (128,88)
+46:5 player1: position = (624,96)
+46:6 player2: position = (160,136)
+46:11 player2: position = (160,136)
+46:13 player1: position = (624,96)
+46:18 player2: position = (160,136)
+46:23 player2: position = (364,128)
+46:28 player2: position = (548,192)
+46:33 player2: position = (548,192)
+46:38 player2: position = (548,192)
+46:43 player2: position = (548,192)
+46:48 player2: position = (608,220)
+46:53 player2: position = (692,192)
+46:53 player1: position = (624,32)
+46:58 player2: position = (704,224)
+46:58 block placed at (704,224)
+47:2 block placed at (604,188)
+47:3 player2: position = (604,188)
+47:3 player1: position = (624,32)
+47:8 player1: position = (640,160)
+47:9 player2: position = (604,188)
+47:13 player1: position = (640,160)
+47:15 player2: position = (608,688)
+47:18 player1: position = (640,160)
+47:20 player2: position = (572,704)
+47:23 block placed at (544,704)
+47:24 player1: position = (640,160)
+47:29 player1: position = (632,704)
+47:31 player2: position = (544,704)
+47:36 player2: position = (544,416)
+47:37 player1: position = (608,704)
+47:41 player2: position = (544,416)
+47:43 player1: position = (608,648)
+47:46 player2: position = (544,416)
+47:50 Winner
+
+45:35 level 3 started
+45:40 player1: position = (92,60)
+45:41 player2: position = (128,160)
+45:46 player2: position = (224,56)
+45:47 player1: position = (92,60)
+45:51 player2: position = (224,56)
+45:55 block placed at (160,136)
+45:55 player1: position = (168,32)
+46:0 player1: position = (128,88)
+46:5 player1: position = (624,96)
+46:6 player2: position = (160,136)
+46:11 player2: position = (160,136)
+46:13 player1: position = (624,96)
+46:18 player2: position = (160,136)
+46:23 player2: position = (364,128)
+46:28 player2: position = (548,192)
+46:33 player2: position = (548,192)
+46:38 player2: position = (548,192)
+46:43 player2: position = (548,192)
+46:48 player2: position = (608,220)
+46:53 player2: position = (692,192)
+46:53 player1: position = (624,32)
+46:58 player2: position = (704,224)
+46:58 block placed at (704,224)
+47:2 block placed at (604,188)
+47:3 player2: position = (604,188)
+47:3 player1: position = (624,32)
+47:8 player1: position = (640,160)
+47:9 player2: position = (604,188)
+47:13 player1: position = (640,160)
+47:15 player2: position = (608,688)
+47:18 player1: position = (640,160)
+47:20 player2: position = (572,704)
+47:23 block placed at (544,704)
+47:24 player1: position = (640,160)
+47:29 player1: position = (632,704)
+47:31 player2: position = (544,704)
+47:36 player2: position = (544,416)
+47:37 player1: position = (608,704)
+47:41 player2: position = (544,416)
+47:43 player1: position = (608,648)
+47:46 player2: position = (544,416)
+47:50 Winner
+
+49:10 level 3 started
+49:15 player2: position = (224,248)
+49:17 player1: position = (64,64)
+49:20 player2: position = (224,240)
+49:22 player1: position = (64,64)
+49:25 player2: position = (164,188)
+49:29 block placed at (152,128)
+49:30 player1: position = (64,64)
+49:35 player1: position = (128,80)
+49:35 player2: position = (152,128)
+49:40 player2: position = (704,128)
+49:41 player1: position = (128,80)
+49:45 player2: position = (704,188)
+49:46 block placed at (704,188)
+49:47 player1: position = (128,80)
+49:51 player2: position = (704,188)
+49:56 player1: position = (692,124)
+50:0 player2: position = (704,188)
+50:2 player1: position = (416,252)
+50:5 player2: position = (704,188)
+50:10 player2: position = (420,224)
+50:12 player1: position = (416,288)
+50:17 player1: position = (416,288)
+50:20 player2: position = (420,224)
+50:22 player1: position = (416,288)
+
+49:10 level 3 started
+49:15 player2: position = (224,248)
+49:17 player1: position = (64,64)
+49:20 player2: position = (224,240)
+49:22 player1: position = (64,64)
+49:25 player2: position = (164,188)
+49:29 block placed at (152,128)
+49:30 player1: position = (64,64)
+49:35 player1: position = (128,80)
+49:35 player2: position = (152,128)
+49:40 player2: position = (704,128)
+49:41 player1: position = (128,80)
+49:45 player2: position = (704,188)
+49:46 block placed at (704,188)
+49:47 player1: position = (128,80)
+49:51 player2: position = (704,188)
+49:56 player1: position = (692,124)
+50:0 player2: position = (704,188)
+50:2 player1: position = (416,252)
+50:5 player2: position = (704,188)
+50:10 player2: position = (420,224)
+50:12 player1: position = (416,288)
+50:17 player1: position = (416,288)
+50:20 player2: position = (420,224)
+50:22 player1: position = (416,288)
+
+51:30 level 3 started
+51:35 player2: position = (128,160)
+51:37 player1: position = (64,64)
+51:42 player1: position = (64,64)
+
+51:30 level 3 started
+51:35 player2: position = (128,160)
+51:37 player1: position = (64,64)
+51:42 player1: position = (64,64)
+
+52:30 level 3 started
+52:35 block placed at (156,76)
+52:36 player2: position = (156,76)
+52:37 block placed at (192,76)
+52:38 player1: position = (64,64)
+52:42 player2: position = (192,76)
+52:44 player1: position = (164,32)
+52:49 player1: position = (228,320)
+52:50 player2: position = (192,76)
+52:54 player1: position = (256,320)
+52:55 player2: position = (132,76)
+52:59 player1: position = (256,320)
+53:1 player2: position = (192,312)
+53:4 player1: position = (316,44)
+53:7 player2: position = (192,312)
+53:12 player2: position = (160,32)
+53:14 player1: position = (292,32)
+53:17 player2: position = (208,32)
+53:20 player1: position = (292,32)
+53:22 player2: position = (256,152)
+53:24 block placed at (224,128)
+53:25 player1: position = (292,32)
+53:28 player2: position = (224,128)
+53:32 block placed at (192,32)
+53:33 player1: position = (292,32)
+53:38 player1: position = (224,64)
+53:43 player1: position = (520,96)
+53:44 player2: position = (192,32)
+53:49 player2: position = (292,152)
+53:52 player1: position = (520,96)
+53:56 player2: position = (456,196)
+53:59 player1: position = (704,36)
+54:4 player1: position = (704,36)
+54:10 player1: position = (704,36)
+54:10 player2: position = (704,224)
+54:15 player2: position = (704,224)
+54:20 player2: position = (624,224)
+54:25 player2: position = (544,488)
+54:30 player2: position = (388,128)

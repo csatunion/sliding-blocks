@@ -10,34 +10,20 @@ app.configure(function(){
     app.use(express.static(__dirname + "/assets"));
 });
 
-var players = 0;               
-var currentChannel = 1;         
+var clientSockets = {};
+var clientIds = [];
+var channelsToReuse = [];
+var currentChannel = 0;       
 
 //run this when a client connects to server
 io.sockets.on('connection', function(socket){
+	
+	socket.on("ready", function(){
+		clientSockets[socket.id] = socket;
+		clientIds.push(socket.id);
+		pairUpSockets();
+	});
 
-    //wait for client to signal they are ready for setup info
-    socket.on("ready", function(){
-        console.log("ready notification received");        
-        players = players + 1;                                                     		 //increase the number of players connected by 1
-    
-        if (players % 2 == 1){
-            socket.username = "player1";
-            socket.join(currentChannel);                                           		 //join this socket to the current channel
-            socket.emit('setup', socket.username, 1, currentChannel);      				 //get player1 attributes for the player they control
-        }
-        else if(players % 2 == 0){
-            socket.username = "player2";
-            socket.join(currentChannel);                                           		 //join this socket to the current channel
-            socket.emit('setup', socket.username, 2, currentChannel);      				 //get player2 attributes for the player they control
-            
-            while(io.sockets.clients(currentChannel).length < 2){}                 		 //make sure two players are in the channel
-                        
-            io.sockets.to(currentChannel).emit('start', 'start');                  		 //send ready signal to both users
-            currentChannel = currentChannel + 1;                                   		 //create a new channel when two player playing together
-        }
-    });
-    
     socket.on("boxButtonPressed", function(number, activated, firstHit, channel){
         io.sockets.to(channel).emit("boxButton", number, activated, firstHit);    
     });
@@ -56,6 +42,37 @@ io.sockets.on('connection', function(socket){
     
     socket.on("alertOtherPlayer", function(channel){
     	socket.broadcast.to(channel).emit("alertOtherPlayer");
+    });
+    
+    socket.on("restartLevel", function(channel){
+    	io.sockets.to(channel).emit("restart");
+    });
+    
+    //send position to the other player to tell them where the block teleported to
+    socket.on("teleport", function(x, y, direction, channel){
+       socket.broadcast.to(channel).emit("teleported", x, y, direction); 
+    });
+
+    //send position to partner to tell them where to place a block
+    socket.on('sendPos', function(x, y, channel){
+        socket.broadcast.to(channel).emit('dropBlock', x, y); 
+    });
+
+    //sends message transmitted from one client to other client in the same channel
+    socket.on('sendMessage', function(incomingMessage, channel){
+        socket.broadcast.to(channel).emit('newMessage', incomingMessage);
+    });
+    
+    //sends the position of player two to player one to write into the log
+    socket.on("logPos", function(x, y, channel){
+        socket.broadcast.to(channel).emit('logPosition', x, y);
+    });
+    
+    //receive the game log from player 1 and writes it to the log file
+    socket.on("log", function(log){
+        var stream = fs.createWriteStream('assets/log.txt', {'flags':'a'});
+        stream.write(log);
+        console.log("log recorded");
     });
     
     socket.on("nextLevel", function(level, playerNumber, channel){
@@ -98,42 +115,63 @@ io.sockets.on('connection', function(socket){
 			}
 		});
 	});
-    
-    socket.on("restartLevel", function(channel){
-    	io.sockets.to(channel).emit("restart");
+	
+	socket.on("partnerDisconnected", function(channel){
+		
+		var index = clientIds.indexOf(socket.id);
+		if(index != -1){
+			clientIds.splice(index,1);
+		}
+		
+		var clientsInChannel = io.sockets.clients(channel);
+		if(clientsInChannel.length == 2){
+			
+			var partnerSocket;
+			
+			if(clientsInChannel[0].id == socket.id)
+				partnerSocket = clientSockets[clientsInChannel[1].id];
+			else
+				partnerSocket = clientSockets[clientsInChannel[0].id];
+			
+			socket.leave(channel);
+			
+			partnerSocket.emit("partnerLeft", -1);
+			partnerSocket.leave(channel);
+			
+			clientIds.push(partnerSocket.id);
+			channelsToReuse.push(channel);
+			pairUpSockets();
+			
+		}
     });
     
-    //send position to the other player to tell them where the block teleported to
-    socket.on("teleport", function(x, y, direction, channel){
-       socket.broadcast.to(channel).emit("teleported", x, y, direction); 
-    });
-
-    //send position to partner to tell them where to place a block
-    socket.on('sendPos', function(x, y, channel){
-        socket.broadcast.to(channel).emit('dropBlock', x, y); 
-    });
-
-    //sends message transmitted from one client to other client in the same channel
-    socket.on('sendMessage', function(incomingMessage, channel){
-        io.sockets.to(channel).emit('newMessage', socket.username, incomingMessage);
-    });
-    
-    //sends the position of player two to player one to write into the log
-    socket.on("logPos", function(x, y, channel){
-        socket.broadcast.to(channel).emit('logPosition', x, y);
-    });
-    
-    //receive the game log from player 1 and writes it to the log file
-    socket.on("log", function(log){
-        var stream = fs.createWriteStream('assets/log.txt', {'flags':'a'});
-        stream.write(log);
-        console.log("log recorded");
-    });
-    
-    //alert player that their partner has left the game
-    socket.on("partnerDisconnected", function(channel){
-       players = players - 1;
-       message = socket.username + " left the game."
-       socket.broadcast.to(channel).emit("playerLeft", message);
-    });
 });
+
+
+function pairUpSockets(){
+	var client;
+	if(clientIds.length >= 2){
+		if(channelsToReuse.length != 0){
+			client = clientSockets[clientIds.splice(0,1)];
+			client.join(channelsToReuse[0]);
+			client.emit("setup", 1, channelsToReuse[0]);
+			
+			client = clientSockets[clientIds.splice(0,1)];
+			client.join(channelsToReuse[0]);
+			client.emit("setup", 2, channelsToReuse[0]);
+			
+			channelsToReuse.splice(0,1);
+		}
+		else{
+			client = clientSockets[clientIds.splice(0,1)];
+			client.join(currentChannel);
+			client.emit("setup", 1, currentChannel);
+			
+			client = clientSockets[clientIds.splice(0,1)];
+			client.join(currentChannel);
+			client.emit("setup", 2, currentChannel);
+		
+			currentChannel++;
+		}
+	}
+}
