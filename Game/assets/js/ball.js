@@ -1,9 +1,9 @@
 Crafty.c("Ball", {
 
-	_speed : 4,
+	_SPEED : 4,
 
 	init : function() {
-		this.requires("2D, DOM, Color, BallCollision");
+		this.requires("2D, DOM, Color, BallMovement");
 	},
 
 	ball : function(xpos, ypos) {
@@ -21,19 +21,23 @@ Crafty.c("Ball", {
 			startedMoving : false,
 			framesSinceFirstMove : 0
 		});
-
+		
+		this.ballmovement();
 		this.color("purple");
+		
+		return this;
+	}
+});
 
-		this.bind("EnterFrame", function() {
-			if (this.move.left)
-				this.x -= this._speed;
-			else if (this.move.right)
-				this.x += this._speed;
-			else if (this.move.up)
-				this.y -= this._speed;
-			else if (this.move.down)
-				this.y += this._speed;
-
+Crafty.c("BallMovement", {
+	
+	init: function(){
+		this.requires("Collision");
+	},
+	
+	ballmovement : function(){
+		this.bind("EnterFrame", function(){
+			
 			if (this.startedMoving) {
 				this.framesSinceFirstMove++;
 
@@ -42,217 +46,358 @@ Crafty.c("Ball", {
 					this.startedMoving = false;
 				}
 			}
-		});
-		
-		return this;
-	}
-});
-
-Crafty.c("BallCollision", {
-	
-	init: function(){
-		this.requires("Collision");
-		this.onHit("Player", function(e) {
-			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
-			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
-			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
-			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
+			
+			if (this.move.left){
+				this.x -= this._SPEED;
+				this.trigger("Moved", 180);
 			}
-		});
-
-		this.onHit("Box", function(e) {
-			if (this.startedMoving) {
-				if (this.move.left) {
-					this.x = e[0].obj.x + e[0].obj.w;
-					this.move.left = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.up = true;
-					else
-						this.move.down = true;
-				} else if (this.move.right) {
-					this.x = e[0].obj.x - this.w;
-					this.move.right = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.up = true;
-					else
-						this.move.down = true;
-				} else if (this.move.up) {
-					this.y = e[0].obj.y + e[0].obj.h;
-					this.move.up = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.right = true;
-					else
-						this.move.left = true;
-				} else if (this.move.down) {
-					this.y = e[0].obj.y - this.h;
-					this.move.down = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.right = true;
-					else
-						this.move.left = true;
-				}
-			} else {
-				if (this.move.left) {
-					this.x = e[0].obj.x + e[0].obj.w;
-					this.move.left = false;
-				} else if (this.move.right) {
-					this.x = e[0].obj.x - this.w;
-					this.move.right = false;
-				} else if (this.move.up) {
-					this.y = e[0].obj.y + e[0].obj.h;
-					this.move.up = false;
-				} else if (this.move.down) {
-					this.y = e[0].obj.y - this.h;
-					this.move.down = false;
-				}
+			else if (this.move.right){
+				this.x += this._SPEED;
+				this.trigger("Moved", 0);
 			}
-		});
-
-		this.onHit("CWBouncyBox", function(e) {
-			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
-				this.move.down  = true;
-			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
-				this.move.up = true;
-			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
-				this.move.left = true;
-			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
-				this.move.right = true;
+			else if (this.move.up){
+				this.y -= this._SPEED;
+				this.trigger("Moved", 90);
+			}
+			else if (this.move.down){
+				this.y += this._SPEED;
+				this.trigger("Moved", 270);
 			}
 		});
 		
-		this.onHit("CCWBouncyBox", function(e) {
-			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
-				this.move.up = true;
-			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
-				this.move.down = true;
-			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
-				this.move.right = true;
-			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
-				this.move.left = true;
+		this.bind("Moved", function(direction){
+			var collisions;
+			
+			if(this.hit("Player") != false){
+				this.move.left = this.move.right = this.move.up = this.move.down = false;
+				
+				collisions = this.hit("Player");
+				
+				if(direction == 0)
+					this.x = collisions[0].obj.x - this.w;
+				else if(direction == 90)
+					this.y = collisions[0].obj.y + collisions[0].obj.h;
+				else if(direction == 180)
+					this.x = collisions[0].obj.x + collisions[0].obj.w;
+				else if(direction == 270)
+					this.y = collisions[0].obj.y - this.h;
 			}
-		});
-
-		this.onHit("Portal", function(e) {
-			connectingPortal = portals1.indexOf(e[0].obj);
-
-			if (connectingPortal == -1) {
-				connectingPortal = portals2.indexOf(e[0].obj);
-				connectingPortal = portals1[connectingPortal];
-			} else {
-				connectingPortal = portals2[connectingPortal];
-			}
-			if (this.move.left) {
-				this.x = connectingPortal.x - connectingPortal.w;
-				this.y = connectingPortal.y;
-			} else if (this.move.right) {
-				this.x = connectingPortal.x + connectingPortal.w;
-				this.y = connectingPortal.y;
-			} else if (this.move.down) {
-				this.x = connectingPortal.x;
-				this.y = connectingPortal.y + connectingPortal.h;
-			} else if (this.move.up) {
-				this.x = connectingPortal.x;
-				this.y = connectingPortal.y - connectingPortal.h;
-			}
-		});
-
-		this.onHit("BallButton", function(e) {
-			if (e[0].obj.firstHit) {
-				socket.emit("ballButtonPressed", e[0].obj.number, channelNumber);
-				e[0].obj.firstHit = false;
-			}
-		});
-		
-		this.onHit("BallGate", function(e){
-			if (this.startedMoving) {
-				if (this.move.left) {
-					this.x = e[0].obj.x + e[0].obj.w;
-					this.move.left = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.up = true;
-					else
-						this.move.down = true;
-				} else if (this.move.right) {
-					this.x = e[0].obj.x - this.w;
-					this.move.right = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.up = true;
-					else
-						this.move.down = true;
-				} else if (this.move.up) {
-					this.y = e[0].obj.y + e[0].obj.h;
-					this.move.up = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.right = true;
-					else
-						this.move.left = true;
-				} else if (this.move.down) {
-					this.y = e[0].obj.y - this.h;
-					this.move.down = false;
-					if (Crafty.math.randomInt(0, 1))
-						this.move.right = true;
-					else
-						this.move.left = true;
+			else if(this.hit("Box") != false){
+				this.move.left = this.move.right = this.move.up = this.move.down = false;
+				
+				collisions = this.hit("Box");
+				
+				if(this.startedMoving){
+					if(direction == 0){
+						this.x = collisions[0].obj.x - this.w;
+						if(Crafty.math.randomInt(0,1)){
+							this.y = this.y + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.down = true;
+							}
+							else{
+								this.move.up = true;
+							}
+							this.y = this.y - this._SPEED;
+						}
+						else{
+							this.y = this.y - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.up = true;
+							}
+							else{
+								this.move.down = true;
+							}
+							this.y = this.y + this._SPEED;
+						}
+					}
+					else if(direction == 90){
+						this.y = collisions[0].obj.y + collisions[0].obj.h;
+						if(Crafty.math.randomInt(0,1)){
+							this.x = this.x + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.right = true;
+							}
+							else{
+								this.move.left = true;
+							}
+							this.x = this.x - this._SPEED;
+						}
+						else{
+							this.x = this.x - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.left = true;
+							}
+							else{
+								this.move.right = true;
+							}
+							this.x = this.x + this._SPEED;
+						}
+					}
+					else if(direction == 180){
+						this.x = collisions[0].obj.x + collisions[0].obj.w;
+						if(Crafty.math.randomInt(0,1)){
+							this.y = this.y + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.down = true;
+							}
+							else{
+								this.move.up = true;
+							}
+							this.y = this.y - this._SPEED;
+						}
+						else{
+							this.y = this.y - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.up = true;
+							}
+							else{
+								this.move.down = true;
+							}
+							this.y = this.y + this._SPEED;
+						}
+					}
+					else if(direction == 270){
+						this.y = collisions[0].obj.y - this.h;
+						if(Crafty.math.randomInt(0,1)){
+							this.x = this.x + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.right = true;
+							}
+							else{
+								this.move.left = true;
+							}
+							this.x = this.x - this._SPEED;
+						}
+						else{
+							this.x = this.x - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.left = true;
+							}
+							else{
+								this.move.right = true;
+							}
+							this.x = this.x + this._SPEED;
+						}
+					}
 				}
-			} else {
-				if (this.move.left) {
-					this.x = e[0].obj.x + e[0].obj.w;
-					this.move.left = false;
-				} else if (this.move.right) {
-					this.x = e[0].obj.x - this.w;
-					this.move.right = false;
-				} else if (this.move.up) {
-					this.y = e[0].obj.y + e[0].obj.h;
-					this.move.up = false;
-				} else if (this.move.down) {
-					this.y = e[0].obj.y - this.h;
-					this.move.down = false;
+				else{
+					if(direction == 0)
+						this.x = collisions[0].obj.x - this.w;
+					else if(direction == 90)
+						this.y = collisions[0].obj.y + collisions[0].obj.h;
+					else if(direction == 180)
+						this.x = collisions[0].obj.x + collisions[0].obj.w;
+					else if(direction == 270)
+						this.y = collisions[0].obj.y - this.h;
 				}
 			}
-		});
+			else if(this.hit("BallGate") != false){
+				this.move.left = this.move.right = this.move.up = this.move.down = false;
+				
+				collisions = this.hit("BallGate");
+				
+				if(this.startedMoving){
+					if(direction == 0){
+						this.x = collisions[0].obj.x - this.w;
+						if(Crafty.math.randomInt(0,1)){
+							this.y = this.y + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.down = true;
+							}
+							else{
+								this.move.up = true;
+							}
+							this.y = this.y - this._SPEED;
+						}
+						else{
+							this.y = this.y - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.up = true;
+							}
+							else{
+								this.move.down = true;
+							}
+							this.y = this.y + this._SPEED;
+						}
+					}
+					else if(direction == 90){
+						this.y = collisions[0].obj.y + collisions[0].obj.h;
+						if(Crafty.math.randomInt(0,1)){
+							this.x = this.x + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.right = true;
+							}
+							else{
+								this.move.left = true;
+							}
+							this.x = this.x - this._SPEED;
+						}
+						else{
+							this.x = this.x - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.left = true;
+							}
+							else{
+								this.move.right = true;
+							}
+							this.x = this.x + this._SPEED;
+						}
+					}
+					else if(direction == 180){
+						this.x = collisions[0].obj.x + collisions[0].obj.w;
+						if(Crafty.math.randomInt(0,1)){
+							this.y = this.y + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.down = true;
+							}
+							else{
+								this.move.up = true;
+							}
+							this.y = this.y - this._SPEED;
+						}
+						else{
+							this.y = this.y - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.up = true;
+							}
+							else{
+								this.move.down = true;
+							}
+							this.y = this.y + this._SPEED;
+						}
+					}
+					else if(direction == 270){
+						this.y = collisions[0].obj.y - this.h;
+						if(Crafty.math.randomInt(0,1)){
+							this.x = this.x + this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.right = true;
+							}
+							else{
+								this.move.left = true;
+							}
+							this.x = this.x - this._SPEED;
+						}
+						else{
+							this.x = this.x - this._SPEED;
+							if(this.hit("Box") == false && this.hit("BallGate") == false){
+								this.move.left = true;
+							}
+							else{
+								this.move.right = true;
+							}
+							this.x = this.x + this._SPEED;
+						}
+					}
+				}
+				else{
+					if(direction == 0)
+						this.x = collisions[0].obj.x - this.w;
+					else if(direction == 90)
+						this.y = collisions[0].obj.y + collisions[0].obj.h;
+					else if(direction == 180)
+						this.x = collisions[0].obj.x + collisions[0].obj.w;
+					else if(direction == 270)
+						this.y = collisions[0].obj.y - this.h;
+				}
+			}
+			else if(this.hit("CCWBouncyBox") != false){
+				this.move.left = this.move.right = this.move.up = this.move.down = false;
+				
+				collisions = this.hit("CCWBouncyBox");
+				
+				if(direction == 0){
+					this.x = collisions[0].obj.x - this.w;
+					this.move.right = false;
+					this.move.up = true;
+				}
+				else if(direction == 90){
+					this.y = collisions[0].obj.y + collisions[0].obj.h;
+					this.move.up = false;
+					this.move.left = true;
+				}
+				else if(direction == 180){
+					this.x = collisions[0].obj.x + collisions[0].obj.w;
+					this.move.left = false;
+					this.move.down  = true;
+				}
+				else if(direction == 270){
+					this.y = collisions[0].obj.y - this.h;
+					this.move.down = false;
+					this.move.right = true;
+				}
+			}
+			else if(this.hit("CWBouncyBox") != false){
+				this.move.left = this.move.right = this.move.up = this.move.down = false;
+				
+				collisions = this.hit("CWBouncyBox");
+				
+				if(direction == 0){
+					this.x = collisions[0].obj.x - this.w;
+					this.move.right = false;
+					this.move.down = true;
+				}
+				else if(direction == 90){
+					this.y = collisions[0].obj.y + collisions[0].obj.h;
+					this.move.up = false;
+					this.move.right = true;
+				}
+				else if(direction == 180){
+					this.x = collisions[0].obj.x + collisions[0].obj.w;
+					this.move.left = false;
+					this.move.up  = true;
+				}
+				else if(direction == 270){
+					this.y = collisions[0].obj.y - this.h;
+					this.move.down = false;
+					this.move.left = true;
+				}
+			}
+			else if(this.hit("Portal") != false){
+				collisions = this.hit("Portal");
+				
+				connectingPortal = portals1.indexOf(collisions[0].obj);
 
-		this.onHit("Teleporter", function(e) {
-			if (this.move.left)
-				direction = 180;
-			else if (this.move.right)
-				direction = 0;
-			else if (this.move.up)
-				direction = 90;
-			else if (this.move.down)
-				direction = 270;
-
-			socket.emit("teleport", e[0].obj.x, e[0].obj.y, direction, channelNumber);
-			this.destroy();
-		});
-
-		this.onHit('Goal', function() {
-			socket.emit("alertOtherPlayer", channelNumber);
-			level++;
-			socket.emit("nextLevel", level, playerNumber, channelNumber);
+				if (connectingPortal == -1) {
+					connectingPortal = portals2.indexOf(collisions[0].obj);
+					connectingPortal = portals1[connectingPortal];
+				} else {
+					connectingPortal = portals2[connectingPortal];
+				}
+				if (this.move.left) {
+					this.x = connectingPortal.x - connectingPortal.w;
+					this.y = connectingPortal.y;
+				} else if (this.move.right) {
+					this.x = connectingPortal.x + connectingPortal.w;
+					this.y = connectingPortal.y;
+				} else if (this.move.down) {
+					this.x = connectingPortal.x;
+					this.y = connectingPortal.y + connectingPortal.h;
+				} else if (this.move.up) {
+					this.x = connectingPortal.x;
+					this.y = connectingPortal.y - connectingPortal.h;
+				}
+			}
+			else if(this.hit("BallButton") != false){
+				collisions = this.hit("BallButton");
+				
+				if (collisions[0].obj.firstHit) {
+					socket.emit("ballButtonPressed", collisions[0].obj.number, channelNumber);
+					collisions[0].obj.firstHit = false;
+				}
+			}
+			else if(this.hit("Teleporter") != false){
+				collisions = this.hit("Teleporter");
+				
+				socket.emit("teleport", collisions[0].obj.x, collisions[0].obj.y, direction, channelNumber);
+				this.destroy();
+			}
+			else if(this.hit("Goal") != false){
+				socket.emit("alertOtherPlayer", channelNumber);
+				level++;
+				socket.emit("nextLevel", level, playerNumber, channelNumber);
+			}
 		});
 	}
 });

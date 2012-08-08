@@ -26,7 +26,7 @@ window.onload = function(){
 }
 
 window.onbeforeunload = function(){
-	if(playerNumber == 1)
+	if(playerNumber == 1 && log != "\n")
         socket.emit("log", log);
     socket.emit("partnerDisconnected", channelNumber);
 }

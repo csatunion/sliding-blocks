@@ -1,5 +1,5 @@
 //level attributes
-var level = 3;                                              
+var level = 1;                                              
 var currentMap;
 
 //arrays of obstacles
@@ -45,7 +45,7 @@ Crafty.scene('loading', function(){
 Crafty.scene("main", function() {
 	
 	//don't want to create duplicate event listeners if they replay
-	//only makes the event listeners on the first playthrough
+	//so it only makes the event listeners on the first playthrough
 	if(firstPlayThrough){
 		//triggers to notify the players to move to the next level
 		//passes them the level they need to draw as data
@@ -80,9 +80,11 @@ Crafty.scene("main", function() {
     	    
     	    if(playerNumber == 1)
     	    	socket.emit("log", log);
-    	    log = "/n";
+    	    log = "\n";
     	    
-    	    alert("Your partner disconnected. Searching for a new partner.");
+    	    
+    	    //add this back when not testing
+    	    //alert("Your partner disconnected. Searching for a new partner.");
     	});
     
     	//drops a block at given position
@@ -105,15 +107,15 @@ Crafty.scene("main", function() {
         
     	//triggers when the ball is teleported to your side of the screen
     	socket.on("teleported", function(x, y, direction){
-    	    box = drawBall(x, y);
+    	    ball = drawBall(x, y);
     	    if (direction == 180)
-    	        box.move.left = true;
+    	        ball.move.left = true;
         	else if(direction == 0)
-        	    box.move.right = true;
+        	    ball.move.right = true;
         	else if(direction == 90)
-        	    box.move.up = true;
+        	    ball.move.up = true;
         	else if(direction == 270)
-        	    box.move.down = true;
+        	    ball.move.down = true;
     	});
     
     	//triggers when a box button is pressed
@@ -314,11 +316,15 @@ function placeGoal(xpos, ypos){
 
 function drawLevel(){
 	Crafty.background("blue");
-	var player = Crafty.e("Player").player(playerNumber);
-			   
+	var playerXPos = 0;
+	var playerYPos = 0;
+	var ballXPos = 0;
+	var ballYPos = 0;
+	
 	var playerButtonNumber = 0;
 	var boxButtonNumber = 0;
 	var ballButtonNumber = 0;
+	
 	var map = currentMap;
 	for(var row = 0; row < ROWS; row++){
 		for(var column = 0; column < COLUMNS; column++){
@@ -337,12 +343,12 @@ function drawLevel(){
 				}
 				//cyan
 				case 3:{
-					drawCCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					drawCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//cyan
 				case 4:{
-					drawCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					drawCCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					break;
 				}
 				//gray
@@ -353,7 +359,8 @@ function drawLevel(){
 				//green
 				case 6:{
 					if(playerNumber == 2)
-						player.setPosition(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+						playerXPos = row*WALL_WIDTH_HEIGHT;
+						playerYPos = column*WALL_WIDTH_HEIGHT;
 					break;
 				}
 				//light green
@@ -386,13 +393,15 @@ function drawLevel(){
 				}
 				//purple
 				case 12:{
-					drawBall(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					ballXPos = row*WALL_WIDTH_HEIGHT;
+					ballYPos = column*WALL_WIDTH_HEIGHT;
 					break;
 				}
 				//red
 				case 13:{
 					if(playerNumber == 1)
-						player.setPosition(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+						playerXPos = row*WALL_WIDTH_HEIGHT;
+						playerYPos = column*WALL_WIDTH_HEIGHT;
 					break;
 				}
 				//yellow
@@ -427,6 +436,8 @@ function drawLevel(){
 			}
 		}
 	}
+	var player = Crafty.e("Player").player(playerNumber, playerXPos, playerYPos);
+	drawBall(ballXPos, ballYPos);
 }
 
 
