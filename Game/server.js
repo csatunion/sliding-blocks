@@ -53,10 +53,10 @@ io.sockets.on('connection', function(socket){
        socket.broadcast.to(channel).emit("teleported", x, y, direction); 
     });
 
-    // //send position to partner to tell them where to place a block
-    // socket.on('sendPos', function(x, y, channel){
-    //     socket.broadcast.to(channel).emit('dropBlock', x, y); 
-    // });
+    //send position to partner to tell them where to place a block
+    socket.on('sendPos', function(x, y, channel){
+         socket.broadcast.to(channel).emit('dropBlock', x, y); 
+    });
 
     // //sends message transmitted from one client to other client in the same channel
     // socket.on('sendMessage', function(incomingMessage, channel){

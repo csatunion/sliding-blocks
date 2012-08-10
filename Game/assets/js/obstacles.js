@@ -1,13 +1,13 @@
 var legendInfo = {"goal":["orange","goal"],
 		  "bouncy":["cyan","bouncy box"], 
 		  "moving":["yellow", "moving block"],
-		  "player_gate":["pink","passage for the player"],
-		  "ball_gate":["brown","passage for the ball"], 
+		  "player_gate":["pink","passage for the ball"],
+		  "ball_gate":["brown","passage for the player"], 
 		  "ball_button":["#666600","button (activated by ball)"],
 		  "player_button":["#99FF66", "button (activated by player)"],
 		  "box_button":["#cc6666", "button (activated by obstacle)"],
-		  "teleporter":["#cccccc","teleporter"],
-		  "portal":["#555555","portal"],
+		  "teleporter":["#555555","teleporter"],
+		  "portal":["#cccccc","portal"],
 		  "player1":["red","you"],
 		  "player2":["green","you"],
 		  "ball":["purple","ball"]};
@@ -324,7 +324,7 @@ Crafty.c("Teleporter", {
 			h : WALL_WIDTH_HEIGHT
 		});
 
-		this.color("#cccccc");
+		this.color("#555555");
 
 		return this;
 	}
@@ -344,7 +344,7 @@ Crafty.c("Portal", {
 			h : WALL_WIDTH_HEIGHT
 		});
 
-		this.color("#555555");
+		this.color("#cccccc");
 
 		return this;
 	}
