@@ -475,12 +475,12 @@ function drawLegend (inventory) {
 	pic.color(legendInfo[key][0]);
 
 	var expl_w = WIDTH - BOARD_WIDTH - 40 - WALL_WIDTH_HEIGHT;
-	var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos });
-	expl.textFont({size:'10px'});
+	var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos }).textFont({size:'30px'});
+	//expl.textFont({size:'30px'});
 	expl.text(legendInfo[key][1]);
 
 
-	y_pos += WALL_WIDTH_HEIGHT + 10;
+	y_pos += WALL_WIDTH_HEIGHT + 20;
     }
 }
 
