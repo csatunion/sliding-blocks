@@ -25,6 +25,10 @@ body {
     height:420px;
 }
 
+textarea {
+    width:195px;
+}
+
 #cr-stage {
     font-size:12px;
     position:absolute:
