@@ -58,7 +58,10 @@ io.sockets.on('connection', function(socket){
     	var map1;
     	var map2;
     	var level = __dirname + "/levels/level_" + level + ".txt";
-    	
+	// I think we should go for the union map and black and white images (easiest to produce, least obstrusive)
+    	var bg_imgs = ["union.png","treasure-map-1-scaled.png","treasure-map-3-scaled.png","treasure-map-5-scaled.png","treasure-map-6-scaled.png","treasure-map-7-scaled.png"];
+	var bg = "images/" + bg_imgs[Math.floor(Math.random() * bg_imgs.length)];
+
     	fs.readFile(level, 'ascii', function(err, data) {
 			if (err) {
 			    console.log(err);
@@ -95,6 +98,8 @@ io.sockets.on('connection', function(socket){
 					//player 2
 					socket.to(channel).emit("advance", map2);
 				}
+			    socket.to(channel).emit("background", bg);
+			    socket.broadcast.to(channel).emit("background", bg);
 			}
 		});
 	});
@@ -119,10 +124,10 @@ io.sockets.on('connection', function(socket){
         io.sockets.to(channel).emit('newMessage', socket.username, incomingMessage); //send to partner in the same channel
     });
     
-    //sends the position of player two to player one to write into the log
-    socket.on("logPos", function(x, y, channel){
-        socket.broadcast.to(channel).emit('logPosition', x, y);
-    });
+    // //sends the position of player two to player one to write into the log
+    // socket.on("logPos", function(x, y, channel){
+    //     socket.broadcast.to(channel).emit('logPosition', x, y);
+    // });
     
     //receive the game log from player 1 and writes it to the log file
     socket.on("log", function(log){

@@ -30,15 +30,15 @@ Crafty.c("Player", {
 		this.bind("EnterFrame", function() {
 			currentTime = new Date();
 
-			if (currentTime.getTime() - time.getTime() >= 5000) {
+			if (currentTime.getTime() - time.getTime() >= 200) {
 				time = currentTime;
-				if (playerNumber == 1) {
+				//if (playerNumber == 1) {
 					//logTime();
 					//log += " player1: position = (" + this.x + "," + this.y + ")";
-				    gameLog(" player1: position = (" + this.x + "," + this.y + ")");
-				} else {
-					socket.emit("logPos", this.x, this.y, channelNumber);
-				}
+				    gameLog("position " + this.x + " " + this.y);
+				//} else {
+					//socket.emit("logPos", this.x, this.y, channelNumber);
+				//}
 			}
 		});
 

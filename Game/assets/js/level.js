@@ -1,16 +1,17 @@
 //level attributes
 var level = 1;                                              
 var currentMap;
-    
+var bg = "";
+ 
 Crafty.scene('loading', function(){
         
     //load wall/block image
-    Crafty.sprite(WALL_WIDTH_HEIGHT, "images/crate.png", {
+    Crafty.sprite(WALL_WIDTH_HEIGHT, "images/crate_20.png", {
         wall : [0,0]
     });    
         
 	//when crate is loaded do the function
-	Crafty.load(["images/crate.png"], function() {
+    Crafty.load(["images/crate.png"], function() {
 		//emit ready when socket io is running
         socket.emit("ready", "ready");
             
@@ -60,6 +61,13 @@ Crafty.scene("main", function() {
     		currentMap = data;
        	    Crafty.scene("level");
         }
+    });
+
+    socket.on("background", function(bg_name){
+    	bg = bg_name;
+    Crafty.e("2D, DOM, Image")
+            .attr({x: 0, y: 0, z: -1})
+        .image(bg);
     });
     
     //triggers to notify the player that their partner finished the level (they both move on to the next level)
@@ -137,12 +145,12 @@ Crafty.scene("main", function() {
     	
     });
     
-    //logs the position of player 2
-    socket.on("logPosition", function(x, y){
-        //logTime();
-        //log += " player2: position = (" + x + "," + y + ")";
-	gameLog(" player2: position = (" + x + "," + y + ")");
-    });
+    // //logs the position of player 2
+    // socket.on("logPosition", function(x, y){
+    //     //logTime();
+    //     //log += " player2: position = (" + x + "," + y + ")";
+    // 	gameLog(" player2: position = (" + x + "," + y + ")");
+    // });
         
     //sends message in input box to server when you hit enter
     //resets the input box
@@ -164,7 +172,7 @@ Crafty.scene("main", function() {
         //log the message that was received
         //logTime();
         //log += " " + message;
-        gameLog(" " + message);
+        gameLog(message);
 
         //scroll down to the last thing in box of receieved messages
         var objDiv = document.getElementById("data_received");
@@ -177,19 +185,21 @@ Crafty.scene("main", function() {
 Crafty.scene("level", function(){
 	
 	//initializes all obstacle variables to empty
-	blocksPlaced = [];
-   	portals1 = [];
+    blocksPlaced = [];
+    portals1 = [];
     portals2 = [];
     
-	drawLevel();
-	
+    
+    var inventory = drawLevel();
+    drawLegend(inventory);
+
 	//sends message in input box to server when you hit enter
     //resets the input box
 	$('#msg').keyup(function(key){
         if(key.which == 13){
 	        var message = $('#msg').val();
             socket.emit('sendMessage', message, channelNumber);
-            $('#msg').val("blah");
+            $('#msg').val("");
         }
     });
 });
@@ -269,13 +279,14 @@ function placeGoal(xpos, ypos){
 }
 
 function drawLevel(){
-	Crafty.background("blue");
+    Crafty.background("white");
+
 	var player = Crafty.e("Player").player(playerNumber);
-			   
 	var playerButtonNumber = 0;
 	var boxButtonNumber = 0;
 	var ballButtonNumber = 0;
 	var map = currentMap;
+    var inventory = {};
 	for(var row = 0; row < ROWS; row++){
 		for(var column = 0; column < COLUMNS; column++){
 			switch(Math.floor(parseFloat(map[column][row]))){
@@ -289,86 +300,104 @@ function drawLevel(){
 				//brown
 				case 2:{
 					drawBallGate(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["ball_gate"] = true;
 					break;
 				}
 				//cyan
 				case 3:{
 					drawCCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
-					break;
+					inventory["bouncy"] = true;
+				    break;
 				}
 				//cyan
 				case 4:{
 					drawCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["bouncy"] = true;
 					break;
 				}
 				//gray
 				case 5:{
 					drawTeleporter(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["teleporter"] = true;
 					break;
 				}
 				//green
 				case 6:{
-					if(playerNumber == 2)
+				    if(playerNumber == 2) {
 						player.setPosition(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					inventory["player2"] = true;
+				    }
 					break;
 				}
 				//light green
 				case 7:{
 					drawPlayerButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, playerButtonNumber);
 					playerButtonNumber++;
+				    inventory["player_button"] = true;
 					break;
 				}
 				//light red
 				case 8:{
 					drawBoxButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, boxButtonNumber);
 					boxButtonNumber++;
+				    inventory["box_button"] = true;
 					break;
 				}
 				//orange
 				case 9:{
 					placeGoal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["goal"] = true;
 					break;
 				}
 				//pink
 				case 10:{
 					drawPlayerGate(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["player_gate"] = true;
 					break;
 				}
 				//puke
 				case 11:{
 					drawBallButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, ballButtonNumber);
 					ballButtonNumber++;
+				    inventory["ball_button"] = true;
 					break;
 				}
 				//purple
 				case 12:{
 					drawBall(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["ball"] = true;
 					break;
 				}
 				//red
 				case 13:{
-					if(playerNumber == 1)
+				    if(playerNumber == 1) {
 						player.setPosition(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					inventory["player1"] = true;
+				    }
 					break;
 				}
 				//yellow
 				case 14:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 270);
+				    inventory["moving"] = true;
 					break;
 				}
 				//yellow
 				case 15:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 90);
-					break;
+				    inventory["moving"] = true;
+				    break;
 				}
 				//yellow
 				case 16:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 0);
+				    inventory["moving"] = true;
 					break;
 				}
 				//yellow
 				case 17:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 180);
+				    inventory["moving"] = true;
 					break;
 				}
 				//white
@@ -378,11 +407,28 @@ function drawLevel(){
 						portals1[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					else
 						portals2[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["portal"] = true;
 					break;
 				}
 			}
 		}
 	}
+    return inventory;
+}
+
+
+function drawLegend (inventory) {
+
+    var y_pos = 20;
+
+    for (var key in inventory) {
+	//alert("legend for key " +key);
+	var col = legendInfo[key][0];
+	var expl = legendInfo[key][1];
+	Crafty.e("2D, DOM, Color").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20, y: y_pos }).color(col);
+	Crafty.e("2D, DOM, Text").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos }).text(expl);
+	y_pos += WALL_WIDTH_HEIGHT + 10;
+    }
 }
 
 
