@@ -32,9 +32,7 @@ Crafty.scene('loading', function(){
 	    
 	    socket.on("setup", function(number, channel){
 	    	time = new Date();
-                //logTime();
-                //log += " level " + level + " started";
-		gameLog(" level " + level + " started");
+			gameLog(" level " + level + " started");
 
 	    	playerNumber   = number;
     		channelNumber  = channel;
@@ -84,7 +82,7 @@ Crafty.scene("main", function() {
     
     	//triggers when the players need to restart the level
     	socket.on("restart", function(){
-	    gameLog(" level " + level + " restarted");
+	    	gameLog(" level " + level + " restarted");
     		Crafty.scene("level");
     	});
         
@@ -116,9 +114,9 @@ Crafty.scene("main", function() {
         	    blocksPlaced = blocksPlaced.slice(1);
         	}
             
-        //log that a block was placed
-	gameLog(" block placed at (" + xpos + "," + ypos + ")");
-    });
+        	//log that a block was placed
+			gameLog(" block placed at (" + xpos + "," + ypos + ")");
+    	});
         
     	//triggers when the ball is teleported to your side of the screen
     	socket.on("teleported", function(x, y, direction){
@@ -189,7 +187,7 @@ Crafty.scene("main", function() {
            	socket.emit('sendMessage', message, channelNumber);
            	$('#msg').val("");
            	$("#data_received").append("<br/><i>" + message +"</i>");
-	    gameLog(message);
+	    	gameLog(message);
            
            	var objDiv = document.getElementById("data_received");
        		objDiv.scrollTop = objDiv.scrollHeight;
@@ -435,8 +433,13 @@ function drawLevel(){
 			}
 		}
 	}
+	
+	//drawn at the end so that they will be drawn on top of any obstacles they cross over
 	var player = Crafty.e("Player").player(playerNumber, playerXPos, playerYPos);
-	drawBall(ballXPos, ballYPos);
+	if(ballXPos != 0){
+		drawBall(ballXPos, ballYPos);
+	}
+	
     return inventory;
 }
 
