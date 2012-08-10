@@ -7,7 +7,7 @@ var SERVER_ADDR = "http://localhost:4000";
 
 //game attributes
 
-// size of blocks
+// size of blocks 
 var WALL_WIDTH_HEIGHT = 20;
 // no. of rows and columns is fixed by the way maps are specified
 var ROWS = 24;

@@ -58,15 +58,15 @@ io.sockets.on('connection', function(socket){
          socket.broadcast.to(channel).emit('dropBlock', x, y); 
     });
 
-    // //sends message transmitted from one client to other client in the same channel
-    // socket.on('sendMessage', function(incomingMessage, channel){
-    //     socket.broadcast.to(channel).emit('newMessage', incomingMessage);
-    // });
+    //sends message transmitted from one client to other client in the same channel
+     socket.on('sendMessage', function(incomingMessage, channel){
+         socket.broadcast.to(channel).emit('newMessage', incomingMessage);
+     });
 
     //sends message transmitted from one client to other client in the same channel
-    socket.on('sendMessage', function(incomingMessage, channel){
-        io.sockets.to(channel).emit('newMessage', socket.username, incomingMessage);
-    });
+    //socket.on('sendMessage', function(incomingMessage, channel){
+    //    io.sockets.to(channel).broadcast.emit('newMessage', incomingMessage);
+    //});
     
     // //sends the position of player two to player one to write into the log
     // socket.on("logPos", function(x, y, channel){

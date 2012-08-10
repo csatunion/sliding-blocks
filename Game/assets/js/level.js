@@ -47,6 +47,12 @@ Crafty.scene('loading', function(){
 //is called once after the setup to create all the client event listeners
 Crafty.scene("main", function() {
 	
+	//initializes all obstacle variables to empty
+	blocksPlaced = [];
+	buttonEffects = [];
+   	portals1 = [];
+    portals2 = [];
+	
 	//don't want to create duplicate event listeners if they replay
 	//so it only makes the event listeners on the first playthrough
 	if(firstPlayThrough){
@@ -58,16 +64,17 @@ Crafty.scene("main", function() {
     			Crafty.scene("end");
     		else{
     			currentMap = data;
-       	    	Crafty.scene("level");
+       	    	var inventory = drawLevel();
+    			drawLegend(inventory);
         	}
     	});
 	
-	socket.on("background", function(bg_name){
-    	    bg = bg_name;
-	    Crafty.e("2D, DOM, Image")
-		.attr({x: 0, y: 0, z: -1})
-		.image(bg);
-	});    
+		socket.on("background", function(bg_name){
+    		bg = bg_name;
+	    	Crafty.e("2D, DOM, Image")
+			.attr({x: 0, y: 0, z: -1})
+			.image(bg);
+		});    
 
     	//triggers to notify the player tha their partner finished the level (they both move on to the next level)
     	socket.on("alertOtherPlayer", function(){
@@ -159,33 +166,12 @@ Crafty.scene("main", function() {
     		alert("The block you dropped hit your partner or the ball. Try not to do that.")
     	});
     
-        
-    	//sends message in input box to server when you hit enter
-    	//resets the input box
-    	$('#msg').keyup(function(key){
-        	if(key.which == 13){
-            	var message = $('#msg').val();
-            	socket.emit('sendMessage', message, channelNumber);
-            	$('#msg').val("");
-            	$("#data_received").append("<br/><i>" + message +"</i>");
-            	if(playerNumber == 1){
-            		logTime();
-        			log += " " + message;	
-            	}
-            
-            	var objDiv = document.getElementById("data_received");
-        		objDiv.scrollTop = objDiv.scrollHeight;
-        	}
-    	});
-        
     	//print out any messages received from other player
     	socket.on('newMessage', function(message){
-		
 			$("#data_received").append("<br/><b>" + message +"</b>");
 
-        //log the message that was received
-        gameLog(message);
-
+        	//log the message that was received
+        	gameLog(message);
     	    
     	    //scroll down to the last thing in box of receieved messages
     	    var objDiv = document.getElementById("data_received");
@@ -195,34 +181,27 @@ Crafty.scene("main", function() {
     	firstPlayThrough = false;
    }
    
+   //sends message in input box to server when you hit enter
+    //resets the input box
+    $('#msg').keyup(function(key){
+       	if(key.which == 13){
+           	var message = $('#msg').val();
+           	socket.emit('sendMessage', message, channelNumber);
+           	$('#msg').val("");
+           	$("#data_received").append("<br/><i>" + message +"</i>");
+           	if(playerNumber == 1){
+           		logTime();
+       			log += " " + message;	
+           	}
+           
+           	var objDiv = document.getElementById("data_received");
+       		objDiv.scrollTop = objDiv.scrollHeight;
+       	}
+    });
+   
    //load the first level
    if(playerNumber == 1)
 		socket.emit('nextLevel', level, playerNumber, channelNumber);
-});
-
-//generic level scene, main scene is only called once then afterwards only level is called
-//this means you don't create duplicate socket listeners
-Crafty.scene("level", function(){
-	
-	//initializes all obstacle variables to empty
-	blocksPlaced = [];
-	buttonEffects = [];
-   	portals1 = [];
-    portals2 = [];
-    
-    
-    var inventory = drawLevel();
-    drawLegend(inventory);
-
-	//sends message in input box to server when you hit enter
-    //resets the input box
-	$('#msg').keyup(function(key){
-        if(key.which == 13){
-	        var message = $('#msg').val();
-            socket.emit('sendMessage', message, channelNumber);
-            $('#msg').val("");
-        }
-    });
 });
 
 //the victory screen

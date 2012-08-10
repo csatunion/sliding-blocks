@@ -12,8 +12,8 @@ Crafty.c("Player", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
+			w : this._PLAYER_WIDTH_HEIGHT,
+			h : this._PLAYER_WIDTH_HEIGHT,
 			move : {
 				left : false,
 				right : false,

@@ -10,7 +10,6 @@ var logText = "";
 var time;
 
 window.onload = function(){
-
 	 Crafty.init(WIDTH, HEIGHT);
      Crafty.scene("loading");
 }
