@@ -189,10 +189,7 @@ Crafty.scene("main", function() {
            	socket.emit('sendMessage', message, channelNumber);
            	$('#msg').val("");
            	$("#data_received").append("<br/><i>" + message +"</i>");
-           	if(playerNumber == 1){
-           		logTime();
-       			log += " " + message;	
-           	}
+	    gameLog(message);
            
            	var objDiv = document.getElementById("data_received");
        		objDiv.scrollTop = objDiv.scrollHeight;
