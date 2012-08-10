@@ -1,3 +1,17 @@
+var legendInfo = {"goal":["orange","goal"],
+		  "bouncy":["cyan","bouncy box"], 
+		  "moving":["yellow", "moving block"],
+		  "player_gate":["pink","passage for the player"],
+		  "ball_gate":["brown","passage for the ball"], 
+		  "ball_button":["#666600","button box (reacts to ball)"],
+		  "player_button":["#99FF66", "button box (reacts to player)"],
+		  "box_button":["#cc6666", "button box (reacts to obstacle droppped on it)"],
+		  "teleporter":["#cccccc","teleporter"],
+		  "portal":["#555555","portal"],
+		  "player1":["red","you"],
+		  "player2":["green","you"],
+		  "ball":["purple","ball"]};
+
 // normal box that all objects can't pass through
 // USES: the walls and blocks players place
 Crafty.c("Box", {
@@ -310,7 +324,7 @@ Crafty.c("Teleporter", {
 			h : WALL_WIDTH_HEIGHT
 		});
 
-		this.color("gray");
+		this.color("#cccccc");
 
 		return this;
 	}
@@ -330,7 +344,7 @@ Crafty.c("Portal", {
 			h : WALL_WIDTH_HEIGHT
 		});
 
-		this.color("white");
+		this.color("#555555");
 
 		return this;
 	}

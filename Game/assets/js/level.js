@@ -8,16 +8,18 @@ var buttonEffects = [];
 var portals1 = [];           
 var portals2 = [];
 
+var bg = "";
+
 Crafty.scene('loading', function(){
 	
 	//displays a loading message
 	Crafty.background('#000');
-	message = Crafty.e("2D, DOM, Text").attr({w:400, x: 200, y: 300})
+	message = Crafty.e("2D, DOM, Text").attr({w:WIDTH-20, x: 10, y: 10})
                                        .text("LOADING")
-                                       .css({"text-align": "center", "color":"#fff"});
+                                       .css({"text-align": "left", "color":"#fff"});
                                        
 	//load wall/block image
-    Crafty.sprite(WALL_WIDTH_HEIGHT, "images/crate.png", {
+    Crafty.sprite(WALL_WIDTH_HEIGHT, "images/crate_20.png", {
     	wall : [0,0]
     });
         	
@@ -30,9 +32,10 @@ Crafty.scene('loading', function(){
 	    
 	    socket.on("setup", function(number, channel){
 	    	time = new Date();
-    		logTime();
-    		log += " level " + level + " started";
-	    	
+                //logTime();
+                //log += " level " + level + " started";
+		gameLog(" level " + level + " started");
+
 	    	playerNumber   = number;
     		channelNumber  = channel;
     		Crafty.scene("main");
@@ -58,7 +61,14 @@ Crafty.scene("main", function() {
        	    	Crafty.scene("level");
         	}
     	});
-    
+	
+	socket.on("background", function(bg_name){
+    	    bg = bg_name;
+	    Crafty.e("2D, DOM, Image")
+		.attr({x: 0, y: 0, z: -1})
+		.image(bg);
+	});    
+
     	//triggers to notify the player tha their partner finished the level (they both move on to the next level)
     	socket.on("alertOtherPlayer", function(){
     		level++;
@@ -67,8 +77,9 @@ Crafty.scene("main", function() {
     
     	//triggers when the players need to restart the level
     	socket.on("restart", function(){
-    		logTime();
-    		log += " level " + level + " restarted";
+    	    //logTime();
+    	    //log += " level " + level + " restarted";
+	    gameLog(" level " + level + " restarted");
     		Crafty.scene("level");
     	});
         
@@ -79,8 +90,8 @@ Crafty.scene("main", function() {
     	    channelNumber = holdingChannel;
     	    
     	    if(playerNumber == 1)
-    	    	socket.emit("log", log);
-    	    log = "\n";
+    	    	socket.emit("log", logText);
+    	    logText = "";
     	    
     	    
     	    //add this back when not testing
@@ -100,10 +111,11 @@ Crafty.scene("main", function() {
         	    blocksPlaced = blocksPlaced.slice(1);
         	}
             
-        	//log that a block was placed
-        	logTime();
-        	log += " block placed at (" + xpos + "," + ypos + ")"
-    	});
+        //log that a block was placed
+        //logTime();
+        //log += " block placed at (" + xpos + "," + ypos + ")"
+	gameLog(" block placed at (" + xpos + "," + ypos + ")");
+    });
         
     	//triggers when the ball is teleported to your side of the screen
     	socket.on("teleported", function(x, y, direction){
@@ -151,11 +163,12 @@ Crafty.scene("main", function() {
     		alert("The block you dropped hit your partner or the ball. Try not to do that.")
     	});
     
-    	//logs the position of player 2
-    	socket.on("logPosition", function(x, y){
-        	logTime();
-        	log += " player2: position = (" + x + "," + y + ")";
-    	});
+    // //logs the position of player 2
+    // socket.on("logPosition", function(x, y){
+    //     //logTime();
+    //     //log += " player2: position = (" + x + "," + y + ")";
+    // 	gameLog(" player2: position = (" + x + "," + y + ")");
+    // });
         
     	//sends message in input box to server when you hit enter
     	//resets the input box
@@ -180,11 +193,11 @@ Crafty.scene("main", function() {
 		
 			$("#data_received").append("<br/><b>" + message +"</b>");
 
-    	    //log the message that was received
-    	    if(playerNumber = 1){
-    	    	logTime();
-    	    	log += " " + message;
-    	    }
+        //log the message that was received
+        //logTime();
+        //log += " " + message;
+        gameLog(message);
+
     	    
     	    //scroll down to the last thing in box of receieved messages
     	    var objDiv = document.getElementById("data_received");
@@ -209,8 +222,10 @@ Crafty.scene("level", function(){
    	portals1 = [];
     portals2 = [];
     
-	drawLevel();
-	
+    
+    var inventory = drawLevel();
+    drawLegend(inventory);
+
 	//sends message in input box to server when you hit enter
     //resets the input box
 	$('#msg').keyup(function(key){
@@ -225,9 +240,10 @@ Crafty.scene("level", function(){
 //the victory screen
 Crafty.scene("end", function(){
 	//logs that you won
-    logTime();
-    log += " Winner";
-        
+    //logTime();
+    //log += " Winner";
+    gameLog(" Winner");
+  
     //Displays the end message to the player
     Crafty.background('#000');
     message = Crafty.e("2D, DOM, Text").attr({w: 400, h: 20, x: 200, y: 390})
@@ -315,7 +331,8 @@ function placeGoal(xpos, ypos){
 }
 
 function drawLevel(){
-	Crafty.background("blue");
+
+	Crafty.background("white");
 	var playerXPos = 0;
 	var playerYPos = 0;
 	var ballXPos = 0;
@@ -326,6 +343,7 @@ function drawLevel(){
 	var ballButtonNumber = 0;
 	
 	var map = currentMap;
+    var inventory = {};
 	for(var row = 0; row < ROWS; row++){
 		for(var column = 0; column < COLUMNS; column++){
 			switch(Math.floor(parseFloat(map[column][row]))){
@@ -339,89 +357,107 @@ function drawLevel(){
 				//brown
 				case 2:{
 					drawBallGate(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["ball_gate"] = true;
 					break;
 				}
 				//cyan
 				case 3:{
 					drawCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
-					break;
+					inventory["bouncy"] = true;
+				    break;
 				}
 				//cyan
 				case 4:{
 					drawCCWBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["bouncy"] = true;
 					break;
 				}
 				//gray
 				case 5:{
 					drawTeleporter(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["teleporter"] = true;
 					break;
 				}
 				//green
 				case 6:{
-					if(playerNumber == 2)
+				    if(playerNumber == 2) {
 						playerXPos = row*WALL_WIDTH_HEIGHT;
 						playerYPos = column*WALL_WIDTH_HEIGHT;
+					inventory["player2"] = true;
+				    }
 					break;
 				}
 				//light green
 				case 7:{
 					drawPlayerButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, playerButtonNumber);
 					playerButtonNumber++;
+				    inventory["player_button"] = true;
 					break;
 				}
 				//light red
 				case 8:{
 					drawBoxButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, boxButtonNumber);
 					boxButtonNumber++;
+				    inventory["box_button"] = true;
 					break;
 				}
 				//orange
 				case 9:{
 					placeGoal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["goal"] = true;
 					break;
 				}
 				//pink
 				case 10:{
 					drawPlayerGate(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["player_gate"] = true;
 					break;
 				}
 				//puke
 				case 11:{
 					drawBallButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, ballButtonNumber);
 					ballButtonNumber++;
+				    inventory["ball_button"] = true;
 					break;
 				}
 				//purple
 				case 12:{
 					ballXPos = row*WALL_WIDTH_HEIGHT;
 					ballYPos = column*WALL_WIDTH_HEIGHT;
+				    inventory["ball"] = true;
 					break;
 				}
 				//red
 				case 13:{
-					if(playerNumber == 1)
+				    if(playerNumber == 1) {
 						playerXPos = row*WALL_WIDTH_HEIGHT;
 						playerYPos = column*WALL_WIDTH_HEIGHT;
+					inventory["player1"] = true;
+				    }
 					break;
 				}
 				//yellow
 				case 14:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 270);
+				    inventory["moving"] = true;
 					break;
 				}
 				//yellow
 				case 15:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 90);
-					break;
+				    inventory["moving"] = true;
+				    break;
 				}
 				//yellow
 				case 16:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 0);
+				    inventory["moving"] = true;
 					break;
 				}
 				//yellow
 				case 17:{
 					drawMovingBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, 180);
+				    inventory["moving"] = true;
 					break;
 				}
 				//white
@@ -431,6 +467,7 @@ function drawLevel(){
 						portals1[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 					else
 						portals2[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+				    inventory["portal"] = true;
 					break;
 				}
 			}
@@ -438,6 +475,27 @@ function drawLevel(){
 	}
 	var player = Crafty.e("Player").player(playerNumber, playerXPos, playerYPos);
 	drawBall(ballXPos, ballYPos);
+    return inventory;
+}
+
+
+function drawLegend (inventory) {
+
+    var y_pos = 20;
+
+    for (var key in inventory) {
+
+	var pic = Crafty.e("2D, DOM, Color").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20, y: y_pos });
+	pic.color(legendInfo[key][0]);
+
+	var expl_w = WIDTH - BOARD_WIDTH - 40 - WALL_WIDTH_HEIGHT;
+	var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos });
+	expl.textFont({size:'10px'});
+	expl.text(legendInfo[key][1]);
+
+
+	y_pos += WALL_WIDTH_HEIGHT + 10;
+    }
 }
 
 

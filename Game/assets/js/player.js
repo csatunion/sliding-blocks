@@ -1,12 +1,14 @@
 Crafty.c("Player", {
 
-	_LOG_INTERVAL : 5000,
+    _LOG_INTERVAL : 200,
+    _PLAYER_WIDTH_HEIGHT : PLAYER_WIDTH_HEIGHT,
 
 	init : function() {
 		this.requires("2D, DOM, Color, PlayerMovement");
 	},
 
-	player : function(playerNumber, xpos, ypos) {
+    player : function(playerNumber, xpos, ypos) {
+
 		this.attr({
 			x : xpos,
 			y : ypos,
@@ -28,23 +30,26 @@ Crafty.c("Player", {
 			this.color("green");
 
 		this.bind("EnterFrame", function() {
+
 			this._logPosition();	
 		});
 
 		return this;
 	},
+
 	
 	_logPosition : function(){
 		currentTime = new Date();
 		
 		if(currentTime.getTime() - time.getTime() >= this._LOG_INTERVAL) {
 			time = currentTime;
-			if(playerNumber == 1){
-				logTime();
-				log += " player1: position = (" + this.x + "," + this.y + ")";
-			} 
-			else
-				socket.emit("logPos", this.x, this.y, channelNumber);
+			//if(playerNumber == 1){
+			//	logTime();
+			//	log += " player1: position = (" + this.x + "," + this.y + ")";
+		    gameLog("position " + this.x + " " + this.y);
+		//	} 
+		//	else
+		//		socket.emit("logPos", this.x, this.y, channelNumber);
 		}
 	}
 	
