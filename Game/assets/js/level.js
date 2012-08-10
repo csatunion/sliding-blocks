@@ -77,8 +77,6 @@ Crafty.scene("main", function() {
     
     	//triggers when the players need to restart the level
     	socket.on("restart", function(){
-    	    //logTime();
-    	    //log += " level " + level + " restarted";
 	    gameLog(" level " + level + " restarted");
     		Crafty.scene("level");
     	});
@@ -112,8 +110,6 @@ Crafty.scene("main", function() {
         	}
             
         //log that a block was placed
-        //logTime();
-        //log += " block placed at (" + xpos + "," + ypos + ")"
 	gameLog(" block placed at (" + xpos + "," + ypos + ")");
     });
         
@@ -163,12 +159,6 @@ Crafty.scene("main", function() {
     		alert("The block you dropped hit your partner or the ball. Try not to do that.")
     	});
     
-    // //logs the position of player 2
-    // socket.on("logPosition", function(x, y){
-    //     //logTime();
-    //     //log += " player2: position = (" + x + "," + y + ")";
-    // 	gameLog(" player2: position = (" + x + "," + y + ")");
-    // });
         
     	//sends message in input box to server when you hit enter
     	//resets the input box
@@ -194,8 +184,6 @@ Crafty.scene("main", function() {
 			$("#data_received").append("<br/><b>" + message +"</b>");
 
         //log the message that was received
-        //logTime();
-        //log += " " + message;
         gameLog(message);
 
     	    
@@ -240,8 +228,6 @@ Crafty.scene("level", function(){
 //the victory screen
 Crafty.scene("end", function(){
 	//logs that you won
-    //logTime();
-    //log += " Winner";
     gameLog(" Winner");
   
     //Displays the end message to the player

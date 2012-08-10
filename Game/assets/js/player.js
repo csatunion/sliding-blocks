@@ -43,13 +43,7 @@ Crafty.c("Player", {
 		
 		if(currentTime.getTime() - time.getTime() >= this._LOG_INTERVAL) {
 			time = currentTime;
-			//if(playerNumber == 1){
-			//	logTime();
-			//	log += " player1: position = (" + this.x + "," + this.y + ")";
 		    gameLog("position " + this.x + " " + this.y);
-		//	} 
-		//	else
-		//		socket.emit("logPos", this.x, this.y, channelNumber);
 		}
 	}
 	
