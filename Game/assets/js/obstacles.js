@@ -1,4 +1,4 @@
-var legendInfo = {"goal":["orange","goal"],
+var legendInfo = {"goal":["orange","goal (your partner may have it)"],
 		  "bouncy":["cyan","bouncy box"], 
 		  "moving":["yellow", "moving block"],
 		  "player_gate":["pink","passage for the ball"],
@@ -10,7 +10,7 @@ var legendInfo = {"goal":["orange","goal"],
 		  "portal":["#cccccc","portal"],
 		  "player1":["red","you"],
 		  "player2":["green","you"],
-		  "ball":["purple","ball"]};
+		  "ball":["purple","ball (your partner may have it"]};
 
 // normal box that all objects can't pass through
 // USES: the walls and blocks players place
