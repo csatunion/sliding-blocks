@@ -43,7 +43,7 @@ Crafty.c("Player", {
 		
 		if(currentTime.getTime() - time.getTime() >= this._LOG_INTERVAL) {
 			time = currentTime;
-		    gameLog("position " + this.x + " " + this.y);
+		    gameLog("position:" + this.x + " " + this.y);
 		}
 	}
 	

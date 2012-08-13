@@ -31,8 +31,8 @@ Crafty.scene('loading', function(){
 	    socket.emit("ready");
 	    
 	    socket.on("setup", function(number, channel){
-	    	time = new Date();
-			gameLog(" level " + level + " started");
+		time = new Date();
+		gameLog("levelstart:" + level);
 
 	    	playerNumber   = number;
     		channelNumber  = channel;
@@ -82,7 +82,7 @@ Crafty.scene("main", function() {
     
     	//triggers when the players need to restart the level
     	socket.on("restart", function(){
-	    	gameLog(" level " + level + " restarted");
+	    	gameLog("levelrestart:" + level);
     		Crafty.scene("level");
     	});
         
@@ -107,7 +107,7 @@ Crafty.scene("main", function() {
     	    //place the block at the received location
         	placeBlock(xpos, ypos);
             
-        	//make sure their are 3 or less blocks currently placed
+        	//make sure there are 3 or less blocks currently placed
         	//remove the block that was placed the longest ago
         	if (blocksPlaced.length > 3){
         	    blocksPlaced[0].destroy();
@@ -115,7 +115,7 @@ Crafty.scene("main", function() {
         	}
             
         	//log that a block was placed
-			gameLog(" block placed at (" + xpos + "," + ypos + ")");
+			gameLog("newblock:" + xpos + " " + ypos);
     	});
         
     	//triggers when the ball is teleported to your side of the screen
@@ -166,10 +166,11 @@ Crafty.scene("main", function() {
     
     	//print out any messages received from other player
     	socket.on('newMessage', function(message){
-			$("#data_received").append("<br/><b>" + message +"</b>");
+	    $("#data_received").append("<br/><b>" + message +"</b>");
 
-        	//log the message that was received
-        	gameLog(message);
+            //log the message that was received
+	    message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
+            gameLog("mreceived:\""+message+"\"");
     	    
     	    //scroll down to the last thing in box of receieved messages
     	    var objDiv = document.getElementById("data_received");
@@ -187,7 +188,10 @@ Crafty.scene("main", function() {
            	socket.emit('sendMessage', message, channelNumber);
            	$('#msg').val("");
            	$("#data_received").append("<br/><i>" + message +"</i>");
-	    	gameLog(message);
+
+	    //log the message that was sent
+	    message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
+            gameLog("msent:\""+message+"\"");
            
            	var objDiv = document.getElementById("data_received");
        		objDiv.scrollTop = objDiv.scrollHeight;
@@ -202,7 +206,7 @@ Crafty.scene("main", function() {
 //the victory screen
 Crafty.scene("end", function(){
 	//logs that you won
-    gameLog(" Winner");
+    gameLog("winner");
   
     //Displays the end message to the player
     Crafty.background('#000');
@@ -343,7 +347,7 @@ function drawLevel(){
 				    if(playerNumber == 2) {
 						playerXPos = row*WALL_WIDTH_HEIGHT;
 						playerYPos = column*WALL_WIDTH_HEIGHT;
-					inventory["player2"] = true;
+					inventory["player"] = "player2";
 				    }
 					break;
 				}
@@ -364,7 +368,7 @@ function drawLevel(){
 				//orange
 				case 9:{
 					placeGoal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
-				    inventory["goal"] = true;
+				    //inventory["goal"] = true;
 					break;
 				}
 				//pink
@@ -384,7 +388,7 @@ function drawLevel(){
 				case 12:{
 					ballXPos = row*WALL_WIDTH_HEIGHT;
 					ballYPos = column*WALL_WIDTH_HEIGHT;
-				    inventory["ball"] = true;
+				    //inventory["ball"] = true;
 					break;
 				}
 				//red
@@ -392,7 +396,7 @@ function drawLevel(){
 				    if(playerNumber == 1) {
 						playerXPos = row*WALL_WIDTH_HEIGHT;
 						playerYPos = column*WALL_WIDTH_HEIGHT;
-					inventory["player1"] = true;
+					inventory["player"] = "player1";
 				    }
 					break;
 				}
@@ -446,20 +450,48 @@ function drawLevel(){
 
 function drawLegend (inventory) {
 
+    var expl_w = WIDTH - BOARD_WIDTH - 40 - WALL_WIDTH_HEIGHT;
     var y_pos = 20;
+    
+    // draw player avatar
+    var pic = Crafty.e("2D, DOM, Color").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20, y: y_pos });
+    pic.color(legendInfo[inventory["player"]][0]);
+    
+    var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos });
+    expl.text(legendInfo[inventory["player"]][1]);
 
+    y_pos += WALL_WIDTH_HEIGHT + 20;
+
+    // draw ball
+    var pic = Crafty.e("2D, DOM, Color").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20, y: y_pos });
+    pic.color(legendInfo["ball"][0]);
+    
+    var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos });
+    expl.text(legendInfo["ball"][1]);
+
+    y_pos += WALL_WIDTH_HEIGHT + 20;
+
+    // draw goal
+    var pic = Crafty.e("2D, DOM, Color").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20, y: y_pos });
+    pic.color(legendInfo["goal"][0]);
+    
+    var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos });
+    expl.text(legendInfo["goal"][1]);
+
+    y_pos += WALL_WIDTH_HEIGHT + 20;
+
+    // draw rest
     for (var key in inventory) {
 
-	var pic = Crafty.e("2D, DOM, Color").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20, y: y_pos });
-	pic.color(legendInfo[key][0]);
+	if (key != "player") {
+	    var pic = Crafty.e("2D, DOM, Color").attr({ w: WALL_WIDTH_HEIGHT, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20, y: y_pos });
+	    pic.color(legendInfo[key][0]);
 
-	var expl_w = WIDTH - BOARD_WIDTH - 40 - WALL_WIDTH_HEIGHT;
-	var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos }).textFont({size:'30px'});
-	//expl.textFont({size:'30px'});
-	expl.text(legendInfo[key][1]);
-
-
-	y_pos += WALL_WIDTH_HEIGHT + 20;
+	    var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: WALL_WIDTH_HEIGHT, x:BOARD_WIDTH + 20 + WALL_WIDTH_HEIGHT + 20, y: y_pos });
+	    expl.text(legendInfo[key][1]);
+	    
+	    y_pos += WALL_WIDTH_HEIGHT + 20;
+	}
     }
 }
 
