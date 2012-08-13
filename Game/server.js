@@ -75,7 +75,7 @@ io.sockets.on('connection', function(socket){
     	var map2;
     	var level = __dirname + "/levels/level_" + level + ".txt";
 
-	// I think we should go for the union map and black and white images (easiest to produce, least obstrusive)
+		// I think we should go for the union map and black and white images (easiest to produce, least obstrusive)
     	var bg_imgs = ["union.png","treasure-map-1-scaled.png","treasure-map-3-scaled.png","treasure-map-5-scaled.png","treasure-map-6-scaled.png","treasure-map-7-scaled.png"];
 		var bg = "images/" + bg_imgs[Math.floor(Math.random() * bg_imgs.length)];
 
