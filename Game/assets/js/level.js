@@ -31,8 +31,8 @@ Crafty.scene('loading', function(){
 	    socket.emit("ready");
 	    
 	    socket.on("setup", function(number, channel){
-	    	time = new Date();
-			gameLog(" level " + level + " started");
+		time = new Date();
+		gameLog("levelstart:" + level);
 
 	    	playerNumber   = number;
     		channelNumber  = channel;
@@ -82,7 +82,7 @@ Crafty.scene("main", function() {
     
     	//triggers when the players need to restart the level
     	socket.on("restart", function(){
-	    	gameLog(" level " + level + " restarted");
+	    	gameLog("levelrestart:" + level);
     		Crafty.scene("level");
     	});
         
@@ -107,7 +107,7 @@ Crafty.scene("main", function() {
     	    //place the block at the received location
         	placeBlock(xpos, ypos);
             
-        	//make sure their are 3 or less blocks currently placed
+        	//make sure there are 3 or less blocks currently placed
         	//remove the block that was placed the longest ago
         	if (blocksPlaced.length > 3){
         	    blocksPlaced[0].destroy();
@@ -115,7 +115,7 @@ Crafty.scene("main", function() {
         	}
             
         	//log that a block was placed
-			gameLog(" block placed at (" + xpos + "," + ypos + ")");
+			gameLog("newblock:" + xpos + " " + ypos);
     	});
         
     	//triggers when the ball is teleported to your side of the screen
@@ -166,10 +166,11 @@ Crafty.scene("main", function() {
     
     	//print out any messages received from other player
     	socket.on('newMessage', function(message){
-			$("#data_received").append("<br/><b>" + message +"</b>");
+	    $("#data_received").append("<br/><b>" + message +"</b>");
 
-        	//log the message that was received
-        	gameLog(message);
+            //log the message that was received
+	    message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
+            gameLog("mreceived:\""+message+"\"");
     	    
     	    //scroll down to the last thing in box of receieved messages
     	    var objDiv = document.getElementById("data_received");
@@ -187,7 +188,10 @@ Crafty.scene("main", function() {
            	socket.emit('sendMessage', message, channelNumber);
            	$('#msg').val("");
            	$("#data_received").append("<br/><i>" + message +"</i>");
-	    	gameLog(message);
+
+	    //log the message that was sent
+	    message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
+            gameLog("msent:\""+message+"\"");
            
            	var objDiv = document.getElementById("data_received");
        		objDiv.scrollTop = objDiv.scrollHeight;
@@ -202,7 +206,7 @@ Crafty.scene("main", function() {
 //the victory screen
 Crafty.scene("end", function(){
 	//logs that you won
-    gameLog(" Winner");
+    gameLog("winner");
   
     //Displays the end message to the player
     Crafty.background('#000');
