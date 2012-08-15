@@ -1,5 +1,5 @@
 //level attributes
-var level = 5;
+var level = 4;
 var currentMap;
 
 //arrays of obstacles
