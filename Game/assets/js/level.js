@@ -85,8 +85,7 @@ Crafty.scene("main", function() {
     	socket.on("partnerLeft", function(holdingChannel){
     	    channelNumber = holdingChannel;
     	    
-    	    if(playerNumber == 1)
-    	    	socket.emit("log", logText);
+   	    	socket.emit("log", logText);
     	    logText = "";
     	    
     	    playingGame = false;
