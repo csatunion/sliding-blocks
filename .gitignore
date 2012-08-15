@@ -1,0 +1,11 @@
+#git ignore file
+#comments start with hash
+
+#ignore all object files, all files ending with
+*.project
+
+#ignore a folder named
+/Game/.settings
+
+#ignore a single file
+/Game/assets/log.txt
