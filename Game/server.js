@@ -15,6 +15,8 @@ var clientIds = [];
 var channelsToReuse = [];
 var currentChannel = 0;       
 
+var logText = "";
+
 //run this when a client connects to server
 io.sockets.on('connection', function(socket){
 	
@@ -65,8 +67,12 @@ io.sockets.on('connection', function(socket){
     
     //receive the game log from the players and writes it to the log file
     socket.on("log", function(log){
-    	
-      	var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
+
+      	var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});   	
+	if (logText != "") {
+	    stream.write(logText);
+	    logText = "";
+	}
        	stream.write(log);
        	console.log("log recorded");
        	
@@ -76,13 +82,14 @@ io.sockets.on('connection', function(socket){
     	var map1;
     	var map2;
 	
-	console.log(levelNo);
+	console.log("LEVEL " + levelNo);
 	var levels = ["level_4.txt", "level_5.txt", "level_3.txt"];
 
 	if (levelNo >= levels.length) {
 	    var level = "-1";
 	} else {
     	    var level = __dirname + "/levels/" + levels[levelNo];
+	    serverLog("level:" + levelNo + " " + levels[levelNo]);
 	}
 
     	var bg_imgs = ["union.png","treasure-map-1-scaled.png","treasure-map-3-scaled.png","treasure-map-5-scaled.png","treasure-map-6-scaled.png","treasure-map-7-scaled.png"];
@@ -187,3 +194,9 @@ function pairUpSockets(){
 	}
 }
 
+function serverLog(logmsg) {
+    currentTime = new Date();
+    logtime = currentTime.toDateString()+","+currentTime.toTimeString()+","+currentTime.getTime();
+    logentry = logtime +",server,"+ logmsg;
+    logText = logText + "\n" + logentry;
+}
