@@ -35,7 +35,7 @@ Crafty.scene('loading', function(){
 	    	playerNumber   = number;
     		channelNumber  = channel;
     		time = new Date();
-			gameLog("levelstart:" + level);
+		gameLog("startgame");
     		Crafty.scene("main");
 	    });
 	});
@@ -52,11 +52,14 @@ Crafty.scene("main", function() {
 		//passes them the level they need to draw as data
     	socket.on("advance", function(data){
     	
-    		if(data == -1)
-    			Crafty.scene("end");
+    	    if(data == -1) {
+		    gameLog("gameend");
+    		    Crafty.scene("end");
+	    }
     		else{
-    			currentMap = data;
-       	    	Crafty.scene("level");
+		    gameLog("startlevel:" + level);
+    		    currentMap = data;
+       	    	    Crafty.scene("level");
         	}
     	});
 	
@@ -67,7 +70,7 @@ Crafty.scene("main", function() {
 			.image(bg);
 		});    
 
-    	//triggers to notify the player tha their partner finished the level (they both move on to the next level)
+    	//triggers to notify the player that their partner finished the level (they both move on to the next level)
     	socket.on("alertOtherPlayer", function(){
     		level++;
     		//go to a between level screen
