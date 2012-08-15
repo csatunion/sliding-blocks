@@ -53,6 +53,16 @@ Crafty.scene("main", function() {
 	if(firstPlayThrough){
 		//triggers to notify the players to move to the next level
 		//passes them the level they need to draw as data
+		
+		if(debug){
+			$(document).keyup(function(key){
+				if(key.which == 16){
+					level++;
+					socket.emit("nextLevel", level, playerNumber, channelNumber);
+				}
+			});
+		}
+		
     	socket.on("advance", function(data){
     	
     	    if(data == -1) {
@@ -188,15 +198,6 @@ Crafty.scene("main", function() {
 
 Crafty.scene("level", function(){
 	
-	if(debug){
-		$(document).keyup(function(key){
-			if(key.which == 16){
-				level++;
-				socket.emit("nextLevel", level, playerNumber, channelNumber);
-			}
-		});
-	}
-	
 	//sends message in input box to server when you hit enter
     //resets the input box
     $('#msg').keyup(function(key){
@@ -206,8 +207,8 @@ Crafty.scene("level", function(){
            	$('#msg').val("");
            	$("#data_received").append("<br/><i>" + message +"</i>");
 
-	    //log the message that was sent
-	    message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
+	    	//log the message that was sent
+	   		message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
             gameLog("msent:\""+message+"\"");
            
            	var objDiv = document.getElementById("data_received");

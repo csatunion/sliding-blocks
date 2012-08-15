@@ -75,8 +75,9 @@ io.sockets.on('connection', function(socket){
     socket.on("nextLevel", function(levelNo, playerNumber, channel){
     	var map1;
     	var map2;
-
-	var levels = ["level_4.txt"]; //, "level_5.txt", "level_3.txt"];
+	
+	console.log(levelNo);
+	var levels = ["level_4.txt", "level_5.txt", "level_3.txt"];
 
 	if (levelNo >= levels.length) {
 	    var level = "-1";
