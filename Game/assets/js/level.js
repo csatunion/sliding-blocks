@@ -177,7 +177,7 @@ Crafty.scene("main", function() {
     
     	//print out any messages received from other player
     	socket.on('newMessage', function(message){
-	    $("#data_received").append("<br/><b>" + message +"</b>");
+	    	$("#data_received").append("<br/><b>" + message +"</b>");
 
             //log the message that was received
 	    	message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
