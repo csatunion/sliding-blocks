@@ -1,3 +1,5 @@
+var debug = true;
+
 //level attributes
 var level = 0;
 var currentMap;
@@ -179,7 +181,23 @@ Crafty.scene("main", function() {
     	firstPlayThrough = false;
    }
    
-   //sends message in input box to server when you hit enter
+   //load the first level
+   if(playerNumber == 1)
+		socket.emit('nextLevel', level, playerNumber, channelNumber);
+});
+
+Crafty.scene("level", function(){
+	
+	if(debug){
+		$(document).keyup(function(key){
+			if(key.which == 16){
+				level++;
+				socket.emit("nextLevel", level, playerNumber, channelNumber);
+			}
+		});
+	}
+	
+	//sends message in input box to server when you hit enter
     //resets the input box
     $('#msg').keyup(function(key){
        	if(key.which == 13){
@@ -196,13 +214,6 @@ Crafty.scene("main", function() {
        		objDiv.scrollTop = objDiv.scrollHeight;
        	}
     });
-   
-   //load the first level
-   if(playerNumber == 1)
-		socket.emit('nextLevel', level, playerNumber, channelNumber);
-});
-
-Crafty.scene("level", function(){
 	
 	//initializes all obstacle variables to empty
 	blocksPlaced = [];
