@@ -19,7 +19,8 @@ Crafty.c("Ball", {
 				down : false
 			},
 			startedMoving : false,
-			framesSinceFirstMove : 0
+			framesSinceFirstMove : 0,
+			hitGoal : false
 		});
 		
 		this.ballmovement();
@@ -393,7 +394,8 @@ Crafty.c("BallMovement", {
 				socket.emit("teleport", collisions[0].obj.x, collisions[0].obj.y, direction, channelNumber);
 				this.destroy();
 			}
-			else if(this.hit("Goal") != false){
+			else if(this.hit("Goal") != false && this.hitGoal == false){
+				this.hitGoal = true;
 				socket.emit("alertOtherPlayer", channelNumber);
 				level++;
 				socket.emit("nextLevel", level, playerNumber, channelNumber);

@@ -31,11 +31,11 @@ Crafty.scene('loading', function(){
 	    socket.emit("ready");
 	    
 	    socket.on("setup", function(number, channel){
-		time = new Date();
-		gameLog("levelstart:" + level);
 
 	    	playerNumber   = number;
     		channelNumber  = channel;
+    		time = new Date();
+			gameLog("levelstart:" + level);
     		Crafty.scene("main");
 	    });
 	});
@@ -44,12 +44,6 @@ Crafty.scene('loading', function(){
 //the main game scene
 //is called once after the setup to create all the client event listeners
 Crafty.scene("main", function() {
-	
-	//initializes all obstacle variables to empty
-	blocksPlaced = [];
-	buttonEffects = [];
-   	portals1 = [];
-    portals2 = [];
 	
 	//don't want to create duplicate event listeners if they replay
 	//so it only makes the event listeners on the first playthrough
@@ -62,8 +56,7 @@ Crafty.scene("main", function() {
     			Crafty.scene("end");
     		else{
     			currentMap = data;
-       	    	var inventory = drawLevel();
-    			drawLegend(inventory);
+       	    	Crafty.scene("level");
         	}
     	});
 	
@@ -201,6 +194,18 @@ Crafty.scene("main", function() {
    //load the first level
    if(playerNumber == 1)
 		socket.emit('nextLevel', level, playerNumber, channelNumber);
+});
+
+Crafty.scene("level", function(){
+	
+	//initializes all obstacle variables to empty
+	blocksPlaced = [];
+	buttonEffects = [];
+   	portals1 = [];
+    portals2 = [];
+	
+	var inventory = drawLevel();
+    drawLegend(inventory);
 });
 
 //the victory screen
