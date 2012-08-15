@@ -35,7 +35,7 @@ Crafty.scene('loading', function(){
 	    	playerNumber   = number;
     		channelNumber  = channel;
 
-		gameLog("startgame");
+			gameLog("startgame");
 
     		Crafty.scene("main");
 	    });
