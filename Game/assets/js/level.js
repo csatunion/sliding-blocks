@@ -31,11 +31,12 @@ Crafty.scene('loading', function(){
 	    socket.emit("ready");
 	    
 	    socket.on("setup", function(number, channel){
-
+			playingGame = true;
 	    	playerNumber   = number;
     		channelNumber  = channel;
-    		time = new Date();
+
 		gameLog("startgame");
+
     		Crafty.scene("main");
 	    });
 	});
@@ -57,8 +58,9 @@ Crafty.scene("main", function() {
     		    Crafty.scene("end");
 	    }
     		else{
-		    gameLog("startlevel:" + level);
     		    currentMap = data;
+    		    time = new Date();
+    		    gameLog("levelstart:" + level);
        	    	    Crafty.scene("level");
         	}
     	});
@@ -88,9 +90,10 @@ Crafty.scene("main", function() {
     	socket.on("partnerLeft", function(holdingChannel){
     	    channelNumber = holdingChannel;
     	    
-    	    if(playerNumber == 1)
-    	    	socket.emit("log", logText);
+   	    	socket.emit("log", logText);
     	    logText = "";
+    	    
+    	    playingGame = false;
     	    
     	    
     	    //add this back when not testing

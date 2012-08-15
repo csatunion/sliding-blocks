@@ -3,7 +3,8 @@ var socket = io.connect(SERVER_ADDR);
 //server attributes
 var channelNumber;                                         
 var playerNumber;
-var firstPlayThrough = true;                                        
+var firstPlayThrough = true;
+var playingGame = false;                                        
 
 //log attributes
 var logText = "";
@@ -15,7 +16,8 @@ window.onload = function(){
 }
 
 window.onbeforeunload = function(){
-    socket.emit("log", logText);
+	if(logText != "")
+    	socket.emit("log", logText);
     socket.emit("partnerDisconnected", channelNumber);
 }
 
