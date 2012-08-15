@@ -124,6 +124,20 @@ Crafty.c("PlayerMovement", {
 				else if(direction == 270)
 					this.y = collisions[0].obj.y - this.h;
 			}
+			else if(this.hit("SimpleBouncyBox") != false){
+				this.move.left = this.move.right = this.move.up = this.move.down = false;
+				
+				collisions = this.hit("SimpleBouncyBox");
+				
+				if(direction == 0)
+					this.x = collisions[0].obj.x - this.w;
+				else if(direction == 90)
+					this.y = collisions[0].obj.y + collisions[0].obj.h;
+				else if(direction == 180)
+					this.x = collisions[0].obj.x + collisions[0].obj.w;
+				else if(direction == 270)
+					this.y = collisions[0].obj.y - this.h;
+			}
 			else if(this.hit("CCWBouncyBox") != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
 				

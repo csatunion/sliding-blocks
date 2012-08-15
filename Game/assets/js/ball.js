@@ -303,6 +303,32 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y - this.h;
 				}
 			}
+		    else if(this.hit("SimpleBouncyBox") != false){
+				this.move.left = this.move.right = this.move.up = this.move.down = false;
+				
+				collisions = this.hit("SimpleBouncyBox");
+				
+				if(direction == 0){
+					this.x = collisions[0].obj.x - this.w;
+					this.move.right = false;
+					this.move.left = true;
+				}
+				else if(direction == 90){
+					this.y = collisions[0].obj.y + collisions[0].obj.h;
+					this.move.up = false;
+					this.move.down = true;
+				}
+				else if(direction == 180){
+					this.x = collisions[0].obj.x + collisions[0].obj.w;
+					this.move.left = false;
+					this.move.right  = true;
+				}
+				else if(direction == 270){
+					this.y = collisions[0].obj.y - this.h;
+					this.move.down = false;
+					this.move.up = true;
+				}
+			}
 			else if(this.hit("CCWBouncyBox") != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
 				

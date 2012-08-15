@@ -87,6 +87,26 @@ Crafty.c("MovingBox", {
 			}
 		});
 
+	    this.onHit("SimpleBouncyBox", function(e) {
+			if (this.move.left) {
+				this.x = e[0].obj.x + e[0].obj.w;
+				this.move.left = false;
+				this.move.right = true;
+			} else if (this.move.right) {
+				this.x = e[0].obj.x - this.w;
+				this.move.right = false;
+				this.move.left = true;
+			} else if (this.move.up) {
+				this.y = e[0].obj.y + e[0].obj.h;
+				this.move.up = false;
+				this.move.down = true;
+			} else if (this.move.down) {
+				this.y = e[0].obj.y - this.h;
+				this.move.down = false;
+				this.move.up = true;
+			}
+		});
+
 		this.onHit("CWBouncyBox", function(e) {
 			if (this.move.left) {
 				this.x = e[0].obj.x + e[0].obj.w;
@@ -141,6 +161,26 @@ Crafty.c("MovingBox", {
 			this.move.up = true;
 		else if (startDirection == 270)
 			this.move.down = true;
+	}
+});
+
+Crafty.c("SimpleBouncyBox", {
+
+	init : function() {
+		this.requires("2D, DOM, Color");
+	},
+
+	simplebouncybox : function(xpos, ypos) {
+		this.attr({
+			x : xpos,
+			y : ypos,
+			w : WALL_WIDTH_HEIGHT,
+			h : WALL_WIDTH_HEIGHT
+		});
+
+		this.color("cyan");
+
+		return this;
 	}
 });
 

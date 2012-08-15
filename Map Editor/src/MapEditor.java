@@ -31,7 +31,7 @@ public class MapEditor extends JFrame {
 	private JButton load, save, clear;
 	private MapTile mapTiles1[][] = new MapTile[ROWS][COLUMNS];
 	private MapTile mapTiles2[][] = new MapTile[ROWS][COLUMNS];
-	private MapTile black, blue, brown, ccw_cyan, cw_cyan, gray, green, lightgreen,
+    private MapTile black, blue, brown, cyan, ccw_cyan, cw_cyan, gray, green, lightgreen,
 			lightred, orange, pink, puke, purple, red, down_yellow, up_yellow, 
 			right_yellow, left_yellow, white;
 	private Dimension dimension = new Dimension(ROWS*TILESIZE, COLUMNS*TILESIZE);
@@ -40,6 +40,7 @@ public class MapEditor extends JFrame {
 	public final int BACKGROUND = 0;
 	public final int BOX = 1;
 	public final int BALL_GATE = 2;
+        public final int SIMPLE_BOUNCY_BOX = 19;
 	public final int CCWBOUNCY_BOX = 3;
 	public final int CWBOUNCY_BOX = 4;
 	public final int TELEPORTER = 5;
@@ -60,6 +61,7 @@ public class MapEditor extends JFrame {
 	public ImageIcon blackTile = new ImageIcon(getClass().getResource("/black.png"));
 	public ImageIcon blueTile = new ImageIcon(getClass().getResource("/blue.png"));
 	public ImageIcon brownTile = new ImageIcon(getClass().getResource("/brown.png"));
+	public ImageIcon cyanTile = new ImageIcon(getClass().getResource("/cyan.png"));
 	public ImageIcon clockwise_cyanTile = new ImageIcon(getClass().getResource("/clockwise_cyan.png"));
 	public ImageIcon counterClockwise_cyanTile = new ImageIcon(getClass().getResource("/counterClockwise_cyan.png"));
 	public ImageIcon grayTile = new ImageIcon(getClass().getResource("/gray.png"));
@@ -177,6 +179,10 @@ public class MapEditor extends JFrame {
 		brown.addActionListener(paletteListener);
 		paletteContain.add(brown);
 
+		cyan = new MapTile(SIMPLE_BOUNCY_BOX);
+		cyan.addActionListener(paletteListener);
+		paletteContain.add(cyan);
+
 		ccw_cyan = new MapTile(CCWBOUNCY_BOX);
 		ccw_cyan.addActionListener(paletteListener);
 		paletteContain.add(ccw_cyan);
@@ -287,6 +293,10 @@ public class MapEditor extends JFrame {
 		case BALL_GATE:
 			currentBrush.setIcon(brownTile);
 			currentBrush.setText("Ball Gate");
+			break;
+		case SIMPLE_BOUNCY_BOX:
+			currentBrush.setIcon(cyanTile);
+			currentBrush.setText("Simple Bouncy Box");
 			break;
 		case CCWBOUNCY_BOX:
 			currentBrush.setIcon(counterClockwise_cyanTile);
@@ -654,6 +664,10 @@ public class MapEditor extends JFrame {
 						}
 					}
 					break;
+				case 19:
+					setIcon(cyanTile);
+					break;
+
 				}
 			}
 		}

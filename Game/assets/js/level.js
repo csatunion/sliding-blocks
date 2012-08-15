@@ -1,5 +1,5 @@
 //level attributes
-var level = 1;                                              
+var level = 4;
 var currentMap;
 
 //arrays of obstacles
@@ -215,7 +215,7 @@ Crafty.scene("end", function(){
   
     //Displays the end message to the player
     Crafty.background('#000');
-    message = Crafty.e("2D, DOM, Text").attr({w: 400, h: 20, x: 200, y: 390})
+    message = Crafty.e("2D, DOM, Text").attr({w: 400, h: 20, x: 10, y: 10})
                                        .text("!!!!   YOU WIN   !!!!")
                                        .css({"text-align": "center", "color":"#fff"});
 });
@@ -247,6 +247,11 @@ function drawBall(xpos, ypos){
 function drawMovingBox(xpos, ypos, direction){
     var movingBox = Crafty.e("MovingBox").movingbox(xpos, ypos, direction);
     return movingbox;
+}
+
+function drawSimpleBouncyBox(xpos, ypos){
+    var bouncyBox = Crafty.e("SimpleBouncyBox").simplebouncybox(xpos, ypos);
+    return bouncyBox;
 }
 
 function drawCCWBouncyBox(xpos, ypos){
@@ -438,6 +443,12 @@ function drawLevel(){
 						portals2[index] = drawPortal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 				    inventory["portal"] = true;
 					break;
+				}
+				//cyan
+				case 19:{
+					drawSimpleBouncyBox(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					inventory["bouncy"] = true;
+				    break;
 				}
 			}
 		}
