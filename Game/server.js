@@ -76,10 +76,10 @@ io.sockets.on('connection', function(socket){
     	var map1;
     	var map2;
 
-	var levels = ["level_4.txt", "level_5.txt", "level_3.txt"];
+	var levels = ["level_4.txt"]; //, "level_5.txt", "level_3.txt"];
 
 	if (levelNo >= levels.length) {
-	    var level = -1;
+	    var level = "-1";
 	} else {
     	    var level = __dirname + "/levels/" + levels[levelNo];
 	}
@@ -89,7 +89,8 @@ io.sockets.on('connection', function(socket){
 
     	fs.readFile(level, 'ascii', function(err, data) {
     		//if all levels complete
-			if (level==-1) {
+			if (err) {
+			    console.log(err);
 			    io.sockets.to(channel).emit("advance", -1);
 			}
 			//if all levels not complete
