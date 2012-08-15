@@ -170,7 +170,7 @@ Crafty.scene("main", function() {
 	    $("#data_received").append("<br/><b>" + message +"</b>");
 
             //log the message that was received
-	    message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
+	    	message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
             gameLog("mreceived:\""+message+"\"");
     	    
     	    //scroll down to the last thing in box of receieved messages
