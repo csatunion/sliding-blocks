@@ -30,8 +30,8 @@ Crafty.c("Player", {
 			this.color("green");
 
 		this.bind("EnterFrame", function() {
-
-			this._logPosition();	
+			if(playingGame)
+				this._logPosition();	
 		});
 
 		return this;

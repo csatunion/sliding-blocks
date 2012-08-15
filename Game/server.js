@@ -65,14 +65,14 @@ io.sockets.on('connection', function(socket){
     
     //receive the game log from the players and writes it to the log file
     socket.on("log", function(log){
-        var stream = fs.createWriteStream('assets/log.txt', {'flags':'a'});
-        stream.write(log);
-        console.log("log recorded");
+    	
+      	var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
+       	stream.write(log);
+       	console.log("log recorded");
+       	
     });
      
     socket.on("nextLevel", function(levelNo, playerNumber, channel){
-    	console.log(levelNo);
-    	
     	var map1;
     	var map2;
     	var level = __dirname + "/levels/level_" + levelNo + ".txt";

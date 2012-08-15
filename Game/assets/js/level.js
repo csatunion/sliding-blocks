@@ -1,5 +1,5 @@
 //level attributes
-var level = 5;
+var level = 4;
 var currentMap;
 
 //arrays of obstacles
@@ -31,11 +31,9 @@ Crafty.scene('loading', function(){
 	    socket.emit("ready");
 	    
 	    socket.on("setup", function(number, channel){
-
+			playingGame = true;
 	    	playerNumber   = number;
     		channelNumber  = channel;
-    		time = new Date();
-			gameLog("levelstart:" + level);
     		Crafty.scene("main");
 	    });
 	});
@@ -56,6 +54,8 @@ Crafty.scene("main", function() {
     			Crafty.scene("end");
     		else{
     			currentMap = data;
+    			time = new Date();
+    			gameLog("levelstart:" + level);
        	    	Crafty.scene("level");
         	}
     	});
