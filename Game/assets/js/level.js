@@ -89,6 +89,8 @@ Crafty.scene("main", function() {
     	    	socket.emit("log", logText);
     	    logText = "";
     	    
+    	    playingGame = false;
+    	    
     	    
     	    //add this back when not testing
     	    //alert("Your partner disconnected. Searching for a new partner.");
