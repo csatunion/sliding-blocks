@@ -52,7 +52,7 @@ io.sockets.on('connection', function(socket){
     
     //send position to the other player to tell them where the block teleported to
     socket.on("teleport", function(x, y, direction, channel){
-       socket.broadcast.to(channel).emit("teleported", x, y, direction); 
+        socket.broadcast.to(channel).emit("teleported", x, y, direction); 
     });
 
     //send position to partner to tell them where to place a block
@@ -67,15 +67,83 @@ io.sockets.on('connection', function(socket){
     
     //receive the game log from the players and writes it to the log file
     socket.on("log", function(log){
-
-      	var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});   	
+		var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
+		var writeSuccess;
+		
+		//check if server logged anything
 		if (logText != "") {
-	    	stream.write(logText);
-	    	logText = "";
+			//write what the server logged
+	    	writeSuccess = stream.write(logText);
+	    	//if not finished writing
+	    	if(!writeSuccess){
+	    		//wait until finished writing
+	    		stream.once("drain", function(){
+	    			//erase the old server log
+	    			logText = "";
+	    			console.log("server log recorded " + writeSuccess);
+	    			//write the client log
+	    			writeSuccess = stream.write(log);
+	    			//if not finished with client log
+	    			if(!writeSuccess){
+	    				//wait unitl finished writing
+	    				stream.once("drain", function(){
+	    					//all writing done
+	    					console.log("client log recorded " + writeSuccess);
+	    					stream.end();
+	    				});
+	    			}
+	    			//if finished writing client log
+	    			else{
+	    				//all writing done
+	    				console.log("client log recorded " + writeSuccess);
+	    				stream.end();
+	    			}
+	    		});
+	    	}
+	    	//if finished writing server log
+	    	else{
+	    		//erase old server log
+	    		logText = "";
+	    		console.log("server log recorded " + writeSuccess);
+	    		//write client log
+	    		writeSuccess = stream.write(log);
+	    		//if not finished with client log
+	    		if(!writeSuccess){
+	    			//wait unitl finished writing
+	    			stream.once("drain", function(){
+	    				//all writing done
+	    				console.log("client log recorded " + writeSuccess);
+	    				stream.end();
+	    			});
+	    		}
+	    		//if finished writing client log
+	    		else{
+	    			//all writing done
+	    			console.log("client log recorded " + writeSuccess);
+	    			stream.end();
+	    		}
+	    	}
 		}
-       	stream.write(log);
-       	console.log("log recorded");
-       	
+		
+		//if server logged nothing, write the client log
+		else{
+			writeSuccess = stream.write(log);
+			//if not finished with client log
+	    	if(!writeSuccess){
+	    		//wait unitl finished writing
+	    		stream.once("drain", function(){
+	    			//all writing done
+	    			console.log("client log recorded " + writeSuccess);
+	    			stream.end();
+	    		});
+	    	}
+	    	//if finished writing client log
+	    	else{
+	    		//all writing done
+	    		console.log("client log recorded " + writeSuccess);
+	    		stream.end();
+	    	}
+		}
     });
      
     socket.on("nextLevel", function(levelNo, playerNumber, channel){
@@ -182,11 +250,11 @@ function pairUpSockets(){
 		else{
 			client = clientSockets[clientIds.splice(0,1)];
 			client.join(currentChannel);
-			client.emit("setup", 1, currentChannel);
+			client.emit("setup", 1, currentChannel.toString());
 			
 			client = clientSockets[clientIds.splice(0,1)];
 			client.join(currentChannel);
-			client.emit("setup", 2, currentChannel);
+			client.emit("setup", 2, currentChannel.toString());
 		
 			currentChannel++;
 		}
@@ -199,3 +267,5 @@ function serverLog(logmsg) {
     logentry = logtime +",server,"+ logmsg;
     logText = logText + "\n" + logentry;
 }
+
+
