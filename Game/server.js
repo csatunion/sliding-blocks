@@ -1,9 +1,14 @@
-var fs = require('fs');
-var express = require("express");
-var app = express.createServer();
-var io  = require("socket.io").listen(app);
+console.log("Server running Node JS Version: " + process.version);
 
-app.listen(4000);
+var fs = require('fs');
+var express = require('express');
+var http = require('http');
+
+var app = express();
+var server = http.createServer(app);
+var io  = require("socket.io").listen(server);
+
+server.listen(4000);
 
 //when client connects send all game files to them
 app.configure(function(){
@@ -65,8 +70,22 @@ io.sockets.on('connection', function(socket){
          socket.broadcast.to(channel).emit('newMessage', incomingMessage);
      });
     
+    
     //receive the game log from the players and writes it to the log file
     socket.on("log", function(log){
+    	/*
+    	if(logText != ""){
+    		fs.appendFile(__dirname + "/assets/log.txt", logText, function(err){
+    			if(err) throw err;
+    			console.log("server log recorded");
+    		});
+    		logText = "";
+    	}
+    	fs.appendFile(__dirname + "/assets/log.txt", log, function(err){
+    		if(err) throw err;
+    		console.log("client log recorded");
+    	});
+    	*/
 		var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
 		var writeSuccess;
 		
@@ -80,7 +99,7 @@ io.sockets.on('connection', function(socket){
 	    		stream.once("drain", function(){
 	    			//erase the old server log
 	    			logText = "";
-	    			console.log("server log recorded " + writeSuccess);
+	    			console.log("server log recorded");
 	    			//write the client log
 	    			writeSuccess = stream.write(log);
 	    			//if not finished with client log
@@ -88,14 +107,14 @@ io.sockets.on('connection', function(socket){
 	    				//wait unitl finished writing
 	    				stream.once("drain", function(){
 	    					//all writing done
-	    					console.log("client log recorded " + writeSuccess);
+	    					console.log("client log recorded");
 	    					stream.end();
 	    				});
 	    			}
 	    			//if finished writing client log
 	    			else{
 	    				//all writing done
-	    				console.log("client log recorded " + writeSuccess);
+	    				console.log("client log recorded");
 	    				stream.end();
 	    			}
 	    		});
@@ -104,7 +123,7 @@ io.sockets.on('connection', function(socket){
 	    	else{
 	    		//erase old server log
 	    		logText = "";
-	    		console.log("server log recorded " + writeSuccess);
+	    		console.log("server log recorded");
 	    		//write client log
 	    		writeSuccess = stream.write(log);
 	    		//if not finished with client log
@@ -112,7 +131,7 @@ io.sockets.on('connection', function(socket){
 	    			//wait unitl finished writing
 	    			stream.once("drain", function(){
 	    				//all writing done
-	    				console.log("client log recorded " + writeSuccess);
+	    				console.log("client log recorded");
 	    				stream.end();
 	    			});
 	    		}
@@ -229,9 +248,7 @@ io.sockets.on('connection', function(socket){
 			
 		}
     });
-    
 });
-
 
 function pairUpSockets(){
 	var client;
