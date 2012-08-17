@@ -13,7 +13,7 @@ app.configure(function(){
 var clientSockets = {};
 var clientIds = [];
 var channelsToReuse = [];
-var currentChannel = 0;       
+var currentChannel = 0;
 
 var logText = "";
 
@@ -69,10 +69,10 @@ io.sockets.on('connection', function(socket){
     socket.on("log", function(log){
 
       	var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});   	
-	if (logText != "") {
-	    stream.write(logText);
-	    logText = "";
-	}
+		if (logText != "") {
+	    	stream.write(logText);
+	    	logText = "";
+		}
        	stream.write(log);
        	console.log("log recorded");
        	
@@ -81,19 +81,18 @@ io.sockets.on('connection', function(socket){
     socket.on("nextLevel", function(levelNo, playerNumber, channel){
     	var map1;
     	var map2;
-	
-	console.log("LEVEL " + levelNo);
-	var levels = ["level_4.txt", "level_5.txt", "level_3.txt"];
+		console.log("LEVEL " + levelNo);
+		var levels = ["level_4.txt", "level_5.txt", "level_3.txt"];
 
-	if (levelNo >= levels.length) {
-	    var level = "-1";
-	} else {
+		if (levelNo >= levels.length)
+	    	var level = "-1";
+		else {
     	    var level = __dirname + "/levels/" + levels[levelNo];
-	    serverLog("level:" + levelNo + " " + levels[levelNo]);
-	}
+	    	serverLog("level:" + levelNo + " " + levels[levelNo]);
+		}
 
     	var bg_imgs = ["union.png","treasure-map-1-scaled.png","treasure-map-3-scaled.png","treasure-map-5-scaled.png","treasure-map-6-scaled.png","treasure-map-7-scaled.png"];
-	var bg = "images/" + "treasure-map-6-scaled.png"; //bg_imgs[Math.floor(Math.random() * bg_imgs.length)];
+		var bg = "images/" + "treasure-map-6-scaled.png"; //bg_imgs[Math.floor(Math.random() * bg_imgs.length)];
 
     	fs.readFile(level, 'ascii', function(err, data) {
     		//if all levels complete

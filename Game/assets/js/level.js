@@ -1,3 +1,4 @@
+//allows you to skip levels with shift key when true
 var debug = true;
 
 //level attributes
@@ -51,29 +52,31 @@ Crafty.scene("main", function() {
 	//don't want to create duplicate event listeners if they replay
 	//so it only makes the event listeners on the first playthrough
 	if(firstPlayThrough){
-		//triggers to notify the players to move to the next level
-		//passes them the level they need to draw as data
 		
+		//allows you to skip levels with shift key when true
 		if(debug){
 			$(document).keyup(function(key){
 				if(key.which == 16){
+					socket.emit("alertOtherPlayer", channelNumber);
 					level++;
 					socket.emit("nextLevel", level, playerNumber, channelNumber);
 				}
 			});
 		}
 		
+		//triggers to notify the players to move to the next level
+		//passes them the level they need to draw as data
     	socket.on("advance", function(data){
     	
     	    if(data == -1) {
-		    gameLog("gameend");
+		    	gameLog("gameend");
     		    Crafty.scene("end");
-	    }
+	    	}
     		else{
     		    currentMap = data;
     		    time = new Date();
     		    gameLog("levelstart:" + level);
-       	    	    Crafty.scene("level");
+       	    	Crafty.scene("level");
         	}
     	});
 	
@@ -177,7 +180,7 @@ Crafty.scene("main", function() {
     
     	//print out any messages received from other player
     	socket.on('newMessage', function(message){
-	    $("#data_received").append("<br/><b>" + message +"</b>");
+	    	$("#data_received").append("<br/><b>" + message +"</b>");
 
             //log the message that was received
 	    	message = message.replace(/[\s\r\n]+$/, "").replace(/"/g, "\\\"");
