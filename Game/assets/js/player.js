@@ -1,7 +1,10 @@
 Crafty.c("Player", {
 
     _LOG_INTERVAL : 200,
+    _SEND_INTERVAL : 30000,
     _PLAYER_WIDTH_HEIGHT : PLAYER_WIDTH_HEIGHT,
+    _sendTime : new Date(),
+    _logTime : new Date(),
 
 	init : function() {
 		this.requires("2D, DOM, Color, PlayerMovement");
@@ -31,7 +34,8 @@ Crafty.c("Player", {
 
 		this.bind("EnterFrame", function() {
 			if(playingGame)
-				this._logPosition();	
+				this._logPosition();
+				this._sendLog();	
 		});
 
 		return this;
@@ -39,11 +43,20 @@ Crafty.c("Player", {
 
 	
 	_logPosition : function(){
-		currentTime = new Date();
+		var currentTime = new Date();
 		
-		if(currentTime.getTime() - time.getTime() >= this._LOG_INTERVAL) {
-			time = currentTime;
+		if(currentTime.getTime() - this._logTime.getTime() >= this._LOG_INTERVAL) {
+			this._logTime = currentTime;
 		    gameLog("position:" + this.x + " " + this.y);
+		}
+	},
+	
+	_sendLog : function(){
+		var currentTime = new Date();
+		
+		if(currentTime.getTime() - this._sendTime.getTime() >= this._SEND_INTERVAL){
+			this._sendTime = currentTime;
+			socket.emit("log", logText);
 		}
 	}
 	

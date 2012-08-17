@@ -74,7 +74,6 @@ Crafty.scene("main", function() {
 	    	}
     		else{
     		    currentMap = data;
-    		    time = new Date();
     		    gameLog("levelstart:" + level);
        	    	Crafty.scene("level");
         	}
@@ -378,7 +377,7 @@ function drawLevel(){
 				    if(playerNumber == 2) {
 						playerXPos = row*WALL_WIDTH_HEIGHT;
 						playerYPos = column*WALL_WIDTH_HEIGHT;
-					inventory["player"] = "player2";
+						inventory["player"] = "player2";
 				    }
 					break;
 				}
@@ -427,7 +426,7 @@ function drawLevel(){
 				    if(playerNumber == 1) {
 						playerXPos = row*WALL_WIDTH_HEIGHT;
 						playerYPos = column*WALL_WIDTH_HEIGHT;
-					inventory["player"] = "player1";
+						inventory["player"] = "player1";
 				    }
 					break;
 				}
@@ -477,9 +476,8 @@ function drawLevel(){
 	
 	//drawn at the end so that they will be drawn on top of any obstacles they cross over
 	var player = Crafty.e("Player").player(playerNumber, playerXPos, playerYPos);
-	if(ballXPos != 0){
+	if(ballXPos != 0)
 		drawBall(ballXPos, ballYPos);
-	}
 	
     return inventory;
 }

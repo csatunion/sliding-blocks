@@ -15,6 +15,7 @@ app.configure(function(){
     app.use(express.static(__dirname + "/assets"));
 });
 
+var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
 var clientSockets = {};
 var clientIds = [];
 var channelsToReuse = [];
@@ -73,20 +74,7 @@ io.sockets.on('connection', function(socket){
     
     //receive the game log from the players and writes it to the log file
     socket.on("log", function(log){
-    	/*
-    	if(logText != ""){
-    		fs.appendFile(__dirname + "/assets/log.txt", logText, function(err){
-    			if(err) throw err;
-    			console.log("server log recorded");
-    		});
-    		logText = "";
-    	}
-    	fs.appendFile(__dirname + "/assets/log.txt", log, function(err){
-    		if(err) throw err;
-    		console.log("client log recorded");
-    	});
-    	*/
-		var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
+    	
 		var writeSuccess;
 		
 		//check if server logged anything
@@ -108,14 +96,12 @@ io.sockets.on('connection', function(socket){
 	    				stream.once("drain", function(){
 	    					//all writing done
 	    					console.log("client log recorded");
-	    					stream.end();
 	    				});
 	    			}
 	    			//if finished writing client log
 	    			else{
 	    				//all writing done
 	    				console.log("client log recorded");
-	    				stream.end();
 	    			}
 	    		});
 	    	}
@@ -132,14 +118,12 @@ io.sockets.on('connection', function(socket){
 	    			stream.once("drain", function(){
 	    				//all writing done
 	    				console.log("client log recorded");
-	    				stream.end();
 	    			});
 	    		}
 	    		//if finished writing client log
 	    		else{
 	    			//all writing done
-	    			console.log("client log recorded " + writeSuccess);
-	    			stream.end();
+	    			console.log("client log recorded ");
 	    		}
 	    	}
 		}
@@ -152,15 +136,13 @@ io.sockets.on('connection', function(socket){
 	    		//wait unitl finished writing
 	    		stream.once("drain", function(){
 	    			//all writing done
-	    			console.log("client log recorded " + writeSuccess);
-	    			stream.end();
+	    			console.log("client log recorded ");
 	    		});
 	    	}
 	    	//if finished writing client log
 	    	else{
 	    		//all writing done
-	    		console.log("client log recorded " + writeSuccess);
-	    		stream.end();
+	    		console.log("client log recorded ");
 	    	}
 		}
     });
