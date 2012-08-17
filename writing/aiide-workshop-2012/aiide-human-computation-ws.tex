@@ -13,6 +13,7 @@ at AIIDE 2012)
 \setcounter{secnumdepth}{0}  
 
 \usepackage{graphicx}
+\usepackage{covington}
 
 \newcommand{\todo}[1]{\textbf{TODO: #1}}
 \newcommand{\citeN}[1]{\citeauthor{#1} \shortcite{#1}}
@@ -31,11 +32,14 @@ Schenectady, NY, USA\\
 \maketitle
 \begin{abstract}
 \begin{quote}
-This paper describes a prototype of a two-player collaborative 2D puzzle game,
-designed to elicit task-oriented situated dialog. The game will be
-used to collect corpora of human-human interactions consisting of
-language interleaved with actions in the game world and to evaluate natural
-language generation systems replacing one of the players.
+This paper describes a prototype of a two-player collaborative 2D
+puzzle game, designed to elicit task-oriented situated dialog. In this
+game players use a text-based chat to coordinate their actions in
+pushing a ball through a maze of obstacles. The game will be used to
+collect corpora of human-human interactions in this environment. The
+data will be used to study how language with actions are interleaved
+and influence each other in situated dialog. The ultimate goal is to
+build a computational model of these behaviors.
 \end{quote}
 \end{abstract}
 
@@ -44,6 +48,8 @@ language generation systems replacing one of the players.
 \input game-design
 
 \input implementation
+
+\input sample-data
 
 \input conclusions
 
