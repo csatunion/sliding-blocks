@@ -20,6 +20,7 @@ var clientSockets = {};
 var clientIds = [];
 var channelsToReuse = [];
 var currentChannel = 0;
+var gameid = 0;
 
 var logText = "";
 
@@ -27,6 +28,7 @@ var logText = "";
 io.sockets.on('connection', function(socket){
 	
 	socket.on("ready", function(){
+		console.log("ready");
 		clientSockets[socket.id] = socket;
 		clientIds.push(socket.id);
 		pairUpSockets();
@@ -147,7 +149,7 @@ io.sockets.on('connection', function(socket){
 		}
     });
      
-    socket.on("nextLevel", function(levelNo, playerNumber, channel){
+    socket.on("nextLevel", function(levelNo, gameid, playerNumber, channel){
     	var map1;
     	var map2;
 		console.log("LEVEL " + levelNo);
@@ -157,7 +159,7 @@ io.sockets.on('connection', function(socket){
 	    	var level = "-1";
 		else {
     	    var level = __dirname + "/levels/" + levels[levelNo];
-	    	serverLog("level:" + levelNo + " " + levels[levelNo]);
+	    	serverLog("id:" + gameid + ",level:" + levelNo + " " + levels[levelNo]);
 		}
 
     	var bg_imgs = ["union.png","treasure-map-1-scaled.png","treasure-map-3-scaled.png","treasure-map-5-scaled.png","treasure-map-6-scaled.png","treasure-map-7-scaled.png"];
@@ -238,24 +240,26 @@ function pairUpSockets(){
 		if(channelsToReuse.length != 0){
 			client = clientSockets[clientIds.splice(0,1)];
 			client.join(channelsToReuse[0]);
-			client.emit("setup", 1, channelsToReuse[0]);
+			client.emit("setup", gameid, 1, channelsToReuse[0]);
 			
 			client = clientSockets[clientIds.splice(0,1)];
 			client.join(channelsToReuse[0]);
-			client.emit("setup", 2, channelsToReuse[0]);
+			client.emit("setup", gameid, 2, channelsToReuse[0]);
 			
 			channelsToReuse.splice(0,1);
+			gameid++;
 		}
 		else{
 			client = clientSockets[clientIds.splice(0,1)];
 			client.join(currentChannel);
-			client.emit("setup", 1, currentChannel.toString());
+			client.emit("setup", gameid, 1, currentChannel.toString());
 			
 			client = clientSockets[clientIds.splice(0,1)];
 			client.join(currentChannel);
-			client.emit("setup", 2, currentChannel.toString());
+			client.emit("setup", gameid, 2, currentChannel.toString());
 		
 			currentChannel++;
+			gameid++;
 		}
 	}
 }

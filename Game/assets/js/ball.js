@@ -424,7 +424,7 @@ Crafty.c("BallMovement", {
 				this.hitGoal = true;
 				socket.emit("alertOtherPlayer", channelNumber);
 				level++;
-				socket.emit("nextLevel", level, playerNumber, channelNumber);
+				socket.emit("nextLevel", level, gameid, playerNumber, channelNumber);
 			}
 		});
 	}

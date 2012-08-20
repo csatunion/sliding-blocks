@@ -57,6 +57,7 @@ Crafty.c("Player", {
 		if(currentTime.getTime() - this._sendTime.getTime() >= this._SEND_INTERVAL){
 			this._sendTime = currentTime;
 			socket.emit("log", logText);
+			logText = "";
 		}
 	}
 	

@@ -32,9 +32,11 @@ Crafty.scene('loading', function(){
 		//displays a waiting for other player message
 	    message.text("WAITING FOR ANOTHER PLAYER");
 	    socket.emit("ready");
-	    
-	    socket.on("setup", function(number, channel){
+	    socket.on("setup", function(id, number, channel){
 			playingGame = true;
+			
+			alert("id = " + id + " player = " + number + " channel = " + channel);
+			gameid = id;
 	    	playerNumber   = number;
     		channelNumber  = channel;
 
@@ -59,7 +61,7 @@ Crafty.scene("main", function() {
 				if(key.which == 16){
 					socket.emit("alertOtherPlayer", channelNumber);
 					level++;
-					socket.emit("nextLevel", level, playerNumber, channelNumber);
+					socket.emit("nextLevel", level, gameid, playerNumber, channelNumber);
 				}
 			});
 		}
@@ -195,7 +197,7 @@ Crafty.scene("main", function() {
    
    //load the first level
    if(playerNumber == 1)
-		socket.emit('nextLevel', level, playerNumber, channelNumber);
+		socket.emit('nextLevel', level, gameid, playerNumber, channelNumber);
 });
 
 Crafty.scene("level", function(){
@@ -529,5 +531,3 @@ function drawLegend (inventory) {
 	}
     }
 }
-
-

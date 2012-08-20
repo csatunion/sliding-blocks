@@ -3,12 +3,14 @@ var socket = io.connect(SERVER_ADDR);
 //server attributes
 var channelNumber;                                         
 var playerNumber;
+var gameid;
+
+
 var firstPlayThrough = true;
 var playingGame = false;                                        
 
 //log attributes
 var logText = "";
-var time;
 
 window.onload = function(){
 	 Crafty.init(WIDTH, HEIGHT);
@@ -24,6 +26,6 @@ window.onbeforeunload = function(){
 function gameLog(logmsg) {
     currentTime = new Date();
     logtime = currentTime.toDateString()+","+currentTime.toTimeString()+","+currentTime.getTime();
-    logentry = logtime +","+ playerNumber +","+ logmsg;
+    logentry = logtime +","+ gameid + "," + playerNumber +","+ logmsg;
     logText = logText + "\n" + logentry;
 }
