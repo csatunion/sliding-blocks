@@ -9,30 +9,38 @@
 
 \section{Game Design}
 
-Our goal in designing this game is to elicit problem solving
-dialogues between two players who are situated in a virtual
-environment. We want both players to equally contribute to the dialog
-as well as the problem solving process.  Ultimately, we want to build
-dialog systems that can take the role of one of the players. That
-means that the environment has to be simple enough that we can use
+Our goal in designing this game is to elicit problem solving dialogues
+between two players who are situated in a virtual environment.  We
+want both players to equally contribute to the dialog as well as the
+problem solving process. The realism of the domain is not important to
+us at the moment since we are more interested in the lower-level
+characteristics of how people interleave language and actions in
+situated dialog.  But, ultimately, we would like to use the data we
+collect to inform the design and implementation of a dialog system
+that can take the role of one of the players. To this end, we tried to
+keep the environment simple so that we will be able to use
 automated planning techniques to calculate strategies for solving the
 puzzles.
 
 In this two-player game, each player is situated in a maze created
-from obstacles and traps of various kinds.  Figure
+from obstacles and traps of various kinds. While the players see
+different mazes, the background image is the same to provide some
+shared landmarks. Figure
 \ref{fig:player-screenshots} illustrates what the game interface may
-look like for each player at some point in the
-game\footnote{While the game is fully playable, the interface is still
-  a prototype in which everything is represented by differently
-  colored blocks.}. The red block is player one's avatar, the green
-block player two's avatar. The purple block is the ball, which needs
-to be pushed to the goal represented by the orange block. The 
-gray blocks are portals. Portals come in pairs -- if the ball or
-player enter one portal, they exit through another one --- and connect
-different areas of one player's environment or link one player's
-environment with the other's. The light gray portals are open to both the
-ball and the player; the dark gray portals can only be used by the ball.
+look like for each player at some point in the game\footnote{While the
+  game is fully playable, the interface is still a prototype in which
+  everything is represented by differently colored blocks.}. The red
+block is player A's avatar, the green block player B's avatar. The
+purple block is the ball, which needs to be pushed to the goal
+represented by the orange block. The dark gray blocks are teleporters,
+which ``teleport'' the ball into the other player's environment, and
+the brown blocks allow the player to pass through, but block the ball.
 
+%% Portals come in pairs -- if the ball or
+%% player enter one portal, they exit through another one --- and connect
+%% different areas of one player's environment or link one player's
+%% environment with the other's. The light gray portals are open to both the
+%% ball and the player; the dark gray portals can only be used by the ball.
 
 % what players do; moving the ball
 
@@ -111,14 +119,24 @@ complex variations of the task get introduced.  For example, there may
 be pits which can swallow the ball (or player), bouncy obstacles which
 reflect the ball when it hits them, moving fireballs which burn and
 kill the ball or player, destructible barriers which the partner can
-explode by dropping an obstacle onto them, or forking portals which
-send the ball/player randomly to one of two exits.  At some point in
-the game, each player is given their own set of one or more balls. This
-will allow for some interesting variations on the task. For example,
-there may be multiple goal positions and the players have to navigate
-their balls to corresponding goals. Or the balls are numbered
-(e.g. player one has balls number 1, 3 and 4 and player two has balls
-2 and 5) and the balls have to be push into goals in order. Or the
-balls have colors and both players have to move a ball of the same
-color to a goal before they can work on the next ball with a different
-color.
+explode by dropping an obstacle onto them, or pairs of portals which
+connect different areas of a player's environment.
+At some point in the game, each player is given their own set of one
+or more balls. This will allow for some interesting variations on the
+task. For example, there may be multiple goal positions and the
+players have to navigate their balls to corresponding goals. Or the
+balls are numbered (e.g. player A has balls number 1, 3 and 4 and
+player B has balls 2 and 5) and the balls have to be push into goals
+in order. Or the balls have colors and both players have to move a
+ball of the same color to a goal before they can work on the next ball
+with a different color.
+
+%% Portals come in pairs -- if the ball or
+%% player enter one portal, they exit through another one --- and connect
+%% different areas of one player's environment or link one player's
+%% environment with the other's. The light gray portals are open to both the
+%% ball and the player
+%%
+%% forking portals which
+%% send the ball/player randomly to one of two exits.  
+
