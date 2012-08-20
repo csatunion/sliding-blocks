@@ -1,20 +1,30 @@
 \section{Sample Data}
 
-We now present some excerpts of interactions we captured during
+The game creates a timestamped log containing all chat messages that
+the players send to each other, as well as all player actions (such as
+dropping a block) and events that happen in the environment (such as
+the ball being teleported). In addition, the game logs the position of
+the players and other movable objects every 200 milliseconds. That
+means, a full game can be re-played from the logged information.
+
+We now present some excerpts of interactions captured during
 playtesting which illustrate the kind of data that our game
-elicits. \todo{say that everything is timestamped; we capture
-  movements, so that entire games will be replayable} The conversations consist mainly of the players giving
-instructions to each other, discussing strategy, or comparing their
-maps. In Example (\ref{ex:instructions}) player B explains to player A
-where to drop some blocks. This example also shows some of the main
-strategies that players use to identify locations. First, player B
-drops a block and describes a location with respect to that block. At
-the end, player A describes the ball's position using the playing area
-(\textit{``on top of the page''}) and an item in the background image
-(\textit{``above right nostril''}) as reference points. In a fourth
-strategy that we have observed the players use the grid pattern implied
-by the blocks used to build the walls to
-describe a location (e.g., \textit{``three over and 2 up''}).
+elicits. Task oriented dialog contributions make up the majority of
+the conversations. In particular, players give instructions to each
+other, discuss strategy, and compare their maps. The following
+excerpts illustrate these three types of subdialog. 
+
+In Example
+(\ref{ex:instructions}) player B explains to player A where to drop
+some blocks. This example also shows some of the main strategies that
+players use to identify locations. First, player B drops a block and
+describes a location with respect to that block. At the end, player A
+describes the ball's position using the playing area (\textit{``on top
+  of the page''}) and an item in the background image (\textit{``above
+  right nostril''}) as reference points. In a fourth strategy that we
+have observed the players use the grid pattern implied by the blocks
+used to build the walls to describe a location (e.g., \textit{``three
+  over and two up''}).
 
 {\footnotesize
 \begin{example}
@@ -47,9 +57,8 @@ B: \textit{Tadaaa}
 \end{example}
 }
 
-In Example \ref{ex:strategy}, player B is describing the plan he is
-currently following to player A.
-
+In Example (\ref{ex:strategy}), player B is describing his current plan
+to player A.
 
 {\footnotesize
 \begin{example}
@@ -68,11 +77,15 @@ A: \textit{yes}
 \end{example}
 }
 
-Example \ref{ex:comparing} shows how the players notice a difference
+Example (\ref{ex:comparing}) shows the players noticing a difference
 in their maps. This is triggered by player A instructing player B to
-drop a block in a location that is not accessible to player B.
-At the end of the excerpt, the players exchange some chitchat followed
-by messages that help to coordinate their communication.
+drop a block in a location that is not accessible to player B. In
+response, player B describes the layout of boundaries in his
+map.  While task oriented dialog contributions account for the
+majority of the chat dialog, players also exchange chitchat and spend
+some time coordinating their communication, as shown at the end of
+Example (\ref{ex:comparing}).
+
 
 {\footnotesize
 \begin{example}
