@@ -34,8 +34,6 @@ Crafty.scene('loading', function(){
 	    socket.emit("ready");
 	    socket.on("setup", function(id, number, channel){
 			playingGame = true;
-			
-			alert("id = " + id + " player = " + number + " channel = " + channel);
 			gameid = id;
 	    	playerNumber   = number;
     		channelNumber  = channel;
