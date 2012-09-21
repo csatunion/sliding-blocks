@@ -2,12 +2,13 @@ var socket = io.connect(SERVER_ADDR);
 
 //server attributes
 var channelNumber;                                         
-var playerNumber;
+var playerNumber = 1;
 var gameid;
 
 
 var firstPlayThrough = true;
-var playingGame = false;                                        
+var playingGame = false;
+var tutorial = false;      
 
 //log attributes
 var logText = "";
@@ -29,3 +30,5 @@ function gameLog(logmsg) {
     logentry = logtime +","+ gameid + "," + playerNumber +","+ logmsg;
     logText = logText + "\n" + logentry;
 }
+
+

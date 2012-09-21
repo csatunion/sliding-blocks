@@ -7,7 +7,7 @@ var legendInfo = {"goal":["orange","goal (your partner may have it)"],
 		  "player_button":["#99FF66", "button (activated by player)"],
 		  "box_button":["#cc6666", "button (activated by obstacle)"],
 		  "teleporter":["#555555","teleporter"],
-		  "portal":["#cccccc","portal"],
+		  "portal":["#000000","portal"],
 		  "player1":["red","you"],
 		  "player2":["green","you"],
 		  "ball":["purple","ball (your partner may have it)"]};
@@ -25,7 +25,8 @@ Crafty.c("Box", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 		
 		return this;
@@ -46,6 +47,7 @@ Crafty.c("MovingBox", {
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
 			h : WALL_WIDTH_HEIGHT,
+			z : 1,
 			move : {
 				left : false,
 				right : false,
@@ -175,7 +177,8 @@ Crafty.c("SimpleBouncyBox", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
 		this.color("cyan");
@@ -195,7 +198,8 @@ Crafty.c("CCWBouncyBox", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
 		this.color("cyan");
@@ -215,7 +219,8 @@ Crafty.c("CWBouncyBox", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
 		this.color("cyan");
@@ -237,7 +242,8 @@ Crafty.c("BallGate", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
 		this.color("brown");
@@ -257,7 +263,8 @@ Crafty.c("PlayerGate", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
 		this.color("pink");
@@ -278,6 +285,7 @@ Crafty.c("BallButton", {
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
 			h : WALL_WIDTH_HEIGHT,
+			z : 1,
 			activated : false,
 			firstHit : true,
 			number : buttonNumber
@@ -301,6 +309,7 @@ Crafty.c("PlayerButton", {
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
 			h : WALL_WIDTH_HEIGHT,
+			z : 1,
 			firstHit : true,
 			number : buttonNumber
 		});
@@ -323,6 +332,7 @@ Crafty.c("BoxButton", {
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
 			h : WALL_WIDTH_HEIGHT,
+			z : 1,
 			activated : false,
 			firstHit : true,
 			number : buttonNumber
@@ -361,7 +371,8 @@ Crafty.c("Teleporter", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
 		this.color("#555555");
@@ -381,10 +392,11 @@ Crafty.c("Portal", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
-		this.color("#cccccc");
+		this.color("#000000");
 
 		return this;
 	}
@@ -400,7 +412,8 @@ Crafty.c("Goal", {
 			x : xpos,
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT
+			h : WALL_WIDTH_HEIGHT,
+			z : 1
 		});
 
 		this.color("orange");
