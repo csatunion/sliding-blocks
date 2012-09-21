@@ -1,7 +1,5 @@
 Crafty.c("Ball", {
 
-	_SPEED : 4,
-
 	init : function() {
 		this.requires("2D, DOM, Color, BallMovement");
 	},
@@ -12,6 +10,7 @@ Crafty.c("Ball", {
 			y : ypos,
 			w : WALL_WIDTH_HEIGHT,
 			h : WALL_WIDTH_HEIGHT,
+			z : 2,
 			move : {
 				left : false,
 				right : false,
@@ -31,6 +30,8 @@ Crafty.c("Ball", {
 });
 
 Crafty.c("BallMovement", {
+	
+	_SPEED : 4,
 	
 	init: function(){
 		this.requires("Collision");
@@ -422,9 +423,15 @@ Crafty.c("BallMovement", {
 			}
 			else if(this.hit("Goal") != false && this.hitGoal == false){
 				this.hitGoal = true;
-				socket.emit("alertOtherPlayer", channelNumber);
-				level++;
-				socket.emit("nextLevel", level, gameid, playerNumber, channelNumber);
+				if(!tutorial){
+					socket.emit("alertOtherPlayer", channelNumber);
+					level++;
+					socket.emit("nextLevel", level, gameid, playerNumber, channelNumber);
+				}
+				else{
+					level++;
+					socket.emit("advance", level);
+				}
 			}
 		});
 	}

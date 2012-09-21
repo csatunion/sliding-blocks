@@ -2,7 +2,6 @@ Crafty.c("Player", {
 
     _LOG_INTERVAL : 200,
     _SEND_INTERVAL : 30000,
-    _PLAYER_WIDTH_HEIGHT : PLAYER_WIDTH_HEIGHT,
     _sendTime : new Date(),
     _logTime : new Date(),
 
@@ -15,8 +14,9 @@ Crafty.c("Player", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : this._PLAYER_WIDTH_HEIGHT,
-			h : this._PLAYER_WIDTH_HEIGHT,
+			w : PLAYER_WIDTH_HEIGHT,
+			h : PLAYER_WIDTH_HEIGHT,
+			z : 2,
 			move : {
 				left : false,
 				right : false,
