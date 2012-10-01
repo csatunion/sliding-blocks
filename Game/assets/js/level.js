@@ -2,7 +2,7 @@
 var debug = true;
 
 //level attributes
-var level = 1;
+var level = 0;
 var currentMap;
 var background;
 
@@ -76,7 +76,7 @@ Crafty.scene("tutorial", function(){
 	
 	socket.on("goToNextLevel", function(data, bg){
 		if(data == -1){
-			level = 1;
+			level = 0;
 			Crafty.scene("loading");
 		}
 		else{
@@ -144,7 +144,7 @@ Crafty.scene("main", function() {
     	//player was previously using
     	socket.on("partnerLeft", function(holdingChannel){
     	    channelNumber = holdingChannel;
-    	    level = 1;
+    	    level = 0;
    	    	socket.emit("log", logText);
     	    logText = "";
     	    
@@ -152,7 +152,7 @@ Crafty.scene("main", function() {
     	    
     	    
     	    //add this back when not testing
-    	    //alert("Your partner disconnected. Searching for a new partner.");
+    	    alert("Your partner disconnected. Searching for a new partner.");
     	});
     
     	//drops a block at given position
@@ -188,7 +188,7 @@ Crafty.scene("main", function() {
     	//triggers when a box button is pressed
 		socket.on("boxButton", function(buttonNumber, activated, firstHit){
 			if(playerNumber == 1){
-				if(level == 1){
+				if(level == 0){
 					if(activated == true && firstHit == true){
 						buttonEffects.push(drawCCWBouncyBox(WALL_WIDTH_HEIGHT*13, WALL_WIDTH_HEIGHT*9));
 					}
