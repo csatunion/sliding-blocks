@@ -433,6 +433,10 @@ Crafty.c("BallMovement", {
 					socket.emit("advance", level);
 				}
 			}
+			
+			if(sendingScreen){
+				socket.emit("sendUpdate", movingObstacles.indexOf(this), this.x, this.y, channelNumber);
+			}
 		});
 	}
 });

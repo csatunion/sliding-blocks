@@ -8,7 +8,12 @@ var gameid;
 
 var firstPlayThrough = true;
 var playingGame = false;
-var tutorial = false;      
+var tutorial = false;   
+var tutorialPlayed = false; 
+var sendingScreen = false;
+var receiveScreen = false;
+
+var blanket = false;
 
 //log attributes
 var logText = "";
@@ -30,5 +35,3 @@ function gameLog(logmsg) {
     logentry = logtime +","+ gameid + "," + playerNumber +","+ logmsg;
     logText = logText + "\n" + logentry;
 }
-
-

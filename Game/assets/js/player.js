@@ -27,11 +27,20 @@ Crafty.c("Player", {
 		
 		this.playermovement();
 
-		if (playerNumber == 1)
+		if (playerNumber == 1){
 			this.color("red");
-		else
+			if(mode == 1){
+				partner = Crafty.e("2D,DOM,Color").attr({x:-WALL_WIDTH_HEIGHT, y:-WALL_WIDTH_HEIGHT, w:WALL_WIDTH_HEIGHT, h:WALL_WIDTH_HEIGHT})
+											  	  .color("green");
+			}
+    	}
+		else{
 			this.color("green");
-
+			if(mode == 1){
+				partner = Crafty.e("2D,DOM,Color").attr({x:-WALL_WIDTH_HEIGHT, y:-WALL_WIDTH_HEIGHT, w:WALL_WIDTH_HEIGHT, h:WALL_WIDTH_HEIGHT})
+											  	  .color("red");
+			}
+		}
 		this.bind("EnterFrame", function() {
 			if(playingGame)
 				this._logPosition();
@@ -284,6 +293,10 @@ Crafty.c("PlayerMovement", {
 					this.x = collisions[0].obj.x + collisions[0].obj.w;
 				else if(direction == 270)
 					this.y = collisions[0].obj.y - this.h;
+			}
+			
+			if(sendingScreen || mode == 1){
+				socket.emit("sendUpdate", movingObstacles.indexOf(this), this.x, this.y, channelNumber);
 			}
 		});
 	}

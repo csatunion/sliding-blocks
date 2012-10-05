@@ -1,16 +1,29 @@
 //allows you to skip levels with shift key when true
-var debug = false;
+var debug = true;
+
+//0 is no view of other player
+//1 is only see other player
+//2 is alt key screen switch
+var mode = 2;
 
 //level attributes
 var level = 1;
 var currentMap;
+var partnerMap;
 var background;
+var player;
+var partner;
 
 //arrays of obstacles
 var blocksPlaced = [];
 var buttonEffects = [];
 var portals1 = [];           
 var portals2 = [];
+var movingObstacles = [];
+var altObstacles = [];
+var altMovingObstacles = [];
+var altInventory = [];
+var altBlocks = [];
 
 var bg = "";
 
@@ -33,10 +46,11 @@ Crafty.scene('loading', function(){
 		//displays a waiting for other player message
 	    message.text("WAITING FOR ANOTHER PLAYER");
 	    
-	    if(!tutorial){
+	    if(!tutorialPlayed){
 	    	tutorial = confirm("Do you want to play the tutorial?");
 	    
 	    	if(tutorial){
+	    		tutorialPlayed = true;
 	    		socket.emit("tutorial");
 	    		Crafty.scene("tutorial");
 	    	}
@@ -77,6 +91,7 @@ Crafty.scene("tutorial", function(){
 	socket.on("goToNextLevel", function(data, bg){
 		if(data == -1){
 			level = 1;
+			tutorial = false;
 			Crafty.scene("loading");
 		}
 		else{
@@ -85,10 +100,7 @@ Crafty.scene("tutorial", function(){
 			Crafty.scene("level");
 		}
 	});
-	
 });
-
-
     
 //the main game scene
 //is called once after the setup to create all the client event listeners
@@ -109,18 +121,96 @@ Crafty.scene("main", function() {
 			});
 		}
 		
+		if(mode == 1){
+			socket.on("updateScreen", function(xpos, ypos){
+				partner.x = xpos;
+				partner.y = ypos;
+			});
+		}
 		
+		if(mode == 2){
+		
+		document.onkeydown = function(){
+			
+			if(window.event && window.event.keyCode == 18)
+				window.event.keycode = 1000;
+			if(window.event && window.event.keycode == 1000){
+				socket.emit("toggleScreenShot", channelNumber);
+				
+				if(blanket == false){
+					blanket = Crafty.e("2D, DOM, Image")
+								.attr({x: 0, y: 0, w:BOARD_WIDTH, h:BOARD_HEIGHT, z:100})
+								.image(background);
+					drawScreen(partnerMap);
+				}
+				else{
+					blanket.destroy();
+					blanket = false;
+					for(var i = 0; i < altInventory.length; i++){
+						altInventory[i].destroy();
+					}
+					for(var i = 0; i < altObstacles.length; i++){
+						altObstacles[i].destroy();
+					}
+					altObstacles = [];
+					for(var i = 0; i < altMovingObstacles.length; i++){
+						altMovingObstacles[i].destroy();
+					}
+					altMovingObstacles = [];
+					for(var i = 0; i < altBlocks.length; i++){
+						altBlocks[i].destroy();
+					}
+					altBlocks = [];
+				}
+				return false;
+			}
+		}
+		
+		socket.on("toggleSendScreenShot", function(){
+			if(sendingScreen){
+				sendingScreen = false;
+			}else{
+				sendingScreen = true;
+				for(var i = 0; i < movingObstacles.length; i++){
+					var item = movingObstacles[i];
+					socket.emit("sendUpdate", i, item.x, item.y, channelNumber);
+				}
+				var blocks = [];
+				for(var i = 0; i < blocksPlaced.length; i++){
+					blocks.push([blocksPlaced[i].x, blocksPlaced[i].y]);
+				}
+				socket.emit("currentBlocks", blocks, channelNumber);
+			}
+		});
+		
+		socket.on("currentBlocks", function(blocks){
+			for(var i = 0; i < blocks.length; i++){
+				var item = Crafty.e("2D, DOM, Image")
+						.attr({x:blocks[i][0], y:blocks[i][1], w:WALL_WIDTH_HEIGHT, h:WALL_WIDTH_HEIGHT, z:101})
+						.image("images/crate_20.png");
+				altBlocks.push(item);
+			}
+		});
+		
+		socket.on("updateScreen", function(xpos, ypos, index){
+			var item = altMovingObstacles[index];
+			item.x = xpos;
+			item.y = ypos;
+		});
+		
+		}
 		
 		//triggers to notify the players to move to the next level
 		//passes them the level they need to draw as data
-    	socket.on("advance", function(map, bg_name){
+    	socket.on("advance", function(map1, map2, bg_name){
     	
-    	    if(map == -1) {
+    	    if(map1 == -1) {
 		    	gameLog("gameend");
     		    Crafty.scene("end");
 	    	}
     		else{
-    		    currentMap = map;
+    		    currentMap = map1;
+    		    partnerMap = map2
     		    background = bg_name;
     		    gameLog("levelstart:" + level);
        	    	Crafty.scene("level");
@@ -269,9 +359,16 @@ Crafty.scene("level", function(){
 		.image(background);
    	portals1 = [];
     portals2 = [];
+    movingObstacles = [];
+    
+    
 	
-	var inventory = drawLevel();
+	inventory = drawLevel(currentMap);
     drawLegend(inventory);
+    
+    if(mode == 1){
+    	socket.emit("sendUpdate", 0, player.x, player.y, channelNumber);
+    }
 });
 
 //the victory screen
