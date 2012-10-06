@@ -1,4 +1,6 @@
 function placeBlock(xpos, ypos){
+
+    if (!tutorial) {
 	var box = drawBox(xpos, ypos);
 	if(box.hit("Player") != false){
 		socket.emit("boxHitSomething", channelNumber);
@@ -9,11 +11,21 @@ function placeBlock(xpos, ypos){
 		box.destroy();
 	}
 	else
-		blocksPlaced.push(box);
+	    blocksPlaced.push(box);
+    }
+    else {
+	var box = drawTutorialBox(xpos, ypos);
+	blocksPlaced.push(box);
+    }    
 }
 
 function drawBox(xpos, ypos){
     var box = Crafty.e("Box").box(xpos, ypos);
+    return box;
+}
+
+function drawTutorialBox(xpos, ypos){
+    var box = Crafty.e("Box, TutorialBox").box(xpos, ypos);
     return box;
 }
 

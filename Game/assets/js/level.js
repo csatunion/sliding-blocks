@@ -1,5 +1,5 @@
 //allows you to skip levels with shift key when true
-var debug = true;
+var debug = false;
 
 //level attributes
 var level = 0;
@@ -33,12 +33,13 @@ Crafty.scene('loading', function(){
 		//displays a waiting for other player message
 	    message.text("WAITING FOR ANOTHER PLAYER");
 	    
-	    if(!tutorial){
+	    if(!tutorialPlayed){
 	    	tutorial = confirm("Do you want to play the tutorial?");
 	    
 	    	if(tutorial){
-	    		socket.emit("tutorial");
-	    		Crafty.scene("tutorial");
+		    tutorialPlayed = true;
+	    	    socket.emit("tutorial");
+	    	    Crafty.scene("tutorial");
 	    	}
 	    	else{
 	    		socket.emit("game");
@@ -70,21 +71,39 @@ Crafty.scene('loading', function(){
 });
 
 Crafty.scene("tutorial", function(){
-	
-	
+
 	socket.emit("advance", level);
-	
-	socket.on("goToNextLevel", function(data, bg){
+		
+    	socket.on('dropBlock', function(xpos, ypos){
+    	    
+    	    //place the block at the received location
+        	placeBlock(xpos, ypos);
+            
+        	//make sure there are 3 or less blocks currently placed
+        	//remove the block that was placed the longest ago
+        	if (blocksPlaced.length > 3){
+        	    blocksPlaced[0].destroy();
+        	    blocksPlaced = blocksPlaced.slice(1);
+        	}
+    	});
+
+    socket.on("goToNextLevel", function(data, bg, instruction){
 		if(data == -1){
+		    $("#data_received").html("");
 			level = 0;
+		    tutorial = false;
 			Crafty.scene("loading");
 		}
 		else{
+		    $("#data_received").html("<b class=\"gameinfo\">" + instruction +"</b>");
+    	    
 			currentMap = data;
 			background = bg;
 			Crafty.scene("level");
 		}
 	});
+
+    
 	
 });
 
@@ -113,13 +132,14 @@ Crafty.scene("main", function() {
 		
 		//triggers to notify the players to move to the next level
 		//passes them the level they need to draw as data
-    	socket.on("advance", function(map, bg_name){
+    	    socket.on("advance", function(map, bg_name, msg){
     	
     	    if(map == -1) {
 		    	gameLog("gameend");
     		    Crafty.scene("end");
 	    	}
     		else{
+		    $("#data_received").append("<br/><b class=\"gameinfo\">" + msg +"</b>");
     		    currentMap = map;
     		    background = bg_name;
     		    gameLog("levelstart:" + level);
@@ -260,10 +280,11 @@ Crafty.scene("level", function(){
        	}
     });
 	
+	}
 	//initializes all obstacle variables to empty
 	blocksPlaced = [];
 	buttonEffects = [];
-	}
+	
 	Crafty.e("2D, DOM, Image")
 		.attr({x: 0, y: 0, z: -1})
 		.image(background);

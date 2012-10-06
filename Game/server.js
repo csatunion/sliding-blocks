@@ -13,8 +13,11 @@ server.listen(4000);
 //when client connects send all game files to them
 app.use(express.static(__dirname + "/assets"));
 
-var tut_levels = ["level_1.txt", "level_2.txt"];
-var levels = ["level_4.txt", "level_5.txt", "level_3.txt"];
+var tut_levels = ["tutorial-move-push-ball.txt", "tutorial-place-obstacles.txt", "tutorial-portals.txt"];
+var tut_instructions = ["Use the arrow keys to move.<br/><br/>Push the ball into the goal.",
+		        "Use CTRL to place obstacles that stop the ball.<br/><br/>(IMPORTANT: When you are playing with a partner, you cannot place obstacles into your own environment, but you can drop obstacles into your partner's environment.)",
+		        "Along the way you will encounter all kinds of blocks with special behaviors. For example, portals."];
+var levels = ["level_just_one_teleporter.txt", "level_4.txt", "level_5.txt"];
 
 var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
 var clientSockets = {};
@@ -34,7 +37,6 @@ io.sockets.on('connection', function(socket){
     	    var map;
 	    var bg = "images/" + "treasure-map-6-scaled.png";
 	    
-	    //var level = __dirname + "/soloLevels/level_" + levelNo + ".txt";
 	    var level = __dirname + "/soloLevels/" + tut_levels[levelNo];
     	    fs.readFile(level, 'ascii', function(err, data) {
     		//if all levels complete
@@ -52,10 +54,14 @@ io.sockets.on('connection', function(socket){
 		    
 		    map = data;
 		    
-		    socket.emit("goToNextLevel", map, bg);
+		    socket.emit("goToNextLevel", map, bg, tut_instructions[levelNo]);
 		}
 	    });
 	});
+
+	socket.on('sendPosTutorial', function(x, y, channel){
+            socket.emit('dropBlock', x, y); 
+    	});
 	
     });
     
@@ -185,13 +191,21 @@ io.sockets.on('connection', function(socket){
 		    
 		    map2 = data[1];
 		    
+		    if (levelNo==0) {
+			var msg = "You are now connected to your partner.<br/><br/>Type in the box below to send your partner a message.";
+		    }
+		    else {
+			var cheers = ["Great!", "Yeah!", "Good job!"];
+			var msg = cheers[Math.floor(Math.random() * (cheers.length-1))] + " On to the next level.";
+		    }
+
 		    if(playerNumber == 1){
-			socket.to(channel).emit("advance", map1, bg);
-			socket.broadcast.to(channel).emit("advance", map2, bg);
+			socket.to(channel).emit("advance", map1, bg, msg);
+			socket.broadcast.to(channel).emit("advance", map2, bg, msg);
 		    } 
 		    else{
-			socket.broadcast.to(channel).emit("advance", map1, bg);
-			socket.to(channel).emit("advance", map2, bg);
+			socket.broadcast.to(channel).emit("advance", map1, bg, msg);
+			socket.to(channel).emit("advance", map2, bg, msg);
 		    }
 		}
 	    });

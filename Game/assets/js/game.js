@@ -9,6 +9,7 @@ var gameid;
 var firstPlayThrough = true;
 var playingGame = false;
 var tutorial = false;      
+var tutorialPlayed = false;
 
 //log attributes
 var logText = "";

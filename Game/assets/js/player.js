@@ -118,13 +118,19 @@ Crafty.c("PlayerMovement", {
 				this.move.up = false;
 			if (e.key == Crafty.keys.DOWN_ARROW)
 				this.move.down = false;
-			if (e.key == Crafty.keys.CTRL)
-				socket.emit('sendPos', this.x, this.y, channelNumber);
+		    if (e.key == Crafty.keys.CTRL) {
+			if (tutorial) { 
+			    socket.emit('sendPosTutorial', this.x, this.y, channelNumber);
+			}
+			else {
+			    socket.emit('sendPos', this.x, this.y, channelNumber);
+			}
+		    }
 		});
 		
 		this.bind("Moved", function(direction){
 			var collisions;
-			if(this.hit("Box") != false){
+			if(this.hit("Box") != false && !this.hit("TutorialBox")){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
 				
 				collisions = this.hit("Box");
