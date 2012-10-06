@@ -7,6 +7,7 @@ var http = require('http');
 var app = express();
 var server = http.createServer(app);
 var io  = require("socket.io").listen(server);
+io.set('log level', 1);
 
 server.listen(4000);
 
