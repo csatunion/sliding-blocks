@@ -1,5 +1,5 @@
 //allows you to skip levels with shift key when true
-var debug = false;
+var debug = true;
 
 //level attributes
 var level = 0;

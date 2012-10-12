@@ -78,6 +78,10 @@ Crafty.c("PlayerMovement", {
 	playermovement : function(){
 		this.bind("EnterFrame", function() {
 			
+			if(this.hit("MovingBox") != false){
+				socket.emit("restartLevel", channelNumber);
+			}
+			
 			if (this.move.left){
 				this.x -= this._SPEED;
 				this.trigger("Moved", 180);
