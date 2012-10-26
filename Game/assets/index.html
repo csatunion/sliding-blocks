@@ -4,7 +4,7 @@
     <title>Game</title>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
    	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="js/crafty.js"></script>
+    <script type="text/javascript" src="js/crafty-min.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/obstacles.js"></script>
     <script type="text/javascript" src="js/ball.js"></script>
@@ -19,15 +19,18 @@
   </head>
   <body>
 
-    <h1>Some cool title for the game</h1>
+    <!-- <h1>Some cool title for the game</h1>-->
     <h2>How to play</h2>
-    <p>
-      Goal: push the ball into the goal. <br />
-      Use the arrow keys to move around. Press the Control key to place a block on your partners screen.<br />
-      Note that both you and your partner see the same background screen. <br />		   
-      <b>Hint</b>: If the ball is stuck on a wall, push it into the wall to help get it unstuck. <br />
-      <b>Hint</b>: You can only place 3 blocks on your partners screen at once. When you drop the 4th block the 1st block will disappear.
-    </p>
+    <ul id="instructions">
+      <li>Push the ball into the goal.</li>
+      <li>Use the arrow keys to move around.</li> 
+      <li>Use CTRL to place a block on your partners screen.</li>
+      <li>Use the chat area on the left to send messages to your partner.</li>
+      <li><strong>Hint:</strong> You and your partner
+      see the same background image, but different mazes.</li>
+      <li><strong>Hint:</strong> If the ball is stuck on a wall, push it into the wall to help get it unstuck.</li>
+      <li><strong>Hint:</strong> You can only place 3 blocks on your partners screen at once. When you drop the 4th block the 1st block will disappear.</li>
+    </ul>
 
     <div id="game-area">
     <div id="chat-area">
@@ -36,7 +39,6 @@
       <textarea autofocus rows="2" cols="25" id="msg" placeholder="Type your messages here."></textarea>
 
     </div>
-
     <div id="cr-stage"></div>
     </div>
     <div id="instruction-area"></div>

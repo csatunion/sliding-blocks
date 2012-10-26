@@ -4,11 +4,13 @@ var socket = io.connect(SERVER_ADDR);
 var channelNumber;                                         
 var playerNumber = 1;
 var gameid;
-
+var ball;
+var player;
 
 var firstPlayThrough = true;
 var playingGame = false;
 var tutorial = false;      
+var tutorialPlayed = false;
 
 //log attributes
 var logText = "";

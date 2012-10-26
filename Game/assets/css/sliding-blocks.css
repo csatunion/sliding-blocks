@@ -1,6 +1,20 @@
 
 body {
     padding: 0px 20px;
+    font-family: sans-serif;
+}
+
+ul {
+    list-style: none;
+    padding-left:0;
+}
+
+li {
+    margin-bottom:5px;
+}
+
+.gameinfo {
+    color:red;
 }
 
 #game-area {
@@ -35,4 +49,8 @@ textarea {
     top:0px;
     left:205px;
     z-index:0;
+}
+
+canvas{
+	z-index:1;
 }

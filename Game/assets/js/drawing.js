@@ -1,15 +1,151 @@
+Crafty.c("TextBubble", {
+	
+	init:function(){
+		this.requires("2D, Canvas");
+	},
+	
+    textbubble: function(xpos, ypos, message) {
+    	this.attr({
+    		w:150, 
+    		h:75, 
+    		r:20,
+    		z:1,
+    		x:xpos,
+    		y:ypos,
+    		t:message
+    	});
+    	
+        return this;
+    },
+    
+    _addText: function(){
+    	Crafty.e("2D, DOM, Text")
+    		.attr({
+    			x:this.x+10,
+    			y:this.y-this.h+10,
+    			w:this.w-20,
+    			h:this.h-20
+    		})
+    		.text(this.t)
+            .css({"text-align": "left", "color":"#fff"});
+    },
+    
+    draw: function() {
+		var r = this.x + this.w;
+		var t = this.y - this.h;
+		var x = this.x - this.r/2;
+		var y = this.y - 10;
+		var w = this.w;
+		var h = this.h;
+		var radius = this.r;
+		
+		var ctx = Crafty.canvas.context;
+		ctx.save();
+		ctx.beginPath();
+		ctx.strokeStyle="red";
+		ctx.lineWidth = "3"
+		ctx.moveTo(x+radius, y);
+  		ctx.lineTo(x+radius/2, y+10);
+  		ctx.lineTo(x+radius * 2, y);
+  		ctx.lineTo(r-radius, y);
+  		ctx.quadraticCurveTo(r, y, r, y-radius);
+  		ctx.lineTo(r, t+radius);
+  		ctx.quadraticCurveTo(r, t, r-radius, t);
+  		ctx.lineTo(x+radius, t);
+  		ctx.quadraticCurveTo(x, t, x, t+radius);
+  		ctx.lineTo(x, y-radius);
+ 		ctx.quadraticCurveTo(x, y, x+radius, y);
+		ctx.stroke();
+		this._addText();
+		
+    }
+});
+
+Crafty.c("Arrow", {
+	
+	_CHANGETIME : 1000,
+	_STARTTIME : new Date(),
+	
+	arrow:function(xpos, ypos, angle, xscale, yscale){
+		this.attr({
+			x:xpos,
+			y:ypos,
+			w:10,
+			h:10,
+			a:angle,
+			sx:xscale || 1.75,
+			sy:yscale || 1.75,
+			color:"red"
+		});
+		
+		this.bind("EnterFrame", function(){
+			var currentTime = new Date();
+		
+			if(currentTime.getTime() - this._STARTTIME.getTime() >= this._CHANGETIME) {
+				this._STARTTIME = currentTime;
+				if(this.color == "cyan"){
+					this.color = "red";
+				}
+				else{
+					this.color = "cyan";
+				}
+				this.draw();
+			}
+			
+		});
+		
+		return this;
+	},
+	
+	draw:function(){
+		var context = Crafty.canvas.context;
+		context.save();
+		context.translate(this.x, this.y);
+		context.scale(this.sx, this.sy);
+		context.rotate(this.a*Math.PI/180);
+ 		context.beginPath();
+ 	 	context.lineWidth = 3;
+  		context.strokeStyle = this.color;
+  		context.moveTo(0,0);
+  		context.lineTo(-10,-5);
+  		context.lineTo(0,0);
+  		context.lineTo(-10,5);
+  		context.lineTo(0,0);
+  		context.lineTo(-30,0);  
+  		context.stroke();
+  		context.restore();
+  		context.closePath();
+	}
+	
+});
+
+/*
+ * xscale and yscale are optional arguments
+ * direction: 0 = right, 90 = down, 180 = left, 270 = up
+ */
+function drawArrow(xpos, ypos, direction, xscale, yscale){
+	return Crafty.e("2D, Canvas, Arrow").arrow(xpos, ypos, direction, xscale, yscale);
+}
+
 function placeBlock(xpos, ypos){
-	var box = drawBox(xpos, ypos);
-	if(box.hit("Player") != false){
-		socket.emit("boxHitSomething", channelNumber);
-		box.destroy();
-	}
-	else if(box.hit("Ball") != false){
-		socket.emit("boxHitSomething", channelNumber);
-		box.destroy();
-	}
-	else
+
+    if (!tutorial) {
+		var box = drawBox(xpos, ypos);
+		if(box.hit("Player") != false){
+			socket.emit("boxHitSomething", channelNumber);
+			box.destroy();
+		}
+		else if(box.hit("Ball") != false){
+			socket.emit("boxHitSomething", channelNumber);
+			box.destroy();
+		}
+		else
+	    	blocksPlaced.push(box);
+    }
+    else {
+		var box = drawTutorialBox(xpos, ypos);
 		blocksPlaced.push(box);
+    }    
 }
 
 function drawBox(xpos, ypos){
@@ -17,9 +153,13 @@ function drawBox(xpos, ypos){
     return box;
 }
 
+function drawTutorialBox(xpos, ypos){
+    var box = Crafty.e("Box, TutorialBox").box(xpos, ypos);
+    return box;
+}
+
 function drawBall(xpos, ypos){
-    var ball = Crafty.e("Ball").ball(xpos, ypos);
-    return ball;
+    ball = Crafty.e("Ball").ball(xpos, ypos);
 }
 
 function drawMovingBox(xpos, ypos, direction){
@@ -129,7 +269,7 @@ function drawLevel(){
 				//green
 				case 6:{
 				    if(playerNumber == 2) {
-						Crafty.e("Player").player(playerNumber, row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+						player = Crafty.e("Player").player(playerNumber, row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 						inventory["player"] = "player2";
 				    }
 					break;
@@ -176,7 +316,7 @@ function drawLevel(){
 				//red
 				case 13:{
 				    if(playerNumber == 1) {
-						Crafty.e("Player").player(playerNumber, row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+						player = Crafty.e("Player").player(playerNumber, row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 						inventory["player"] = "player1";
 				    }
 					break;
