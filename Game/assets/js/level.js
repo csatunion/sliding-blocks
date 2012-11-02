@@ -2,7 +2,7 @@
 var debug = true;
 
 //level attributes
-var level = 0;
+var level = 2;
 var currentMap;
 var background;
 
@@ -34,7 +34,7 @@ Crafty.scene('loading', function(){
 	    message.text("WAITING FOR ANOTHER PLAYER");
 	    
 	    if(!tutorialPlayed && (tutorial = confirm("Do you want to play the tutorial?"))){
-		    tutorialPlayed = true;
+	    	tutorialPlayed == true;
 	    	socket.emit("tutorial");
 	    	Crafty.scene("tutorial");
 	    }
@@ -152,7 +152,7 @@ Crafty.scene("main", function() {
     	    
     	    
     	    //add this back when not testing
-    	    alert("Your partner disconnected. Searching for a new partner.");
+    	    //alert("Your partner disconnected. Searching for a new partner.");
     	});
     
     	//drops a block at given position
@@ -241,6 +241,7 @@ Crafty.scene("main", function() {
 
 Crafty.scene("level", function(){
 	
+	
 	if(!tutorial){
 	//sends message in input box to server when you hit enter
     //resets the input box
@@ -273,6 +274,7 @@ Crafty.scene("level", function(){
 	
 	var inventory = drawLevel();
     drawLegend(inventory);
+    player.drawHints();
     
 });
 

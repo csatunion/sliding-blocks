@@ -1,48 +1,78 @@
-Crafty.c("TextBubble", {
+Crafty.c("Rectangle", {
 	
 	init:function(){
 		this.requires("2D, Canvas");
 	},
 	
-    textbubble: function(xpos, ypos, message) {
+	rect: function(xpos, ypos){
+		this.attr({
+			x:xpos,
+			y:ypos,
+			w:WALL_WIDTH_HEIGHT,
+			h:WALL_WIDTH_HEIGHT
+		});
+		
+		return this;
+	},
+	
+	draw: function(){
+		var ctx = Crafty.canvas.context;
+		ctx.save();
+		ctx.beginPath();
+		ctx.strokeStyle = "blue";
+		ctx.lineWidth = "4";
+		ctx.rect(this.x, this.y, this.w, this.h);
+		ctx.stroke();
+	}
+	
+});
+
+Crafty.c("TextBubble", {
+	
+	init:function(){
+		this.requires("2D, Canvas");
+	},
+	//direction: 0 = right, 90 = down, 180 = left, 270 = up
+    textbubble: function(xpos, ypos, message, angle, width, height) {
     	this.attr({
-    		w:150, 
-    		h:75, 
+    		w:width || 175, 
+    		h:height || 75, 
     		r:20,
     		z:1,
     		x:xpos,
     		y:ypos,
-    		t:message
+    		m:message,
+    		a:angle
     	});
+    	
+    	
+    	if(angle == 90 || angle == 270){
+    		var temp = this.w;
+    		this.w = this.h;
+    		this.h = temp;
+    	}
+    	
+    	
     	
         return this;
     },
     
-    _addText: function(){
-    	Crafty.e("2D, DOM, Text")
-    		.attr({
-    			x:this.x+10,
-    			y:this.y-this.h+10,
-    			w:this.w-20,
-    			h:this.h-20
-    		})
-    		.text(this.t)
-            .css({"text-align": "left", "color":"#fff"});
-    },
-    
     draw: function() {
-		var r = this.x + this.w;
-		var t = this.y - this.h;
-		var x = this.x - this.r/2;
-		var y = this.y - 10;
+		var r = this.w;
+		var t = -this.h;
+		var x = -this.r/2;
+		var y = -10;
 		var w = this.w;
 		var h = this.h;
 		var radius = this.r;
 		
 		var ctx = Crafty.canvas.context;
 		ctx.save();
+		ctx.translate(this.x,this.y);
+		ctx.rotate(this.a*Math.PI/180);
 		ctx.beginPath();
-		ctx.strokeStyle="red";
+		ctx.fillStyle="yellow";
+		ctx.strokeStyle = "black";
 		ctx.lineWidth = "3"
 		ctx.moveTo(x+radius, y);
   		ctx.lineTo(x+radius/2, y+10);
@@ -55,9 +85,38 @@ Crafty.c("TextBubble", {
   		ctx.quadraticCurveTo(x, t, x, t+radius);
   		ctx.lineTo(x, y-radius);
  		ctx.quadraticCurveTo(x, y, x+radius, y);
+		ctx.fill();
 		ctx.stroke();
-		this._addText();
 		
+		
+		if(this.a == 90){
+			ctx.restore();
+			ctx.save();
+			ctx.translate(100, 200);
+		}
+		
+		ctx.fillStyle="purple";
+		ctx.font = "15px Arial"
+		ctx.textAlign = "left";
+		
+		var message = this.m.split(" ");
+		var i = 0;
+		var stringToPrint = '';
+		var maxWidth = w - 10;
+		var currentHeight = t + 20;
+		while(i < message.length){
+			textWidth = ctx.measureText(stringToPrint + ' ' +  message[i]).width;
+			if(textWidth > maxWidth){
+				ctx.fillText(stringToPrint, r - w, currentHeight);
+				currentHeight += 15;
+				stringToPrint = message[i]; 
+			}else{
+				stringToPrint = stringToPrint + ' ' + message[i];
+			}
+			i++;
+		}
+		ctx.fillText(stringToPrint, r - w, currentHeight);
+		ctx.restore();
     }
 });
 
@@ -218,8 +277,7 @@ function drawPortal(xpos, ypos){
 }
 
 function placeGoal(xpos, ypos){
-	var goal = Crafty.e("Goal").goal(xpos, ypos);
-	return goal;
+	return Crafty.e("Goal").goal(xpos, ypos);
 }
 
 function drawLevel(){
@@ -290,7 +348,7 @@ function drawLevel(){
 				}
 				//orange
 				case 9:{
-					placeGoal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
+					goal = placeGoal(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT);
 				    //inventory["goal"] = true;
 					break;
 				}

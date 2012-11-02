@@ -21,8 +21,6 @@ Crafty.c("Ball", {
 			framesSinceFirstMove : 0,
 			hitGoal : false
 		});
-		
-		drawArrow(this.x + this.w/2, this.y + this.h + 10, 270);	
 
 		this.ballmovement();
 		this.color("purple");

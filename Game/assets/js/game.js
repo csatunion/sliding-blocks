@@ -6,12 +6,14 @@ var playerNumber = 1;
 var gameid;
 var ball;
 var player;
+var goal;
+var hints = [];
 
 var firstPlayThrough = true;
 var playingGame = false;
-var tutorial = false;      
+var tutorial = false;
 var tutorialPlayed = false;
-
+ 
 //log attributes
 var logText = "";
 
@@ -33,4 +35,14 @@ function gameLog(logmsg) {
     logText = logText + "\n" + logentry;
 }
 
+function destroyHints(){
+	for(var i = 0; i < hints.length; i++){
+		hints[i].destroy();
+	}
+	hints = [];
+}
+
+function destroyHint(index){
+	hints[index].destroy();
+}
 
