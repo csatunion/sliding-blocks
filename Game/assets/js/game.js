@@ -35,14 +35,13 @@ function gameLog(logmsg) {
     logText = logText + "\n" + logentry;
 }
 
-function destroyHints(){
-	for(var i = 0; i < hints.length; i++){
-		hints[i].destroy();
+function destroyHints(indexList){
+	hints.push(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT, 270));
+	for(i = 0; i < indexList.length; i++){
+		hints[indexList[i]].destroy();
 	}
-	hints = [];
+	for(i = 0; i < indexList.length; i++){
+		hints.splice(indexList[i], 1);
+	}
+	hints.pop().destroy();
 }
-
-function destroyHint(index){
-	hints[index].destroy();
-}
-
