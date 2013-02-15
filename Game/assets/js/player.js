@@ -39,10 +39,6 @@ Crafty.c("Player", {
 				this._sendLog();	
 		});
 		
-		this.bind("Remove", function(){
-			console.log("hi");
-		});
-		
 		return this;
 	},
 
@@ -77,6 +73,7 @@ Crafty.c("Player", {
 				hints.push(drawArrow(ball.x/1.5, WALL_WIDTH_HEIGHT*2, 180));
 				hints.push(drawArrow(ball.x/3, WALL_WIDTH_HEIGHT*2, 180));
 				hints.push(drawArrow(WALL_WIDTH_HEIGHT*2, ball.y + ball.h*5, 90));
+				
 				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y - WALL_WIDTH_HEIGHT, "A path to victory has been displayed. Push the ball along it to win.", 0));
 						
 				this.bind("Moved", function removeHint(){
@@ -86,15 +83,21 @@ Crafty.c("Player", {
 					
 					this.bind("Ball", function removeHint2(){
 						this.unbind("Ball", removeHint2);
-						destroyHints([0])
+						destroyHints([0]);
 						
 						this.bind("Ball", function removeHint3(){
 							this.unbind("Ball", removeHint3);
-							destroyHints([0, 1, 2]);
+							destroyHints([0]);
+							destroyHints([0]);
+							
+							this.bind("Ball", function removeHint4(){
+								this.unbind("Ball", removeHint4);
+								destroyHints([0]);
+							});
 						});
 					});
 					
-				})
+				});
 				
 				
 			}
@@ -102,8 +105,10 @@ Crafty.c("Player", {
 				hints = [];
 				hints.push(Crafty.e("2D, Canvas, Rectangle").rect(this.x, this.y - WALL_WIDTH_HEIGHT*6));
 				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y - WALL_WIDTH_HEIGHT*6, "Place a block here with the CRTL key to create a path to the goal.", 0));
-				this.bind("Block", function(){
-					destroyHints([0,1]);
+				this.bind("Block", function level2_1(){
+					this.unbind("Block", level2_1);
+					destroyHints([0]);
+					destroyHints([0]);
 					hints.push(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT*4, 90));
 					hints.push(drawArrow(goal.x + WALL_WIDTH_HEIGHT*3, goal.y + goal.h/2, 180));
 					this.bind("Ball", function(){
@@ -120,13 +125,6 @@ Crafty.c("Player", {
 				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[1].x + WALL_WIDTH_HEIGHT, portals2[1].y, "2", 0, 40, 40));
 				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[2].x + WALL_WIDTH_HEIGHT, portals1[2].y, "3", 0, 40, 40));
 				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[2].x + WALL_WIDTH_HEIGHT, portals2[2].y + WALL_WIDTH_HEIGHT, "3", 0, 40, 40));
-				
-				this.bind("Moved", function(){
-					if(this._firstMove){
-						this._firstMove = false;
-						destroyHints([0]);
-					}
-				});
 				
 			}
 		}
@@ -196,14 +194,19 @@ Crafty.c("PlayerMovement", {
 				this.move.up = false;
 			if (e.key == Crafty.keys.DOWN_ARROW)
 				this.move.down = false;
-		    if (e.key == Crafty.keys.CTRL) {
-				if (tutorial){
-			    	socket.emit('sendPosTutorial', this.x, this.y, channelNumber);
+			if(tutorial){
+				if(e.key == Crafty.keys.CTRL){
+					socket.emit('sendPosTutorial', this.x, this.y, channelNumber);
 			    	this.trigger("Block");	
-			   	}
-				else
-			    	socket.emit('sendPos', this.x, this.y, channelNumber);
-		    }
+				}
+				if(e.key == Crafty.keys.SPACE){
+					socket.emit("advance", level);
+				}
+			}else{
+				if(e.key == Crafty.keys.CTRL){
+					socket.emit('sendPos', this.x, this.y, channelNumber);
+				}
+			}
 		});
 		
 		this.bind("Moved", function(direction){

@@ -36,12 +36,14 @@ function gameLog(logmsg) {
 }
 
 function destroyHints(indexList){
-	hints.push(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT, 270));
+	hints.push(drawArrow(-100, -100, 270));
+	hints.pop().destroy();
 	for(i = 0; i < indexList.length; i++){
 		hints[indexList[i]].destroy();
 	}
 	for(i = 0; i < indexList.length; i++){
 		hints.splice(indexList[i], 1);
 	}
-	hints.pop().destroy();
+	
+	console.log(hints);
 }
