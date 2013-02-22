@@ -1,3 +1,30 @@
+
+Crafty.c("Hints", {
+	
+	hints:function(){
+		this.attr({
+			list:[]
+		});
+		return this;
+	},
+	
+	addHint:function(hint){
+		this.list.push(hint);
+		console.log(this.list);
+	},
+	
+	destroyHints:function(){
+		for(var i = 0; i < this.list.length; i++){
+			this.list[i].destroyObject();
+		}
+		for(var i = 0; i < this.list.length; i++){
+			this.list.splice(0,1);
+		}
+		console.log(this.list);
+	}
+	
+});
+
 Crafty.c("Rectangle", {
 	
 	init:function(){
@@ -23,11 +50,19 @@ Crafty.c("Rectangle", {
 		ctx.lineWidth = "4";
 		ctx.rect(this.x, this.y, this.w, this.h);
 		ctx.stroke();
+	},
+	
+	destroyObject: function(){
+		this.destroy();
+		var ctx = Crafty.canvas.context;
+		ctx.clearRect(this.x, this.y, this.w, this.h);
 	}
 	
 });
 
 Crafty.c("TextBubble", {
+	
+	_LINEWIDTH:3,
 	
 	init:function(){
 		this.requires("2D, Canvas");
@@ -38,12 +73,13 @@ Crafty.c("TextBubble", {
     		w:width || 175, 
     		h:height || 75, 
     		r:20,
-    		z:1,
     		x:xpos,
     		y:ypos,
     		m:message,
     		a:angle
     	});
+    	
+    	console.log(xpos + " " + ypos);
     	
     	
     	if(angle == 90 || angle == 270){
@@ -73,7 +109,7 @@ Crafty.c("TextBubble", {
 		ctx.beginPath();
 		ctx.fillStyle="yellow";
 		ctx.strokeStyle = "black";
-		ctx.lineWidth = "3"
+		ctx.lineWidth = this._LINEWIDTH;
 		ctx.moveTo(x+radius, y);
   		ctx.lineTo(x+radius/2, y+10);
   		ctx.lineTo(x+radius * 2, y);
@@ -117,20 +153,27 @@ Crafty.c("TextBubble", {
 		}
 		ctx.fillText(stringToPrint, r - w, currentHeight);
 		ctx.restore();
-    }
+    },
+	
+	destroyObject: function(){
+		this.destroy();
+		var ctx = Crafty.canvas.context;
+		ctx.clearRect(this.x - this.r , this.y + this._LINEWIDTH, this.w + this.r + this._LINEWIDTH, -this.h - this._LINEWIDTH - 10);
+	}
 });
 
 Crafty.c("Arrow", {
 	
 	_CHANGETIME : 1000,
 	_STARTTIME : new Date(),
+	_LINEWIDTH : 3,
 	
 	arrow:function(xpos, ypos, angle, xscale, yscale){
 		this.attr({
 			x:xpos,
 			y:ypos,
 			w:10,
-			h:10,
+			h:30,
 			a:angle,
 			sx:xscale || 1.75,
 			sy:yscale || 1.75,
@@ -163,17 +206,23 @@ Crafty.c("Arrow", {
 		context.scale(this.sx, this.sy);
 		context.rotate(this.a*Math.PI/180);
  		context.beginPath();
- 	 	context.lineWidth = 3;
+ 	 	context.lineWidth = this._LINEWIDTH;
   		context.strokeStyle = this.color;
   		context.moveTo(0,0);
-  		context.lineTo(-10,-5);
+  		context.lineTo(-this.w,-this.w/2);
   		context.lineTo(0,0);
-  		context.lineTo(-10,5);
+  		context.lineTo(-this.w,this.w/2);
   		context.lineTo(0,0);
-  		context.lineTo(-30,0);  
+  		context.lineTo(-this.h,0);  
   		context.stroke();
   		context.restore();
   		context.closePath();
+	},
+	
+	destroyObject: function(){
+		this.destroy();
+		var ctx = Crafty.canvas.context;
+		ctx.clearRect(this.x - this.w - 2 * this._LINEWIDTH, this.y - 2 * this._LINEWIDTH, 2 * this.w + 2 * this._LINEWIDTH, this.y + this.h + 2 * this._LINEWIDTH);
 	}
 	
 });

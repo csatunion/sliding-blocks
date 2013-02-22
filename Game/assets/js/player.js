@@ -65,34 +65,36 @@ Crafty.c("Player", {
 	drawHints : function(){
 		if(tutorial){
 			if(level == 0){
-				
 				hints = [];
-
 				
-				hints.push(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT, 270));
-				hints.push(drawArrow(ball.x/1.5, WALL_WIDTH_HEIGHT*2, 180));
-				hints.push(drawArrow(ball.x/3, WALL_WIDTH_HEIGHT*2, 180));
-				hints.push(drawArrow(WALL_WIDTH_HEIGHT*2, ball.y + ball.h*5, 90));
+				hint = Crafty.e("Hints").hints();
+				hint2= Crafty.e("Hints").hints();
+				hint3= Crafty.e("Hints").hints();
+				hint4= Crafty.e("Hints").hints();
 				
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y - WALL_WIDTH_HEIGHT, "A path to victory has been displayed. Push the ball along it to win.", 0));
+				hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y - WALL_WIDTH_HEIGHT, "A path to victory has been displayed. Push the ball along it to win.", 0));
+				hint2.addHint(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT, 270));
+				hint3.addHint(drawArrow(ball.x/1.5, WALL_WIDTH_HEIGHT*2, 180));
+				hint3.addHint(drawArrow(ball.x/3, WALL_WIDTH_HEIGHT*2, 180));
+				hint4.addHint(drawArrow(WALL_WIDTH_HEIGHT*2, ball.y + ball.h*5, 90));
+				
+				
 						
 				this.bind("Moved", function removeHint(){
 					this.unbind("Moved", removeHint);
-					
-					destroyHints([4]);
+					hint.destroyHints();
 					
 					this.bind("Ball", function removeHint2(){
 						this.unbind("Ball", removeHint2);
-						destroyHints([0]);
+						hint2.destroyHints();
 						
 						this.bind("Ball", function removeHint3(){
 							this.unbind("Ball", removeHint3);
-							destroyHints([0]);
-							destroyHints([0]);
+							hint3.destroyHints();
 							
 							this.bind("Ball", function removeHint4(){
 								this.unbind("Ball", removeHint4);
-								destroyHints([0]);
+								hint4.destroyHints();
 							});
 						});
 					});
@@ -102,30 +104,38 @@ Crafty.c("Player", {
 				
 			}
 			else if(level == 1){
-				hints = [];
-				hints.push(Crafty.e("2D, Canvas, Rectangle").rect(this.x, this.y - WALL_WIDTH_HEIGHT*6));
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y - WALL_WIDTH_HEIGHT*6, "Place a block here with the CRTL key to create a path to the goal.", 0));
+				var hint = Crafty.e("Hints").hints();
+				var hint2= Crafty.e("Hints").hints();
+				
+				hint.addHint(Crafty.e("2D, Canvas, Rectangle").rect(this.x, this.y - WALL_WIDTH_HEIGHT*6));
+				hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y - WALL_WIDTH_HEIGHT*6, "Place a block here with the CRTL key to create a path to the goal.", 0));
 				this.bind("Block", function level2_1(){
 					this.unbind("Block", level2_1);
-					destroyHints([0]);
-					destroyHints([0]);
-					hints.push(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT*4, 90));
-					hints.push(drawArrow(goal.x + WALL_WIDTH_HEIGHT*3, goal.y + goal.h/2, 180));
+					hint.destroyHints();
+					hint.addHint(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT*4, 90));
+					hint2.addHint(drawArrow(goal.x + WALL_WIDTH_HEIGHT*3, goal.y + goal.h/2, 180));
 					this.bind("Ball", function(){
-						destroyHints([0]);
+						hint.destroyHints();
 					});
 				});
 			}
 			else if(level == 2){
-				hints = [];
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y, "Every portal is connected to one other portal. Use this to find a path to the goal", 0, 150, 100));
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[0].x + WALL_WIDTH_HEIGHT, portals1[0].y, "1", 0, 40, 40));
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[0].x, portals2[0].y, "1", 0, 40, 40));
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[1].x + WALL_WIDTH_HEIGHT, portals1[1].y, "2", 0, 40, 40));
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[1].x + WALL_WIDTH_HEIGHT, portals2[1].y, "2", 0, 40, 40));
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[2].x + WALL_WIDTH_HEIGHT, portals1[2].y, "3", 0, 40, 40));
-				hints.push(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[2].x + WALL_WIDTH_HEIGHT, portals2[2].y + WALL_WIDTH_HEIGHT, "3", 0, 40, 40));
+				var hint = Crafty.e("Hints").hints();
+				var hint2= Crafty.e("Hints").hints();
 				
+				
+				hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y, "Every portal is connected to one other portal. Use this to find a path to the goal", 0, 150, 100));
+				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[0].x + WALL_WIDTH_HEIGHT, portals1[0].y, "1", 0, 40, 40));
+				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[0].x, portals2[0].y, "1", 0, 40, 40));
+				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[1].x + WALL_WIDTH_HEIGHT, portals1[1].y, "2", 0, 40, 40));
+				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[1].x + WALL_WIDTH_HEIGHT, portals2[1].y, "2", 0, 40, 40));
+				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[2].x + WALL_WIDTH_HEIGHT, portals1[2].y, "3", 0, 40, 40));
+				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[2].x + WALL_WIDTH_HEIGHT, portals2[2].y + WALL_WIDTH_HEIGHT, "3", 0, 40, 40));
+				
+				this.bind("Moved", function removeHint(){
+					this.unbind("Moved", removeHint);
+					hint.destroyHints();
+				});
 			}
 		}
 		else{

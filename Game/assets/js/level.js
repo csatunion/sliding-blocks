@@ -2,7 +2,7 @@
 var debug = true;
 
 //level attributes
-var level = 0;
+var level = 1;
 var currentMap;
 var background;
 

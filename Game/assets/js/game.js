@@ -7,7 +7,6 @@ var gameid;
 var ball;
 var player;
 var goal;
-var hints = [];
 
 var firstPlayThrough = true;
 var playingGame = false;
@@ -33,17 +32,4 @@ function gameLog(logmsg) {
     logtime = currentTime.toDateString()+","+currentTime.toTimeString()+","+currentTime.getTime();
     logentry = logtime +","+ gameid + "," + playerNumber +","+ logmsg;
     logText = logText + "\n" + logentry;
-}
-
-function destroyHints(indexList){
-	hints.push(drawArrow(-100, -100, 270));
-	hints.pop().destroy();
-	for(i = 0; i < indexList.length; i++){
-		hints[indexList[i]].destroy();
-	}
-	for(i = 0; i < indexList.length; i++){
-		hints.splice(indexList[i], 1);
-	}
-	
-	console.log(hints);
 }
