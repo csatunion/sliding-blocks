@@ -65,7 +65,6 @@ Crafty.c("Player", {
 	drawHints : function(){
 		if(tutorial){
 			if(level == 0){
-				hints = [];
 				
 				hint = Crafty.e("Hints").hints();
 				hint2= Crafty.e("Hints").hints();
@@ -98,9 +97,7 @@ Crafty.c("Player", {
 							});
 						});
 					});
-					
 				});
-				
 				
 			}
 			else if(level == 1){
@@ -123,27 +120,41 @@ Crafty.c("Player", {
 				var hint = Crafty.e("Hints").hints();
 				var hint2= Crafty.e("Hints").hints();
 				
-				
 				hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y, "Every portal is connected to one other portal. Use this to find a path to the goal", 0, 150, 100));
-				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[0].x + WALL_WIDTH_HEIGHT, portals1[0].y, "1", 0, 40, 40));
-				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[0].x, portals2[0].y, "1", 0, 40, 40));
-				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[1].x + WALL_WIDTH_HEIGHT, portals1[1].y, "2", 0, 40, 40));
-				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[1].x + WALL_WIDTH_HEIGHT, portals2[1].y, "2", 0, 40, 40));
-				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[2].x + WALL_WIDTH_HEIGHT, portals1[2].y, "3", 0, 40, 40));
-				hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals2[2].x + WALL_WIDTH_HEIGHT, portals2[2].y + WALL_WIDTH_HEIGHT, "3", 0, 40, 40));
+				hint2.addHint(drawArrow(portals1[0].x + portals1[0].w/2, portals1[0].y - portals1[0].h/2, 90));
+				hint2.addHint(drawArrow(portals2[0].x + portals2[0].w/2, portals2[0].y + 100, 90));
 				
 				this.bind("Moved", function removeHint(){
 					this.unbind("Moved", removeHint);
 					hint.destroyHints();
+					
+					this.bind("Ball", function removeHint2(){
+						this.unbind("Ball", removeHint2);
+						hint2.destroyHints();
+					});
 				});
 			}
 		}
 		else{
-			
+			if(level == 0){
+				if(playerNumber == 1){
+					hint = Crafty.e("Hints").hints();
+					hint.addHint(Crafty.e("2D, Canvas, Rectangle").rect(ball.x + WALL_WIDTH_HEIGHT*11, ball.y));
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(ball.x + WALL_WIDTH_HEIGHT*12, ball.y, "Instruct your partner to put a block here.", 0, 150, 50));
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(WALL_WIDTH_HEIGHT/2, WALL_WIDTH_HEIGHT*22, "Type your messages here.", 0, 125, 50));
+				}else{
+					hint = Crafty.e("Hints").hints();
+					hint2 = Crafty.e("Hints").hints();
+					hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(WALL_WIDTH_HEIGHT/2, WALL_WIDTH_HEIGHT*22, "Type your messages here.", 0, 125, 50));
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "Your partner has the ball and the goal. Listen for their instructions", 0, 150, 80));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					});
+				}
+			}
 		}		
 	}
-	
-	
 });
 
 //defines movement for players
@@ -221,8 +232,6 @@ Crafty.c("PlayerMovement", {
 		
 		this.bind("Moved", function(direction){
 			var collisions;
-			
-			
 			
 			if((collisions = this.hit("Box")) != false && !this.hit("TutorialBox")){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
