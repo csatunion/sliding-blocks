@@ -1,4 +1,4 @@
-var SERVER_ADDR = "http://localhost:4000";
+var SERVER_ADDR = "http://parrot.union.edu:4000";
 
 // It seems that images cannot be scaled on the fly and people advice
 // against it for time issues. That means, it is not so easy to

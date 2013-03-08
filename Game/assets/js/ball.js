@@ -365,6 +365,8 @@ Crafty.c("BallMovement", {
 					this.x = connectingPortal.x;
 					this.y = connectingPortal.y - connectingPortal.h;
 				}
+				
+				player.trigger("BallPortal");
 			}
 			else if((collisions = this.hit("BallButton")) != false){
 				

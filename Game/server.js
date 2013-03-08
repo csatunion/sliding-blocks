@@ -18,7 +18,7 @@ var tut_levels = ["tutorial-move-push-ball.txt", "tutorial-place-obstacles.txt",
 var tut_instructions = ["Use the arrow keys to move.<br/><br/>Push the ball into the goal.",
 		        "Use CTRL to place obstacles that stop the ball.<br/><br/>(IMPORTANT: When you are playing with a partner, you cannot place obstacles into your own environment, but you can drop obstacles into your partner's environment.)",
 		        "Along the way you will encounter all kinds of blocks with special behaviors. For example, portals."];
-var levels = ["level_0.txt", "level_just_one_teleporter.txt", "level_4.txt", "level_5.txt", "level_7.txt", "level_6.txt", "level_1.txt", "level_2.txt", "level_3.txt"];
+var levels = ["level_0.txt", "level_0MIRROR.txt", "level_just_one_teleporter.txt", "level_1MIRROR.txt", "level_4.txt", "level_6.txt"];
 
 var stream = fs.createWriteStream(__dirname + '/assets/log.txt', {'flags':'a'});
 var clientSockets = {};

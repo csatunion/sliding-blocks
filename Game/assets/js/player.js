@@ -83,6 +83,10 @@ Crafty.c("Player", {
 					this.unbind("Moved", removeHint);
 					hint.destroyHints();
 					
+					$("#data_received").append("<br/><br/><b class=\"gameinfo\">You can restart the level at any time if you make a mistake.");
+           			var objDiv = document.getElementById("data_received");
+       				objDiv.scrollTop = objDiv.scrollHeight;
+					
 					this.bind("Ball", function removeHint2(){
 						this.unbind("Ball", removeHint2);
 						hint2.destroyHints();
@@ -120,7 +124,7 @@ Crafty.c("Player", {
 				var hint = Crafty.e("Hints").hints();
 				var hint2= Crafty.e("Hints").hints();
 				
-				hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y, "Every portal is connected to one other portal. Use this to find a path to the goal", 0, 150, 100));
+				hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y, "Every portal is connected to one other portal. Push the ball into the portal to get to the goal.", 0, 150, 100));
 				hint2.addHint(drawArrow(portals1[0].x + portals1[0].w/2, portals1[0].y - portals1[0].h/2, 90));
 				hint2.addHint(drawArrow(portals2[0].x + portals2[0].w/2, portals2[0].y + 100, 90));
 				
@@ -128,9 +132,15 @@ Crafty.c("Player", {
 					this.unbind("Moved", removeHint);
 					hint.destroyHints();
 					
-					this.bind("Ball", function removeHint2(){
-						this.unbind("Ball", removeHint2);
-						hint2.destroyHints();
+					this.bind("BallPortal", function addHint(){
+						this.unbind("BallPortal", addHint);
+						
+						hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(portals1[0].x + 1.5*WALL_WIDTH_HEIGHT, portals1[0].y, "You can also move through the portals. Follow the ball to the other side.", 0, 150, 100));
+						
+						this.bind("PlayerPortal", function removeHint2(){
+							this.unbind("PlayerPortal", removeHint2);
+							hint2.destroyHints();
+						})
 					});
 				});
 			}
@@ -151,6 +161,78 @@ Crafty.c("Player", {
 						this.unbind("Moved", removeHint);
 						hint.destroyHints();
 					});
+				}
+			}else if(level == 1){
+				var hint = Crafty.e("Hints").hints();
+				var hint2= Crafty.e("Hints").hints();
+				var hint3= Crafty.e("Hints").hints();
+				if(playerNumber == 1){
+					hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(WALL_WIDTH_HEIGHT/2, WALL_WIDTH_HEIGHT*22, "Type your messages here.", 0, 125, 50));
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "Your partner has the ball and the goal. Listen for their instructions", 0, 150, 80));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					});
+				}else{
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "Now you have the ball and the goal so you must instruct your partner.", 0, 150, 80));
+					hint2.addHint(Crafty.e("2D, Canvas, Rectangle").rect(ball.x + WALL_WIDTH_HEIGHT*14, ball.y));
+					hint3.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(ball.x + WALL_WIDTH_HEIGHT*15, ball.y, "Instruct your partner to put a block here.", 0, 150, 50));
+					hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(WALL_WIDTH_HEIGHT/2, WALL_WIDTH_HEIGHT*22, "Type your messages here.", 0, 125, 50));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					})
+				}
+			}else if(level == 2){
+				var hint = Crafty.e("Hints").hints();
+				var hint2= Crafty.e("Hints").hints();
+				var hint3= Crafty.e("Hints").hints();
+				if(playerNumber == 1){
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "This time you have the ball and your partner has the goal. Use the teleporter to give the ball to your partner.", 0, 150, 125));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					});
+				}else{
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "You have the goal and your partner has the ball.", 0, 150, 80));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					})
+				}
+			}else if(level == 3){
+				var hint = Crafty.e("Hints").hints();
+				var hint2= Crafty.e("Hints").hints();
+				var hint3= Crafty.e("Hints").hints();
+				if(playerNumber == 1){
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "Now the situation is reversed and you have the goal and not the ball.", 0, 150, 80));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					});
+				}else{
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "This time you have the ball and your partner has the goal. Use the teleporter to give the ball to your partner.", 0, 150, 125));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					})
+				}
+			}else if(level == 4){
+				var hint = Crafty.e("Hints").hints();
+				var hint2= Crafty.e("Hints").hints();
+				var hint3= Crafty.e("Hints").hints();
+				if(playerNumber == 1){
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "You are on your own from here on out. Good Luck!", 0, 150, 80));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					});
+				}else{
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "You are on your own from here on out. Good Luck!", 0, 150, 80));
+					this.bind("Moved", function removeHint(){
+						this.unbind("Moved", removeHint);
+						hint.destroyHints();
+					})
 				}
 			}
 		}		
@@ -339,6 +421,8 @@ Crafty.c("PlayerMovement", {
 					this.x = connectingPortal.x;
 					this.y = connectingPortal.y - connectingPortal.h;
 				}
+				
+				this.trigger("PlayerPortal");
 			}
 			else if(this.hit("MovingBox") != false){
 				socket.emit("restartLevel", channelNumber);
