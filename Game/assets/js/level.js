@@ -174,7 +174,7 @@ Crafty.scene("main", function() {
         
     	//triggers when the ball is teleported to your side of the screen
     	socket.on("teleported", function(x, y, direction){
-    	    ball = drawBall(x, y);
+    	    drawBall(x, y);
     	    if (direction == 180)
     	        ball.move.left = true;
         	else if(direction == 0)
