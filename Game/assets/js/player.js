@@ -107,12 +107,22 @@ Crafty.c("Player", {
 			else if(level == 1){
 				var hint = Crafty.e("Hints").hints();
 				var hint2= Crafty.e("Hints").hints();
+				var hint3= Crafty.e("Hints").hints();
 				
 				hint.addHint(Crafty.e("2D, Canvas, Rectangle").rect(this.x, this.y - WALL_WIDTH_HEIGHT*6));
 				hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y - WALL_WIDTH_HEIGHT*6, "Place a block here with the CRTL key to create a path to the goal.", 0));
 				this.bind("Block", function level2_1(){
 					this.unbind("Block", level2_1);
 					hint.destroyHints();
+					
+					hint3.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + WALL_WIDTH_HEIGHT, this.y, "A block has been placed under you.", 0))
+					
+					this.bind("Moved", function level2_2(){
+						this.unbind("Moved", level2_2);
+						hint3.destroyHints();
+					});
+					
+					
 					hint.addHint(drawArrow(ball.x + ball.w/2, ball.y + ball.h + WALL_WIDTH_HEIGHT*4, 90));
 					hint2.addHint(drawArrow(goal.x + WALL_WIDTH_HEIGHT*3, goal.y + goal.h/2, 180));
 					this.bind("Ball", function(){
