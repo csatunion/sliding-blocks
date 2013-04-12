@@ -50,3 +50,7 @@ textarea {
     left:205px;
     z-index:0;
 }
+
+canvas{
+	z-index:1;
+}

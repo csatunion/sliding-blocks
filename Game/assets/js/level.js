@@ -24,7 +24,7 @@ Crafty.scene('loading', function(){
                                        
 	//load wall/block image
     Crafty.sprite(WALL_WIDTH_HEIGHT, "images/crate_20.png", {
-    	wall : [0,0]
+    	wall : [0,0],
     });
         	
     //when crate is loaded do the function
@@ -33,26 +33,10 @@ Crafty.scene('loading', function(){
 		//displays a waiting for other player message
 	    message.text("WAITING FOR ANOTHER PLAYER");
 	    
-	    if(!tutorialPlayed){
-	    	tutorial = confirm("Do you want to play the tutorial?");
-	    
-	    	if(tutorial){
-		    tutorialPlayed = true;
-	    	    socket.emit("tutorial");
-	    	    Crafty.scene("tutorial");
-	    	}
-	    	else{
-	    		socket.emit("game");
-	    		socket.on("setup", function(id, number, channel){
-					playingGame = true;
-					gameid = id;
-	    			playerNumber = number;
-    				channelNumber = channel;
-					gameLog("startgame");
-
-    				Crafty.scene("main");
-	    		});
-	    	}
+	    if(!tutorialPlayed && (tutorial = confirm("Do you want to play the tutorial?"))){
+	    	tutorialPlayed == true;
+	    	socket.emit("tutorial");
+	    	Crafty.scene("tutorial");
 	    }
 	    else{
 	    	socket.emit("game");
@@ -66,7 +50,6 @@ Crafty.scene('loading', function(){
     			Crafty.scene("main");
 	    	});
 	    }
-	    
 	});
 });
 
@@ -102,9 +85,6 @@ Crafty.scene("tutorial", function(){
 			Crafty.scene("level");
 		}
 	});
-
-    
-	
 });
 
 
@@ -172,7 +152,7 @@ Crafty.scene("main", function() {
     	    
     	    
     	    //add this back when not testing
-    	    alert("Your partner disconnected. Searching for a new partner.");
+    	    //alert("Your partner disconnected. Searching for a new partner.");
     	});
     
     	//drops a block at given position
@@ -194,7 +174,7 @@ Crafty.scene("main", function() {
         
     	//triggers when the ball is teleported to your side of the screen
     	socket.on("teleported", function(x, y, direction){
-    	    ball = drawBall(x, y);
+    	    drawBall(x, y);
     	    if (direction == 180)
     	        ball.move.left = true;
         	else if(direction == 0)
@@ -261,6 +241,7 @@ Crafty.scene("main", function() {
 
 Crafty.scene("level", function(){
 	
+	
 	if(!tutorial){
 	//sends message in input box to server when you hit enter
     //resets the input box
@@ -288,11 +269,25 @@ Crafty.scene("level", function(){
 	Crafty.e("2D, DOM, Image")
 		.attr({x: 0, y: 0, z: -1})
 		.image(background);
+		
+	Crafty.e("2D, DOM, Image, Mouse")
+		.attr({x:BOARD_WIDTH + WALL_WIDTH_HEIGHT, y: BOARD_HEIGHT - 2*WALL_WIDTH_HEIGHT, w: 101, h: 40, z: 1})
+		.image("/images/reset.png")
+		.bind("Click", function(){
+			if(tutorial){
+				Crafty.scene("level");
+			}
+			else{
+				socket.emit("nextLevel", level, gameid, playerNumber, channelNumber);
+			}
+		});
    	portals1 = [];
     portals2 = [];
 	
 	var inventory = drawLevel();
     drawLegend(inventory);
+    player.drawHints();
+    
 });
 
 //the victory screen
@@ -306,4 +301,5 @@ Crafty.scene("end", function(){
                                        .text("!!!!   YOU WIN   !!!!")
                                        .css({"text-align": "center", "color":"#fff"});
 });
+
 

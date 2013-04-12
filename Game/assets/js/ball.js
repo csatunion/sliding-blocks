@@ -21,7 +21,7 @@ Crafty.c("Ball", {
 			framesSinceFirstMove : 0,
 			hitGoal : false
 		});
-		
+
 		this.ballmovement();
 		this.color("purple");
 		
@@ -70,10 +70,8 @@ Crafty.c("BallMovement", {
 		this.bind("Moved", function(direction){
 			var collisions;
 			
-			if(this.hit("Player") != false){
+			if((collisions = this.hit("Player")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				collisions = this.hit("Player");
 				
 				if(direction == 0)
 					this.x = collisions[0].obj.x - this.w;
@@ -84,32 +82,26 @@ Crafty.c("BallMovement", {
 				else if(direction == 270)
 					this.y = collisions[0].obj.y - this.h;
 			}
-			else if(this.hit("Box") != false){
+			else if((collisions = this.hit("Box")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				collisions = this.hit("Box");
 				
 				if(this.startedMoving){
 					if(direction == 0){
 						this.x = collisions[0].obj.x - this.w;
 						if(Crafty.math.randomInt(0,1)){
 							this.y = this.y + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.down = true;
-							}
-							else{
+							else
 								this.move.up = true;
-							}
 							this.y = this.y - this._SPEED;
 						}
 						else{
 							this.y = this.y - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.up = true;
-							}
-							else{
+							else
 								this.move.down = true;
-							}
 							this.y = this.y + this._SPEED;
 						}
 					}
@@ -117,22 +109,18 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y + collisions[0].obj.h;
 						if(Crafty.math.randomInt(0,1)){
 							this.x = this.x + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.right = true;
-							}
-							else{
+							else
 								this.move.left = true;
-							}
 							this.x = this.x - this._SPEED;
 						}
 						else{
 							this.x = this.x - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.left = true;
-							}
-							else{
+							else
 								this.move.right = true;
-							}
 							this.x = this.x + this._SPEED;
 						}
 					}
@@ -140,22 +128,18 @@ Crafty.c("BallMovement", {
 						this.x = collisions[0].obj.x + collisions[0].obj.w;
 						if(Crafty.math.randomInt(0,1)){
 							this.y = this.y + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.down = true;
-							}
-							else{
+							else
 								this.move.up = true;
-							}
 							this.y = this.y - this._SPEED;
 						}
 						else{
 							this.y = this.y - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.up = true;
-							}
-							else{
+							else
 								this.move.down = true;
-							}
 							this.y = this.y + this._SPEED;
 						}
 					}
@@ -163,22 +147,18 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y - this.h;
 						if(Crafty.math.randomInt(0,1)){
 							this.x = this.x + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.right = true;
-							}
-							else{
+							else
 								this.move.left = true;
-							}
 							this.x = this.x - this._SPEED;
 						}
 						else{
 							this.x = this.x - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.left = true;
-							}
-							else{
+							else
 								this.move.right = true;
-							}
 							this.x = this.x + this._SPEED;
 						}
 					}
@@ -194,32 +174,26 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y - this.h;
 				}
 			}
-			else if(this.hit("BallGate") != false){
+			else if((collisions = this.hit("BallGate")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				collisions = this.hit("BallGate");
 				
 				if(this.startedMoving){
 					if(direction == 0){
 						this.x = collisions[0].obj.x - this.w;
 						if(Crafty.math.randomInt(0,1)){
 							this.y = this.y + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.down = true;
-							}
-							else{
+							else
 								this.move.up = true;
-							}
 							this.y = this.y - this._SPEED;
 						}
 						else{
 							this.y = this.y - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.up = true;
-							}
-							else{
+							else
 								this.move.down = true;
-							}
 							this.y = this.y + this._SPEED;
 						}
 					}
@@ -227,22 +201,18 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y + collisions[0].obj.h;
 						if(Crafty.math.randomInt(0,1)){
 							this.x = this.x + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.right = true;
-							}
-							else{
+							else
 								this.move.left = true;
-							}
 							this.x = this.x - this._SPEED;
 						}
 						else{
 							this.x = this.x - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.left = true;
-							}
-							else{
+							else
 								this.move.right = true;
-							}
 							this.x = this.x + this._SPEED;
 						}
 					}
@@ -250,22 +220,18 @@ Crafty.c("BallMovement", {
 						this.x = collisions[0].obj.x + collisions[0].obj.w;
 						if(Crafty.math.randomInt(0,1)){
 							this.y = this.y + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.down = true;
-							}
-							else{
+							else
 								this.move.up = true;
-							}
 							this.y = this.y - this._SPEED;
 						}
 						else{
 							this.y = this.y - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.up = true;
-							}
-							else{
+							else
 								this.move.down = true;
-							}
 							this.y = this.y + this._SPEED;
 						}
 					}
@@ -273,22 +239,18 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y - this.h;
 						if(Crafty.math.randomInt(0,1)){
 							this.x = this.x + this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.right = true;
-							}
-							else{
+							else
 								this.move.left = true;
-							}
 							this.x = this.x - this._SPEED;
 						}
 						else{
 							this.x = this.x - this._SPEED;
-							if(this.hit("Box") == false && this.hit("BallGate") == false){
+							if(this.hit("Box") == false && this.hit("BallGate") == false)
 								this.move.left = true;
-							}
-							else{
+							else
 								this.move.right = true;
-							}
 							this.x = this.x + this._SPEED;
 						}
 					}
@@ -304,10 +266,8 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y - this.h;
 				}
 			}
-		    else if(this.hit("SimpleBouncyBox") != false){
+		    else if((collisions = this.hit("SimpleBouncyBox")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				collisions = this.hit("SimpleBouncyBox");
 				
 				if(direction == 0){
 					this.x = collisions[0].obj.x - this.w;
@@ -330,10 +290,8 @@ Crafty.c("BallMovement", {
 					this.move.up = true;
 				}
 			}
-			else if(this.hit("CCWBouncyBox") != false){
+			else if((collisions = this.hit("CCWBouncyBox")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				collisions = this.hit("CCWBouncyBox");
 				
 				if(direction == 0){
 					this.x = collisions[0].obj.x - this.w;
@@ -356,10 +314,8 @@ Crafty.c("BallMovement", {
 					this.move.right = true;
 				}
 			}
-			else if(this.hit("CWBouncyBox") != false){
+			else if((collisions = this.hit("CWBouncyBox")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				collisions = this.hit("CWBouncyBox");
 				
 				if(direction == 0){
 					this.x = collisions[0].obj.x - this.w;
@@ -382,46 +338,49 @@ Crafty.c("BallMovement", {
 					this.move.left = true;
 				}
 			}
-			else if(this.hit("Portal") != false){
-				collisions = this.hit("Portal");
+			else if((collisions = this.hit("Portal")) != false){
 				
 				connectingPortal = portals1.indexOf(collisions[0].obj);
 
 				if (connectingPortal == -1) {
 					connectingPortal = portals2.indexOf(collisions[0].obj);
 					connectingPortal = portals1[connectingPortal];
-				} else {
+				} 
+				else 
 					connectingPortal = portals2[connectingPortal];
-				}
+
 				if (this.move.left) {
 					this.x = connectingPortal.x - connectingPortal.w;
 					this.y = connectingPortal.y;
-				} else if (this.move.right) {
+				} 
+				else if (this.move.right) {
 					this.x = connectingPortal.x + connectingPortal.w;
 					this.y = connectingPortal.y;
-				} else if (this.move.down) {
+				} 
+				else if (this.move.down) {
 					this.x = connectingPortal.x;
 					this.y = connectingPortal.y + connectingPortal.h;
-				} else if (this.move.up) {
+				} 
+				else if (this.move.up) {
 					this.x = connectingPortal.x;
 					this.y = connectingPortal.y - connectingPortal.h;
 				}
+				
+				player.trigger("BallPortal");
 			}
-			else if(this.hit("BallButton") != false){
-				collisions = this.hit("BallButton");
+			else if((collisions = this.hit("BallButton")) != false){
 				
 				if (collisions[0].obj.firstHit) {
 					socket.emit("ballButtonPressed", collisions[0].obj.number, channelNumber);
 					collisions[0].obj.firstHit = false;
 				}
 			}
-			else if(this.hit("Teleporter") != false){
-				collisions = this.hit("Teleporter");
+			else if((collisions = this.hit("Teleporter")) != false){
 				
 				socket.emit("teleport", collisions[0].obj.x, collisions[0].obj.y, direction, channelNumber);
 				this.destroy();
 			}
-			else if(this.hit("Goal") != false && this.hitGoal == false){
+			else if((collisions = this.hit("Goal")) != false && this.hitGoal == false){
 				this.hitGoal = true;
 				if(!tutorial){
 					socket.emit("alertOtherPlayer", channelNumber);
