@@ -1,5 +1,5 @@
 //allows you to skip levels with shift key when true
-var debug = true;
+var debug = false;
 
 //level attributes
 var level = 0;
@@ -34,7 +34,7 @@ Crafty.scene('loading', function(){
 	    message.text("WAITING FOR ANOTHER PLAYER");
 	    
 	    if(!tutorialPlayed && (tutorial = confirm("Do you want to play the tutorial?"))){
-	    	tutorialPlayed == true;
+	    	tutorialPlayed = true;
 	    	socket.emit("tutorial");
 	    	Crafty.scene("tutorial");
 	    }
@@ -74,7 +74,15 @@ Crafty.scene("tutorial", function(){
 		if(data == -1){
 		    $("#data_received").html("");
 			level = 0;
+			for(i = 0; i < blocksPlaced.length; i++){
+				blocksPlaced[i].destroy();
+			}
+			blocksPlaced = [];
 		    tutorial = false;
+		    
+		   socket.removeAllListeners("dropBlock");
+		   socket.removeAllListeners("goToNextLevel");
+		    
 			Crafty.scene("loading");
 		}
 		else{
@@ -163,10 +171,10 @@ Crafty.scene("main", function() {
             
         	//make sure there are 3 or less blocks currently placed
         	//remove the block that was placed the longest ago
-        	if (blocksPlaced.length > 3){
-        	    blocksPlaced[0].destroy();
-        	    blocksPlaced = blocksPlaced.slice(1);
-        	}
+       		if (blocksPlaced.length > 3){
+       		    blocksPlaced[0].destroy();
+       	    	blocksPlaced = blocksPlaced.slice(1);
+       		}
             
         	//log that a block was placed
 			gameLog("newblock:" + xpos + " " + ypos);
@@ -262,9 +270,12 @@ Crafty.scene("level", function(){
     });
 	
 	}
+	
 	//initializes all obstacle variables to empty
 	blocksPlaced = [];
 	buttonEffects = [];
+	
+	console.log(blocksPlaced.length + " HI");
 	
 	Crafty.e("2D, DOM, Image")
 		.attr({x: 0, y: 0, z: -1})

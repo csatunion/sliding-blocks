@@ -158,13 +158,15 @@ Crafty.c("Player", {
 		else{
 			if(level == 0){
 				if(playerNumber == 1){
-					hint = Crafty.e("Hints").hints();
+					var hint = Crafty.e("Hints").hints();
+					var hint2= Crafty.e("Hints").hints();
 					hint.addHint(Crafty.e("2D, Canvas, Rectangle").rect(ball.x + WALL_WIDTH_HEIGHT*11, ball.y));
 					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(ball.x + WALL_WIDTH_HEIGHT*12, ball.y, "Instruct your partner to put a block here.", 0, 150, 50));
 					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(WALL_WIDTH_HEIGHT/2, WALL_WIDTH_HEIGHT*22, "Type your messages here.", 0, 125, 50));
 				}else{
-					hint = Crafty.e("Hints").hints();
-					hint2 = Crafty.e("Hints").hints();
+					var hint = Crafty.e("Hints").hints();
+					var hint2= Crafty.e("Hints").hints();
+
 					hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(WALL_WIDTH_HEIGHT/2, WALL_WIDTH_HEIGHT*22, "Type your messages here.", 0, 125, 50));
 					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "Your partner has the ball and the goal. Listen for their instructions", 0, 150, 80));
 					this.bind("Moved", function removeHint(){
@@ -232,13 +234,13 @@ Crafty.c("Player", {
 				var hint2= Crafty.e("Hints").hints();
 				var hint3= Crafty.e("Hints").hints();
 				if(playerNumber == 1){
-					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "You are on your own from here on out. Good Luck!", 0, 150, 80));
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "The Tutorial is over. You are on your own from here on out. Good Luck!", 0, 150, 80));
 					this.bind("Moved", function removeHint(){
 						this.unbind("Moved", removeHint);
 						hint.destroyHints();
 					});
 				}else{
-					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "You are on your own from here on out. Good Luck!", 0, 150, 80));
+					hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(this.x + this.w, this.y, "The Tutorial is over. You are on your own from here on out. Good Luck!", 0, 150, 80));
 					this.bind("Moved", function removeHint(){
 						this.unbind("Moved", removeHint);
 						hint.destroyHints();
