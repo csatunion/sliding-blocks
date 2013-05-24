@@ -1,37 +1,36 @@
 import sys
 
-data = []
-
-def insertData(time, info):
-        i = 0
-        while(i < len(data) and time >= data[i][0]):
-                i = i + 1
-
-        data.insert(i, (time,info))
-
-def writeData(string):
-        write = open("TEXT_"+string, "w+")
+def writeData(outputFileName, data):
+        outputFile = open(outputFileName, "w+")
+        
         for item in data:
-                print item[1]
-                info = item[1]
-                
-                if(info[0] == "msent"):
-                        write.write("msent:"+info[1]+"\n")
-                elif(info[0] == "mreceived"):
-                        write.write("mreceived:"+info[1]+"\n")
-        write.close()
+                item = item[1]
+                outputFile.write(item[0]+":"+item[1]+"\n")
+
+        outputFile.close()
         
 
-def parseData(f):
-	read = open(f)
-	
-	for line in read:
-		string = line.strip().split(',')
-		info = string[len(string)-1].split(':')                
-		insertData(string[2], info)
+def parseData(inputFileName, outputFileName):
+        data = []
 
-        writeData(f)
-	read.close()
+        inputFile = open(inputFileName, "r")
+	
+	for line in inputFile:
+		string = line.strip().split(',')
+		info = string[len(string)-1].split(':')
+		if(info[0] == "msent" or info[0] == "mreceived"):
+                        data.append((string[2], info))
+
+        inputFile.close()
+        
+        data = sorted(data, key=lambda index :int(index[0]))
+        writeData(outputFileName, data)
 
 if __name__ == '__main__':
-	parseData(sys.argv[1])
+        argc = len(sys.argv)
+        if(argc == 1):
+                print "No file to parse\n"
+        elif(argc == 2):
+                parseData(sys.argv[1], "TEXT_"+sys.argv[1]) 
+        else:
+                parseData(sys.argv[1], sys.argv[2])
