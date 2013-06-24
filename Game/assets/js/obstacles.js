@@ -12,173 +12,39 @@ var legendInfo = {"goal":["orange","goal (your partner may have it)"],
 		  "player2":["green","you"],
 		  "ball":["purple","ball (your partner may have it)"]};
 
-// normal box that all objects can't pass through
-// USES: the walls and blocks players place
 Crafty.c("Box", {
 
 	init : function() {
-		this.requires("2D, DOM, Collision, wall");
+		this.requires("2D, DOM, Collision, box");
 	},
 
 	box : function(xpos, ypos) {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 0
 		});
 		
 		return this;
-	}
+	}	
 });
 
-Crafty.c("MovingBox", {
 
-	_speed : 4,
-
-	init : function() {
-		this.requires("2D, DOM, Color, Collision");
-	},
-
-	movingbox : function(xpos, ypos, direction) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1,
-			move : {
-				left : false,
-				right : false,
-				up : false,
-				down : false
-			}
-		});
-
-		this.color("yellow");
-
-		this.bind("EnterFrame", function() {
-			if (this.move.left)
-				this.x -= this._speed;
-			else if (this.move.right)
-				this.x += this._speed;
-			else if (this.move.up)
-				this.y -= this._speed;
-			else if (this.move.down)
-				this.y += this._speed;
-		});
-
-		this.onHit("Box", function(e) {
-			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
-				this.move.right = true;
-			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
-				this.move.left = true;
-			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
-				this.move.down = true;
-			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
-				this.move.up = true;
-			}
-		});
-
-	    this.onHit("SimpleBouncyBox", function(e) {
-			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
-				this.move.right = true;
-			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
-				this.move.left = true;
-			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
-				this.move.down = true;
-			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
-				this.move.up = true;
-			}
-		});
-
-		this.onHit("CWBouncyBox", function(e) {
-			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
-				this.move.up = true;
-			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
-				this.move.down = true;
-			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
-				this.move.right = true;
-			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
-				this.move.left = true;
-			}
-		});
-		
-		this.onHit("CCWBouncyBox", function(e) {
-			if (this.move.left) {
-				this.x = e[0].obj.x + e[0].obj.w;
-				this.move.left = false;
-				this.move.down = true;
-			} else if (this.move.right) {
-				this.x = e[0].obj.x - this.w;
-				this.move.right = false;
-				this.move.up = true;
-			} else if (this.move.up) {
-				this.y = e[0].obj.y + e[0].obj.h;
-				this.move.up = false;
-				this.move.left = true;
-			} else if (this.move.down) {
-				this.y = e[0].obj.y - this.h;
-				this.move.down = false;
-				this.move.right = true;
-			}
-		});
-		
-		this._setStartDirection(direction)
-
-		return this;
-	},
-
-	_setStartDirection : function(startDirection) {
-		if (startDirection == 180)
-			this.move.left = true;
-		else if (startDirection == 0)
-			this.move.right = true;
-		else if (startDirection == 90)
-			this.move.up = true;
-		else if (startDirection == 270)
-			this.move.down = true;
-	}
-});
-
-Crafty.c("SimpleBouncyBox", {
+Crafty.c("BouncyBox", {
 
 	init : function() {
 		this.requires("2D, DOM, Color");
 	},
 
-	simplebouncybox : function(xpos, ypos) {
+	bouncybox : function(xpos, ypos) {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 0
 		});
 
 		this.color("cyan");
@@ -187,50 +53,6 @@ Crafty.c("SimpleBouncyBox", {
 	}
 });
 
-Crafty.c("CCWBouncyBox", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	ccwbouncybox : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
-		});
-
-		this.color("cyan");
-
-		return this;
-	}
-});
-
-Crafty.c("CWBouncyBox", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	cwbouncybox : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
-		});
-
-		this.color("cyan");
-
-		return this;
-	}
-});
-
-// gate that only prevents a ball from moving through
-// USES: impede the progress of a ball but not the player
 Crafty.c("BallGate", {
 
 	init : function() {
@@ -241,9 +63,9 @@ Crafty.c("BallGate", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 0
 		});
 
 		this.color("brown");
@@ -262,100 +84,13 @@ Crafty.c("PlayerGate", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 0
 		});
 
 		this.color("pink");
 
-		return this;
-	}
-});
-
-Crafty.c("BallButton", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	ballbutton : function(xpos, ypos, buttonNumber) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1,
-			activated : false,
-			firstHit : true,
-			number : buttonNumber
-		});
-
-		this.color("#666600");
-
-		return this;
-	}
-});
-
-Crafty.c("PlayerButton", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	playerbutton : function(xpos, ypos, buttonNumber) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1,
-			firstHit : true,
-			number : buttonNumber
-		});
-
-		this.color("#99FF66");
-
-		return this;
-	}
-});
-
-Crafty.c("BoxButton", {
-
-	init : function() {
-		this.requires("2D, DOM, Color, Collision");
-	},
-
-	boxbutton : function(xpos, ypos, buttonNumber) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1,
-			activated : false,
-			firstHit : true,
-			number : buttonNumber
-		});
-
-		this.color("#cc6666");
-		
-		this.bind("EnterFrame", function(){
-			if(this.hit("Box") != false){
-				this.activated = true;
-				if(this.firstHit == true)
-					socket.emit("boxButtonPressed", this.number, this.activated, this.firstHit, channelNumber);
-				this.firstHit = false;
-			}
-			else{
-				if(this.activated == true){
-					this.activated = false;
-					socket.emit("boxButtonPressed", this.number, this.activated, this.firstHit, channelNumber);
-					this.firstHit = true;
-				}
-			}
-		});
-		
 		return this;
 	}
 });
@@ -370,9 +105,9 @@ Crafty.c("Teleporter", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 0
 		});
 
 		this.color("#555555");
@@ -391,9 +126,9 @@ Crafty.c("Portal", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 0
 		});
 
 		this.color("#000000");
@@ -411,9 +146,9 @@ Crafty.c("Goal", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 1
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 0
 		});
 
 		this.color("orange");
@@ -421,3 +156,4 @@ Crafty.c("Goal", {
 		return this;
 	}
 });
+

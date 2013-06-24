@@ -8,9 +8,9 @@ Crafty.c("Ball", {
 		this.attr({
 			x : xpos,
 			y : ypos,
-			w : WALL_WIDTH_HEIGHT,
-			h : WALL_WIDTH_HEIGHT,
-			z : 2,
+			w : CELL_SIZE,
+			h : CELL_SIZE,
+			z : 1,
 			move : {
 				left : false,
 				right : false,
@@ -266,7 +266,7 @@ Crafty.c("BallMovement", {
 						this.y = collisions[0].obj.y - this.h;
 				}
 			}
-		    else if((collisions = this.hit("SimpleBouncyBox")) != false){
+		    else if((collisions = this.hit("BouncyBox")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
 				
 				if(direction == 0){
@@ -289,56 +289,7 @@ Crafty.c("BallMovement", {
 					this.move.down = false;
 					this.move.up = true;
 				}
-			}
-			else if((collisions = this.hit("CCWBouncyBox")) != false){
-				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				if(direction == 0){
-					this.x = collisions[0].obj.x - this.w;
-					this.move.right = false;
-					this.move.up = true;
-				}
-				else if(direction == 90){
-					this.y = collisions[0].obj.y + collisions[0].obj.h;
-					this.move.up = false;
-					this.move.left = true;
-				}
-				else if(direction == 180){
-					this.x = collisions[0].obj.x + collisions[0].obj.w;
-					this.move.left = false;
-					this.move.down  = true;
-				}
-				else if(direction == 270){
-					this.y = collisions[0].obj.y - this.h;
-					this.move.down = false;
-					this.move.right = true;
-				}
-			}
-			else if((collisions = this.hit("CWBouncyBox")) != false){
-				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				if(direction == 0){
-					this.x = collisions[0].obj.x - this.w;
-					this.move.right = false;
-					this.move.down = true;
-				}
-				else if(direction == 90){
-					this.y = collisions[0].obj.y + collisions[0].obj.h;
-					this.move.up = false;
-					this.move.right = true;
-				}
-				else if(direction == 180){
-					this.x = collisions[0].obj.x + collisions[0].obj.w;
-					this.move.left = false;
-					this.move.up  = true;
-				}
-				else if(direction == 270){
-					this.y = collisions[0].obj.y - this.h;
-					this.move.down = false;
-					this.move.left = true;
-				}
-			}
-			else if((collisions = this.hit("Portal")) != false){
+			}else if((collisions = this.hit("Portal")) != false){
 				
 				connectingPortal = portals1.indexOf(collisions[0].obj);
 
@@ -365,32 +316,15 @@ Crafty.c("BallMovement", {
 					this.x = connectingPortal.x;
 					this.y = connectingPortal.y - connectingPortal.h;
 				}
-				
-				player.trigger("BallPortal");
-			}
-			else if((collisions = this.hit("BallButton")) != false){
-				
-				if (collisions[0].obj.firstHit) {
-					socket.emit("ballButtonPressed", collisions[0].obj.number, channelNumber);
-					collisions[0].obj.firstHit = false;
-				}
+				Crafty.trigger("BallPortal");
 			}
 			else if((collisions = this.hit("Teleporter")) != false){
-				
-				socket.emit("teleport", collisions[0].obj.x, collisions[0].obj.y, direction, channelNumber);
+				socket.emit("teleport", collisions[0].obj.x, collisions[0].obj.y, direction);
 				this.destroy();
 			}
 			else if((collisions = this.hit("Goal")) != false && this.hitGoal == false){
 				this.hitGoal = true;
-				if(!tutorial){
-					socket.emit("alertOtherPlayer", channelNumber);
-					level++;
-					socket.emit("nextLevel", level, gameid, playerNumber, channelNumber);
-				}
-				else{
-					level++;
-					socket.emit("advance", level);
-				}
+				socket.emit("advance", level, playerNumber);
 			}
 		});
 	}

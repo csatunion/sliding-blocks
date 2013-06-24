@@ -10,7 +10,6 @@ Crafty.c("Hints", {
 	
 	addHint:function(hint){
 		this.list.push(hint);
-		console.log(this.list);
 	},
 	
 	destroyHints:function(){
@@ -384,14 +383,12 @@ function drawLevel(){
 				//light green
 				case 7:{
 					drawPlayerButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, playerButtonNumber);
-					playerButtonNumber++;
 				    inventory["player_button"] = true;
 					break;
 				}
 				//light red
 				case 8:{
 					drawBoxButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, boxButtonNumber);
-					boxButtonNumber++;
 				    inventory["box_button"] = true;
 					break;
 				}
@@ -410,7 +407,6 @@ function drawLevel(){
 				//puke
 				case 11:{
 					drawBallButton(row*WALL_WIDTH_HEIGHT, column*WALL_WIDTH_HEIGHT, ballButtonNumber);
-					ballButtonNumber++;
 				    inventory["ball_button"] = true;
 					break;
 				}

@@ -1,24 +1,27 @@
-var SERVER_ADDR = "http://parrot.union.edu:4000";
+var SERVER_ADDRESS = "http://localhost:4000";
 
-// It seems that images cannot be scaled on the fly and people advice
-// against it for time issues. That means, it is not so easy to
-// calculate the size of the obstacles, which are loaded as an image,
-// dynamically. So, I am hard coding everything here.
+/* GAME ATTRIBUTES */
 
-//game attributes
+//Enables level skipping with the SHIFT key
+var DEBUG = true;
 
-// size of blocks 
-var WALL_WIDTH_HEIGHT = 20;
-// no. of rows and columns is fixed by the way maps are specified
+//0 is no view of other player
+//1 is alt key screen switch
+//2 is only see other player
+var MODE = 0;
+
+//size of each cell
+var CELL_SIZE = 20;
+
+//number of rows and columns
 var ROWS = 24;
-var COLUMNS = 24;
+var COLS = 24;
+
 //480; assuming 768 high screens - 500 should fit with menu bars etc.
-var WIDTH  = WALL_WIDTH_HEIGHT * COLUMNS + 200; 
-var HEIGHT = WALL_WIDTH_HEIGHT * ROWS;
+var WIDTH  = CELL_SIZE * COLS + 200; 
+var HEIGHT = CELL_SIZE * ROWS;
 
-var BOARD_WIDTH  = WALL_WIDTH_HEIGHT * COLUMNS;
-var BOARD_HEIGHT = WALL_WIDTH_HEIGHT * ROWS;
-
-var PLAYER_WIDTH_HEIGHT = WALL_WIDTH_HEIGHT;
-
+//size of the game board
+var BOARD_WIDTH  = CELL_SIZE * COLS;
+var BOARD_HEIGHT = CELL_SIZE * ROWS; 
 
