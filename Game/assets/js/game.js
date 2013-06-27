@@ -9,14 +9,14 @@ Crafty.scene("game", function(){
 	
 	socket.emit("game");
 	
-	socket.once("setup", function(playerNum){
-		playerNumber = playerNum;
+	socket.once("setup", function(player_number){
+		playerNumber = player_number;
 		
 		$('#msg').bind("keyup", function(key){
 			//enter key
 			if(key.which == 13){
 				var message = $('#msg').val();
-				socket.emit('message', message);
+				socket.emit('message', message.replace('\n',''));
 				$('#msg').val("");
 				$("#data_received").append("<br/><i>" + message +"</i>");
 
@@ -31,8 +31,11 @@ Crafty.scene("game", function(){
 				socket.emit("block", player.x, player.y);
 				Crafty.trigger("Block");
 			}
-			
-			if(DEBUG){
+		});
+	
+	
+		if(DEBUG){
+			$(document).bind("keyup", function(key){
 				//page up key
 				if(key.which == 33){
 					socket.emit("advance", level, playerNumber);
@@ -45,8 +48,73 @@ Crafty.scene("game", function(){
 					socket.emit("advance", level, playerNumber);
 				}
 				*/
-			}
-		});
+			});
+		}
+		
+		if(MODE == 1){
+			Crafty.bind("PlayerMoved", function(){
+				socket.emit("updatePartner", player.x, player.y);
+			});
+		}else if(MODE == 2){
+			socket.on("togglePartnerView", function(request){
+				
+				if(request){
+					Crafty.bind("Block", sendBlocks);
+					Crafty.bind("PlayerMoved", sendPlayer);
+					if(ball){
+						Crafty.bind("BallMoved", sendBall);
+						sendBall();
+					}
+
+					sendPlayer();
+					sendBlocks();
+				}else{
+					Crafty.unbind("Block", sendBlocks);
+					Crafty.unbind("PlayerMoved", sendPlayer);
+					if(ball)
+						Crafty.unbind("BallMoved", sendBall);
+				}
+			});
+			
+			$(document).bind("keyup", function(key){
+				//alt key
+				if(key.which == 18){
+					partnerView = !partnerView;
+					socket.emit("togglePartnerView", partnerView);
+					if(partnerView){
+						var entities = Crafty("Obstacle, Player, Ball, Rectangle, TextBubble, Arrow");
+						for(var i = 0; i < entities.length; i++){
+							Crafty(entities[i]).visible = false;
+						}
+						
+						drawStaticView();
+						
+						partner.visible = true;
+						partnerBall.visible = true;
+						partnerBlocksPlaced[0].visible = true;
+						partnerBlocksPlaced[1].visible = true;
+						partnerBlocksPlaced[2].visible = true;
+						
+					}else{
+						
+						var entities = Crafty("Obstacle, Player, Ball, Rectangle, TextBubble, Arrow");
+						for(var i = 0; i < entities.length; i++){
+							Crafty(entities[i]).visible = true;
+						}
+						
+						for(var i = 0; i < partnerObstacles.length; i++){
+							partnerObstacles[i].destroy();
+						}
+						
+						partner.visible = false;
+						partnerBall.visible = false;
+						partnerBlocksPlaced[0].visible = false;
+						partnerBlocksPlaced[1].visible = false;
+						partnerBlocksPlaced[2].visible = false;
+					}
+				}
+			});
+		}
 		
 		levelHints = [level1Hints, level2Hints, level3Hints, level4Hints, level5Hints];
 		
@@ -56,97 +124,94 @@ Crafty.scene("game", function(){
 });
 
 function level1Hints(){
-	var hint = Crafty.e("Hints").hints();
-	var hint2= Crafty.e("Hints").hints();
+	hintsManager = Crafty.e("Hints").hints(2);
 	
 	if(playerNumber == 1){
-		hint.addHint(Crafty.e("2D, Canvas, Rectangle").rect(ball.x + CELL_SIZE*11, ball.y));
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(ball.x + CELL_SIZE*12, ball.y, "Instruct your partner to put a block here.", 0, 150, 50));
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
+		hintsManager.addHint(0, drawRect(ball.x + CELL_SIZE*11, ball.y));
+		hintsManager.addHint(0, drawTextBubble(ball.x + CELL_SIZE*12, ball.y, "Instruct your partner to put a block here.", 0, 150, 50));
+		hintsManager.addHint(0, drawTextBubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
 	}else{
-		hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "Your partner has the ball and the goal. Listen for their instructions", 0, 150, 80));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "Your partner has the ball and the goal. Listen for their instructions", 0, 150, 80));
+		hintsManager.addHint(1, drawTextBubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}
 }
 
 function level2Hints(){
-	var hint = Crafty.e("Hints").hints();
-	var hint2= Crafty.e("Hints").hints();
-	var hint3= Crafty.e("Hints").hints();
+	hintsManager = Crafty.e("Hints").hints(2);
 	
 	if(playerNumber == 1){
-		hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "Your partner has the ball and the goal. Listen for their instructions", 0, 150, 80));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
+		hintsManager.addHint(1, drawTextBubble(player.x + player.w, player.y, "Your partner has the ball and the goal. Listen for their instructions", 0, 150, 80));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(1);
 		});
 	}else{
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "Now you have the ball and the goal so you must instruct your partner.", 0, 150, 80));
-		hint2.addHint(Crafty.e("2D, Canvas, Rectangle").rect(ball.x + CELL_SIZE*14, ball.y));
-		hint3.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(ball.x + CELL_SIZE*15, ball.y, "Instruct your partner to put a block here.", 0, 150, 50));
-		hint2.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "Now you have the ball and the goal so you must instruct your partner.", 0, 150, 80));
+		hintsManager.addHint(1, drawRect(ball.x + CELL_SIZE*14, ball.y));
+		hintsManager.addHint(1, drawTextBubble(ball.x + CELL_SIZE*15, ball.y, "Instruct your partner to put a block here.", 0, 150, 50));
+		hintsManager.addHint(1, drawTextBubble(CELL_SIZE/2, CELL_SIZE*22, "Type your messages here.", 0, 125, 50));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}
 }
 
 function level3Hints(){
-	var hint = Crafty.e("Hints").hints();
+	hintsManager = Crafty.e("Hints").hints(1);
 	
 	if(playerNumber == 1){
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "This time you have the ball and your partner has the goal. Use the teleporter to give the ball to your partner.", 0, 150, 125));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "This time you have the ball and your partner has the goal. Use the teleporter to give the ball to your partner.", 0, 150, 125));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}else{
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "You have the goal and your partner has the ball.", 0, 150, 80));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "You have the goal and your partner has the ball.", 0, 150, 80));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}
 }
 
 function level4Hints(){
-	var hint = Crafty.e("Hints").hints();
+	hintsManager = Crafty.e("Hints").hints(1);
 	
 	if(playerNumber == 1){
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "Now the situation is reversed and you have the goal and not the ball.", 0, 150, 80));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "Now the situation is reversed and you have the goal and not the ball.", 0, 150, 80));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}else{
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "This time you have the ball and your partner has the goal. Use the teleporter to give the ball to your partner.", 0, 150, 125));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "This time you have the ball and your partner has the goal. Use the teleporter to give the ball to your partner.", 0, 150, 125));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}
 }
 
 function level5Hints(){
-	var hint = Crafty.e("Hints").hints();
+	hintsManager = Crafty.e("Hints").hints(1);
 	
 	if(playerNumber == 1){
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "The Tutorial is over. Good Luck!", 0, 150, 80));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "The Tutorial is over. Good Luck!", 0, 150, 80));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}else{
-		hint.addHint(Crafty.e("2D, Canvas, TextBubble").textbubble(player.x + player.w, player.y, "The Tutorial is over. Good Luck!", 0, 150, 80));
-		Crafty.bind("PlayerMoved", function removeHint(){
-			Crafty.unbind("PlayerMoved", removeHint);
-			hint.destroyHints();
+		hintsManager.addHint(0, drawTextBubble(player.x + player.w, player.y, "The Tutorial is over. Good Luck!", 0, 150, 80));
+		hintsManager.bind("PlayerMoved", function removeHint(){
+			hintsManager.unbind("PlayerMoved", removeHint);
+			hintsManager.destroyHints(0);
 		});
 	}
 }

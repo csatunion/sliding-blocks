@@ -3,6 +3,8 @@ var parser = require("./Parsers/levelParser.js");
 
 var levels = ["level_0.txt", "level_0MIRROR.txt", "level_just_one_teleporter.txt", "level_1MIRROR.txt", "level_5.txt", "level_4.txt", "level_6.txt"];
 
+var databaseName = "gamelogs";
+
 var Game = function(){
 	
 	this.advance = function(socket, levelNo, playerNumber){
@@ -19,7 +21,7 @@ var Game = function(){
 	    var map1;
     	var map2;
 	
-		var bg = "images/" + "treasure-map-6-scaled.png";
+		var bg = "/images/" + "treasure-map-6-scaled.png";
     	var level = __dirname + "/../levels/Game/" + levels[levelNo];
     	
     	fs.readFile(level, 'ascii', function(err, data) {
@@ -41,12 +43,12 @@ var Game = function(){
 		    	var room = socket.room;
 
 		    	if(playerNumber == 1){
-					socket.to(room).emit("advance", map1, bg, msg);
-					socket.broadcast.to(room).emit("advance", map2, bg, msg);
+					socket.to(room).emit("advance", bg, msg, map1, map2);
+					socket.broadcast.to(room).emit("advance", bg, msg, map2, map1);
 		    	} 
 		    	else{
-					socket.broadcast.to(room).emit("advance", map1, bg, msg);
-					socket.to(room).emit("advance", map2, bg, msg);
+					socket.broadcast.to(room).emit("advance", bg, msg, map1, map2);
+					socket.to(room).emit("advance", bg, msg, map2, map1);
 		    	}
 			}
 	    });
@@ -55,6 +57,7 @@ var Game = function(){
 	this.getLevels = function(){
 		return levels;
 	};
+	
 };
 
 module.exports = new Game();

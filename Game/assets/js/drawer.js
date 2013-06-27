@@ -7,24 +7,51 @@ function drawArrow(xpos, ypos, direction, xscale, yscale){
 	return Crafty.e("2D, Canvas, Arrow").arrow(xpos, ypos, direction, xscale, yscale);
 }
 
+function drawRect(xpos, ypos){
+	return Crafty.e("2D, Canvas, Rectangle").rect(xpos, ypos);
+}
+
+function drawTextBubble(xpos, ypos, message, angle, width, height){
+	return Crafty.e("2D, Canvas, TextBubble").textbubble(xpos, ypos, message, angle, width, height);
+}
+
+
 function drawBox(xpos, ypos){
-    return Crafty.e("Box").box(xpos, ypos);
+    return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "Box");
+}
+
+function drawPortal(xpos, ypos){
+	return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "Portal", "black"); 
+}
+
+function drawBallGate(xpos, ypos){
+	return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "BallGate", "brown");
+}
+
+function drawPlayerGate(xpos, ypos){
+	return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "PlayerGate", "pink");
+}
+
+function drawTeleporter(xpos, ypos){
+    return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "Teleporter", "#555555");
+}
+
+function drawBouncyBox(xpos, ypos){
+    return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "BouncyBox", "cyan");
+}
+
+function drawGoal(xpos, ypos){
+	goal = Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "Goal", "orange");
 }
 
 function drawBall(xpos, ypos){
     ball = Crafty.e("Ball").ball(xpos, ypos);
 }
 
-function drawGoal(xpos, ypos){
-	goal = Crafty.e("Goal").goal(xpos, ypos);
-}
+
 
 function drawMovingBox(xpos, ypos, direction){
     return Crafty.e("MovingBox").movingbox(xpos, ypos, direction);
-}
-
-function drawBouncyBox(xpos, ypos){
-    return Crafty.e("BouncyBox").bouncybox(xpos, ypos);
 }
 
 function drawCCWBouncyBox(xpos, ypos){
@@ -33,14 +60,6 @@ function drawCCWBouncyBox(xpos, ypos){
 
 function drawCWBouncyBox(xpos, ypos){
     return Crafty.e("CWBouncyBox").cwbouncybox(xpos, ypos);
-}
-
-function drawBallGate(xpos, ypos){
-	return Crafty.e("BallGate").ballgate(xpos, ypos);
-}
-
-function drawPlayerGate(xpos, ypos){
-	return Crafty.e("PlayerGate").playergate(xpos, ypos);
 }
 
 function drawBallButton(xpos, ypos, buttonNumber){
@@ -55,13 +74,7 @@ function drawBoxButton(xpos, ypos, buttonNumber){
 	return Crafty.e("BoxButton").boxbutton(xpos, ypos, buttonNumber);
 }
 
-function drawTeleporter(xpos, ypos){
-    return Crafty.e("Teleporter").teleporter(xpos, ypos);
-}
 
-function drawPortal(xpos, ypos){
-	return Crafty.e("Portal").portal(xpos, ypos); 
-}
 
 function drawLevel(){
 	Crafty.background("#FFF");

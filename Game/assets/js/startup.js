@@ -3,12 +3,20 @@ var socket = io.connect(SERVER_ADDRESS);
 var playerNumber;
 
 var player;
-var partner;
 var ball;
 var goal;
 
+var partner;
+var partnerBall;
+
+var partnerBlocksPlaced = [];
+var partnerObstacles = [];
+
+var partnerView = 0;
+
 window.onload = function(){
 	Crafty.init(WIDTH, HEIGHT);
+	Crafty.canvas.init();
 	Crafty.scene("load");
 };
 
@@ -19,11 +27,12 @@ Crafty.scene("load", function(){
 	
 	//load box image
     Crafty.sprite(CELL_SIZE, "images/box.png", {
-    	box : [0,0]
+    	Box : [0,0],
+    	PartnerBox : [0,0]
     });
     
-    //when box, tutorial, and game images are loaded, do the function
 	Crafty.load(["images/box.png", "images/tutorial.png", "images/game.png", "images/reset.png"], function() {
+		setupMode();
 		initializeStaticListeners();
 		Crafty.scene("menu");
 	});
@@ -32,11 +41,14 @@ Crafty.scene("load", function(){
 	Crafty.e("2D, DOM, Text").attr({w:WIDTH-20, x: 10, y: 10})
                              .text("LOADING")
                              .css({"text-align": "left", "color":"#fff"});
+                             
+	//Crafty.e("FPS").bind("MessureFPS", function(fps){console.log(fps);});
 });
 
 /* Displays a menu screen */
 Crafty.scene("menu", function(){
 	unbindKeyListeners();
+	unbindModeListeners();
 	
 	Crafty.background('#000');
 
@@ -65,28 +77,34 @@ function initializeStaticListeners(){
 
     	var objDiv = document.getElementById("data_received");
     	objDiv.scrollTop = objDiv.scrollHeight;
+    	
+    	gameLog("Message: "  + message);
 	});
 	
 	socket.on("block", function(x, y){
 		var box = drawBox(x, y);
-		
-		if(box.hit("Player") != false){
+			
+		if(box.x + box.w > player.x && box.x < player.x + player.w && box.y + box.h > player.y && box.y < player.y + player.h){
 			socket.emit("alert", "The box hit your partner.");
 			box.destroy();
-		}else if(box.hit("Ball") != false){
+		}else if(ball && box.x + box.w > ball.x && box.x < ball.x + ball.w && box.y + box.h > ball.y && box.y < ball.y + ball.h){
 			socket.emit("alert", "The box hit the ball.");
 			box.destroy();
-		}else
+		}else{
 			blocksPlaced.push(box);
 			
-		if (blocksPlaced.length > 3){
-			blocksPlaced[0].destroy();
-			blocksPlaced = blocksPlaced.slice(1);
+			if (blocksPlaced.length > 3){
+				blocksPlaced[0].destroy();
+				blocksPlaced = blocksPlaced.slice(1);
+			}
 		}
+		Crafty.trigger("Block");
+		gameLog("block: " + x + " " + y);
 	});
 	
 	socket.on('teleport', function(x, y, direction){
 		drawBall(x, y);
+		
         if(direction == 0)
             ball.move.right = true;
         else if (direction == 180)
@@ -97,16 +115,18 @@ function initializeStaticListeners(){
             ball.move.down = true;
 	});
 	
-	socket.on("advance", function(parsedMap, backgroundImage, instruction){
+	socket.on("advance", function(backgroundImage, instruction, parsedMap, parsedMap2){
 		if(parsedMap)
-			advance(parsedMap, backgroundImage, instruction);
+			advance(backgroundImage, instruction, parsedMap, parsedMap2);
 		else{
 			socket.emit("gameOver");
+			gameLog("Game Over");
 			Crafty.scene("menu");
 		}
 	});
 	
 	socket.on('restart', function(){
+		gameLog("Level Restarted");
 		Crafty.scene("level");
 	});
 	
@@ -115,6 +135,7 @@ function initializeStaticListeners(){
 	});
 	
 	socket.on("partnerDisconnect", function(){
+		gameLog("Game Over");
 		Crafty.scene("menu");
 	});
 }
@@ -124,4 +145,14 @@ function unbindKeyListeners(){
 	$(document).unbind("keyup");
 	$("#msg").unbind("keyup");
 	$("#data_received").html("");
+}
+
+function unbindModeListeners(){
+	Crafty.unbind("PlayerMoved");
+}
+
+/* emits logging messages to server */
+function gameLog(message){
+	var currentTime = new Date();
+	socket.emit("log", currentTime, currentTime.getTime(), playerNumber, level, message);
 }

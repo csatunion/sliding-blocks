@@ -34,18 +34,27 @@ io.sockets.on('connection', function(socket){
 
 	socket.room = NO_PARTNER;
 	
-	socket.on('log', function(playerNumber, level, data){
-		var ht = new Date();
-		var ts = ht.getTime();
-		var name = MODES[GAME_MODE].getLevels()[(level-1)];
+	socket.on('log', function(humantime, timestamp, playerNumber, level, data){
+		var name = MODES[socket.mode].getLevels()[(level-1)];
 		
 		pool.getConnection(function(err, connection){
-			connection.query("insert into logs set ?", {gameid : socket.gameID, human_time : ht, timestamp : ts, player : playerNumber, levelNo : level, levelname : name, message : data}, function(err, result){
+			connection.query("insert into logs set ?", {gameid : socket.gameID, human_time : humantime, timestamp : timestamp, player : playerNumber, mode : !socket.mode, levelno : level, levelname : name, message : data}, function(err, result){
 				if(err) throw err;
-			
 				connection.end();
 			});
 		});
+	});
+	
+	socket.on('updatePartner', function(x,y){
+		socket.broadcast.to(socket.room).emit('updatePartner',x,y);
+	});
+	
+	socket.on('updateBall', function(x,y){
+		socket.broadcast.to(socket.room).emit('updateBall',x,y);
+	});
+	
+	socket.on('updateBlocks', function(blocks){
+		socket.broadcast.to(socket.room).emit('updateBlocks', blocks);
 	});
 	
 	socket.on('message', function(message){
@@ -63,6 +72,10 @@ io.sockets.on('connection', function(socket){
 	socket.on('advance', function(levelNo, playerNumber){
 		MODES[socket.mode].advance(socket, levelNo, playerNumber);
 	});
+	
+	socket.on('togglePartnerView', function(request){
+		socket.broadcast.to(socket.room).emit('togglePartnerView', request);
+	});
 
 	socket.on('alert', function(message){
 		socket.broadcast.to(socket.room).emit('alert', message);
@@ -73,7 +86,6 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.to(socket.room).emit("restart");
 	});
 		
-	/* change this */
 	socket.on("gameOver", function(){
 		var clients = io.sockets.clients(socket.room);
 		for(var i = 0; i < clients.length; i++){
@@ -82,12 +94,21 @@ io.sockets.on('connection', function(socket){
 		}
 	});
 	
-	socket.on('tutorial', function(){
+	socket.on('tutorial', function(setup){
 		socket.mode = TUTORIAL_MODE;
 		socket.room = NO_PARTNER;
+		
+		pool.getConnection(function(err, connection){
+			connection.query("insert into tutorials set ?", {levels : MODES[TUTORIAL_MODE].getLevels().toString()}, function(err, result){
+				if(err) throw err;
+				socket.gameID = result.insertId;
+				setup();
+				connection.end();
+			});
+		});
 	});
 
-	socket.on('game', function(){
+	socket.on('game', function(setup){
 		socket.mode = GAME_MODE;
 		waitingSockets.push(socket);
 		pairUpSockets();
@@ -114,7 +135,7 @@ io.sockets.on('connection', function(socket){
  * pairs up two sockets if possible
  */
 function pairUpSockets(address){
-    
+
     if(waitingSockets.length >= 2){
 		var client1 = waitingSockets.shift();
 		var client2 = waitingSockets.shift();
@@ -123,7 +144,7 @@ function pairUpSockets(address){
 		currentRoom++;
 		
 		pool.getConnection(function(err, connection){
-			connection.query("insert into games set ?", {levels : MODES[GAME_MODE].getLevels().toString(), ip1 : client1.handshake.address.address, ip2 : client2.handshake.address.address}, function(err, result){
+			connection.query("insert into games set ?", {levels : MODES[GAME_MODE].getLevels().toString(), ip1 : client1.handshake.address.address, ip2 : client2.handshake.address.address, tutorialid1 : client1.gameID, tutorialid2 : client2.gameID}, function(err, result){
 				if(err) throw err;
 			
 				var gameID = result.insertId;
@@ -143,4 +164,3 @@ function pairUpSockets(address){
 		});
     }
 }
-

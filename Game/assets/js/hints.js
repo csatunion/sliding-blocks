@@ -74,10 +74,6 @@ Crafty.c("Rectangle", {
 	_COLOR : "blue",
 	_LINE_WIDTH : "4",
 	
-	init:function(){
-		this.requires("2D, Canvas");
-	},
-	
 	rect: function(xpos, ypos){
 		this.attr({
 			x:xpos,
@@ -101,8 +97,6 @@ Crafty.c("Rectangle", {
 	
 	destroyObject: function(){
 		this.destroy();
-		var ctx = Crafty.canvas.context;
-		ctx.clearRect(this.x, this.y, this.w, this.h);
 	}
 });
 
@@ -110,9 +104,6 @@ Crafty.c("TextBubble", {
 	
 	_LINEWIDTH:3,
 	
-	init:function(){
-		this.requires("2D, Canvas");
-	},
 	//direction: 0 = right, 90 = down, 180 = left, 270 = up
     textbubble: function(xpos, ypos, message, angle, width, height) {
     	this.attr({
@@ -207,24 +198,30 @@ Crafty.c("TextBubble", {
 
 Crafty.c("Hints", {
 	
-	hints:function(){
+	hints:function(number){
 		this.attr({
 			list:[]
 		});
+		
+		for(var i = 0; i < number; i++){
+			this.list.push([]);
+		}
+		
 		return this;
 	},
 	
-	addHint:function(hint){
-		this.list.push(hint);
+	addHint:function(index, hint){
+		this.list[index].push(hint);
 	},
 	
-	destroyHints:function(){
-		for(var i = 0; i < this.list.length; i++){
-			this.list[i].destroyObject();
+	destroyHints:function(index){
+		var items = this.list[index];
+		
+		for(var i = 0; i < items.length; i++){
+			items[i].destroyObject();
 		}
-		for(var i = 0; i < this.list.length; i++){
-			this.list.splice(0,1);
-		}
+		
+		this.list[index] = [];
 	}
 	
 });

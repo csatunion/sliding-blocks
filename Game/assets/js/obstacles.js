@@ -11,14 +11,14 @@ var legendInfo = {"goal":["orange","goal (your partner may have it)"],
 		  "player1":["red","you"],
 		  "player2":["green","you"],
 		  "ball":["purple","ball (your partner may have it)"]};
-
-Crafty.c("Box", {
-
-	init : function() {
-		this.requires("2D, DOM, Collision, box");
+		  
+		  
+Crafty.c("Obstacle", {
+	init : function(){
+		this.requires("2D, DOM");
 	},
-
-	box : function(xpos, ypos) {
+	
+	obstacle : function(xpos, ypos, color){
 		this.attr({
 			x : xpos,
 			y : ypos,
@@ -27,132 +27,35 @@ Crafty.c("Box", {
 			z : 0
 		});
 		
-		return this;
-	}	
+		if(color){
+			this.requires("Color");
+			this.color(color);
+		}
+	}
 });
 
-
-Crafty.c("BouncyBox", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
+Crafty.c("StaticObstacle", {
+	init : function(){
+		this.requires("Obstacle");
 	},
-
-	bouncybox : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : CELL_SIZE,
-			h : CELL_SIZE,
-			z : 0
-		});
-
-		this.color("cyan");
+	
+	staticobstacle : function(xpos, ypos, type, color){
+		this.obstacle(xpos, ypos, color);
+		this.addComponent(type);
 
 		return this;
 	}
 });
 
-Crafty.c("BallGate", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
+Crafty.c("DynamicObstacle", {
+	init : function(){
+		this.requires("Obstacle, Collision");
 	},
-
-	ballgate : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : CELL_SIZE,
-			h : CELL_SIZE,
-			z : 0
-		});
-
-		this.color("brown");
-
-		return this;
-	}
-});
-
-Crafty.c("PlayerGate", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	playergate : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : CELL_SIZE,
-			h : CELL_SIZE,
-			z : 0
-		});
-
-		this.color("pink");
-
-		return this;
-	}
-});
-
-Crafty.c("Teleporter", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	teleporter : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : CELL_SIZE,
-			h : CELL_SIZE,
-			z : 0
-		});
-
-		this.color("#555555");
-
-		return this;
-	}
-});
-
-Crafty.c("Portal", {
-
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	portal : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : CELL_SIZE,
-			h : CELL_SIZE,
-			z : 0
-		});
-
-		this.color("#000000");
-
-		return this;
-	}
-});
-
-Crafty.c("Goal", {
-	init : function() {
-		this.requires("2D, DOM, Color");
-	},
-
-	goal : function(xpos, ypos) {
-		this.attr({
-			x : xpos,
-			y : ypos,
-			w : CELL_SIZE,
-			h : CELL_SIZE,
-			z : 0
-		});
-
-		this.color("orange");
-
+	
+	dynamicobstacle : function(xpos, ypos, type, color){
+		this.obstacle(xpos, ypos, color);
+		this.addComponent(type);
+		
 		return this;
 	}
 });

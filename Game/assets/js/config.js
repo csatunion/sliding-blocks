@@ -2,13 +2,16 @@ var SERVER_ADDRESS = "http://localhost:4000";
 
 /* GAME ATTRIBUTES */
 
-//Enables level skipping with the SHIFT key
+//Enables level skipping with the page up-dn keys
 var DEBUG = true;
 
 //0 is no view of other player
-//1 is alt key screen switch
-//2 is only see other player
+//1 is only see other player
+//2 is alt key screen switch
 var MODE = 0;
+
+//how often logging data is sent
+var LOG_INTERVAL = 1000;
 
 //size of each cell
 var CELL_SIZE = 20;
@@ -23,5 +26,12 @@ var HEIGHT = CELL_SIZE * ROWS;
 
 //size of the game board
 var BOARD_WIDTH  = CELL_SIZE * COLS;
-var BOARD_HEIGHT = CELL_SIZE * ROWS; 
+var BOARD_HEIGHT = CELL_SIZE * ROWS;
 
+//TODO : finalize level advancing + restarting + game over/partner disconnect
+//TODO : look at the keyboard controls
+//TODO : animate the movement of ball and player
+//TODO : implement the rest of the obstacles
+//TODO : background doesn't display unless you move sometimes (explore canvas drawing)
+
+//TODO : finalize hints

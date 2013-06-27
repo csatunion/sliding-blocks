@@ -1,6 +1,5 @@
 Crafty.c("Player", {
 
-    _LOG_INTERVAL : 1000,
     _logTime : new Date(),
 
 	init : function() {
@@ -41,22 +40,19 @@ Crafty.c("Player", {
 	_logPosition : function(){
 		var currentTime = new Date();
 		
-		if(currentTime.getTime() - this._logTime.getTime() >= this._LOG_INTERVAL) {
+		if(currentTime.getTime() - this._logTime.getTime() >= LOG_INTERVAL) {
 			this._logTime = currentTime;
-			if(ball)
-				socket.emit("log", playerNumber, level, "position:" + this.x + " " + this.y + " ball:" + ball.x + " " + ball.y);
-			else
-				socket.emit("log", playerNumber, level, "position:" + this.x + " " + this.y);
+			gameLog("position:" + this.x + " " + this.y + (ball ? " ball:" + ball.x + " " + ball.y : ""));
 		}
 	}
 });
 
 //defines movement for players
-//players can move freely and can drop blocks on other screen with spacebar.
+//players can move freely on the screen
 //also checks for collisions with other entities after moving
 Crafty.c("PlayerMovement", {
 
-	_SPEED : 4,
+	_SPEED : 3,
 
 	init : function() {
 		this.requires("Keyboard");
@@ -111,45 +107,7 @@ Crafty.c("PlayerMovement", {
 		this.bind("Moved", function(direction){
 			var collisions;
 			
-			Crafty.trigger("PlayerMoved");
-			
 			if((collisions = this.hit("Box")) != false && !this.hit("TutorialBox")){
-				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				if(direction == 0)
-					this.x = collisions[0].obj.x - this.w;
-				else if(direction == 90)
-					this.y = collisions[0].obj.y + collisions[0].obj.h;
-				else if(direction == 180)
-					this.x = collisions[0].obj.x + collisions[0].obj.w;
-				else if(direction == 270)
-					this.y = collisions[0].obj.y - this.h;
-			}
-			else if((collisions = this.hit("BouncyBox")) != false){
-				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				if(direction == 0)
-					this.x = collisions[0].obj.x - this.w;
-				else if(direction == 90)
-					this.y = collisions[0].obj.y + collisions[0].obj.h;
-				else if(direction == 180)
-					this.x = collisions[0].obj.x + collisions[0].obj.w;
-				else if(direction == 270)
-					this.y = collisions[0].obj.y - this.h;
-			}
-			else if((collisions = this.hit("PlayerGate")) != false){
-				this.move.left = this.move.right = this.move.up = this.move.down = false;
-				
-				if(direction == 0)
-					this.x = collisions[0].obj.x - this.w;
-				else if(direction == 90)
-					this.y = collisions[0].obj.y + collisions[0].obj.h;
-				else if(direction == 180)
-					this.x = collisions[0].obj.x + collisions[0].obj.w;
-				else if(direction == 270)
-					this.y = collisions[0].obj.y - this.h;
-			}
-			else if((collisions = this.hit("Teleporter")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
 				
 				if(direction == 0)
@@ -215,7 +173,7 @@ Crafty.c("PlayerMovement", {
 				
 				Crafty.trigger("BallCollision");
 			}
-			else if((collisions = this.hit("Goal")) != false){
+			else if((collisions = this.hit("BallSpecific")) != false){
 				this.move.left = this.move.right = this.move.up = this.move.down = false;
 				
 				if(direction == 0)
@@ -227,7 +185,8 @@ Crafty.c("PlayerMovement", {
 				else if(direction == 270)
 					this.y = collisions[0].obj.y - this.h;
 			}
+			
+			Crafty.trigger("PlayerMoved");
 		});
 	}
 });
-

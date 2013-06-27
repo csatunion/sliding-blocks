@@ -31,7 +31,7 @@ Crafty.c("Ball", {
 
 Crafty.c("BallMovement", {
 	
-	_SPEED : 4,
+	_SPEED : 3,
 	
 	init: function(){
 		this.requires("Collision");
@@ -326,6 +326,8 @@ Crafty.c("BallMovement", {
 				this.hitGoal = true;
 				socket.emit("advance", level, playerNumber);
 			}
+			
+			Crafty.trigger("BallMoved");
 		});
 	}
 });
