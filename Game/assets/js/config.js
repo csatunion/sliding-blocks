@@ -1,4 +1,4 @@
-var SERVER_ADDRESS = "http://localhost:4000";
+var SERVER_ADDRESS = "http://parrot.union.edu:4000";
 
 /* GAME ATTRIBUTES */
 
@@ -8,7 +8,7 @@ var DEBUG = true;
 //0 is no view of other player
 //1 is only see other player
 //2 is alt key screen switch
-var MODE = 0;
+var MODE = 2;
 
 //how often logging data is sent
 var LOG_INTERVAL = 1000;
