@@ -51,7 +51,6 @@ Crafty.c("Arrow", {
   		context.lineTo(-this.w,this.w/2);
   		context.moveTo(0,0);
   		context.lineTo(-this.h,0);
-  		context.closePath();  
   		context.stroke();
   		context.restore();
 	},
@@ -225,61 +224,3 @@ Crafty.c("Hints", {
 	}
 	
 });
-
-
-
-/*
-Crafty.c("HintsManager", {
-	
-	init:function(){
-		this.attr({
-			hints : [],
-			events : {}
-		});
-	},
-	
-	_createEventCallback : function(manager, trigger){
-		return function(){
-			var list = manager.events[trigger];
-			
-			for(var i = 0; i < list.length; i++){
-				list[i]();
-			}
-			
-			for(var i = 0; i < list.length; i++){
-				
-			}			
-		};
-	},
-	
-	_createDestructionCallback : function(manager, trigger, callback, hintIndex, eventIndex){
-		return function(){
-			manager.destroyHint(hintIndex);
-			callback();
-		};
-	},
-	
-	destroyHint : function(hintIndex, eventIndex, trigger){
-		this.hints[index].destroyObject();
-		this.events[trigger].splice(eventIndex, 1);
-		//this.hints = this.hints.splice(index, 1);
-		console.log("Destroy Hint");
-	},
-	
-	addHint : function(hint, destructionTrigger, destructionCallback){
-		var hintIndex = this.hints.length;
-		
-		if(!this.events[destructionTrigger]){
-			this.events[destructionTrigger] = [];
-			
-			Crafty.bind(destructionTrigger, this._createEventCallback(this, destructionTrigger)); 
-		}
-		
-		this.hints.push(hint);
-		
-		var eventIndex = this.events[destructionTrigger].length;
-		this.events[destructionTrigger].push(this._createDestructionCallback(this, destructionTrigger, destructionCallback, hintIndex, eventIndex));
-	}
-	
-});
-*/

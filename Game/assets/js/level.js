@@ -48,6 +48,10 @@ Crafty.scene("level", function(){
 				
 			socket.emit("updatePartner", player.x, player.y);
 		}else if(MODE == 2){
+			partnerBlocksPlaced = [];
+			partnerObstacles = [];
+			partnerView = 0;
+			
 			partner = Crafty.e("2D, DOM, Color").attr({x:-CELL_SIZE, y:-CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1});
 			if(playerNumber == 1)
 				partner.color("green");
@@ -55,9 +59,9 @@ Crafty.scene("level", function(){
 				partner.color("red");
 			
 			partnerBall = Crafty.e("2D, DOM, Color").attr({x:-CELL_SIZE, y:-CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1}).color("purple");
-			partnerBlocksPlaced.push(Crafty.e("2D, DOM, PartnerBox").attr({x:CELL_SIZE, y:CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1}));
-			partnerBlocksPlaced.push(Crafty.e("2D, DOM, PartnerBox").attr({x:CELL_SIZE, y:CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1}));
-			partnerBlocksPlaced.push(Crafty.e("2D, DOM, PartnerBox").attr({x:CELL_SIZE, y:CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1}));
+			partnerBlocksPlaced.push(Crafty.e("2D, DOM, PartnerBox").attr({x:-CELL_SIZE, y:-CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1}));
+			partnerBlocksPlaced.push(Crafty.e("2D, DOM, PartnerBox").attr({x:-CELL_SIZE, y:-CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1}));
+			partnerBlocksPlaced.push(Crafty.e("2D, DOM, PartnerBox").attr({x:-CELL_SIZE, y:-CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1}));
 		}
 	});
 	

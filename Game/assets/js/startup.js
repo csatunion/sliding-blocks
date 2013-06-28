@@ -9,8 +9,8 @@ var goal;
 var partner;
 var partnerBall;
 
-var partnerBlocksPlaced = [];
-var partnerObstacles = [];
+var partnerBlocksPlaced;
+var partnerObstacles;
 
 var partnerView = 0;
 
@@ -154,5 +154,5 @@ function unbindModeListeners(){
 /* emits logging messages to server */
 function gameLog(message){
 	var currentTime = new Date();
-	socket.emit("log", currentTime, currentTime.getTime(), playerNumber, level, message);
+	socket.emit("log", currentTime, currentTime.getTime(), playerNumber, MODE, level, message);
 }

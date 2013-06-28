@@ -8,8 +8,6 @@ var instructions =
  "Use CTRL to place obstacles that stop the ball.<br/><br/>(IMPORTANT: When you are playing with a partner, you cannot place obstacles into your own environment, but you can drop obstacles into your partner's environment.)",
  "Along the way you will encounter all kinds of blocks with special behaviors. For example, portals."];
  
-var databaseName = "tutoriallogs";
-
 var Tutorial = function(){
 	
 	this.advance = function(socket, levelNo){

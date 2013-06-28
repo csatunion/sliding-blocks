@@ -94,7 +94,7 @@ Crafty.scene("game", function(){
 						partnerBlocksPlaced[0].visible = true;
 						partnerBlocksPlaced[1].visible = true;
 						partnerBlocksPlaced[2].visible = true;
-						
+						gameLog("Alternate View");
 					}else{
 						
 						var entities = Crafty("Obstacle, Player, Ball, Rectangle, TextBubble, Arrow");
@@ -111,6 +111,7 @@ Crafty.scene("game", function(){
 						partnerBlocksPlaced[0].visible = false;
 						partnerBlocksPlaced[1].visible = false;
 						partnerBlocksPlaced[2].visible = false;
+						gameLog("Normal View");
 					}
 				}
 			});

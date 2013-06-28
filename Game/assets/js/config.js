@@ -11,7 +11,7 @@ var DEBUG = true;
 var MODE = 2;
 
 //how often logging data is sent
-var LOG_INTERVAL = 1000;
+var LOG_INTERVAL = 200;
 
 //size of each cell
 var CELL_SIZE = 20;
@@ -28,10 +28,13 @@ var HEIGHT = CELL_SIZE * ROWS;
 var BOARD_WIDTH  = CELL_SIZE * COLS;
 var BOARD_HEIGHT = CELL_SIZE * ROWS;
 
+
 //TODO : finalize level advancing + restarting + game over/partner disconnect
 //TODO : look at the keyboard controls
 //TODO : animate the movement of ball and player
 //TODO : implement the rest of the obstacles
 //TODO : background doesn't display unless you move sometimes (explore canvas drawing)
-
+//TODO : Level editor changes
 //TODO : finalize hints
+//TODO : improve the frequency of mode position transmission
+

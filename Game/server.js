@@ -1,8 +1,8 @@
 /* CONSTANTS */
-var TUTORIAL_MODE = 0;
-var GAME_MODE     = 1;
+var GAME_MODE     = 0;
+var TUTORIAL_MODE = 1;
 
-var MODES = [require('./serverModules/tutorial.js'), require('./serverModules/game.js')];
+var MODES = [require('./serverModules/game.js'), require('./serverModules/tutorial.js')];
 
 var NO_PARTNER = -1;
 
@@ -27,7 +27,7 @@ var currentRoom = 0;
 var pool = mysql.createPool({
 	host : "localhost",
 	user : "danisea",
-	password : "bl0ck5"
+	password : "guest",
 	database : "blocks"
 });
 
@@ -35,11 +35,11 @@ io.sockets.on('connection', function(socket){
 
 	socket.room = NO_PARTNER;
 	
-	socket.on('log', function(humantime, timestamp, playerNumber, level, data){
+	socket.on('log', function(humantime, timestamp, playerNumber, gamemode, level, data){
 		var name = MODES[socket.mode].getLevels()[(level-1)];
 		
 		pool.getConnection(function(err, connection){
-			connection.query("insert into logs set ?", {gameid : socket.gameID, human_time : humantime, timestamp : timestamp, player : playerNumber, mode : !socket.mode, levelno : level, levelname : name, message : data}, function(err, result){
+			connection.query("insert into logs set ?", {gameid : socket.gameID, human_time : humantime, timestamp : timestamp, player : playerNumber, tutorial : socket.mode, mode : gamemode, levelno : level, levelname : name, message : data}, function(err, result){
 				if(err) throw err;
 				connection.end();
 			});
@@ -100,7 +100,7 @@ io.sockets.on('connection', function(socket){
 		socket.room = NO_PARTNER;
 		
 		pool.getConnection(function(err, connection){
-			connection.query("insert into tutorials set ?", {levels : MODES[TUTORIAL_MODE].getLevels().toString()}, function(err, result){
+			connection.query("insert into tutorials set ?", {levels : MODES[TUTORIAL_MODE].getLevels().toString(), ip : socket.handshake.address.address}, function(err, result){
 				if(err) throw err;
 				socket.gameID = result.insertId;
 				setup();

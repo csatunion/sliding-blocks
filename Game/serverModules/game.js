@@ -3,8 +3,6 @@ var parser = require("./Parsers/levelParser.js");
 
 var levels = ["level_0.txt", "level_0MIRROR.txt", "level_just_one_teleporter.txt", "level_1MIRROR.txt", "level_5.txt", "level_4.txt", "level_6.txt"];
 
-var databaseName = "gamelogs";
-
 var Game = function(){
 	
 	this.advance = function(socket, levelNo, playerNumber){
