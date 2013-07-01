@@ -19,7 +19,7 @@ var Game = function(){
 	    var map1;
     	var map2;
 	
-		var bg = "/images/" + "treasure-map-6-scaled.png";
+		var bg = "images/" + "treasure-map-6-enlarged.png";
     	var level = __dirname + "/../levels/Game/" + levels[levelNo];
     	
     	fs.readFile(level, 'ascii', function(err, data) {

@@ -77,8 +77,6 @@ function drawBoxButton(xpos, ypos, buttonNumber){
 
 
 function drawLevel(){
-	Crafty.background("#FFF");
-	
 	var inventory = {};
 	
 	for(var row = 0; row < ROWS; row++){

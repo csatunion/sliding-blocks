@@ -66,11 +66,11 @@ function tutLevel1Hints(){
 			hintsManager.destroyHints(1);
 					
 			hintsManager.bind("BallCollision", function removeHint3(){
-				Crafty.unbind("BallCollision", removeHint3);
+				hintsManager.unbind("BallCollision", removeHint3);
 				hintsManager.destroyHints(2);
 							
 				hintsManager.bind("BallCollision", function removeHint4(){
-					Crafty.unbind("BallCollision", removeHint4);
+					hintsManager.unbind("BallCollision", removeHint4);
 					hintsManager.destroyHints(3);
 				});
 			});

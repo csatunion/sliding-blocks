@@ -40,82 +40,10 @@ Crafty.scene("game", function(){
 				if(key.which == 33){
 					socket.emit("advance", level, playerNumber);
 				}
-				/*
-				//page down key
-				else if(key.which == 34){
-					level -= 2;
-					level = (level < 0 ? 0 : level);
-					socket.emit("advance", level, playerNumber);
-				}
-				*/
 			});
 		}
 		
-		if(MODE == 1){
-			Crafty.bind("PlayerMoved", function(){
-				socket.emit("updatePartner", player.x, player.y);
-			});
-		}else if(MODE == 2){
-			socket.on("togglePartnerView", function(request){
-				
-				if(request){
-					Crafty.bind("Block", sendBlocks);
-					Crafty.bind("PlayerMoved", sendPlayer);
-					if(ball){
-						Crafty.bind("BallMoved", sendBall);
-						sendBall();
-					}
-
-					sendPlayer();
-					sendBlocks();
-				}else{
-					Crafty.unbind("Block", sendBlocks);
-					Crafty.unbind("PlayerMoved", sendPlayer);
-					if(ball)
-						Crafty.unbind("BallMoved", sendBall);
-				}
-			});
-			
-			$(document).bind("keyup", function(key){
-				//alt key
-				if(key.which == 18){
-					partnerView = !partnerView;
-					socket.emit("togglePartnerView", partnerView);
-					if(partnerView){
-						var entities = Crafty("Obstacle, Player, Ball, Rectangle, TextBubble, Arrow");
-						for(var i = 0; i < entities.length; i++){
-							Crafty(entities[i]).visible = false;
-						}
-						
-						drawStaticView();
-						
-						partner.visible = true;
-						partnerBall.visible = true;
-						partnerBlocksPlaced[0].visible = true;
-						partnerBlocksPlaced[1].visible = true;
-						partnerBlocksPlaced[2].visible = true;
-						gameLog("Alternate View");
-					}else{
-						
-						var entities = Crafty("Obstacle, Player, Ball, Rectangle, TextBubble, Arrow");
-						for(var i = 0; i < entities.length; i++){
-							Crafty(entities[i]).visible = true;
-						}
-						
-						for(var i = 0; i < partnerObstacles.length; i++){
-							partnerObstacles[i].destroy();
-						}
-						
-						partner.visible = false;
-						partnerBall.visible = false;
-						partnerBlocksPlaced[0].visible = false;
-						partnerBlocksPlaced[1].visible = false;
-						partnerBlocksPlaced[2].visible = false;
-						gameLog("Normal View");
-					}
-				}
-			});
-		}
+		mode.setupGame();
 		
 		levelHints = [level1Hints, level2Hints, level3Hints, level4Hints, level5Hints];
 		

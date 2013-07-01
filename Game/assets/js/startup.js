@@ -1,6 +1,7 @@
 var socket = io.connect(SERVER_ADDRESS);
 
 var playerNumber;
+var mode;
 
 var player;
 var ball;
@@ -8,7 +9,6 @@ var goal;
 
 var partner;
 var partnerBall;
-
 var partnerBlocksPlaced;
 var partnerObstacles;
 
@@ -16,7 +16,6 @@ var partnerView = 0;
 
 window.onload = function(){
 	Crafty.init(WIDTH, HEIGHT);
-	Crafty.canvas.init();
 	Crafty.scene("load");
 };
 
@@ -42,7 +41,7 @@ Crafty.scene("load", function(){
                              .text("LOADING")
                              .css({"text-align": "left", "color":"#fff"});
                              
-	//Crafty.e("FPS").bind("MessureFPS", function(fps){console.log(fps);});
+	Crafty.e("FPS").bind("MessureFPS", function(fps){console.log(fps);});
 });
 
 /* Displays a menu screen */
@@ -67,9 +66,7 @@ Crafty.scene("menu", function(){
 		});
 });
 
-/* initializes all the listeners that do not ever need to change 
- * ONLY CALLED ONCE AT STARTUP
- */
+/* Initializes all the listeners that do not ever need to change */
 function initializeStaticListeners(){
 	
 	socket.on('message', function(message){
@@ -147,8 +144,11 @@ function unbindKeyListeners(){
 	$("#data_received").html("");
 }
 
+/* unbinds mode listeners */
 function unbindModeListeners(){
-	Crafty.unbind("PlayerMoved");
+	mode.unbind("PlayerMoved");
+	mode.unbind("BallMoved");
+	mode.unbind("Block");
 }
 
 /* emits logging messages to server */

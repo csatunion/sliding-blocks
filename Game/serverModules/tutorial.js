@@ -19,7 +19,7 @@ var Tutorial = function(){
 	
 		console.log("TUTORIAL LEVEL: " + (levelNo + 1));
 	
-	    var bg = "images/treasure-map-6-scaled.png";
+	    var bg = "images/treasure-map-6-enlarged.png";
 	    
 	    var level = __dirname + "/../levels/Tutorial/" + levels[levelNo];
 	    

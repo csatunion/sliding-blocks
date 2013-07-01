@@ -27,7 +27,7 @@ var currentRoom = 0;
 var pool = mysql.createPool({
 	host : "localhost",
 	user : "danisea",
-	password : "guest",
+	password : "bl0ck5",
 	database : "blocks"
 });
 
