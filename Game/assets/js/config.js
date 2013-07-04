@@ -5,12 +5,12 @@ var SERVER_ADDRESS = "http://parrot.union.edu:4000";
 //Enables level skipping with the page up-dn keys
 var DEBUG = false;
 
-//0 is no view of other player
+//0 is normal player view
 //1 is only see other player
 //2 is alt key screen switch
 var MODE = 0;
 
-//how often logging data is sent
+//how often logging data is sent in milliseconds
 var LOG_INTERVAL = 200;
 
 //size of each cell
@@ -29,13 +29,8 @@ var BOARD_WIDTH  = CELL_SIZE * COLS;
 var BOARD_HEIGHT = CELL_SIZE * ROWS;
 
 //TODO : finalize hints
-//TODO : look at the keyboard controls
-//TODO : finalize level advancing + restarting + game over/partner disconnect
-//TODO : improve the frequency of mode position transmission
-//TODO : convert all positions to relative positions
+//TODO : server stuff (send/store mode, finalize level advancing/restarting/game over/partner disconnect)
 //TODO : implement the rest of the obstacles
-//TODO : animate the movement of ball and player
-//TODO : Level editor changes
 
 
 

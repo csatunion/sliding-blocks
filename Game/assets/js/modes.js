@@ -14,7 +14,7 @@ Crafty.c("MODE1", {
 	},
 	
 	setupGame : function(){
-		this.bind("PlayerMoved", function(){
+		Crafty.bind("PlayerMoved", function(){
 			socket.emit("updatePartner", player.x, player.y);
 		});
 	},
@@ -52,26 +52,28 @@ Crafty.c("MODE2", {
 				}
 			}
 		});
+		
+		partnerView = 0;
 	},
 	
 	setupGame : function(){
 		socket.on("togglePartnerView", function(request){
 				
 			if(request){
-				this.bind("Block", sendBlocks);
-				this.bind("PlayerMoved", sendPlayer);
+				Crafty.bind("Block", sendBlocks);
+				Crafty.bind("PlayerMoved", sendPlayer);
 				if(ball){
-					this.bind("BallMoved", sendBall);
+					Crafty.bind("BallMoved", sendBall);
 					sendBall();
 				}
 
 				sendPlayer();
 				sendBlocks();
 			}else{
-				this.unbind("Block", sendBlocks);
-				this.unbind("PlayerMoved", sendPlayer);
+				Crafty.unbind("Block", sendBlocks);
+				Crafty.unbind("PlayerMoved", sendPlayer);
 				if(ball)
-					this.unbind("BallMoved", sendBall);
+					Crafty.unbind("BallMoved", sendBall);
 			}
 		});
 			
@@ -86,7 +88,9 @@ Crafty.c("MODE2", {
 						Crafty(entities[i]).visible = false;
 					}
 					
-					drawStaticView();
+					for(var i = 0; i < partnerObstacles.length; i++){
+						partnerObstacles[i].visible = true;
+					}
 						
 					partner.visible = true;
 					partnerBall.visible = true;
@@ -102,7 +106,7 @@ Crafty.c("MODE2", {
 					}
 						
 					for(var i = 0; i < partnerObstacles.length; i++){
-						partnerObstacles[i].destroy();
+						partnerObstacles[i].visible = false;
 					}
 						
 					partner.visible = false;
@@ -120,6 +124,8 @@ Crafty.c("MODE2", {
 		partnerBlocksPlaced = [];
 		partnerObstacles = [];
 		partnerView = 0;
+		
+		createStaticPartnerObjects();
 			
 		partner = Crafty.e("2D, DOM, Color").attr({x:-CELL_SIZE, y:-CELL_SIZE, w:CELL_SIZE, h:CELL_SIZE, z:1});
 		if(playerNumber == 1)
@@ -149,7 +155,7 @@ function setupMode(){
 }
 
 function sendBlocks(){
-	data = [];
+	var data = [];
 	
 	for(var i = 0; i < blocksPlaced.length; i++){
 		data.push([blocksPlaced[i].x, blocksPlaced[i].y]);
@@ -167,34 +173,40 @@ function sendBall(){
 }
 
 /* draws all the entities that do not move from partner's map*/
-function drawStaticView(){
-	for(var row = 0; row < ROWS; row++){
-		for(var col = 0; col < COLS; col++){
-			var x = row*CELL_SIZE;
-			var y = col*CELL_SIZE;
+function createStaticPartnerObjects(){
+	if(map2){
+		var x, y, obstacle;
+	
+		for(var row = 0; row < ROWS; row++){
+			for(var col = 0; col < COLS; col++){
+				x = row*CELL_SIZE;
+				y = col*CELL_SIZE;
 			
-			switch(Math.floor(parseFloat(map2[col][row]))){
-				case 1:{
-					partnerObstacles.push(Crafty.e("2D, DOM, PartnerBox").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}));
-					break;
-				}case 2:{
-					partnerObstacles.push(Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("brown"));
-					break;
-				}case 5:{
-					partnerObstacles.push(Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("#555555"));
-					break;
-				}case 9:{
-					partnerObstacles.push(Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("orange"));
-					break;
-				}case 10:{
-					partnerObstacles.push(Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("pink"));
-					break;
-				}case 19:{
-					partnerObstacles.push(Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("cyan"));
-				    break;
-				}default:{
-					break;
+				switch(Math.floor(parseFloat(map2[col][row]))){
+					case 1:{
+						obstacle = Crafty.e("2D, DOM, PartnerBox").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE});
+						break;
+					}case 2:{
+						obstacle = Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("brown");
+						break;
+					}case 5:{
+						obstacle = Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("#555555");
+						break;
+					}case 9:{
+						obstacle = Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("orange");
+						break;
+					}case 10:{
+						obstacle = Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("pink");
+						break;
+					}case 19:{
+						obstacle = Crafty.e("2D, DOM, Color").attr({x:x, y:y, w:CELL_SIZE, h:CELL_SIZE}).color("cyan");
+						break;
+					}default:{
+						break;
+					}	
 				}
+				obstacle.visible = false;
+				partnerObstacles.push(obstacle);
 			}
 		}
 	}

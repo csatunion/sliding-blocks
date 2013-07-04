@@ -57,10 +57,6 @@ function tutLevel1Hints(){
 		hintsManager.unbind("PlayerMoved", removeHint);
 		hintsManager.destroyHints(0);
 					
-		$("#data_received").append("<br/><br/><b class=\"gameinfo\">You can restart the level at any time if you make a mistake.");
-        var objDiv = document.getElementById("data_received");
-       	objDiv.scrollTop = objDiv.scrollHeight;
-					
 		hintsManager.bind("BallCollision", function removeHint2(){
 			hintsManager.unbind("BallCollision", removeHint2);
 			hintsManager.destroyHints(1);

@@ -49,7 +49,9 @@ function advance(backgroundImage, instruction, parsedMap1, parsedMap2){
 	map2		= parsedMap2;
 	background 	= backgroundImage;
 	
-	$("#data_received").html("<b class=\"gameinfo\">" + instruction +"</b>");
+	if(instruction)
+		$("#data_received").html("<b class=\"gameinfo\">" + instruction +"</b>");
+	
 	level++;
 	
 	gameLog("Level Started");

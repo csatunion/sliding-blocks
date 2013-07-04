@@ -15,10 +15,10 @@ Crafty.scene("game", function(){
 		$('#msg').bind("keyup", function(key){
 			//enter key
 			if(key.which == 13){
-				var message = $('#msg').val();
-				socket.emit('message', message.replace('\n',''));
+				var message = $('#msg').val().replace('\n','');
+				socket.emit('message', message);
 				$('#msg').val("");
-				$("#data_received").append("<br/><i>" + message +"</i>");
+				$("#data_received").append("<div class='message_spacing'></br></div><i>" + message +"</i>");
 
 				var objDiv = document.getElementById("data_received");
 				objDiv.scrollTop = objDiv.scrollHeight;
@@ -32,7 +32,6 @@ Crafty.scene("game", function(){
 				Crafty.trigger("Block");
 			}
 		});
-	
 	
 		if(DEBUG){
 			$(document).bind("keyup", function(key){

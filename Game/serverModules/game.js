@@ -1,7 +1,7 @@
 var fs = require("fs");	
 var parser = require("./Parsers/levelParser.js");
 
-var levels = ["level_0.txt", "level_0MIRROR.txt", "level_just_one_teleporter.txt", "level_1MIRROR.txt", "level_5.txt", "level_4.txt", "level_6.txt"];
+var levels = ["level_0.txt", "level_0MIRROR.txt", "level_just_one_teleporter.txt", "level_1MIRROR.txt", "level_4.txt", "level_5.txt", "level_6.txt"];
 
 var Game = function(){
 	
@@ -31,7 +31,7 @@ var Game = function(){
 		    	map2 = maps[1];
 		    
 		    	if (levelNo == 0) {
-					var msg = "You are now connected to your partner.<br/><br/>Type in the box below to send your partner a message.";
+					var msg = "You are now connected to your partner.<br/><br/>IMPORTANT: When you are playing with your partner, you cannot place obstacles into your own environment, but you can put obstacles into your partner's environment.";
 		    	}
 		    	else {
 					var cheers = ["Great!", "Yeah!", "Good job!"];
@@ -41,12 +41,12 @@ var Game = function(){
 		    	var room = socket.room;
 
 		    	if(playerNumber == 1){
-					socket.to(room).emit("advance", bg, msg, map1, map2);
-					socket.broadcast.to(room).emit("advance", bg, msg, map2, map1);
+					socket.to(room).emit("advance", map1, bg, msg, map2);
+					socket.broadcast.to(room).emit("advance", map2, bg, msg, map1);
 		    	} 
 		    	else{
-					socket.broadcast.to(room).emit("advance", bg, msg, map1, map2);
-					socket.to(room).emit("advance", bg, msg, map2, map1);
+					socket.broadcast.to(room).emit("advance", map1, bg, msg, map2);
+					socket.to(room).emit("advance", map2, bg, msg, map1);
 		    	}
 			}
 	    });

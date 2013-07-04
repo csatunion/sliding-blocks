@@ -3,11 +3,6 @@ var parser = require("./Parsers/mapParser.js");
 
 var levels = ["tutorial-move-push-ball.txt", "tutorial-place-obstacles.txt", "tutorial-portals.txt"];	
 
-var instructions = 
-["Use the arrow keys to move.<br/><br/>Push the ball into the goal.",
- "Use CTRL to place obstacles that stop the ball.<br/><br/>(IMPORTANT: When you are playing with a partner, you cannot place obstacles into your own environment, but you can drop obstacles into your partner's environment.)",
- "Along the way you will encounter all kinds of blocks with special behaviors. For example, portals."];
- 
 var Tutorial = function(){
 	
 	this.advance = function(socket, levelNo){
@@ -27,7 +22,7 @@ var Tutorial = function(){
 			if (err)
 				console.log(err);
 			else
-		   		socket.emit("advance", bg, instructions[levelNo], parser.parseMap(data));
+		   		socket.emit("advance", parser.parseMap(data), bg);
 			
 	    });
 	};

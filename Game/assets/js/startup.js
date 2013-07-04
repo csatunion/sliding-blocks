@@ -12,7 +12,7 @@ var partnerBall;
 var partnerBlocksPlaced;
 var partnerObstacles;
 
-var partnerView = 0;
+var partnerView;
 
 window.onload = function(){
 	Crafty.init(WIDTH, HEIGHT);
@@ -41,7 +41,7 @@ Crafty.scene("load", function(){
                              .text("LOADING")
                              .css({"text-align": "left", "color":"#fff"});
                              
-	Crafty.e("FPS").bind("MessureFPS", function(fps){console.log(fps);});
+	//Crafty.e("FPS").bind("MessureFPS", function(fps){console.log(fps);});
 });
 
 /* Displays a menu screen */
@@ -70,12 +70,12 @@ Crafty.scene("menu", function(){
 function initializeStaticListeners(){
 	
 	socket.on('message', function(message){
-		$("#data_received").append("<br/><b>" + message +"</b>");
+		$("#data_received").append("<div class='message_spacing'></br></div><b>" + message +"</b>");
 
     	var objDiv = document.getElementById("data_received");
     	objDiv.scrollTop = objDiv.scrollHeight;
     	
-    	gameLog("Message: "  + message);
+    	gameLog("message: "  + message);
 	});
 	
 	socket.on("block", function(x, y){
@@ -112,7 +112,7 @@ function initializeStaticListeners(){
             ball.move.down = true;
 	});
 	
-	socket.on("advance", function(backgroundImage, instruction, parsedMap, parsedMap2){
+	socket.on("advance", function(parsedMap, backgroundImage, instruction, parsedMap2){
 		if(parsedMap)
 			advance(backgroundImage, instruction, parsedMap, parsedMap2);
 		else{
@@ -146,9 +146,9 @@ function unbindKeyListeners(){
 
 /* unbinds mode listeners */
 function unbindModeListeners(){
-	mode.unbind("PlayerMoved");
-	mode.unbind("BallMoved");
-	mode.unbind("Block");
+	Crafty.unbind("PlayerMoved");
+	Crafty.unbind("BallMoved");
+	Crafty.unbind("Block");
 }
 
 /* emits logging messages to server */
