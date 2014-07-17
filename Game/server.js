@@ -26,9 +26,9 @@ var currentRoom = 0;
 
 var pool = mysql.createPool({
 	host : "localhost",
-	user : "danisea",
+	user : "blocksserver",
 	password : "bl0ck5",
-	database : "blocks"
+	database : "blockstest"
 });
 
 io.sockets.on('connection', function(socket){
