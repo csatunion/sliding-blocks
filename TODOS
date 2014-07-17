@@ -1,0 +1,2 @@
+- Add info about database schema to README.
+- Make possible to run without database connection.
