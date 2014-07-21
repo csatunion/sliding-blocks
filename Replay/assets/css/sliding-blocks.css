@@ -1,0 +1,60 @@
+
+body {
+    padding: 0px 20px;
+    font-family: sans-serif;
+}
+
+ul {
+    list-style: none;
+    padding-left:0;
+}
+
+li {
+    margin-bottom:5px;
+}
+
+.gameinfo {
+    color:red;
+}
+
+#game-area {
+    margin-top:50px;
+    position:relative;
+    /*width:1000px;*/
+}
+
+
+#chat-area {
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:1;
+    padding-bottom:10px;
+}
+
+#data_received {
+    margin-bottom:10px;
+    width:200px;
+    overflow:scroll;
+    height:420px;
+}
+
+div.message_spacing {
+	line-height:12px;
+}
+
+textarea {
+    width:195px;
+}
+
+#cr-stage {
+    font-size:12px;
+    position:absolute;
+    top:0px;
+    left:205px;
+    z-index:0;
+}
+
+canvas{
+	z-index:1;
+}
