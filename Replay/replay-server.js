@@ -32,34 +32,53 @@ io.on ('connection',
 			  console.log ('User disconnected');
 		      });
 
+	   
 	   socket.on ('list games',
 		      function () {
 			  console.log ('Client is requesting game ids');
-			  var response = queryMysqlPool ( 'select * from tutorials;' );
-			  socket.emit ('listing games', "hello");
+			  
+			  pool.getConnection(
+
+			      function (err, connection) {
+
+				  if ( err ) throw err;
+
+				  console.log ("connected to mysql");
+				  connection.query( 'select * from tutorials;', 
+						    function (err, rows) {
+							connection.release();
+							sendResultsToClient (err, rows, socket, 'listing games');
+						    });
+			      });
+		      });
+
+
+	   socket.on ('get log',
+		      function (data) {
+			  console.log ("Client is requesting game log for game " + data['gameid']);
+
+			  var query = 'select * from logs where gameid = '+data['gameid']+' order by timestamp;';
+			  pool.getConnection(
+
+			      function (err, connection) {
+
+				  if ( err ) throw err;
+
+				  console.log ("connected to mysql");
+				  
+				  connection.query (query, 
+						    function (err, rows) {
+							connection.release();
+							sendResultsToClient (err, rows, socket, 'log');
+						    });
+			      });
+
 		      });
        });
 
 
-
-function queryMysqlPool (query) {
-
-    var response;
-
-    pool.getConnection(
-	function(err, connection) {
-
-	    if ( err ) throw err;
-
-	    console.log ("connected to mysql");
-	    connection.query( query, 
-			      function(err, rows) {
-				  if ( err ) throw err;
-				  //console.log (rows);
-				  connection.release();
-				  response = rows;
-			      });
-	});
-
-    return response;
+function sendResultsToClient (err, rows, socket, topic) {
+    if ( err ) throw err;
+    //console.log (rows);
+    socket.emit (topic, rows);
 }

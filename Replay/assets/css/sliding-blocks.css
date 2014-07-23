@@ -13,6 +13,23 @@ li {
     margin-bottom:5px;
 }
 
+#cr-stage {
+    width: 1000px;
+    float: left;
+    margin-bottom: 100px;
+}
+
+#chat {
+    width: 195px;
+    float: left;
+}
+
+#games {
+    clear: both;
+    margin-top: 100px;
+}
+
+/*
 .gameinfo {
     color:red;
 }
@@ -20,7 +37,6 @@ li {
 #game-area {
     margin-top:50px;
     position:relative;
-    /*width:1000px;*/
 }
 
 
@@ -58,3 +74,4 @@ textarea {
 canvas{
 	z-index:1;
 }
+*/
