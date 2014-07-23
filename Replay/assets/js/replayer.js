@@ -31,15 +31,19 @@ function startReplay () {
     var deltaLog = 0;
     var startTime = new Date().getTime();
     var startLog  = gamelog[0]['timestamp'];
+    var logcounter = 0;
 
+    var timer = setInterval (function () {
+	deltaLog = gamelog[logcounter]['timestamp'] - startLog;
+	deltaT = new Date().getTime() - startTime;
+	if (deltaT >= deltaLog) {
+	    console.log (gamelog[logcounter]);
+	    logcounter++;
+	}
 
-    // HERE HERE HERE: worry about async?? 
-    // for (logentry in gamelog) {
-    // 	deltaLog = logentry['timestamp'] - startLog;
-    // 	deltaT = new Date().getTime() - startTime;
-    // 	while (deltaT < deltaLog) {
-    // 	}
-	
-    // }
+	if (logcounter >= gamelog.length) {
+	    clearInterval(timer);
+	}
 
+    }, 20); 
 }
