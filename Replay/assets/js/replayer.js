@@ -1,3 +1,9 @@
+var deltaT;
+var deltaLog;
+var startTime;
+var startLog;
+var logcounter;
+
 
 function loadLogs () {
     
@@ -27,23 +33,32 @@ function startReplay () {
     console.log ("replaying game " + gameid);
     $("#chat").append ("<p>Playing game " + gameid + "</p>");
 
-    var deltaT = 0;
-    var deltaLog = 0;
-    var startTime = new Date().getTime();
-    var startLog  = gamelog[0]['timestamp'];
-    var logcounter = 0;
+    deltaT = 0;
+    deltaLog = 0;
+    startTime = new Date().getTime();
+    startLog  = gamelog[0]['timestamp'];
+    logcounter = 0;
 
-    var timer = setInterval (function () {
-	deltaLog = gamelog[logcounter]['timestamp'] - startLog;
-	deltaT = new Date().getTime() - startTime;
-	if (deltaT >= deltaLog) {
-	    console.log (gamelog[logcounter]);
-	    logcounter++;
-	}
+    replaytimer = setTimeout (replayLoop, 10); 
+}
 
-	if (logcounter >= gamelog.length) {
-	    clearInterval(timer);
-	}
 
-    }, 20); 
+function replayLoop () {
+    deltaLog = gamelog[logcounter]['timestamp'] - startLog;
+    deltaT = new Date().getTime() - startTime;
+    if (deltaT >= deltaLog) {
+	//console.log ("current: " + new Date().getTime());
+	//console.log (gamelog[logcounter]['timestamp']);
+	//console.log (gamelog[logcounter]['gameid']+": "+logcounter+" of "+gamelog.length);
+	console.log (gamelog[logcounter]['gameid']);
+	logcounter++;
+    }
+
+    // if (logcounter >= gamelog.length) {
+    // 	console.log ("HIER HIER HIER");
+    // 	clearTimeout(replaytimer);
+    // }
+    if (logcounter < gamelog.length) {
+	replaytimer = setTimeout (replayLoop, 10); 
+    }
 }
