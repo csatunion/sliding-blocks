@@ -4,7 +4,8 @@ var express = require('express');
 var app     = express();
 var server  = require('http').createServer(app);
 var io      = require('socket.io')(server);
-//var fs      = require('fs');
+var fs      = require('fs');
+var parser = require("../Game/serverModules/Parsers/levelParser.js");
 var mysql   = require('mysql');
 
 /*io.set('log level', 1);*/
@@ -78,6 +79,29 @@ io.on ('connection',
 									  });
 						    });
 			      });
+
+		      });
+	   
+
+	   socket.on ('levelmaps',
+		      function (data) {
+			  console.log ("Client is requesting maps for level " + data['levelname']);
+			  
+			  var map1;
+    			  var map2;
+			  var level = __dirname + "/../Game/levels/Game/" + data['levelname'];
+
+    			  fs.readFile(level, 'ascii', 
+				      function(err, readdata) {
+					  if (err){
+		   			      console.log(err);
+					  }else{
+		    			      maps = parser.parseLevel(readdata);
+		    			      map1 = maps[0];
+		    			      map2 = maps[1];
+					      sendResultsToClient (err, {1:map1, 2:map2}, socket, 'levelmaps');
+					  }
+				      });
 
 		      });
        });

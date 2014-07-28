@@ -32,16 +32,27 @@ socket.on ('listing games',
 
 socket.on ('log',
 	   function (data) {
-	       console.log (data.length);
-	       console.log (data[0]);
-	       console.log (data[1]);
-	       console.log (data[2]);
-	       console.log (data[3]);
-	       console.log (data[4]);
-	       console.log (data[5]);
-	       console.log (data[data.length-2]);
-	       console.log (data[data.length-1]);
+	       // console.log (data.length);
+	       // console.log (data[0]);
+	       // console.log (data[1]);
+	       // console.log (data[2]);
+	       // console.log (data[3]);
+	       // console.log (data[4]);
+	       // console.log (data[5]);
+	       // console.log (data[data.length-2]);
+	       // console.log (data[data.length-1]);
 	       gamelog = data;
 	       if (replaytimer) clearTimeout (replaytimer);
 	       startReplay ();
 	   });
+
+
+socket.on ('levelmaps',
+	   function (data) {
+	       console.log ("Receiving map data from server");
+	       var map1 = data[1];
+	       var map2 = data[2];
+
+	       drawLevel(map1);
+	   });
+

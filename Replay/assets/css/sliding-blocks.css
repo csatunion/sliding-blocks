@@ -19,9 +19,25 @@ li {
     margin-bottom: 100px;
 }
 
-#chat {
+/*#chat {
     width: 195px;
     float: left;
+}*/
+
+#chat {
+    margin-bottom:10px;
+    width:195px;
+    overflow:scroll;
+    height:420px;
+    float: left;
+}
+
+#chat .player1 {
+    color: red;
+}
+
+#chat .player2 {
+    color: green;
 }
 
 #games {
