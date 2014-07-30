@@ -1,3 +1,4 @@
+//var ball; 
 
 function drawArrow(xpos, ypos, direction, xscale, yscale){
     return Crafty.e("2D, Canvas, Arrow").arrow(xpos, ypos, direction, xscale, yscale);
@@ -13,7 +14,6 @@ function drawTextBubble(xpos, ypos, message, angle, width, height){
 
 
 function drawBox(xpos, ypos){
-    console.log ("Drawing box");
     return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "Box");
 }
 
@@ -72,7 +72,7 @@ function drawBoxButton(xpos, ypos, buttonNumber){
 }
 
 
-function drawLevel(map){
+function drawLevel(map, playerNumber){
 
     console.log ("Drawing level: " + map.length);
 
@@ -83,7 +83,12 @@ function drawLevel(map){
 	    var x = row*CELL_SIZE;
 	    var y = col*CELL_SIZE;
 	    
-	    console.log (Math.floor(parseFloat(map[col][row])));
+	    if (playerNumber == 2) {
+		// shift to the right
+		x += WIDTH;
+	    }
+
+	    //console.log (Math.floor(parseFloat(map[col][row])));
 	    switch(Math.floor(parseFloat(map[col][row]))){
 	    case 0:{
 		break;
@@ -108,7 +113,7 @@ function drawLevel(map){
 		break;
 	    }case 6:{
 		if(playerNumber == 2) {
-		    player = Crafty.e("Player").player(playerNumber, x, y);
+		    player2 = Crafty.e("Player").player(playerNumber, x, y);
 		    inventory["player"] = "player2";
 		}
 		break;
@@ -133,10 +138,13 @@ function drawLevel(map){
 		break;
 	    }case 12:{
 		drawBall(x, y);
+		ballHolder = playerNumber;
 		break;
 	    }case 13:{
 		if(playerNumber == 1) {
-		    player = Crafty.e("Player").player(playerNumber, x, y);
+		    //Crafty.e('2D, DOM, Color').attr({x: 0, y: 0, w: 100, h: 100}).color('#F00');
+
+		    player1 = Crafty.e("Player").player(playerNumber, x, y);
 		    inventory["player"] = "player1";
 		}
 		break;

@@ -46,3 +46,86 @@ Crafty.c("DynamicObstacle", {
 	}
 });
 
+Crafty.c("Player", {
+
+    // _logTime : new Date(),
+
+    init : function() {
+    	this.requires("2D, DOM, Color");   //, PlayerMovement");
+    },
+
+    player : function(playerNumber, xpos, ypos) {
+	
+	//console.log ("Drawing player " + playerNumber);
+
+	this.attr({
+	    x : xpos,
+	    y : ypos,
+	    w : CELL_SIZE,
+	    h : CELL_SIZE,
+	    z : 1,
+	    move : {
+		left : false,
+		right : false,
+		up : false,
+		down : false
+	    }
+	});
+	
+	//	this.playermovement();
+
+	if (playerNumber == 1)
+	    this.color("red");
+	else
+	    this.color("green");
+	
+	// this.bind("EnterFrame", function() {
+	//     this._logPosition();
+	// });
+	
+	return this;
+    },
+
+    
+    // _logPosition : function(){
+    // 	var currentTime = new Date();
+	
+    // 	if(currentTime.getTime() - this._logTime.getTime() >= LOG_INTERVAL) {
+    // 	    this._logTime = currentTime;
+    // 	    gameLog("position:" + this.x + " " + this.y + (ball ? " ball:" + ball.x + " " + ball.y : ""));
+    // 	}
+    // }
+});
+
+
+Crafty.c("Ball", {
+
+    init : function() {
+	this.requires("2D, DOM, Color"); //, BallMovement");
+    },
+
+    ball : function(xpos, ypos) {
+
+	this.attr({
+	    x : xpos,
+	    y : ypos,
+	    w : CELL_SIZE,
+	    h : CELL_SIZE,
+	    z : 1,
+	    move : {
+		left : false,
+		right : false,
+		up : false,
+		down : false
+	    },
+	    startedMoving : false,
+	    framesSinceFirstMove : 0,
+	    hitGoal : false
+	});
+
+	//this.ballmovement();
+	this.color("purple");
+	
+	return this;
+    }
+});

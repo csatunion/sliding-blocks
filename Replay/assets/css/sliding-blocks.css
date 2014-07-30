@@ -32,12 +32,12 @@ li {
     float: left;
 }
 
-#chat .player1 {
-    color: red;
+#chat .received-by-player1 {
+    color: green;
 }
 
-#chat .player2 {
-    color: green;
+#chat .received-by-player2 {
+    color: red;
 }
 
 #games {

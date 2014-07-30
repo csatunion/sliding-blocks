@@ -85,11 +85,12 @@ io.on ('connection',
 
 	   socket.on ('levelmaps',
 		      function (data) {
-			  console.log ("Client is requesting maps for level " + data['levelname']);
+			  var levelname = data['levelname'];
+			  console.log ("Client is requesting maps for level " + levelname);
 			  
 			  var map1;
     			  var map2;
-			  var level = __dirname + "/../Game/levels/Game/" + data['levelname'];
+			  var level = __dirname + "/../Game/levels/Game/" + levelname;
 
     			  fs.readFile(level, 'ascii', 
 				      function(err, readdata) {
@@ -99,7 +100,7 @@ io.on ('connection',
 		    			      maps = parser.parseLevel(readdata);
 		    			      map1 = maps[0];
 		    			      map2 = maps[1];
-					      sendResultsToClient (err, {1:map1, 2:map2}, socket, 'levelmaps');
+					      sendResultsToClient (err, {1:map1, 2:map2}, socket, 'levelmaps '+levelname);
 					  }
 				      });
 

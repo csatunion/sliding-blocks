@@ -4,6 +4,11 @@ var startTime;
 var startLog;
 var logcounter;
 
+var ball;
+var ballHolder;
+var player1;
+var player2;
+//var player;
 
 function loadLogs () {
     
@@ -12,19 +17,12 @@ function loadLogs () {
     background = "../images/treasure-map-6-scaled.png";
 
     console.log ("loading game " + gameid);
-    //$("#chat").empty().append ("<p>Loading game " + gameid + "</p>");
     $("#chat").empty();
     postMessage ("Loading game "+gameid, false);
 
-    socket.emit ('get log', {gameid: gameid});
-
     Crafty.init(2 * WIDTH, HEIGHT);
-    Crafty.load([background], 
-		function(){
-		    Crafty.background("#000 url("+background+")");
-		});
     
-    //Crafty.scene("game");
+    Crafty.scene("loading");
 
     return false;
 }
@@ -33,7 +31,6 @@ function loadLogs () {
 function startReplay () {
 
     console.log ("replaying game " + gameid);
-    //$("#chat").append ("<p>Playing game " + gameid + "</p>");
     postMessage ("Playing game "+gameid, false);
 
     deltaT = 0;
@@ -64,31 +61,34 @@ function replayLoop () {
 function processLogEntry (logEntry) {
 
     var msg = logEntry['message'];
-    var player = logEntry["player"];
+    var playerNumber = logEntry["player"];
 
     if (msg == "Level Started") {
 	var levelname = logEntry['levelname'];
 	if (!level || levelname != level) {
 	    level = levelname;
 	    console.log ("Load level: " + level);
-	    socket.emit ('levelmaps', {levelname: levelname});
+	    Crafty.scene("level", levelname);
 	}
-	// OK ask server for level maps
-	// server opens file, parses maps and sends them back
-	// when they come back, draw level maps
+    } else if (msg.search("block")==0) {
+	// place a block in the other player's map
     } else if (msg.search("position")==0) {
 	var msgsplit = msg.split (" ");
-	var player_x = msgsplit[0].split(":")[1];
-	var player_y = msgsplit[1]
-	var ball_x = msgsplit[2].split(":")[1];
-	var ball_y = msgsplit[3]
-	// TODO TODO
-	// console.log ("player pos: "+player_x+","+player_y+" ball pos:"+ball_x+","+ball_y);
+	var player_x = parseInt(msgsplit[0].split(":")[1]);
+	var player_y = parseInt(msgsplit[1]);
+	var ball_x = parseInt(msgsplit[2].split(":")[1]);
+	var ball_y = parseInt(msgsplit[3]);
+	if ( playerNumber == 2 ) {
+	    player_x += WIDTH;
+	    ball_x += WIDTH;
+	}
+
+	updateBallPosition (ball_x, ball_y, playerNumber);
+	updatePlayerPosition (player_x, player_y, playerNumber);
     }
     else if (msg.search("message")==0) {
 	var chatmsg = msg.slice("message: ".length);
-	//console.log ("Player "+player+" says: "+chatmsg);
-	var cssclass = "player" + player;
+	var cssclass = "received-by-player" + playerNumber;
 	postMessage (chatmsg, cssclass);
     }
     else {
@@ -104,4 +104,27 @@ function postMessage (msg, cssclass) {
 	var html = "<p>" + msg + "</p>";
     }
     $("#chat").append (html);
+}
+
+
+function updateBallPosition (ball_x, ball_y, playerNumber) {
+
+    //console.log (ball_x+" "+ball_y+" "+playerNumber);
+    if ( ballHolder == playerNumber ) {
+	ball.x = ball_x;
+	ball.y = ball_y;
+    }
+}
+
+
+function updatePlayerPosition (player_x, player_y, playerNumber) {
+
+    if ( playerNumber == 1 ) {
+	player1.x = player_x;
+	player1.y = player_y;
+    }
+    else {
+	player2.x = player_x;
+	player2.y = player_y;
+    }
 }
