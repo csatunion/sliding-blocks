@@ -101,7 +101,7 @@ Crafty.c("Player", {
 Crafty.c("Ball", {
 
     init : function() {
-	this.requires("2D, DOM, Color"); //, BallMovement");
+	this.requires("2D, DOM, Color, BallMovement");
     },
 
     ball : function(xpos, ypos) {
@@ -123,9 +123,32 @@ Crafty.c("Ball", {
 	    hitGoal : false
 	});
 
-	//this.ballmovement();
+	//this.teleporting();
 	this.color("purple");
 	
 	return this;
     }
 });
+
+Crafty.c("BallMovement", {
+
+    teleporting: false,
+
+    init: function(){
+	this.requires("Collision");
+
+	this.onHit ("Teleporter", 
+		    function () {
+			if ( ! this.teleporting ) {
+			    ballHolder = (ballHolder % 2) + 1;
+			    console.log ("Ball teleported. Ball holder: " + ballHolder);
+			    this.teleporting = true;
+			}
+		    },
+		    function () {
+			this.teleporting = false;
+		    }
+		   )
+    }
+});
+

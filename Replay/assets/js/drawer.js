@@ -142,8 +142,6 @@ function drawLevel(map, playerNumber){
 		break;
 	    }case 13:{
 		if(playerNumber == 1) {
-		    //Crafty.e('2D, DOM, Color').attr({x: 0, y: 0, w: 100, h: 100}).color('#F00');
-
 		    player1 = Crafty.e("Player").player(playerNumber, x, y);
 		    inventory["player"] = "player1";
 		}
@@ -165,11 +163,12 @@ function drawLevel(map, playerNumber){
 		inventory["moving"] = true;
 		break;
 	    }case 18:{
-		var index = Math.round((parseFloat(map[col][row]) - 18)*1000);
-		if(portals1[index] == null)
-		    portals1[index] = drawPortal(x, y);
-		else
-		    portals2[index] = drawPortal(x, y);
+		drawPortal(x, y);
+		// var index = Math.round((parseFloat(map[col][row]) - 18)*1000);
+		// if(portals1[index] == null)
+		//     portals1[index] = drawPortal(x, y);
+		// else
+		//     portals2[index] = drawPortal(x, y);
 		inventory["portal"] = true;
 		break;
 	    }case 19:{

@@ -100,7 +100,7 @@ io.on ('connection',
 		    			      maps = parser.parseLevel(readdata);
 		    			      map1 = maps[0];
 		    			      map2 = maps[1];
-					      sendResultsToClient (err, {1:map1, 2:map2}, socket, 'levelmaps '+levelname);
+					      sendResultsToClient (err, {1:map1, 2:map2}, socket, 'levelmaps'); // '+levelname);
 					  }
 				      });
 

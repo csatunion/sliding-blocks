@@ -16,7 +16,8 @@ li {
 #cr-stage {
     width: 1000px;
     float: left;
-    margin-bottom: 100px;
+    height: 480px;
+    margin-bottom: 10px;
 }
 
 /*#chat {
