@@ -1,9 +1,10 @@
-var SERVER_ADDRESS = "http://parrot.union.edu:4000";
+//var SERVER_ADDRESS = "http://parrot.union.edu:4000";
+var SERVER_ADDRESS = "http://localhost:4000";
 
 /* GAME ATTRIBUTES */
 
 //Enables level skipping with the page up-dn keys
-var DEBUG = false;
+var DEBUG = true; //false;
 
 //0 is normal player view
 //1 is only see other player

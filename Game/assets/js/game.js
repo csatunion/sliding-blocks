@@ -1,5 +1,7 @@
 
 Crafty.scene("game", function(){
+    unbindKeyListeners();
+
 	level = 0;
 	
 	//displays a waiting message
@@ -11,6 +13,7 @@ Crafty.scene("game", function(){
 	
 	socket.once("setup", function(player_number){
 		playerNumber = player_number;
+	    console.log ("I am player no. " + player_number);
 		
 		$('#msg').bind("keyup", function(key){
 			//enter key

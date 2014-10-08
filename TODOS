@@ -1,2 +1,7 @@
 - Add info about database schema to README.
-- Make possible to run without database connection.
+DONE- Make possible to run without database connection.
+DONE players input id in order to map questionnaire to player
+- redesign database -> need a session id; way of tying starting phase
+log entries, tutorial phase log entries and game phase log entries together
+- a way to synchronize timing?
+- take copyrighted pics out of repository

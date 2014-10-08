@@ -19,7 +19,7 @@ Crafty.scene("level", function(){
 	portals2 = [];
 	
 	Crafty.load([background], function(){
-		Crafty.background("url("+background+")");
+		Crafty.background("#ffffff url("+background+") no-repeat");
 
 		Crafty.e("2D, DOM, Image, Mouse")
 			.attr({

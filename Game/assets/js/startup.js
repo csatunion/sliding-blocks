@@ -64,6 +64,22 @@ Crafty.scene("menu", function(){
 		.bind("Click", function(){
 			Crafty.scene("game");
 		});
+
+    $('#msg').bind("keyup", function(key){
+			//enter key
+			if(key.which == 13){
+				var message = $('#msg').val().replace('\n','');
+			    gameLog (message);
+				$('#msg').val("");
+				$("#data_received").append("<div class='message_spacing'></br></div><i>" + message +"</i>");
+
+				var objDiv = document.getElementById("data_received");
+				objDiv.scrollTop = objDiv.scrollHeight;
+			}
+		});
+
+    socket.emit ('ready');
+
 });
 
 /* Initializes all the listeners that do not ever need to change */
@@ -113,9 +129,10 @@ function initializeStaticListeners(){
 	});
 	
 	socket.on("advance", function(parsedMap, backgroundImage, instruction, parsedMap2){
-		if(parsedMap)
+		if(parsedMap) {
+		    //console.log ("Yay! Got a parsed map and " + instruction);
 			advance(backgroundImage, instruction, parsedMap, parsedMap2);
-		else{
+		} else{
 			socket.emit("gameOver");
 			gameLog("Game Over");
 			Crafty.scene("menu");
@@ -132,6 +149,7 @@ function initializeStaticListeners(){
 	});
 	
 	socket.on("partnerDisconnect", function(){
+	    socket.emit("gameOver");
 		gameLog("Game Over");
 		Crafty.scene("menu");
 	});

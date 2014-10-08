@@ -18,7 +18,7 @@ function loadLogs () {
     
     gameid = $(this).attr("id");
     //level = 0;
-    background = "../images/treasure-map-6-scaled.png";
+    background = "../images/pirate-map.png";
 
     console.log ("loading game " + gameid);
     $("#chat").empty();

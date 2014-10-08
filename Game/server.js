@@ -1,4 +1,5 @@
 /* CONSTANTS */
+var LOADING       = -1;
 var GAME_MODE     = 0;
 var TUTORIAL_MODE = 1;
 
@@ -34,18 +35,31 @@ var pool = mysql.createPool({
 io.sockets.on('connection', function(socket){
 
 	socket.room = NO_PARTNER;
+    socket.mode = LOADING;
 	
 	socket.on('log', function(humantime, timestamp, playerNumber, gamemode, level, data){
+
+	    if (socket.mode != LOADING)
 		var name = MODES[socket.mode].getLevels()[(level-1)];
-		
+	    else
+		var name = "start";
+
 		pool.getConnection(function(err, connection){
+		        
+		    if (!err) {		    
 			connection.query("insert into logs set ?", {gameid : socket.gameID, human_time : humantime, timestamp : timestamp, player : playerNumber, tutorial : socket.mode, mode : gamemode, levelno : level, levelname : name, message : data}, function(err, result){
 				if(err) throw err;
-				connection.end();
+				connection.release();
 			});
+		    }
 		});
 	});
 	
+    socket.on ('ready', function() {
+	console.log ("Sending id reminder");
+	socket.emit ('message', "Start by typing your participant id in the chat box below.");
+    });
+
 	socket.on('updatePartner', function(x,y){
 		socket.broadcast.to(socket.room).emit('updatePartner',x,y);
 	});
@@ -71,6 +85,7 @@ io.sockets.on('connection', function(socket){
 	});
 	
 	socket.on('advance', function(levelNo, playerNumber){
+	    console.log ("I am player " + playerNumber + ". Advancing to " + levelNo)
 		MODES[socket.mode].advance(socket, levelNo, playerNumber);
 	});
 	
@@ -88,11 +103,19 @@ io.sockets.on('connection', function(socket){
 	});
 		
 	socket.on("gameOver", function(){
-		var clients = io.sockets.clients(socket.room);
-		for(var i = 0; i < clients.length; i++){
-			clients[i].leave(socket.room);
-			clients[i].room = NO_PARTNER;
-		}
+		// var clients = io.sockets.clients(socket.room);
+		// for(var i = 0; i < clients.length; i++){
+		// 	clients[i].leave(socket.room);
+		// 	clients[i].room = NO_PARTNER;
+		// }
+
+	    var clientIds = io.sockets.adapter.rooms[socket.room];
+	    for (var oneClientId in clientIds) {
+		var client_socket = io.sockets.connected[oneClientId];
+		client_socket.leave (socket.room);
+		client_socket.room = NO_PARTNER;
+	    }
+
 	});
 	
 	socket.on('tutorial', function(setup){
@@ -100,12 +123,19 @@ io.sockets.on('connection', function(socket){
 		socket.room = NO_PARTNER;
 		
 		pool.getConnection(function(err, connection){
+
+		    if (err) {
+			console.log ("No database connection.");
+			socket.gameID = "noDB";
+			setup();
+		    } else {
 			connection.query("insert into tutorials set ?", {levels : MODES[TUTORIAL_MODE].getLevels().toString(), ip : socket.handshake.address.address}, function(err, result){
 				if(err) throw err;
 				socket.gameID = result.insertId;
 				setup();
-				connection.end();
+				connection.release();
 			});
+		    }
 		});
 	});
 
@@ -117,13 +147,17 @@ io.sockets.on('connection', function(socket){
 	
 	socket.on('disconnect', function(){
 		if(socket.room != NO_PARTNER){
-			var clients = io.sockets.clients(socket.room);
-		
-			var partnerSocket = (clients[0] == socket ? clients[1] : clients[0]);
-			
-			partnerSocket.emit('partnerDisconnect');
-			partnerSocket.leave(socket.room);
-			partnerSocket.room = NO_PARTNER;
+			//var clients = io.sockets.clients(socket.room);
+		    var clientIds = io.sockets.adapter.rooms[socket.room];
+		    for (var oneClientId in clientIds) {
+			var client_socket = io.sockets.connected[oneClientId];
+			if (client_socket != socket) {
+			    //var partnerSocket = (clients[0] == socket ? clients[1] : clients[0]);
+			    client_socket.emit('partnerDisconnect');
+			    client_socket.leave(socket.room);
+			    client_socket.room = NO_PARTNER;
+			}
+		    }
 			
 		}else if(socket.mode == GAME_MODE){
 			var index = waitingSockets.indexOf(socket);
@@ -137,7 +171,10 @@ io.sockets.on('connection', function(socket){
  */
 function pairUpSockets(address){
 
+    console.log ("waiting sockets: " + waitingSockets.length)
+
     if(waitingSockets.length >= 2){
+
 		var client1 = waitingSockets.shift();
 		var client2 = waitingSockets.shift();
 		
@@ -145,6 +182,20 @@ function pairUpSockets(address){
 		currentRoom++;
 		
 		pool.getConnection(function(err, connection){
+
+		    if (err) {
+			var gameID = "noDB";
+			
+			client1.join(room);
+			client1.room = room;
+			client1.gameID = gameID;
+			client1.emit("setup", 1);
+	
+			client2.join(room);
+			client2.room = room;
+			client2.gameID = gameID;
+			client2.emit("setup", 2);
+		    } else {
 			connection.query("insert into games set ?", {levels : MODES[GAME_MODE].getLevels().toString(), ip1 : client1.handshake.address.address, ip2 : client2.handshake.address.address, tutorialid1 : client1.gameID, tutorialid2 : client2.gameID}, function(err, result){
 				if(err) throw err;
 			
@@ -160,8 +211,9 @@ function pairUpSockets(address){
 				client2.gameID = gameID;
 				client2.emit("setup", 2);
 				
-				connection.end();
+				connection.release();
 			});
+		    }
 		});
     }
 }
