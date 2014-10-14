@@ -10,8 +10,8 @@ var mysql   = require('mysql');
 
 /*io.set('log level', 1);*/
 
-server.listen(3000, function(){
-  console.log('server listening on port 3000');
+server.listen(3500, function(){
+  console.log('server listening on port 3500');
 });
 
 app.use(express.static(__dirname + '/assets'));
