@@ -3,12 +3,14 @@ socket.on ('listing games',
 	   function (data) {
 
 	       $("#games").append (document.createElement ("ul"));
-	       gameinfo = data;
+	       //ggameinfo = data;
 
 	       for (key in data) {
 
     		   console.log (data[key]);
-		   var gameid = data[key]['gameid'];
+		   var gameid = data[key]['id'];
+
+		   gameinfo[gameid] = data[key];
 
 		   $("#games ul").append ("<li><a href=\"\" id=\"" + gameid + "\">" + gameid + "</a></li>");
 		   $("#" + gameid).click (loadLogs);  // replayer.js

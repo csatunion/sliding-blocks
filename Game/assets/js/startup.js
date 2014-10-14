@@ -14,10 +14,18 @@ var partnerObstacles;
 
 var partnerView;
 
+
 window.onload = function(){
+    var clientTime1 = new Date().getTime();
+    socket.emit ('synchronizing');
+    socket.on ('synchronizing', function (serverTime) {
+	var clientTime2 = new Date().getTime();
+	gameLog ("clientTime1:"+clientTime1+";serverTime:"+serverTime+";clientTime2:"+clientTime2);
 	Crafty.init(WIDTH, HEIGHT);
 	Crafty.scene("load");
+    });
 };
+
 
 /* Loads the game assets */
 Crafty.scene("load", function(){
@@ -30,7 +38,7 @@ Crafty.scene("load", function(){
     	PartnerBox : [0,0]
     });
     
-	Crafty.load(["images/box.png", "images/tutorial.png", "images/game.png", "images/reset.png"], function() {
+	Crafty.load(["images/box.png", "images/tutorial.png", "images/game.png", "images/reset.png", "images/pirate-map.png"], function() {
 		setupMode();
 		initializeStaticListeners();
 		Crafty.scene("menu");

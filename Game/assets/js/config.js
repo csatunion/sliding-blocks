@@ -29,9 +29,6 @@ var HEIGHT = CELL_SIZE * ROWS;
 var BOARD_WIDTH  = CELL_SIZE * COLS;
 var BOARD_HEIGHT = CELL_SIZE * ROWS;
 
-//TODO : finalize hints
-//TODO : server stuff (send/store mode, finalize level advancing/restarting/game over/partner disconnect)
-//TODO : implement the rest of the obstacles
 
 
 

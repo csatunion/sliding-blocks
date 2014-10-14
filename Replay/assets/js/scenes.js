@@ -19,7 +19,7 @@ Crafty.scene("loading",
 				 Crafty.background("#000 url("+background+")");
 			     });
 		 
-		 socket.emit ('get log', {gameid: gameid});
+		 socket.emit ('get log', {gameid:gameid});
 	     });
 
     

@@ -109,11 +109,10 @@ function skipLevel (skipSize) {
     replaytimer = setTimeout (replayLoop, 10);
 }
 
-
 function processLogEntry (logEntry) {
 
     var msg = logEntry['message'];
-    var playerNumber = logEntry["player"];
+    var playerNumber = (logEntry["playerid"] == gameinfo[gameid]['player1id']) ? 1 : 2;
 
     if (msg == "Level Started") {
 	var levelname = logEntry['levelname'];
@@ -142,11 +141,16 @@ function processLogEntry (logEntry) {
 	var msgsplit = msg.split (" ");
 	var player_x = parseInt(msgsplit[0].split(":")[1]);
 	var player_y = parseInt(msgsplit[1]);
-	var ball_x = parseInt(msgsplit[2].split(":")[1]);
-	var ball_y = parseInt(msgsplit[3]);
 	if ( playerNumber == 2 ) {
 	    player_x += WIDTH;
-	    ball_x += WIDTH;
+	}
+	if (msgsplit.length > 2) {
+	    var ball_x = parseInt(msgsplit[2].split(":")[1]);
+	    var ball_y = parseInt(msgsplit[3]);
+	    if ( playerNumber == 2 ) {
+		//player_x += WIDTH;
+		ball_x += WIDTH;
+	    }
 	}
 	updateBallPosition (ball_x, ball_y, playerNumber);
 	updatePlayerPosition (player_x, player_y, playerNumber);

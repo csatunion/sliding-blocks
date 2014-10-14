@@ -1,4 +1,4 @@
-var gameinfo;
+var gameinfo = {};
 
 var gameid;
 var level;
