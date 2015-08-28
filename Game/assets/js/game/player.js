@@ -3,7 +3,7 @@ Crafty.c("Player", {
     _logTime : new Date(),
 
 	init : function() {
-		this.requires("2D, DOM, Color, PlayerMovement");
+		this.requires("2D, DOM, PlayerMovement");
 	},
 
     player : function(playerNumber, xpos, ypos) {
@@ -25,9 +25,10 @@ Crafty.c("Player", {
 		this.playermovement();
 
 		if (playerNumber == 1)
-			this.color("red");
+			this.requires("PlayerOneSprite");
+			//this.color("red");
 		else
-			this.color("green");
+			this.requires("PlayerTwoSprite");
 		
 		this.bind("EnterFrame", function() {
 			this._logPosition();

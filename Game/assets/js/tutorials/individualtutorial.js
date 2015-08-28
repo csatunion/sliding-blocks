@@ -1,6 +1,6 @@
 
 Crafty.scene("tutorial", function(){
-	level = 0;
+	level = 0; 
 	playerNumber = 1;
 	
 	$(document).bind("keyup", function(key){
@@ -43,6 +43,7 @@ Crafty.scene("tutorial", function(){
 		socket.emit("advance", level, playerNumber);
 	});
 });
+
 
 function tutLevel1Hints(){
 	hintsManager = Crafty.e("Hints").hints(4);
@@ -128,4 +129,3 @@ function tutLevel3Hints(){
 		});
 	});
 }
-

@@ -1,9 +1,10 @@
 /* CONSTANTS */
 var LOADING       = -1;
 var GAME_MODE     = 0;
-var TUTORIAL_MODE = 1;
+var INDIVIDUALTUTORIAL_MODE = 1;
+var TWOPLAYERTUTORIAL_MODE = 2;
 
-var MODES = [require('./serverModules/game.js'), require('./serverModules/tutorial.js')];
+var MODES = [require('./serverModules/game.js'), require('./serverModules/individualtutorial.js'), require('./serverModules/twoplayertutorial.js')]; /*, require('./serverModules/instructionsSlider/instructionsone.html'), require('./serverModules/instructionsSlider/instructionstwo.html')];*/
 
 var NO_PARTNER = -1;
 
@@ -73,7 +74,7 @@ io.sockets.on('connection', function(socket){
     
     socket.on ('ready', function() {
 	console.log ("Sending id reminder");
-	socket.emit ('message', "If you haven't sent your participant id yet, please, start by typing it into the chat box below.");
+	socket.emit ('message', "If you haven't sent your participant id yet, please start by typing it into the chat box below.");
     });
 
     socket.on ('synchronizing', function () {
@@ -121,7 +122,7 @@ io.sockets.on('connection', function(socket){
     
     socket.on("restart", function(){
 	socket.emit("restart");
-	socket.broadcast.to(socket.room).emit("restart");
+	socket.broadcast.to(socket.room).emit("restart")
     });
     
     socket.on("gameOver", function(){
@@ -134,7 +135,7 @@ io.sockets.on('connection', function(socket){
     });
     
     socket.on('tutorial', function(setup){
-	socket.mode = TUTORIAL_MODE;
+	socket.mode = INDIVIDUALTUTORIAL_MODE;
 	socket.room = NO_PARTNER;
 	
 	pool.getConnection(function(err, connection){
@@ -157,6 +158,12 @@ io.sockets.on('connection', function(socket){
 
     socket.on('game', function(setup){
 	socket.mode = GAME_MODE;
+	waitingSockets.push(socket);
+	pairUpSockets();
+    });
+
+    socket.on('twotutorial', function(setup){
+	socket.mode = TWOPLAYERTUTORIAL_MODE;
 	waitingSockets.push(socket);
 	pairUpSockets();
     });

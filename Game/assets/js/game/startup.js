@@ -14,8 +14,22 @@ var partnerObstacles;
 
 var partnerView;
 
+var progress;
 
-window.onload = function(){
+
+/* window.onload = function(){
+    var clientTime1 = new Date().getTime();
+    socket.emit ('synchronizing');
+    socket.on ('synchronizing', function (serverTime) {
+	var clientTime2 = new Date().getTime();
+	gameLog ("clientTime1:"+clientTime1+";serverTime:"+serverTime+";clientTime2:"+clientTime2);
+	Crafty.init(WIDTH, HEIGHT);
+	Crafty.scene("load");
+    });
+}; */
+
+
+function initGame () {
     var clientTime1 = new Date().getTime();
     socket.emit ('synchronizing');
     socket.on ('synchronizing', function (serverTime) {
@@ -37,7 +51,43 @@ Crafty.scene("load", function(){
     	Box : [0,0],
     	PartnerBox : [0,0]
     });
-    
+	
+    Crafty.sprite(CELL_SIZE, "images/goal.png", {
+    	Goal : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/ball.png", {
+    	BallSprite : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/Player1orange.png", {
+    	PlayerOneSprite : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/Player2green.png", {
+    	PlayerTwoSprite : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/bouncy-box.png", {
+    	BouncyBox : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/portal.png", {
+    	Portal : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/teleporter.png", {
+    	Teleporter : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/ball-gate.png", {
+    	BallGate : [0,0]
+    });
+
+    Crafty.sprite(CELL_SIZE, "images/player-gate.png", {
+    	PlayerGate : [0,0]
+    });
+
 	Crafty.load(["images/box.png", "images/tutorial.png", "images/game.png", "images/reset.png", "images/pirate-map.png"], function() {
 		setupMode();
 		initializeStaticListeners();
@@ -59,21 +109,58 @@ Crafty.scene("menu", function(){
 	
 	Crafty.background('#000');
 
+	//Instructions Part 1
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.5 - 50, y: BOARD_HEIGHT * 0.4, w: 100, h: 40, z: 1})
-		.image("images/tutorial.png")
+		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.17, w: 100, h: 40, z: 1})
+		.image("images/instructionsone.png")
+		.bind("Click", 
+			function(){
+			$("#instructionsone-stage").css("z-index", "11").load("html/ione.html",
+				function () {
+					initInstructions();
+				});
+		});
+	
+
+	//Individual Tutorial
+	Crafty.e("2D, DOM, Image, Mouse")
+		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.3, w: 100, h: 40, z: 1})
+		.image("images/individualtutorial.png")
 		.bind("Click", function(){
 			Crafty.scene("tutorial");
 		});
-	
+
+
+	//Instructions Part 2
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.5 - 50, y: BOARD_HEIGHT * 0.53, w: 100, h: 40, z: 1})
+		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.43, w: 100, h: 40, z: 1})
+		.image("images/instructionstwo.png")
+		.bind("Click", function(){
+			$("#instructionstwo-stage").css("z-index", "11").load("html/itwo.html");
+		});
+
+
+	//Two Player Tutorial
+	Crafty.e("2D, DOM, Image, Mouse")
+		.attr({x:WIDTH * 0.45 - 55, y: BOARD_HEIGHT * 0.56, w: 100, h: 40, z: 1})
+		.image("images/twoplayertutorial.png")
+		.bind("Click", function(){
+			Crafty.scene("twotutorial");
+		});	
+
+
+	//Game
+	Crafty.e("2D, DOM, Image, Mouse")
+		.attr({x:WIDTH * 0.5 - 50, y: BOARD_HEIGHT * 0.69, w: 100, h: 40, z: 1})
 		.image("images/game.png")
 		.bind("Click", function(){
 			Crafty.scene("game");
 		});
 
-    $('#msg').bind("keyup", function(key){
+	
+		
+
+    		$('#msg').bind("keyup", function(key){
 			//enter key
 			if(key.which == 13){
 				var message = $('#msg').val().replace('\n','');
@@ -89,6 +176,7 @@ Crafty.scene("menu", function(){
     socket.emit ('ready');
 
 });
+
 
 /* Initializes all the listeners that do not ever need to change */
 function initializeStaticListeners(){

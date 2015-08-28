@@ -21,27 +21,27 @@ function drawBox(xpos, ypos){
 }
 
 function drawPortal(xpos, ypos){
-	return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "Portal", "black"); 
+	return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "Portal"); /*, "black");*/
 }
 
 function drawBallGate(xpos, ypos){
-	return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "BallGate", "brown");
+	return Crafty.e("StaticObstacle").staticobstacle(xpos, ypos, "BallGate"); /*, "brown");*/
 }
 
 function drawPlayerGate(xpos, ypos){
-	return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "PlayerGate", "pink");
+	return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "PlayerGate"); /*, "pink");*/
 }
 
 function drawTeleporter(xpos, ypos){
-    return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "Teleporter", "#555555");
+    return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "Teleporter"); /*, "#555555");*/
 }
 
 function drawBouncyBox(xpos, ypos){
-    return Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "BouncyBox", "cyan");
+    bouncybox = Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "BouncyBox"); /*, "cyan");*/
 }
 
 function drawGoal(xpos, ypos){
-	goal = Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "Goal", "orange");
+	goal = Crafty.e("BallSpecific, StaticObstacle").staticobstacle(xpos, ypos, "Goal"); /*, "orange");*/
 }
 
 function drawBall(xpos, ypos){
@@ -49,15 +49,16 @@ function drawBall(xpos, ypos){
 }
 
 
-
 function drawMovingBox(xpos, ypos, direction){
     return Crafty.e("MovingBox").movingbox(xpos, ypos, direction);
 }
 
+//counter-clockwise bouncy box
 function drawCCWBouncyBox(xpos, ypos){
     return Crafty.e("CCWBouncyBox").ccwbouncybox(xpos, ypos);
 }
 
+//clockwise bouncy box
 function drawCWBouncyBox(xpos, ypos){
     return Crafty.e("CWBouncyBox").cwbouncybox(xpos, ypos);
 }
@@ -183,8 +184,8 @@ function drawLegend (inventory) {
     var y_pos = 20;
     
     // draw player avatar
-    var pic = Crafty.e("2D, DOM, Color").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos });
-    pic.color(legendInfo[inventory["player"]][0]);
+    var pic = Crafty.e("2D, DOM, Image").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos });
+    pic.image(legendInfo[inventory["player"]][0]);
     
     var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: CELL_SIZE, x:BOARD_WIDTH + 20 + CELL_SIZE + 20, y: y_pos });
     expl.text(legendInfo[inventory["player"]][1]);
@@ -192,29 +193,34 @@ function drawLegend (inventory) {
     y_pos += CELL_SIZE + 20;
 
     // draw ball
-    var pic = Crafty.e("2D, DOM, Color").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos });
-    pic.color(legendInfo["ball"][0]);
+    var pic = Crafty.e("2D, DOM, Image").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos });
+    pic.image(legendInfo["ball"][0]);
     
     var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: CELL_SIZE, x:BOARD_WIDTH + 20 + CELL_SIZE + 20, y: y_pos });
     expl.text(legendInfo["ball"][1]);
 
     y_pos += CELL_SIZE + 20;
 
+
     // draw goal
-    var pic = Crafty.e("2D, DOM, Color").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos });
-    pic.color(legendInfo["goal"][0]);
-    
+    var pic = Crafty.e("2D, DOM, Image").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos })
+    pic.image(legendInfo["goal"][0]);
+    /*.image("goal.png", "repeat");*/
+       
     var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: CELL_SIZE, x:BOARD_WIDTH + 20 + CELL_SIZE + 20, y: y_pos });
     expl.text(legendInfo["goal"][1]);
 
     y_pos += CELL_SIZE + 20;
 
+
+
     // draw rest
     for (var key in inventory) {
 
-		if (key != "player") {
-	    	var pic = Crafty.e("2D, DOM, Color").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos });
-	    	pic.color(legendInfo[key][0]);
+		if (key != "player") { 
+		
+		var pic = Crafty.e("2D, DOM, Image").attr({ w: CELL_SIZE, h: CELL_SIZE, x:BOARD_WIDTH + 20, y: y_pos});
+		pic.image(legendInfo[key][0]);
 
 	    	var expl = Crafty.e("2D, DOM, Text").attr({ w: expl_w, h: CELL_SIZE, x:BOARD_WIDTH + 20 + CELL_SIZE + 20, y: y_pos });
 	    	expl.text(legendInfo[key][1]);

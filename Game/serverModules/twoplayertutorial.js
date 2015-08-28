@@ -1,7 +1,7 @@
 var fs = require("fs");	
 var parser = require("./Parsers/levelParser.js");
 
-var levels = ["level_4.txt", "level_5_redone.txt", "level_6.txt", "level_3_redone.txt", "level_1_test.txt"]; /*, "level_2_redone.txt"];*/
+var levels = ["level_0.txt", "level_0MIRROR.txt", "level_just_one_teleporter.txt", "level_1MIRROR.txt"]; 
 
 var Game = function(){
     
@@ -10,17 +10,17 @@ var Game = function(){
 	if (levelNo >= levels.length){
 	    socket.broadcast.to(socket.room).emit("advance");
 	    socket.emit("advance");
-	    console.log("GAME OVER");
+	    console.log("TWO-PLAYER TUTORIAL OVER");
 	    return;
 	}
 	
-	console.log("GAME LEVEL: " + (levelNo + 1) + " (Player: " + playerNumber);
+	console.log("TWO-PLAYER TUTORIAL LEVEL: " + (levelNo + 1) + " (Player: " + playerNumber);
 	
 	var map1;
     	var map2;
 	
 	var bg = "images/" + "pirate-map.png";
-    	var level = __dirname + "/../levels/Game/" + levels[levelNo];
+    	var level = __dirname + "/../levels/TwoPlayerTutorial/" + levels[levelNo];
     	
     	fs.readFile(level, 'ascii', function(err, data) {
 	    if (err){
@@ -35,11 +35,7 @@ var Game = function(){
 		}
 		
 		else {
-		   
-		    var cheers = ["Great!", "Yeah!", "Good job!"];
-		    var msg = cheers[Math.floor(Math.random() * (cheers.length-1))] + " On to Level " + (levelNo+1) + "!"
-
-		    //var msg = "On to Level " + (levelNo+1) + "!"
+		    var msg = "On to Level " + (levelNo+1) + "!"
 		    //var cheers = ["Great!", "Yeah!", "Good job!"];
 		    //var msg = cheers[Math.floor(Math.random() * (cheers.length-1))] + " On to the next level.";
 		}

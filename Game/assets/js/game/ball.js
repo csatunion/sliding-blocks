@@ -1,7 +1,8 @@
 Crafty.c("Ball", {
 
 	init : function() {
-		this.requires("2D, DOM, Color, BallMovement");
+		//this.requires("2D, DOM, Color, BallMovement");
+            this.requires("2D, DOM, BallMovement, BallSprite");
 	},
 
 	ball : function(xpos, ypos) {
@@ -23,7 +24,7 @@ Crafty.c("Ball", {
 		});
 
 		this.ballmovement();
-		this.color("purple");
+		//this.color("purple");
 		
 		return this;
 	}
@@ -325,6 +326,7 @@ Crafty.c("BallMovement", {
 			else if((collisions = this.hit("Goal")) != false && this.hitGoal == false){
 				this.hitGoal = true;
 				socket.emit("advance", level, playerNumber);
+				/*trigger a message with the level name here*/
 			}
 			
 			Crafty.trigger("BallMoved");

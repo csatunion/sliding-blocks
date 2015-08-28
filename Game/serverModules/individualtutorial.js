@@ -8,15 +8,15 @@ var Tutorial = function(){
     this.advance = function(socket, levelNo){
 	if(levelNo >= levels.length){
 	    socket.emit("advance");
-	    console.log("TUTORIAL OVER");
+	    console.log("INDIVIDUAL TUTORIAL OVER");
 	    return;
 	}
 	
-	console.log("TUTORIAL LEVEL: " + (levelNo + 1));
+	console.log("INDIVIDUAL TUTORIAL LEVEL: " + (levelNo + 1));
 	
 	var bg = "images/" + "pirate-map.png";	
 
-	var level = __dirname + "/../levels/Tutorial/" + levels[levelNo];
+	var level = __dirname + "/../levels/IndividualTutorial/" + levels[levelNo];
 	
     	fs.readFile(level, 'ascii', function(err, data) {
 	    if (err)

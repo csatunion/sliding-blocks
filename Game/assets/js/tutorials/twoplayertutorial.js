@@ -1,15 +1,16 @@
 
-Crafty.scene("game", function(){
-    unbindKeyListeners();
+Crafty.scene("twotutorial", function(){
+	unbindKeyListeners();
+	level = 0; 
+//	playerNumber = 1;
 
-	level = 0;
-	
+
 	//displays a waiting message
 	Crafty.e("2D, DOM, Text").attr({w:WIDTH-20, x: 10, y: 10})
                              .text("WAITING FOR ANOTHER PLAYER")
                              .css({"text-align": "left", "color":"#fff"});
 	
-	socket.emit("game");
+	socket.emit("twotutorial");
 	
 	socket.once("setup", function(player_number){
 		playerNumber = player_number;
@@ -27,30 +28,36 @@ Crafty.scene("game", function(){
 				objDiv.scrollTop = objDiv.scrollHeight;
 			}
 		});
-		
-		$(document).bind("keyup", function(key){
-			//ctrl key
-			if(key.which == 17){
-				socket.emit("block", player.x, player.y);
+	$(document).bind("keyup", function(key){
+		//ctrl key
+		if(key.which == 17){
+			socket.emit("block", player.x, player.y);
 				Crafty.trigger("Block");
+		}
+	});
+	
+	if(DEBUG){
+		$(document).bind("keyup", function(key){
+			//page up key
+			if(key.which == 33){
+				socket.emit("advance", level, playerNumber);
+			}
+			//page down key
+			else if(key.which == 34){
+				level -= 2;
+				level = (level < 0 ? 0 : level);
+				socket.emit("advance", level, playerNumber);
 			}
 		});
+	}
 	
-		if(DEBUG){
-			$(document).bind("keyup", function(key){
-				//page up key
-				if(key.which == 33){
-					socket.emit("advance", level, playerNumber);
-				}
-			});
-		}
+	
+	mode.setupGame();
+	
+	levelHints = [level1Hints, level2Hints, level3Hints, level4Hints, level5Hints];
 		
-		mode.setupGame();
-		
-		levelHints = [level1Hints, level2Hints, level3Hints, level4Hints, level5Hints];
-		
-		if(playerNumber == 1)
-			socket.emit("advance", level, playerNumber);
+	if(playerNumber == 1)
+		socket.emit("advance", level, playerNumber);
 	});
 });
 
