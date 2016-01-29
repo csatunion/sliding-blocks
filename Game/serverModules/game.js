@@ -1,7 +1,7 @@
 var fs = require("fs");	
 var parser = require("./Parsers/levelParser.js");
 
-var levels = ["level_4.txt", "level_5_redone.txt", "level_6.txt", "level_3_redone.txt", "level_1_test.txt"]; /*, "level_2_redone.txt"];*/
+var levels = ["level_4.txt", "level_5_redone.txt", "level_6.txt", "level_3_redone.txt", "level_1.txt"]; /*, "level_2_redone.txt"];*/
 
 var Game = function(){
     

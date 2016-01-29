@@ -136,7 +136,10 @@ Crafty.scene("menu", function(){
 		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.43, w: 100, h: 40, z: 1})
 		.image("images/instructionstwo.png")
 		.bind("Click", function(){
-			$("#instructionstwo-stage").css("z-index", "11").load("html/itwo.html");
+			$("#instructionstwo-stage").css("z-index", "11").load("html/itwo.html",
+				function () {
+					initInstructions();
+				});
 		});
 
 
