@@ -20,7 +20,11 @@ Crafty.scene("level", function(){
     portals1 = [];
     portals2 = [];
     
-    Crafty.load([background], function(){
+    assetsObj = {
+	"images": [background]
+    }
+
+    Crafty.load(assetsObj, function(){
 	Crafty.background("#ffffff url("+background+") no-repeat");
 
 	Crafty.e("2D, DOM, Image, Mouse")

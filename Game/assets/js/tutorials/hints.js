@@ -37,7 +37,7 @@ Crafty.c("Arrow", {
 	},
 	
 	draw:function(){
-		var context = Crafty.canvas.context;
+		var context = Crafty.canvasLayer.context;
 		context.save();
 		context.translate(this.x, this.y);
 		context.scale(this.sx, this.sy);
@@ -57,7 +57,7 @@ Crafty.c("Arrow", {
 	
 	destroyObject: function(){
 		this.destroy();
-		var ctx = Crafty.canvas.context;
+		var ctx = Crafty.canvasLayer.context;
 		ctx.save();
 		ctx.translate(this.x, this.y);
 		ctx.scale(this.sx, this.sy);
@@ -85,7 +85,7 @@ Crafty.c("Rectangle", {
 	},
 	
 	draw: function(){
-		var ctx = Crafty.canvas.context;
+		var ctx = Crafty.canvasLayer.context;
 		ctx.save();
 		ctx.beginPath();
 		ctx.strokeStyle = this._COLOR;
@@ -134,7 +134,7 @@ Crafty.c("TextBubble", {
 		var h = this.h;
 		var radius = this.r;
 		
-		var ctx = Crafty.canvas.context;
+		var ctx = Crafty.canvasLayer.context;
 		ctx.save();
 		ctx.translate(this.x,this.y);
 		ctx.rotate(this.a*Math.PI/180);
@@ -189,7 +189,7 @@ Crafty.c("TextBubble", {
 	
 	destroyObject: function(){
 		this.destroy();
-		var ctx = Crafty.canvas.context;
+		var ctx = Crafty.canvasLayer.context;
 		ctx.clearRect(this.x - this.r , this.y + this._LINEWIDTH, this.w + this.r + this._LINEWIDTH, -this.h - this._LINEWIDTH - 10);
 	}
 });

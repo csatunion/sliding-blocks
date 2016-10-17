@@ -41,6 +41,11 @@ function initGame () {
 };
 
 
+var assetsObj = {
+    "images": ["images/box.png", "images/tutorial.png", "images/game.png", "images/reset.png", "images/pirate-map.png"]
+}
+
+
 /* Loads the game assets */
 Crafty.scene("load", function(){
 	
@@ -88,7 +93,7 @@ Crafty.scene("load", function(){
     	PlayerGate : [0,0]
     });
 
-	Crafty.load(["images/box.png", "images/tutorial.png", "images/game.png", "images/reset.png", "images/pirate-map.png"], function() {
+	Crafty.load(assetsObj, function() {
 		setupMode();
 		initializeStaticListeners();
 		Crafty.scene("menu");
