@@ -61,7 +61,7 @@ Crafty.scene("load", function(){
     	Goal : [0,0]
     });
 
-    Crafty.sprite(CELL_SIZE, "images/ball.png", {
+    Crafty.sprite(CELL_SIZE, "images/ball.gif", {
     	BallSprite : [0,0]
     });
 
@@ -77,11 +77,11 @@ Crafty.scene("load", function(){
     	BouncyBox : [0,0]
     });
 
-    Crafty.sprite(CELL_SIZE, "images/portal.png", {
+    Crafty.sprite(CELL_SIZE, "images/portal.gif", {
     	Portal : [0,0]
     });
 
-    Crafty.sprite(CELL_SIZE, "images/teleporter.png", {
+    Crafty.sprite(CELL_SIZE, "images/teleporter.gif", {
     	Teleporter : [0,0]
     });
 
