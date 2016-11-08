@@ -1,10 +1,10 @@
 var legendInfo = {"goal":["../images/goal.png","goal (your partner may have it)"], /*orange*/
 		  "bouncy":["../images/bouncy-box.png","bouncy box"], /*cyan*/
-		  "teleporter":["../images/teleporter.png","teleporter"], /*#555555*/
-		  "portal":["../images/portal.png","portal"], /*#000000*/
+		  "teleporter":["../images/teleporter.gif","teleporter"], /*#555555*/
+		  "portal":["../images/portal.gif","portal"], /*#000000*/
 		  "player1":["../images/Player1orange.png","you"],
 		  "player2":["../images/Player2green.png","you"],
-		  "ball":["../images/ball.png","ball (your partner may have it)"], /*purple*/
+		  "ball":["../images/ball.gif","ball (your partner may have it)"], /*purple*/
 		  //"moving":["yellow", "moving block"],
 		  "player_gate":["../images/player-gate.png","passage for the ball"], /*pink*/
 		  "ball_gate":["../images/ball-gate.png","passage for the player"], /*brown*/
