@@ -1,8 +1,20 @@
 
-Hallo
+- hints need to be drawn on the top layer/in the foreground (so that
+  they don't get covered by the wall)
 
 
 - Add info about database schema to README.
+
+- more generall: Check what happens at disconnect
+
+[- ip reminder only needs to be sent once --> too much work;
+   experimenter can take care of it]
+
+- game is trying to draw hints even if there are none for that level: 
+
+
+OLD TODOs
+
 DONE- Make possible to run without database connection.
 DONE players input id in order to map questionnaire to player
 DONE redesign database -> need a session id; way of tying starting phase
@@ -12,12 +24,10 @@ DONE add connection time to player table
 DONE second player's (playerid 6) session id was not recorded
      correctly (seems to work after all)
 DONE when other player disconnects, gameid needs to be set to -1 again??
-- more generall: Check what happens at disconnect
+
 DONE a way to synchronize timing?
 DONE take copyrighted pics out of repository
-[- ip reminder only needs to be sent once --> too much work;
-   experimenter can take care of it]
 
 DONE adjust replayer to knew db format
 DONE change visual of wall blocks
-- game is trying to draw hints even if there are none for that level: 
+
