@@ -10,7 +10,18 @@
 [- ip reminder only needs to be sent once --> too much work;
    experimenter can take care of it]
 
-- game is trying to draw hints even if there are none for that level: 
+- game is trying to draw hints even if there are none for that level:
+
+-- Instruction Slider needs some works: it does not display GIFs right and icons need to be updated.
+
+-- captured some videos (.ogv), edit them and export them to GIFs
+
+-- I updated the box.png to be soild gray.
+
+-- redo an icon or two.
+
+-- yellow bubble messages floating (on top)
+
 
 
 OLD TODOs
@@ -29,5 +40,9 @@ DONE a way to synchronize timing?
 DONE take copyrighted pics out of repository
 
 DONE adjust replayer to knew db format
-DONE change visual of wall blocks
+
+
+DONE change visual of wall blocks Game/assets/images/box.png Games/assets/js/game/obstacles
+
+
 
