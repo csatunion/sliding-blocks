@@ -73,7 +73,7 @@ Crafty.scene("load", function(){
     	PlayerTwoSprite : [0,0]
     });
 
-    Crafty.sprite(CELL_SIZE, "images/bouncy-box.png", {
+    Crafty.sprite(CELL_SIZE, "images/bouncy-box.gif", {
     	BouncyBox : [0,0]
     });
 
@@ -85,12 +85,12 @@ Crafty.scene("load", function(){
     	Teleporter : [0,0]
     });
 
-    Crafty.sprite(CELL_SIZE, "images/ball-gate.png", {
-    	BallGate : [0,0]
+    Crafty.sprite(CELL_SIZE, "images/player-gate.gif", {
+    	PlayerGate : [0,0]
     });
 
-    Crafty.sprite(CELL_SIZE, "images/player-gate.png", {
-    	PlayerGate : [0,0]
+    Crafty.sprite(CELL_SIZE, "images/ball-gate.gif", {
+    	BallGate : [0,0]
     });
 
 	Crafty.load(assetsObj, function() {
