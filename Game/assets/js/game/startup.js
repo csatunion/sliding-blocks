@@ -112,7 +112,7 @@ Crafty.scene("menu", function(){
 	unbindKeyListeners();
 	unbindModeListeners();
 	
-	Crafty.background('#000');
+	Crafty.background('#3C6478');
 
 	//Instructions Part 1
 	Crafty.e("2D, DOM, Image, Mouse")
@@ -159,7 +159,7 @@ Crafty.scene("menu", function(){
 
 	//Game
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.5 - 50, y: BOARD_HEIGHT * 0.69, w: 100, h: 40, z: 1})
+		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.69, w: 100, h: 40, z: 1})
 		.image("images/game.png")
 		.bind("Click", function(){
 			Crafty.scene("game");
