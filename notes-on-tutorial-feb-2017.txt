@@ -1,0 +1,55 @@
+
+- Test in both Firefox and Chrome.
+
+Menu page:
+- Firefox: game area overlaps text input area
+
+- Buttons cut off some of the writing.
+
+
+Instructions 1:
+- Needed: Videos with new block designs.
+
+
+Individual:
+- The speech bubbles are behind the wall.
+
+- Firefox: animation of portal seems not smooth.
+
+
+Instructions 2:
+- Needed: Images/videos with new block designs.
+
+- Second slide - Firefox: White area should have some padding so that
+  text doesn't go all the way to the edge.
+
+- Fourth slide - Firefox: fix linespacing? The text is stretched over
+  a lot of space vertically. The images are pushed to the very bottom.
+
+- Sixth slides (teleporter): The text is not quite accurate. It says
+  that there will be a teleporter on "your screen and one on your
+  partner's screen", but actually the teleporter may just be on one
+  screen, so that the ball can be transported from one world to the
+  other but not back.
+
+  It says to press the full screen button to see how the teleporter
+  works, but the video works fine without making it full screen. Maybe
+  change to indicate that making it full screen is optional. People
+  can make the video full screen (full screen button in the bottom
+  left corner of the video) if they want to see it bigger.
+
+
+Two-player tutorial:
+- Speech bubbles behind walls.
+
+- Levels 1 and 2: Better if ball does not automatically go into goal
+  once it went through the portal? If it stops 
+
+- server error when finishing the two-player tutorial
+
+
+Actual game:
+- Player passage is hard to see. Make colored? Thicker lines?
+
+- Here, too. I ran into a server error when one of the players
+  refreshed. (Not sure why. Will have to look into it.)
