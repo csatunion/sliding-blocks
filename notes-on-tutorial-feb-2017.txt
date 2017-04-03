@@ -2,9 +2,8 @@
 - Test in both Firefox and Chrome.
 
 Menu page:
-- Firefox: game area overlaps text input area
-
-- Buttons cut off some of the writing.
+- Firefox: game area overlaps text input area --fixed
+- Buttons cut off some of the writing.		--fixed
 
 
 Instructions 1:

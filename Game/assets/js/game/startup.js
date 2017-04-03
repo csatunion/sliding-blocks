@@ -116,7 +116,7 @@ Crafty.scene("menu", function(){
 
 	//Instructions Part 1
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.17, w: 100, h: 40, z: 1})
+		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.17, w: 200, h: 50, z: 1})
 		.image("images/instructionsone.png")
 		.bind("Click", 
 			function(){
@@ -129,7 +129,7 @@ Crafty.scene("menu", function(){
 
 	//Individual Tutorial
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.3, w: 100, h: 40, z: 1})
+		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.3, w: 200, h: 50, z: 1})
 		.image("images/individualtutorial.png")
 		.bind("Click", function(){
 			Crafty.scene("tutorial");
@@ -138,7 +138,7 @@ Crafty.scene("menu", function(){
 
 	//Instructions Part 2
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.43, w: 100, h: 40, z: 1})
+		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.43, w: 200, h: 50, z: 1})
 		.image("images/instructionstwo.png")
 		.bind("Click", function(){
 			$("#instructionstwo-stage").css("z-index", "11").load("html/itwo.html",
@@ -150,7 +150,7 @@ Crafty.scene("menu", function(){
 
 	//Two Player Tutorial
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.45 - 55, y: BOARD_HEIGHT * 0.56, w: 100, h: 40, z: 1})
+		.attr({x:WIDTH * 0.45 - 56, y: BOARD_HEIGHT * 0.56, w: 200, h: 50, z: 1})
 		.image("images/twoplayertutorial.png")
 		.bind("Click", function(){
 			Crafty.scene("twotutorial");
@@ -159,7 +159,7 @@ Crafty.scene("menu", function(){
 
 	//Game
 	Crafty.e("2D, DOM, Image, Mouse")
-		.attr({x:WIDTH * 0.45 - 50, y: BOARD_HEIGHT * 0.69, w: 100, h: 40, z: 1})
+		.attr({x:WIDTH * 0.50 - 50, y: BOARD_HEIGHT * 0.69, w: 200, h: 50, z: 1})
 		.image("images/game.png")
 		.bind("Click", function(){
 			Crafty.scene("game");
