@@ -101,7 +101,7 @@ Crafty.scene("load", function(){
 	
 	//displays a loading message
 	Crafty.e("2D, DOM, Text").attr({w:WIDTH-20, x: 10, y: 10})
-                             .text("LOADING")
+                             .text("LOADING...")
                              .css({"text-align": "left", "color":"#fff"});
                              
 	//Crafty.e("FPS").bind("MessureFPS", function(fps){console.log(fps);});

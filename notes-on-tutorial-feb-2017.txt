@@ -1,19 +1,15 @@
-
 - Test in both Firefox and Chrome.
 
 Menu page:
 - Firefox: game area overlaps text input area --fixed
 - Buttons cut off some of the writing.		--fixed
 
-
 Instructions 1:
 - Needed: Videos with new block designs.
-
-
+	
 Individual:
-- The speech bubbles are behind the wall.
-
-- Firefox: animation of portal seems not smooth.
+- The speech bubbles are behind the wall.	--fixed
+- Firefox: animation of portal seems not smooth. --fixed??
 
 
 Instructions 2:
