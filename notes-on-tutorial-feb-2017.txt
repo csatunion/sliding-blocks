@@ -9,7 +9,7 @@ Instructions 1:
 	
 Individual:
 - The speech bubbles are behind the wall.	--fixed
-- Firefox: animation of portal seems not smooth. --fixed??
+- Firefox: animation of portal seems not smooth. --fixed --needs updated version of firefox
 
 
 Instructions 2:
@@ -41,6 +41,7 @@ Two-player tutorial:
   once it went through the portal? If it stops 
 
 - server error when finishing the two-player tutorial
+(( it does not reach the last level of tutorial??!)
 
 
 Actual game:
